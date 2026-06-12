@@ -34,25 +34,143 @@ public class CatalogServicesController {
 	@Autowired
 	CatalogService catalogService;
 
+	@Operation(
+			summary = "Lista dei servizi a catalogo",
+			description = "Recupera l'elenco di tutti i servizi presenti a catalogo."
+	)
+	@ApiResponses(value = {
+			@ApiResponse(
+					responseCode = "200",
+					description = "Servizi recuperati correttamente",
+					content = @Content(
+							mediaType = "application/json",
+							schema = @Schema(implementation = ServiceDetailResponse.class),
+							examples = @ExampleObject(
+									name = "Esempio risposta servizio",
+									value = """
+                                            {
+                                              "servicesList": [
+                      {
+                        "tipologia": "IaaS standard",
+                        "elemento": "VM Small",
+                        "base": true,
+                        "opz": false,
+                        "vcpu": 1,
+                        "vramGb": 4,
+                        "storageGb": 100,
+                        "caratteristicheTecnicheMinime": "Include servizio di Backup delle VM, la protezione antivirus e il servizio di monitoraggio",
+                        "quantita": null,
+                        "durataMesi": null
+                      },
+                      {
+                        "tipologia": "IaaS standard",
+                        "elemento": "VM Medium",
+                        "base": true,
+                        "opz": false,
+                        "vcpu": 4,
+                        "vramGb": 8,
+                        "storageGb": 200,
+                        "caratteristicheTecnicheMinime": "Include servizio di Backup delle VM, la protezione antivirus e il servizio di monitoraggio",
+                        "quantita": null,
+                        "durataMesi": null
+                      }]
+                                            }
+                                            """
+							)
+					)
+			),
+			@ApiResponse(
+					responseCode = "404",
+					description = "Servizi non trovati",
+					content = @Content(
+							mediaType = "application/json",
+							examples = @ExampleObject(
+									name = "Servizi non trovati",
+									value = """
+                                            {
+                                              "error": "Servizi non trovati"
+                                            }
+                                            """
+							)
+					)
+			),
+			@ApiResponse(
+					responseCode = "500",
+					description = "Errore interno del server",
+					content = @Content
+			)
+	})
 	@GetMapping
 	public ResponseEntity<CatalogServicesListResponse> getCatalogServicesList() {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@PostMapping
-	public ResponseEntity<CatalogServiceResponse> createCatalogService() {
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
 	@Operation(
-			summary = "Dettaglio di un singolo servizio",
-			description = """
-                    Recupera un elenco di un servizi in funzione ai filtri impostati.
-                    """
+			summary = "Creazione di un servizio", // Creeremo uno solo o più di uno alla volta?
+			description = ""
 	)
 	@ApiResponses(value = {
 			@ApiResponse(
 					responseCode = "200",
-					description = "Servizi servizio recuperato correttamente",
+					description = "Servizio creato correttamente",
+					content = @Content(
+							mediaType = "application/json",
+							schema = @Schema(implementation = ServiceDetailResponse.class),
+							examples = @ExampleObject(
+									name = "Esempio body create",
+									value = """
+                                            {
+                                            	"serviceDetail": {
+							                      "tipologia": "IaaS standard",
+							                      "elemento": "VM Small",
+							                      "base": true,
+							                      "opz": false,
+							                      "vcpu": 1,
+							                      "vramGb": 4,
+							                      "storageGb": 100,
+							                      "caratteristicheTecnicheMinime": "NUOVE CARATTERISTICHE",
+							                      "quantita": 1,
+							                      "durataMesi": 3
+							                    }
+                                            }
+                                            """
+							)
+					)
+			),
+			@ApiResponse(
+					responseCode = "400",
+					description = "Request non valida",
+					content = @Content(
+							mediaType = "application/json",
+							examples = @ExampleObject(
+									name = "Request non valida",
+									value = """
+                                            {
+                                              "error": "Payload non valido"
+                                            }
+                                            """
+							)
+					)
+			),
+			@ApiResponse(
+					responseCode = "500",
+					description = "Errore interno del server",
+					content = @Content
+			)
+	})
+	@PostMapping
+	public ResponseEntity<CatalogServiceResponse> createCatalogService() {
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@Operation(
+			summary = "Servizi filtrati",
+			description = "Recupera un elenco di servizi in funzione ai filtri impostati."
+	)
+	@ApiResponses(value = {
+			@ApiResponse(
+					responseCode = "200",
+					description = "Servizio recuperato correttamente",
 					content = @Content(
 							mediaType = "application/json",
 							schema = @Schema(implementation = ServiceDetailResponse.class),
@@ -295,6 +413,7 @@ public class CatalogServicesController {
 				new ServiceDetailResponse(updatedService)
 		);
 	}
+	
 
 	@Operation(
 			summary = "Eliminazione di un singolo servizio",
