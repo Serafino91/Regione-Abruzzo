@@ -6,7 +6,7 @@ import com.accenture.ra.model.ServiceDetailResponse;
 import com.accenture.ra.model.ServicePatchRequest;
 import com.accenture.ra.response.CatalogServicesListResponse;
 
-import com.accenture.ra.savice.CatalogService;
+import com.accenture.ra.service.CatalogService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -102,7 +102,8 @@ public class CatalogServicesController {
 	})
 	@GetMapping
 	public ResponseEntity<CatalogServicesListResponse> getCatalogServicesList() {
-		return new ResponseEntity<>(HttpStatus.OK);
+
+		return ResponseEntity.ok(new CatalogServicesListResponse(catalogService.getServiceAll()));
 	}
 
 	@Operation(

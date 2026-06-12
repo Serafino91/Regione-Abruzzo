@@ -1,23 +1,25 @@
 package com.accenture.ra.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ServiceDetail {
 
     private String id;
-    private String tipologia;
-    private String elemento;
+    private String type;
+    private String item;
     private Boolean base;
-    private Boolean opz;
+    private Boolean optional;
     private Integer vcpu;
     private Integer vramGb;
     private Integer storageGb;
-    private String caratteristicheTecnicheMinime;
-    private Integer quantita;
-    private Integer durataMesi;
+    private String minimumTechnicalFeatures;
+    private Integer quantity;
+    private Integer durationMonths;
 }
