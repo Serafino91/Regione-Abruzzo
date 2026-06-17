@@ -1,9 +1,6 @@
 package com.accenture.ra.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,8 +31,9 @@ public class ParamEntity {
 
 	@Column(name = "is_required")
 	private boolean isRequired;
-	
-	@Column(name = "service_id")
-	private String serviceId;
-	
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "service_id", nullable = false)
+	private ServiceEntity service;
+
 }

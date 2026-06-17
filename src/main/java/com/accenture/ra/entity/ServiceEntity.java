@@ -7,7 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -40,4 +42,7 @@ public class ServiceEntity {
     @ManyToMany(mappedBy = "services")
     @JsonIgnoreProperties("services")
     private Set<ProjectEntity> projects = new HashSet<>();
+
+    @OneToMany(mappedBy = "service", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ParamEntity> params = new ArrayList<>();
 }

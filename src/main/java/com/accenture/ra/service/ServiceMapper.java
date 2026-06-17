@@ -2,6 +2,7 @@ package com.accenture.ra.service;
 import com.accenture.ra.entity.ServiceEntity;
 import com.accenture.ra.entity.ServiceTypeEntity;
 import com.accenture.ra.model.ServiceDetail;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public final class ServiceMapper {
                 .item(entity.getName())
                 .base(entity.getIsBase())
                 .optional(entity.getIsOptional())
+                .params(ParamMapper.toModelList(entity.getParams()))
 //                .vcpu(entity.getVcpu())
 //                .vramGb(entity.getVramGb())
 //                .storageGb(entity.getStorageGb())
