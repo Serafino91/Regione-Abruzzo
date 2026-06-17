@@ -31,8 +31,8 @@ public class ParamEntity {
 	
 	@Column(name = "max_value")
 	private String maxValue;
-	
-	@Column(name = "min_value")
+
+	@Column(name = "is_required")
 	private boolean isRequired;
 	
 	@Column(name = "service_id")

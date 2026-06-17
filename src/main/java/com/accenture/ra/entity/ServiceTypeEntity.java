@@ -25,5 +25,5 @@ public class ServiceTypeEntity {
 
     @Column(name = "description")
     private String description;
-  
+
 }
