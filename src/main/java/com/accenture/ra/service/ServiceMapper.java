@@ -1,6 +1,8 @@
 package com.accenture.ra.service;
 import com.accenture.ra.entity.ServiceEntity;
+import com.accenture.ra.entity.ServiceTypeEntity;
 import com.accenture.ra.model.ServiceDetail;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -18,16 +20,17 @@ public final class ServiceMapper {
 
         return ServiceDetail.builder()
                 .id(entity.getId())
-                .type(entity.getServiceType())
-                .item(entity.getItemName())
+                .type(entity.getServiceType().getName())
+                .item(entity.getName())
                 .base(entity.getIsBase())
                 .optional(entity.getIsOptional())
-                .vcpu(entity.getVcpu())
-                .vramGb(entity.getVramGb())
-                .storageGb(entity.getStorageGb())
-                .minimumTechnicalFeatures(entity.getMinimumTechnicalFeatures())
-                .quantity(entity.getQuantity())
-                .durationMonths(entity.getDurationMonths())
+                .params(ParamMapper.toModelList(entity.getParams()))
+//                .vcpu(entity.getVcpu())
+//                .vramGb(entity.getVramGb())
+//                .storageGb(entity.getStorageGb())
+//                .minimumTechnicalFeatures(entity.getMinimumTechnicalFeatures())
+//                .quantity(entity.getQuantity())
+//                .durationMonths(entity.getDurationMonths())
                 .build();
     }
 
@@ -38,17 +41,17 @@ public final class ServiceMapper {
 
         ServiceEntity entity = new ServiceEntity();
         entity.setId(model.getId());
-        entity.setServiceType(model.getType());
-        entity.setItemName(model.getItem());
+        entity.setServiceType(new ServiceTypeEntity("index", model.getType(), "Description")); //TODO da riscrivere
+        entity.setName(model.getItem());
         entity.setIsBase(model.getBase());
         entity.setIsOptional(model.getOptional());
-        entity.setVcpu(model.getVcpu());
-        entity.setVramGb(model.getVramGb());
-        entity.setStorageGb(model.getStorageGb());
-        entity.setMinimumTechnicalFeatures(model.getMinimumTechnicalFeatures());
-        entity.setQuantity(model.getQuantity());
-        entity.setDurationMonths(model.getDurationMonths());
-
+//        entity.setVcpu(model.getVcpu());
+//        entity.setVramGb(model.getVramGb());
+//        entity.setStorageGb(model.getStorageGb());
+//        entity.setMinimumTechnicalFeatures(model.getMinimumTechnicalFeatures());
+//        entity.setQuantity(model.getQuantity());
+//        entity.setDurationMonths(model.getDurationMonths());
+//
         return entity;
     }
 

@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -16,10 +18,7 @@ public class ServiceDetail {
     private String item;
     private Boolean base;
     private Boolean optional;
-    private Integer vcpu;
-    private Integer vramGb;
-    private Integer storageGb;
-    private String minimumTechnicalFeatures;
     private Integer quantity;
     private Integer durationMonths;
+    private List<ParamDetail> params;
 }

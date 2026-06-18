@@ -5,8 +5,8 @@ import com.accenture.ra.model.ServiceDetail;
 import com.accenture.ra.model.ServiceDetailResponse;
 import com.accenture.ra.model.ServicePatchRequest;
 import com.accenture.ra.response.CatalogServicesListResponse;
+import com.accenture.ra.service.impl.CatalogServiceImpl;
 
-import com.accenture.ra.service.CatalogService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.*;
 public class CatalogServicesController {
 
 	@Autowired
-	CatalogService catalogService;
+	CatalogServiceImpl catalogService;
 
 	@Operation(
 			summary = "Lista dei servizi a catalogo",

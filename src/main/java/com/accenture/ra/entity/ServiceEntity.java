@@ -1,55 +1,48 @@
 package com.accenture.ra.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "services")
+@Table(name = "service")
 public class ServiceEntity {
 
     @Id
     private String id;
 
-//    @Column(name = "catalog_id")
-//    private String catalogId;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "type")
-    private String serviceType;
-
-    @Column(name = "item")
-    private String itemName;
-
-    @Column(name = "base")
+    @Column(name = "is_base")
     private Boolean isBase;
 
-    @Column(name = "optional")
+    @Column(name = "is_optional")
     private Boolean isOptional;
 
-    @Column(name = "vcpu")
-    private Integer vcpu;
+    @Column(name = "values_json")
+    private String values;
 
-    @Column(name = "vram_gb")
-    private Integer vramGb;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "service_type_id", nullable = false)
+    private ServiceTypeEntity serviceType;
 
-    @Column(name = "storage_gb")
-    private Integer storageGb;
+    @ManyToMany(mappedBy = "services")
+    @JsonIgnoreProperties("services")
+    private Set<ProjectEntity> projects = new HashSet<>();
 
-    @Column(name = "minimum_technical_features")
-    private String minimumTechnicalFeatures;
-
-    @Column(name = "quantity")
-    private Integer quantity;
-
-    @Column(name = "duration_months")
-    private Integer durationMonths;
+    @OneToMany(mappedBy = "service", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ParamEntity> params = new ArrayList<>();
 }
