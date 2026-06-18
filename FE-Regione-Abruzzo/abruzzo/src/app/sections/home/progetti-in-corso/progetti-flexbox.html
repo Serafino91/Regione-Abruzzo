@@ -1,0 +1,15 @@
+
+
+<div class="title-section">
+    <h2> Progetti in corso</h2>
+    <a href="/progetti">lista completa</a>
+</div>
+
+
+<div class="progetti-container">
+  @for (progetto of progetti; track progetto.id) {
+    <app-project-card
+      [progetto]="progetto">
+    </app-project-card>
+  }
+</div>

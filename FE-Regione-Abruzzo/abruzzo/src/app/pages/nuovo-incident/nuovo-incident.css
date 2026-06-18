@@ -1,0 +1,16 @@
+.dati-servizio {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.dati-incident {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+.button-invia-incident {
+    margin-top: 20px;
+}

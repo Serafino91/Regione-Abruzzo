@@ -1,0 +1,20 @@
+<div class="title-section">
+  <h2>Catalogo</h2>
+</div>
+
+<section #splideRef class="splide">
+  <div class="splide__track">
+    <ul class="splide__list">
+
+      @for(servizio of servizi; track servizio.id) {
+        <li class="splide__slide">
+          <app-servizio-card
+            [servizio]="servizio">
+          </app-servizio-card>
+
+        </li>
+      }
+
+    </ul>
+  </div>
+</section>

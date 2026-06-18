@@ -1,0 +1,86 @@
+<h1>Nuovo incident</h1>
+<p>Compila tutti i dati per creare un nuovo incident.</p>
+
+
+
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+  <h2>Dati Servizio</h2>
+
+  <div class="dati-servizio">
+
+    <label>Categoria</label>
+    <select
+      name="categoria"
+      [(ngModel)]="selezione"
+      required
+      (change)="onSelezioneChange()">
+
+      <option value="">Seleziona...</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+
+    </select>
+
+    <label>Servizio</label>
+    <select
+      name="servizio"
+      [(ngModel)]="servizio"
+      required
+      [disabled]="selezioni2.length === 0">
+
+      <option value="">Seleziona...</option>
+
+      @for(item of selezioni2; track item) {
+        <option [value]="item">
+          {{ item }}
+        </option>
+      }
+
+    </select>
+
+    <label for="id-servizio">ID Servizio</label>
+    <textarea
+      id="id-servizio"
+      name="idServizio"
+      [(ngModel)]="idServizio"
+      required>
+    </textarea>
+
+  </div>
+
+  <h2>Dati Incident</h2>
+
+  <div class="dati-incident">
+
+    <label for="descrizione-breve">Descrizione breve</label>
+    <textarea
+      id="descrizione-breve"
+      name="descrizioneBreve"
+      [(ngModel)]="descrizioneBreve"
+      required>
+    </textarea>
+
+    <label for="descrizione">Descrizione</label>
+    <textarea
+      id="descrizione"
+      name="descrizione"
+      [(ngModel)]="descrizione"
+      required>
+    </textarea>
+
+  </div>
+
+  <button
+    type="submit"
+    class="button-invia-incident"
+    mat-raised-button
+    color="primary"
+    [disabled]="f.invalid">
+    Invia Incident
+  </button>
+
+
+</form>
+

@@ -1,0 +1,25 @@
+.title-section  {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-service{
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  width: auto;
+  min-height: 220px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  color: #4a5568;
+  margin-bottom: 8px;
+}

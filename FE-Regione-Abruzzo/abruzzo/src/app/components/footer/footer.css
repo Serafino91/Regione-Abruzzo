@@ -1,0 +1,45 @@
+.banner {
+    display: flex;
+    flex-direction: row;
+    background-color:#2b7dd0;;
+    padding: 1rem;
+    color: white;
+    align-items: center;
+}
+
+.banner .logo {
+    font-size: 10px;
+}
+
+.user {
+    margin-left: auto;
+}
+
+
+.nav {
+    display: flex;
+    flex-direction: row;
+    background-color: #003163;
+    padding: 1rem;
+    color: white;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-size: 13px;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
