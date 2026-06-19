@@ -27,6 +27,7 @@ public class CatalogServiceImpl implements CatalogService {
 	 * @param serviceId the service identifier
 	 * @return the service detail
 	 */
+    @Override
     public ServiceDetail getServiceById(String serviceId) {
         ServiceEntity entity = serviceRepository.findById(serviceId)
              .orElseThrow(() -> new RuntimeException("Servizio non trovato: " + serviceId));
@@ -40,6 +41,7 @@ public class CatalogServiceImpl implements CatalogService {
 	 *
 	 * @return the catalog services list
 	 */
+    @Override
     public List<ServiceDetail> getServiceAll() {
         List<ServiceEntity> entity = serviceRepository.findAll();
 

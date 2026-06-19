@@ -15,17 +15,17 @@ import lombok.Setter;
 public class ParamEntity {
 
 	@Id
-    private String id;
-	
+	private String id;
+
 	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "param_type")
 	private String paramType;
-	
+
 	@Column(name = "min_value")
 	private String minValue;
-	
+
 	@Column(name = "max_value")
 	private String maxValue;
 

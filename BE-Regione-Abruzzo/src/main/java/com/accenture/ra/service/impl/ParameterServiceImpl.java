@@ -1,36 +1,37 @@
 package com.accenture.ra.service.impl;
 
-import java.util.List;
-
-import com.accenture.ra.entity.ServiceEntity;
+import com.accenture.ra.entity.ParamEntity;
 import com.accenture.ra.model.ParamDetail;
+import com.accenture.ra.repository.ParamRepository;
 import com.accenture.ra.service.ParamMapper;
 import com.accenture.ra.service.ParameterService;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class ParameterServiceImpl implements ParameterService {
 	
 
     @Autowired
     private ParamRepository paramRepository;
-    @Autowired
-    private ParamMapper paramMapper;
+
 
 	@Override
-	public ParamDetail getParamById(String paramId) {
+	public ParamDetail getParamById(Long paramId) {
 		
-		 ServiceEntity entity = paramRepository.findById(paramId)
-	             .orElseThrow(() -> new RuntimeException("Servizio non trovato: " + serviceId));
+		 ParamEntity entity = paramRepository.findById(paramId)
+	             .orElseThrow(() -> new RuntimeException("Servizio non trovato: " + paramId));
 
-	        return paramMapper.toModel(entity);	}
+	        return ParamMapper.toModel(entity);	}
 
 	@Override
-	public ParamDetail getAllParams(String paramId) {
+	public List<ParamDetail> getAllParams(Long paramId) {
 		
-		List<ServiceEntity> entity = paramRepository.findAll();
+		List<ParamEntity> entity = paramRepository.findAll();
 
-        return paramMapper.toModelList(entity);
+        return ParamMapper.toModelList(entity);
 	}
 
 }
