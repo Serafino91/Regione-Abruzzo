@@ -23,3 +23,33 @@
   color: #4a5568;
   margin-bottom: 8px;
 }
+
+
+.splide-wrapper {
+  position: relative;
+}
+
+.splide__arrows {
+  top: 50%;
+  transform: translateY(-50%);
+}
+.splide{
+  margin-bottom: 5%;
+}
+
+.splide__pagination {
+  position: static;
+  margin-top: 1rem;
+}
+
+.splide {
+  position: relative;
+  padding-bottom: 2.5rem; /* space for dots */
+}
+
+.splide__track {
+  margin-left: 5%;
+  margin-right: 5%;
+  gap: 10%;
+  align-items: center;
+}

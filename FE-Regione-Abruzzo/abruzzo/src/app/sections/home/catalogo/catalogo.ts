@@ -13,10 +13,11 @@ import { isPlatformBrowser } from '@angular/common';
 import { ServizioCard } from './components/servizio-card/servizio-card';
 import { ServiziService } from '../../../services/servizi.service';
 import { ServizioModel } from '../../../model/servizioModel';
+import { SectionHeader} from '../../../components/section-header/section-header';
 
 @Component({
   selector: 'app-catalogo',
-  imports: [ServizioCard],
+  imports: [ServizioCard, SectionHeader],
   templateUrl: './catalogo.html',
   styleUrl: './catalogo.css',
 })
