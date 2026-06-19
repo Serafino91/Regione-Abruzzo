@@ -9,10 +9,11 @@ import {
 
 import { isPlatformBrowser } from '@angular/common';
 import { ServizioCard } from './components/servizio-card/servizio-card';
+import { SectionHeader} from '../../../components/section-header/section-header';
 
 @Component({
   selector: 'app-catalogo',
-  imports: [ServizioCard],
+  imports: [ServizioCard, SectionHeader],
   templateUrl: './catalogo.html',
   styleUrl: './catalogo.css',
 })

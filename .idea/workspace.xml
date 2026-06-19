@@ -4,7 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c58d4ad-40c5-48dd-ad9e-199fd090ed8f" name="Changes" comment="configured mariadb and first version serviceEntity" />
+    <list default="true" id="2c58d4ad-40c5-48dd-ad9e-199fd090ed8f" name="Changes" comment="configured mariadb and first version serviceEntity">
+      <change afterPath="$PROJECT_DIR$/.ai/mcp/mcp.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/prettier.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/.idea/shelf/Uncommitted_changes_before_Checkout_at_19_06_2026_11_32_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/.idea/shelf/Uncommitted_changes_before_Checkout_at_19_06_2026_11_32_[Changes]1/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/.idea/shelf/Uncommitted_changes_before_Checkout_at_19_06_2026_11_32__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/card/card.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/card/card.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/card/card.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/card/card.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/section-header/section-header.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/section-header/section-header.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/section-header/section-header.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/section-header/section-header.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/catalogo/catalogo.css" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/catalogo/catalogo.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/catalogo/catalogo.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/catalogo/catalogo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/catalogo/catalogo.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/catalogo/catalogo.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/catalogo/components/servizio-card/servizio-card.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/catalogo/components/servizio-card/servizio-card.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/catalogo/components/servizio-card/servizio-card.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/catalogo/components/servizio-card/servizio-card.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/styles.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,6 +51,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;emanuele-frau&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Serafino91/Regione-Abruzzo.git&quot;,
+    &quot;accountId&quot;: &quot;7fe8871a-24ff-4cae-8a00-b81d1dc0e89d&quot;
+  }
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -36,6 +73,69 @@
   <component name="MavenRunner">
     <option name="skipTests" value="true" />
   </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0000341452714192" />
+      <entry key="S2" value="1.0822746032971287" />
+      <entry key="S5" value="1.5131814833444208" />
+      <entry key="S10" value="2.253217829462244" />
+      <entry key="S30" value="5.545309792239028" />
+      <entry key="S60" value="9.11076422100759" />
+      <entry key="M2" value="12.623467772101025" />
+      <entry key="M5" value="15.931242445887461" />
+      <entry key="M10" value="17.394745042417988" />
+      <entry key="M15" value="18.42519664541994" />
+      <entry key="M30" value="26.817586920783526" />
+      <entry key="H1" value="52.52461590922947" />
+      <entry key="H2" value="87.23933066870953" />
+      <entry key="H4" value="116.36113329002295" />
+      <entry key="D1" value="149.98407842752667" />
+      <entry key="W1" value="156.82530205427224" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="1.8052379706253597E-53" />
+      <entry key="MS500" value="2.826876867159829E-11" />
+      <entry key="S2" value="0.0023058270262502484" />
+      <entry key="S5" value="0.08818227730921839" />
+      <entry key="S10" value="0.30633295333761557" />
+      <entry key="S30" value="0.997509785366514" />
+      <entry key="S60" value="1.6279902476168464" />
+      <entry key="M2" value="2.1768444300135075" />
+      <entry key="M5" value="2.6295359838378434" />
+      <entry key="M10" value="2.822879377945778" />
+      <entry key="M15" value="3.0727303779525683" />
+      <entry key="M30" value="5.713003122372766" />
+      <entry key="H1" value="13.534583631938073" />
+      <entry key="H2" value="23.745381580574776" />
+      <entry key="H4" value="32.14885291684945" />
+      <entry key="D1" value="41.7307559719197" />
+      <entry key="W1" value="43.66777799090118" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="4.077577731583835E-4" />
+      <entry key="MS500" value="0.20993336080085445" />
+      <entry key="S2" value="0.7071667864711021" />
+      <entry key="S5" value="1.277874923259796" />
+      <entry key="S10" value="2.2753070125723305" />
+      <entry key="S30" value="6.332027565591489" />
+      <entry key="S60" value="10.565623467282268" />
+      <entry key="M2" value="14.677950597581718" />
+      <entry key="M5" value="18.498195955904023" />
+      <entry key="M10" value="20.18328676983632" />
+      <entry key="M15" value="21.473351406314578" />
+      <entry key="M30" value="32.51164792180034" />
+      <entry key="H1" value="66.04052091997002" />
+      <entry key="H2" value="110.96952063883589" />
+      <entry key="H4" value="148.500012966327" />
+      <entry key="D1" value="191.7127239611209" />
+      <entry key="W1" value="200.49276566146395" />
+    </decayedShown>
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4,
   &quot;fromUser&quot;: false
@@ -45,36 +145,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Maven.ra [clean,install].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "Spring Boot.RaApplication.executor": "Run",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "develop-fe",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/AccentureProject/Regione-Abruzzo",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Maven.ra [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;Spring Boot.RaApplication.executor&quot;: &quot;Run&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop-fe&quot;,
+    &quot;git.auto.fetch.suggestion.counter&quot;: &quot;1&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/emanuele.frau/Desktop/Regione-Abruzzo/Regione-Abruzzo&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\emanuele.frau\\Desktop\\Regione-Abruzzo\\Regione-Abruzzo\\FE-Regione-Abruzzo\\abruzzo\\node_modules\\prettier&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\emanuele.frau\\Desktop\\Regione-Abruzzo\\Regione-Abruzzo\\FE-Regione-Abruzzo\\abruzzo\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.accenture.ra.model" />
@@ -98,8 +202,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.24374.151" />
-        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.24374.151" />
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.32098.37" />
       </set>
     </attachedChunks>
   </component>
@@ -123,6 +226,7 @@
       <workItem from="1781693171137" duration="1233000" />
       <workItem from="1781699747596" duration="9494000" />
       <workItem from="1781766235590" duration="6827000" />
+      <workItem from="1781874653299" duration="552000" />
     </task>
     <servers />
   </component>
@@ -142,6 +246,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="configured mariadb and first version serviceEntity" />
-    <option name="LAST_COMMIT_MESSAGE" value="configured mariadb and first version serviceEntity" />
+    <MESSAGE value="carosello e componenti card" />
+    <option name="LAST_COMMIT_MESSAGE" value="carosello e componenti card" />
   </component>
 </project>
