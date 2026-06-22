@@ -1,19 +1,23 @@
 <article class="servizio-card">
-
   <div class="servizio-card__badge">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <ellipse cx="12" cy="5" rx="9" ry="3"/>
-      <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/>
-      <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/>
-    </svg>
-    <span>{{ servizio.type }}</span>
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+     class="text-primary" style="fill: none; stroke: currentColor;">
+  
+  <ellipse cx="12" cy="4" rx="9" ry="3" />
+  
+  <path d="M3 4v12c0 1.66 4.03 3 9 3s9-1.34 9-3V4" />
+  
+  <path d="M3 8c0 1.66 4.03 3 9 3s9-1.34 9-3" />
+  
+  <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" />
+</svg>
+   <span class="storage-badge__text">{{ servizio.type}}</span>
   </div>
 
-  <h3 class="servizio-card__title">{{ servizio.item }}</h3>
+  <h6 class="servizio-card__title">{{ servizio.item }}</h6>
 
   <a href="#" class="servizio-card__link">
     Dettaglio servizio <span aria-hidden="true">→</span>
   </a>
-
 </article>
