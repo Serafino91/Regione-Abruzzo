@@ -11,6 +11,26 @@
     font-size: 10px;
 }
 
+.banner .logo-icon {
+  width: 50px !important;
+  min-width: 50px !important;
+  max-width: 50px !important;
+  height: 95px !important;
+  min-height: 95px !important;
+  max-height: 95px !important;
+  margin-right: 8px;
+  margin-left: 8px;
+  padding: unset;
+  display: inline-block;
+  flex-shrink: 0;
+  
+  /* Utilizza il link ufficiale come background */
+  background-image: url("http://www.regione.abruzzo.it/themes/custom/italiagov/stemma-abruzzo.svg#logo");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
 .user {
     margin-left: auto;
 }

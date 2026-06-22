@@ -62,3 +62,31 @@
   text-decoration: underline;
   color: #004d99;
 }
+/* The Capsule Container */
+.servizio-card__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px; /* Spacing between icon and text */
+  padding: 4px 10px; /* Tight inner padding for the pill look */
+  background-color: #f0f6ff; /* Soft tint primary background */
+  border: 1.5px solid #0056d6; /* Sharp primary blue border */
+  border-radius: 6px; /* Smooth rounded corners matching the UI */
+}
+
+/* The Icon Lines */
+.storage-badge__icon {
+  fill: none;
+  stroke: #0056d6; /* Matches the primary blue theme color exactly */
+  flex-shrink: 0;
+}
+
+/* The Typography styling */
+.storage-badge__text {
+  color: #0056d6; /* Text color matching the primary branding */
+  font-family: 'Titillium Web', sans-serif; /* Bootstrap Italia standard font */
+  font-size: 11px; /* Small, clear utility font sizing */
+  font-weight: 700; /* Bold uppercase stance */
+  letter-spacing: 0.5px; /* Clean readability layout tracking */
+  line-height: 1;
+  text-transform: uppercase;
+}

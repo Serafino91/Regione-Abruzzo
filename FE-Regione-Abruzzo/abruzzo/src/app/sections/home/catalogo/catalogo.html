@@ -4,19 +4,20 @@
   testoLink="Vedi catalogo completo">
 </app-section-header>
 
-<section #splideRef class="splide">
-  <div class="splide__track">
-    <ul class="splide__list">
-
-      @for(servizio of servizi; track servizio.id) {
-        <li class="splide__slide">
-          <app-servizio-card
-            [servizio]="servizio">
-          </app-servizio-card>
-
-        </li>
-      }
-
-    </ul>
+@if (servizi.length > 0) {
+  <div #splideRef class="splide">
+    <div class="splide__track">
+      <ul class="splide__list">
+        @for (item of servizi; track item.id) {
+          <li class="splide__slide">
+            <app-servizio-card [servizio]="item"></app-servizio-card>
+          </li>
+        }
+      </ul>
+    </div>
   </div>
-</section>
+} @else {
+  <div class="loading-container">
+    <p>Caricamento servizi...</p>
+  </div>
+}
