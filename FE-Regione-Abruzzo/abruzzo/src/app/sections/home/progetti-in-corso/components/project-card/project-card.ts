@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Input } from '@angular/core'
+import { ProgettoModel } from '../../../../../model/progetto.model';
 @Component({
   selector: 'app-project-card',
   imports: [],
@@ -7,5 +8,5 @@ import { Input } from '@angular/core'
   styleUrl: './project-card.css',
 })
 export class ProjectCard {
-  @Input() progetto!: any;
+  @Input() progetto!: ProgettoModel;
 }

@@ -11,9 +11,11 @@ export class ProgettiService {
   constructor(private http: HttpClient) {}
 
   getProgetti() {
-    return this.http
-      .get<{ serviceDetail: ProgettoModel[] }>(ChiamateApiUrl.BASE_URL_PROGETTI)
-      .pipe(map((resp) => resp.serviceDetail));
+    return this.http.get<{ projectsList: ProgettoModel[] }>(ChiamateApiUrl.BASE_URL_PROGETTI).pipe(
+      map((resp) => {
+        return resp.projectsList;
+      }),
+    );
   }
 
   getProgetto(id: number) {
