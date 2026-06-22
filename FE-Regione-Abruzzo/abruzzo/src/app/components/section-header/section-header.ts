@@ -6,6 +6,7 @@ import { Router, RouterLink } from '@angular/router';
   imports: [RouterLink],
   templateUrl: './section-header.html',
   styleUrl: './section-header.css',
+  standalone: true,
 })
 export class SectionHeader {
   @Input() titolo = '';

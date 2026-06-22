@@ -1,1 +1,9 @@
 @import '@splidejs/splide/css';
+
+:root {
+  /* Colori */
+  --color-primary: #0066CC;
+  --color-primary-dark: #17324D;
+
+}
+

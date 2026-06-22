@@ -1,26 +1,31 @@
 import { Component } from '@angular/core';
-import { FormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-nuovo-incident',
+  selector: 'app-seleziona-servizio',
   imports: [FormsModule],
-  templateUrl: './nuovo-incident.html',
-  styleUrl: './nuovo-incident.css',
-  standalone: true
+  templateUrl: './seleziona-servizio.html',
+  styleUrl: './seleziona-servizio.css',
+  standalone: true,
 })
-export class NuovoIncident {
-
+export class SelezionaServizio {
   onSubmit(form: any) {
-  console.log(form.value);
+    console.log(form.value);
   }
-
   selezione = 0;
   servizio = '';
-  idServizio = '';
-  descrizioneBreve = '';
-  descrizione = '';
   selezioni2: String[] = [];
+  nomeVM: String = '';
+  zonaDNS: String = '';
+  pod: String = '';
+  ram: String = '';
+  boot: String = '';
+  cpu: String = '';
+  backup: String = '';
+  servizioTecnico: String = '';
+  servizioICT: String = '';
+  ambiente: String = '';
+
 
   selezioni1: Record<number, string[]> = {
     1: ['Opzione 1', 'Opzione 2', 'Opzione 3'],
@@ -38,6 +43,4 @@ export class NuovoIncident {
     descrizione: new FormControl('', Validators.required),
     descrizioneBreve: new FormControl('', Validators.required),
   });
-
-
 }

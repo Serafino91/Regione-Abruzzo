@@ -1,0 +1,16 @@
+<div class="stepper">
+
+  @for (step of steps; track step.id) {
+
+    <div
+      class="step-box"
+      [class.active]="step.id === currentStep"
+      [class.completed]="step.id < currentStep">
+
+      {{ step.label }}
+
+    </div>
+
+  }
+
+</div>

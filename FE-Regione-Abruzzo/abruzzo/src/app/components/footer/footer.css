@@ -1,7 +1,7 @@
 .banner {
     display: flex;
     flex-direction: row;
-    background-color:#2b7dd0;;
+    background-color: var(--color-primary);
     padding: 1rem;
     color: white;
     align-items: center;
@@ -23,7 +23,7 @@
   padding: unset;
   display: inline-block;
   flex-shrink: 0;
-  
+
   /* Utilizza il link ufficiale come background */
   background-image: url("http://www.regione.abruzzo.it/themes/custom/italiagov/stemma-abruzzo.svg#logo");
   background-repeat: no-repeat;
@@ -39,7 +39,7 @@
 .nav {
     display: flex;
     flex-direction: row;
-    background-color: #003163;
+    background-color: var(--color-primary-dark);
     padding: 1rem;
     color: white;
     align-items: center;

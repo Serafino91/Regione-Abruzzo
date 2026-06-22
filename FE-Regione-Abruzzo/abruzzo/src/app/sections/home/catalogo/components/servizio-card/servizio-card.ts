@@ -6,6 +6,7 @@ import { ServizioModel } from '../../../../../model/servizioModel';
   imports: [],
   templateUrl: './servizio-card.html',
   styleUrl: './servizio-card.css',
+  standalone: true,
 })
 export class ServizioCard {
   @Input() servizio!: ServizioModel;

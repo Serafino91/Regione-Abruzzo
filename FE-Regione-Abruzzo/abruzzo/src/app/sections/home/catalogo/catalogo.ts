@@ -14,10 +14,12 @@ import { ServizioCard } from './components/servizio-card/servizio-card';
 import { ServiziService } from '../../../services/servizi.service';
 import { ServizioModel } from '../../../model/servizioModel';
 import { SectionHeader} from '../../../components/section-header/section-header';
+import {Card} from '../../../components/card/card';
 
 @Component({
   selector: 'app-catalogo',
-  imports: [ServizioCard, SectionHeader],
+  imports: [ServizioCard, SectionHeader, Card],
+  standalone: true,
   templateUrl: './catalogo.html',
   styleUrl: './catalogo.css',
 })
@@ -43,10 +45,10 @@ export class Catalogo implements OnInit {
       .subscribe({
         next: (resp) => {
           this.servizi = resp;
-          
+
           // Force Angular to see the array data and draw the HTML slots
-          this.cdr.detectChanges(); 
-          
+          this.cdr.detectChanges();
+
           // Now that HTML elements exist, initialize Splide safely
           this.initSplide();
         },

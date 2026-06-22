@@ -6,10 +6,11 @@ import { Router, RouterLink } from '@angular/router';
   imports: [RouterLink],
   templateUrl: './button.html',
   styleUrl: './button.css',
+  standalone: true,
 })
 export class Button {
-    @Input() label = '';
-    @Input() link = '';
+  @Input() label = '';
+  @Input() link = '';
   constructor(private router: Router) {}
   navigate() {
     this.router.navigate([this.link]);

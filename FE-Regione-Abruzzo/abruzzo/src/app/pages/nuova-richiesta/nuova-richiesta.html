@@ -1,1 +1,19 @@
-<h1>Nuova richiesta</h1>
+<h3 class="it-header-block-title"> Nuova Richiesta</h3>
+
+<app-nav-form [currentStep]="currentStep"></app-nav-form>
+
+@if(currentStep === 1) {
+  <app-scegli-progetto />
+}
+
+@if(currentStep === 2) {
+  <app-seleziona-servizio/>
+}
+
+@if(currentStep === 3) {
+  <app-controlla-invia />
+}
+
+
+<app-section-footer></app-section-footer>
+
