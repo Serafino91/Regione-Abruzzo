@@ -2,11 +2,9 @@ package com.accenture.ra.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,6 +14,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "service")
 public class ServiceEntity {
@@ -32,8 +31,17 @@ public class ServiceEntity {
     @Column(name = "is_optional")
     private Boolean isOptional;
 
-    @Column(name = "values_json")
-    private String values;
+    @Column(name = "param_list_id")
+    private Long paramListId;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "id",
+            referencedColumnName = "param_list_id",
+            insertable = false,
+            updatable = false
+    )
+    private List<ParamListEntity> paramList;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_type_id", nullable = false)

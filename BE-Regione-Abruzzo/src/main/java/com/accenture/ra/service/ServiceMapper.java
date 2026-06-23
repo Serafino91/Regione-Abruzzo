@@ -25,12 +25,7 @@ public final class ServiceMapper {
                 .base(entity.getIsBase())
                 .optional(entity.getIsOptional())
                 .params(ParamMapper.toModelList(entity.getParams()))
-//                .vcpu(entity.getVcpu())
-//                .vramGb(entity.getVramGb())
-//                .storageGb(entity.getStorageGb())
-//                .minimumTechnicalFeatures(entity.getMinimumTechnicalFeatures())
-//                .quantity(entity.getQuantity())
-//                .durationMonths(entity.getDurationMonths())
+                .paramsList(ParamListMapper.toModelList(entity.getParamList()))
                 .build();
     }
 
