@@ -34,7 +34,7 @@
 .servizio-card__title {
   font-size: 20px;
   font-weight: 700;
-  color: #17324d;
+  color: #294663;
   margin: 0;
   line-height: 1.3;
 }
@@ -66,17 +66,17 @@
 .servizio-card__badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px; /* Spacing between icon and text */
+  gap: 1px; /* Spacing between icon and text */
   padding: 4px 10px; /* Tight inner padding for the pill look */
   background-color: #f0f6ff; /* Soft tint primary background */
-  border: 1.5px solid #0056d6; /* Sharp primary blue border */
+  border: 1.5px solid #004d99; /* Sharp primary blue border */
   border-radius: 6px; /* Smooth rounded corners matching the UI */
 }
 
 /* The Icon Lines */
 .storage-badge__icon {
   fill: none;
-  stroke: #0056d6; /* Matches the primary blue theme color exactly */
+  stroke: #004d99; /* Matches the primary blue theme color exactly */
   flex-shrink: 0;
 }
 
