@@ -1,0 +1,38 @@
+.user-logged {
+    display: flex !important;
+    flex-direction: row !important; /* Mantiene la disposizione orizzontale */
+    align-items: center !important;  /* Centra l'icona verticalmente a metà tra i due testi */
+    margin-left: auto;              /* Continua a spingere tutto il blocco a destra nel banner */
+    gap: 10px;                      /* Spazio tra l'icona e l'inizio del testo */
+}
+
+/* Stile per l'icona posizionata a sinistra */
+.user-logged .user-icon {
+    width: 22px !important;
+    height: 22px !important;
+    fill: #ffffff !important;
+    flex-shrink: 0 !important;
+    display: block;
+}
+
+/* Contenitore per le scritte */
+.user-logged .user-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;              /* 👈 Testo orientato a sinistra, coerente con l'icona */
+}
+
+.user-logged .user-name {
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 1.2 !important;
+    margin-bottom: 2px !important;
+    color: #ffffff !important;
+}
+
+.user-logged .user-role {
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    line-height: 1.1 !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+}

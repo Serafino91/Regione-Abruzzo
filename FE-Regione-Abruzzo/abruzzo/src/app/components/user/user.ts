@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './user.css',
 })
 export class User {
-  user = {id: 0, name: 'Sarah', isLoggedIn: true};
+  user = {id: 0, name: 'Sarah Accenture', role: 'Administrator', isLoggedIn: true};
 
 }
