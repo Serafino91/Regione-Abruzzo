@@ -16,6 +16,16 @@ export class ServiziService {
       .pipe(map((resp) => resp.serviceDetail));
   }
 
+  getServiziDaCategoria(idCategoria:number) {
+    return this.http
+      .get<{ serviceDetail: ServizioModel[] }>(`${ChiamateApiUrl.BASE_URL_SERVIZI}/getServices/${idCategoria}`)
+      .pipe(map((resp) =>
+      {
+        console.log("respCategoria:",resp);
+       return resp.serviceDetail;
+      }));
+  }
+
   getServizio(id: number) {
     return this.http.get<ServizioModel>(`${ChiamateApiUrl.BASE_URL_SERVIZI}/${id}`);
   }

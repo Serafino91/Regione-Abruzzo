@@ -36,7 +36,7 @@ public final class ServiceMapper {
 
         ServiceEntity entity = new ServiceEntity();
         entity.setId(model.getId());
-        entity.setServiceType(new ServiceTypeEntity("index", model.getType(), "Description")); //TODO da riscrivere
+        entity.setServiceType(new ServiceTypeEntity(1L, model.getType(), "Description")); //TODO da riscrivere
         entity.setName(model.getItem());
         entity.setIsBase(model.getBase());
         entity.setIsOptional(model.getOptional());

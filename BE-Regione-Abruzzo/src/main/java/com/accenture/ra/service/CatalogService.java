@@ -14,5 +14,6 @@ public interface CatalogService {
     public ServiceDetail patchService(String serviceId, ServicePatchRequest request);
 	
     public Boolean deleteService(String serviceId);
-    
+
+    public List<ServiceDetail> getServiceByCategoryId(Long serviceId);
 }

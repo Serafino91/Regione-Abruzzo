@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping(value="/catalog/services")
@@ -459,4 +461,77 @@ public class CatalogServicesController {
 
         return ResponseEntity.notFound().build();
     }
+
+    @Operation(
+            summary = "Lista di servizi associati ad una categoria",
+            description = """
+                    Dato un id-categoria recupera la lista dei servizi associati a quella categoria.
+                    
+                    L'identificativo della categoria deve essere passato come path parameter.
+                    """
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Elenco dei servizi associati alla categoria",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ServiceDetailResponse.class),
+                            examples = @ExampleObject(
+                                    name = "Esempio risposta servizio",
+                                    value = """
+                                            {
+                                              "serviceDetail": {
+                                                "id": "b1407cd4-2faba-4c8b-ba7b-19cfdb463962",
+                                                "tipologia": "IaaS standard",
+                                                "elemento": "VM Small",
+                                                "base": true,
+                                                "opz": false,
+                                                "vcpu": 1,
+                                                "vramGb": 4,
+                                                "storageGb": 100,
+                                                "caratteristicheTecnicheMinime": "Include servizio di Backup delle VM, la protezione antivirus e il servizio di monitoraggio",
+                                                "quantita": null,
+                                                "durataMesi": null
+                                              }
+                                            }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Servizi non trovato",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = @ExampleObject(
+                                    name = "Nessun servizio associato alla categoria",
+                                    value = """
+                                            {
+                                              "error": "Servizio non trovato"
+                                            }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Errore interno del server",
+                    content = @Content
+            )
+    })
+    @GetMapping("getServices/{category-id}")
+    public ResponseEntity<CatalogServicesListResponse>getServiceDetail(
+            @Parameter(
+                    description = "Identificativo univoco del servizio",
+                    required = true,
+                    example = "1"
+            )
+            @PathVariable("category-id") Long categoryId
+    ) {
+        List<ServiceDetail> serviceDetail = catalogService.getServiceByCategoryId(categoryId);
+
+        return ResponseEntity.ok(new CatalogServicesListResponse(serviceDetail));
+    }
+
 }

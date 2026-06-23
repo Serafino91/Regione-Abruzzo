@@ -4,6 +4,22 @@
 <h5> Seleziona il servizio da richiedere</h5>
 
 <form class="mb-4">
+  <div class="column">
+    <label>Categoria</label>
+    <select
+      name="categoria"
+      [(ngModel)]="selezione"
+      required
+      (ngModelChange)="popolaServizi($event)">
+
+      <option value="">Seleziona...</option>
+      @for (categoria of categorie; track categoria.id) {
+        <option [ngValue]="categoria.id">{{ categoria.name+ " - " +categoria.description }}</option>
+      }
+
+    </select>
+  </div>
+
 
   <div class="mb-3">
     <label class="form-label">
@@ -14,8 +30,8 @@
       class="form-select"
       [(ngModel)]="selectedServiceId"
       name="service"
+      [disabled]="categorie.length === 0"
       (ngModelChange)="onServizioChange($event)">
-
       <option value="">Seleziona un servizio</option>
 
       @for (servizio of servizi; track servizio.id) {

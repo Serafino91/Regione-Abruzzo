@@ -18,7 +18,7 @@ import lombok.Setter;
 public class ServiceTypeEntity {
 
     @Id
-    private String id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
