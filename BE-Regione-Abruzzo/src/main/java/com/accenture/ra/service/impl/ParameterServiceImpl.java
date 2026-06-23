@@ -27,7 +27,7 @@ public class ParameterServiceImpl implements ParameterService {
 	        return ParamMapper.toModel(entity);	}
 
 	@Override
-	public List<ParamDetail> getAllParams(Long paramId) {
+	public List<ParamDetail> getAllParams() {
 		
 		List<ParamEntity> entity = paramRepository.findAll();
 

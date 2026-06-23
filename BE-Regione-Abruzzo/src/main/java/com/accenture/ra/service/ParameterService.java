@@ -8,7 +8,7 @@ public interface ParameterService {
 	
 	public ParamDetail getParamById(Long paramId);
 	
-	public List<ParamDetail> getAllParams(Long paramId);
+	public List<ParamDetail> getAllParams();
 
 	
 }
