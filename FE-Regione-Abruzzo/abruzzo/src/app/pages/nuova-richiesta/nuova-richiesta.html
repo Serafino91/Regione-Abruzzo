@@ -15,5 +15,9 @@
 }
 
 
-<app-section-footer></app-section-footer>
+<app-section-footer
+  [currentStep]="currentStep"
+  (next)="nextStep()"
+  (previous)="previousStep()">
+</app-section-footer>
 

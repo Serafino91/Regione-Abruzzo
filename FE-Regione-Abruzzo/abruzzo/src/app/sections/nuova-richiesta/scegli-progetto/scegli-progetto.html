@@ -1,9 +1,12 @@
 
 <p> Puoi compilare la richiesta da zero oppure partendo da un progetto esistente. Se scegli da un progetto esistente,
 selezionalo tramite i filtri disponibili. Selezionata la tipologia di richeista, clicca su "Avanti".</p>
-<form #f="ngForm" (ngSubmit)="onSubmit(f)">
 
-  <h5> Scegli il progetto a cui associare la nuova richiesta</h5>
+<h5> Scegli il progetto a cui associare la nuova richiesta</h5>
+
+
+<form class="form" #f="ngForm" (ngSubmit)="onSubmit(f)">
+
 
   <div class="dati-progetto">
 
@@ -29,15 +32,19 @@ selezionalo tramite i filtri disponibili. Selezionata la tipologia di richeista,
       <input type="date" [(ngModel)]="dataA" name="dataA">
     </div>
 
+    <button
+      type="submit"
+      class="btn btn-primary"
+      mat-raised-button
+      color="primary">
+      Cerca Progetto
+    </button>
+
+
   </div>
 
-  <button
-    type="submit"
-    class="button-cerca-progetto"
-    mat-raised-button
-    color="primary">
-    Cerca Progetto
-  </button>
+
+
 
 
 </form>

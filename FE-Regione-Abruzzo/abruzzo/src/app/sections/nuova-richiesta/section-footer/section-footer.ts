@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
+
 
 @Component({
   selector: 'app-section-footer',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './section-footer.css',
   standalone: true,
 })
-export class SectionFooter {}
+export class SectionFooter {
+  @Input() currentStep: number = 1;
+  @Output() next = new EventEmitter<void>();
+  @Output() previous = new EventEmitter<void>();
+}

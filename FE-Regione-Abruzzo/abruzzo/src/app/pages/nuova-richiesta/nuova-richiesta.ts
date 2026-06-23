@@ -15,5 +15,17 @@ import {SectionFooter} from '../../sections/nuova-richiesta/section-footer/secti
 })
 export class NuovaRichiesta {
   constructor(public router: Router) {}
-  currentStep = 2;
+  currentStep = 1;
+
+  nextStep(): void {
+    if (this.currentStep < 3) {
+      this.currentStep++;
+    }
+  }
+
+  previousStep(): void {
+    if (this.currentStep > 1) {
+      this.currentStep--;
+    }
+  }
 }

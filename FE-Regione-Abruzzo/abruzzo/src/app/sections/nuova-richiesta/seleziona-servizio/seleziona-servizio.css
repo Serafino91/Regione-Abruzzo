@@ -1,22 +1,5 @@
-.dati-progetto {
-  display: flex;
-  flex-direction: row;
-  gap: 10rem;
-  justify-content: center;
+.form-select {
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-dati-rete{
-  display: flex;
-  flex-direction: row;
-  gap: 10rem;
-  justify-content: center;
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
-}
-
-.button-cerca-progetto {
-  margin-left: auto;
-}

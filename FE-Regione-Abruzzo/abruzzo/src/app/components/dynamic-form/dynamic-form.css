@@ -1,0 +1,15 @@
+.form-input {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.form-control {
+  border: 1px solid #ccc;
+
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,79 @@
+<form #f="ngForm" class="container">
+
+  <div class = "form-input">
+    @for(param of params; track param.id) {
+
+      <div class="form-field">
+
+      <label [for]="param.id">
+            {{ param.name }}
+      </label>
+
+          @if(param.paramType === 'String') {
+
+            <input
+              class="form-control"
+              [id]="param.id"
+              type="text"
+              [(ngModel)]="values[param.id]"
+              [name]="param.id"
+              [required]="param.required"
+              [minlength]="+param.minValue"
+              [maxlength]="+param.maxValue"
+              [ngModelOptions]="{ standalone: true }">
+
+          }
+
+          @if(param.paramType === 'integer') {
+
+            <input
+              class="form-control"
+              [id]="param.id"
+              type="number"
+              [(ngModel)]="values[param.id]"
+              [name]="param.id"
+              [required]="param.required"
+              [min]="+param.minValue"
+              [max]="+param.maxValue"
+              [ngModelOptions]="{ standalone: true }">
+
+          }
+
+          @if(param.paramType === 'Counter') {
+
+
+              <button
+                type="button"
+                class="btn btn-outline-primary btn-sm"
+                (click)="decrement(param)">
+                -
+              </button>
+
+              <input
+                class="form-control text-center"
+                type="number"
+                [(ngModel)]="values[param.id]"
+                [name]="param.id"
+                [min]="+param.minValue"
+                [max]="+param.maxValue"
+                [ngModelOptions]="{ standalone: true }">
+
+              <button
+                type="button"
+                class="btn btn-outline-primary btn-sm"
+                (click)="increment(param)">
+                +
+              </button>
+
+
+
+          }
+
+          <small>
+            Min: {{ param.minValue }} - Max: {{ param.maxValue }}
+          </small>
+
+      </div>
+    }
+  </div>
+</form>

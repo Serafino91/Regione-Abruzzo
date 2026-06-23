@@ -1,149 +1,36 @@
+<p> Seleziona il tipo di servizio da richiedere
+  e compila tutti i campi della richiesta</p>
 
-<p> Puoi compilare la richiesta da zero oppure partendo da un progetto esistente. Se scegli da un progetto esistente,
-  selezionalo tramite i filtri disponibili. Selezionata la tipologia di richeista, clicca su "Avanti".</p>
-<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+<h5> Seleziona il servizio da richiedere</h5>
 
-  <h5> Scegli il progetto a cui associare la nuova richiesta</h5>
+<form class="mb-4">
 
-  <div class="dati-progetto">
+  <div class="mb-3">
+    <label class="form-label">
+      Servizio
+    </label>
 
-    <div class="column">
-      <label>Categoria</label>
-      <select
-        name="categoria"
-        [(ngModel)]="selezione"
-        required
-        (change)="onSelezioneChange()">
+    <select
+      class="form-select"
+      [(ngModel)]="selectedServiceId"
+      name="service"
+      (ngModelChange)="onServizioChange($event)">
 
-        <option value="">Seleziona...</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
+      <option value="">Seleziona un servizio</option>
 
-      </select>
-    </div>
+      @for (servizio of servizi; track servizio.id) {
+        <option [value]="servizio.id">
+          {{ servizio.item }}
+        </option>
+      }
 
-    <div class="column">
-      <label>Servizio</label>
-      <select
-        name="servizio"
-        [(ngModel)]="servizio"
-        required
-        [disabled]="selezioni2.length === 0">
-
-        <option value="">Seleziona...</option>
-
-        @for(item of selezioni2; track item) {
-          <option [value]="item">
-            {{ item }}
-          </option>
-        }
-
-      </select>
-    </div>
-
-    <div class="column">
-    <button
-      type="submit"
-      class="button-cerca-progetto"
-      mat-raised-button
-      color="primary"
-      [disabled]="f.invalid">
-      Aggiungi
-    </button>
-    </div>
-
-  </div>
-
-
-  <h5> Informazioni di rete</h5>
-  <div class="dati-rete">
-    <label>Nome VM*</label>
-    <input
-      type="text"
-      [(ngModel)]="nomeVM"
-      name="nome"
-      placeholder="Inserisci Nome VM">
-
-
-    <label>Zona DNS*</label>
-
-    <input
-      type="text"
-      [(ngModel)]="zonaDNS"
-      name="nome"
-      placeholder="Inserisci Zona DNS">
-
-
-
-    <label>POD*</label>
-    <input
-      type="text"
-      [(ngModel)]="pod"
-      name="nome"
-      placeholder="Inserisci POD">
-
- </div>
-
-
-  <h5>Risorse allocate</h5>
-  <div class="dati-risorse">
-    <label>RAM*</label>
-    <input
-      type="text"
-      [(ngModel)]="ram"
-      name="nome"
-      placeholder="Inserisci RAM">
-
-
-    <label>CPU*</label>
-    <input
-      type="text"
-      [(ngModel)]="cpu"
-      name="nome"
-      placeholder="Inserisci CPU">
-
-    <label>Disco di Boot*</label>
-    <input
-      type="text"
-      [(ngModel)]="boot"
-      name="nome"
-      placeholder="Value">
-
-  </div>
-
-  <h5>Configurazione e servizi</h5>
-
-  <div class="dati-configurazione">
-    <label>Backup*</label>
-    <input
-      type="text"
-      [(ngModel)]="backup"
-      name="nome"
-      placeholder="Inserisci Backup">
-
-
-    <label>Servizio tecnico*</label>
-    <input
-      type="text"
-      [(ngModel)]="servizioTecnico"
-      name="nome"
-      placeholder="Inserisci Servizio Tecnico">
-
-    <label>Servizio ICT*</label>
-    <input
-      type="text"
-      [(ngModel)]="servizioICT"
-      name="nome"
-      placeholder="Value">
-
-    <label>Ambiente*</label>
-    <input
-      type="text"
-      [(ngModel)]="ambiente"
-      name="nome"
-      placeholder="Inserisci Ambiente">
-
+    </select>
   </div>
 
 </form>
+
+@if (servizio) {
+  <app-dynamic-form
+    [params]="servizio.params">
+  </app-dynamic-form>
+}
