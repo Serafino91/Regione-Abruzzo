@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 export interface Richieste {
   id: string;
@@ -11,9 +12,9 @@ export interface Richieste {
 }
 
 @Component({
-  selector: 'app-richieste-in-corso-card', // Con la "e" al plurale
+  selector: 'app-richieste-in-corso-card', 
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './richieste-in-corso-card.html'
 })
 export class RichiesteInCorsoCard {
