@@ -1,16 +1,37 @@
-<h5>Progetto</h5>
-<p>{{ formGroup.get('progetto')?.value?.selezione }}</p>
-<p>Data da: {{ formGroup.get('progetto')?.value?.dataDa }}</p>
-<p>Data a: {{ formGroup.get('progetto')?.value?.dataA }}</p>
-<h5>Servizio</h5>
-<p>Categoria: {{ servizio?.categoria }}</p>
-<p>Servizio: {{ servizio?.servizio}}</p>
+<div class="project-card">
+  <h6 class="card-title">Dati nuovo progetto</h6>
+  <p class="card-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel egestas mauris,
+    vel dignissim purus. Curabitur efficitur feugiat sapien, in tristique urna egestas blandit. Sed eget fringilla metus.
+    Maecenas et posuere ligula, sit amet dapibus neque. Fusce massa magna, sodales vitae dolor nec, tincidunt mollis ligula.
+    Sed congue ante ut lorem pharetra, nec sagittis erat lobortis. Donec a eros in ligula varius rhoncus vitae vel est. </p>
+  <hr class="line-separator"/>
+  <div class="card-details">
+    <div class="card-column">Progetto:<p>{{ formGroup.get('progetto')?.value?.selezione }}</p></div>
+    <div class="card-column">Data da: <p>{{ formGroup.get('progetto')?.value?.dataDa }}</p></div>
+    <div class="card-column">Data a: <p>{{ formGroup.get('progetto')?.value?.dataA }}</p></div>
+  </div>
+</div>
 
-<hr>
 
-<h5>Parametri</h5>
-@for (item of paramsEntries; track item[0]) {
-  <p>
-    {{ item[0] }}: {{ item[1] }}
-  </p>
-}
+<div class="project-card">
+  <h6 class="card-title">Servizio</h6>
+  <div class="card-details">
+    <div class="card-column">Categoria:<p>{{ ServiceCategory[servizio?.categoria] }}</p></div>
+    <div class="card-column">Servizio: <p>{{ ServiceName[servizio?.servizio]}}</p></div>
+  </div>
+</div>
+
+
+
+
+<div class="project-card">
+  <h6 class="card-title">Parametri</h6>
+  <div class="card-details">
+    @for (item of paramsEntries; track item[0]) {
+      <div class="card-column"><p>
+        {{ item[0] }}: {{ item[1] }}
+      </p></div>
+    }
+  </div>
+</div>
+

@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import {FormGroup} from '@angular/forms';
+import {ServiceCategory} from "../../../constants/service-category.constants";
+import {ServiceName} from "../../../constants/service-name.constants";
 
 @Component({
   selector: 'app-controlla-invia',
@@ -10,7 +12,6 @@ import {FormGroup} from '@angular/forms';
 })
 export class ControllaInvia {
   @Input() formGroup!: FormGroup;
-
 
   get servizio() {
     return this.formGroup.get('servizio')?.value;
@@ -23,4 +24,6 @@ export class ControllaInvia {
   get paramsEntries() {
     return Object.entries(this.params || {});
   }
+  ServiceCategory = ServiceCategory;
+  protected readonly ServiceName = ServiceName;
 }

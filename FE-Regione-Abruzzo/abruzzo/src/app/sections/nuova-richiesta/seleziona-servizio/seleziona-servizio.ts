@@ -20,10 +20,8 @@ export class SelezionaServizio implements OnInit {
 
   categorie: CategoriaModel[] = [];
   servizi: ServizioModel[] = [];
-
   servizio?: ServizioModel;
   params: ParamentroModel[] = [];
-
   @Input({ required: true })
   formGroup!: FormGroup;
 
