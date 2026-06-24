@@ -1,0 +1,139 @@
+.richieste-table-wrapper {
+  width: 100%;
+}
+
+/* Per-page selector */
+.per-page-select {
+  width: auto;
+  min-width: 130px;
+  border-radius: 6px;
+  border-color: #ced4da;
+  font-size: 0.875rem;
+}
+
+/* Table base */
+.richieste-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.richieste-table thead th {
+  background-color: #fff;
+  color: #17324D;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: none;
+  border-bottom: 2px solid #dee2e6;
+  padding: 12px 16px;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+
+.richieste-table thead th:last-child {
+  cursor: default;
+}
+
+.richieste-table thead th:hover:not(:last-child) {
+  background-color: #f5f7fa;
+}
+
+.sort-icon {
+  margin-left: 4px;
+  font-size: 0.75rem;
+  color: #adb5bd;
+}
+
+.sort-icon.active {
+  color: #0066CC;
+}
+
+.richieste-table tbody tr {
+  border-bottom: 1px solid #e9ecef;
+  transition: background-color 0.15s;
+}
+
+.richieste-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.richieste-table tbody td {
+  padding: 14px 16px;
+  font-size: 0.875rem;
+  color: #17324D;
+  border-top: none;
+  border-bottom: 1px solid #e9ecef;
+  vertical-align: middle;
+}
+
+/* Column widths */
+.col-stato    { width: 170px; }
+.col-id       { width: 180px; }
+.col-progetto { min-width: 200px; }
+.col-servizio { width: 160px; }
+.col-categoria{ width: 120px; }
+.col-data     { width: 110px; }
+.col-azioni   { width: 70px; text-align: center; }
+
+.col-progetto-cell {
+  max-width: 280px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Status badge */
+.stato-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1.5px solid;
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.stato-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Kebab actions button */
+.kebab-btn {
+  color: #0066CC;
+  line-height: 1;
+}
+
+.kebab-btn:hover {
+  opacity: 0.75;
+}
+
+/* Pagination */
+.pagination-arrow {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border-color: #dee2e6;
+}
+
+.pagination-arrow:disabled {
+  opacity: 0.4;
+}
+
+.pagination-indicator {
+  font-size: 0.9rem;
+  min-width: 55px;
+  text-align: center;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 4px 10px;
+  background: #fff;
+}
