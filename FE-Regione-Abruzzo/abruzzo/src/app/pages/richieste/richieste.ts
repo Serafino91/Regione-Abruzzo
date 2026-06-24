@@ -1,10 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { RichiesteTable } from '../../components/richieste-table/richieste-table';
+import { RichiestaModel } from '../../model/richiestaModel';
+import { CategoriaService } from '../../services/categoria.service';
+import { ServiziService } from '../../services/servizi.service';
+import { RichiesteService } from '../../services/richieste.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-richieste',
   imports: [RouterLink],
+  // imports: [RouterLgink, RichiesteTable],
   templateUrl: './richieste.html',
   styleUrl: './richieste.css',
 })
-export class Richieste {}
+export class Richieste implements OnInit {
+  private destroyRef = inject(DestroyRef);
+  constructor(private richiestaService: RichiesteService) {}
+
+  ngOnInit(): void {
+    this.getRichieste();
+  }
+
+
+  listaRichieste: RichiestaModel[] = [];
+
+  private getRichieste() {
+    this.richiestaService.getAllRichieste()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (resp) => {
+          this.listaRichieste = resp;
+          console.log("resp richieste: ",this.listaRichieste);
+        },
+        error: (err) => {
+          console.error('Errore nel recupero richieste:', err);
+        },
+      });
+  }
+}
+

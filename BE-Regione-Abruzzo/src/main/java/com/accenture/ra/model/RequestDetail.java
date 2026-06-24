@@ -15,7 +15,7 @@ public class RequestDetail {
 
 	private String requestId;
 	private ProjectDetail project;
-//	private StateDetail state; //TODO
+	private StateDetail state;
 	private ServiceDetail service;
 	private ServiceType category;
 	private LocalDateTime sendFrom;

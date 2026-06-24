@@ -21,7 +21,7 @@ public class RequestMapper {
                 .project(ProjectMapper.toModel(entity.getProject()))
                 .service(ServiceMapper.toModel(entity.getService()))
                 .category(ServiceTypeMapper.toModel(entity.getCategory()))
-//              .state(entity.getState()) //TODO
+                .state(StateMapper.toModel(entity.getState()))
                 .sendFrom(entity.getSendFrom())
                 .sendTo(entity.getSendTo())
                 .createdAt(entity.getCreatedAt())
