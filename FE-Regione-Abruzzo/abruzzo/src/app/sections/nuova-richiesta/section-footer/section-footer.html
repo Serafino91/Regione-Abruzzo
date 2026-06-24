@@ -1,8 +1,9 @@
+<div class="line-separator"></div>
 <div class="section-footer">
 
   @if (currentStep != 1) {
     <button
-      class="btn btn-primary"
+      class="btn btn-outline-primary"
       (click)="previous.emit()">
       Indietro
     </button>
@@ -12,7 +13,7 @@
 
   @if (currentStep != 3) {
   <button
-      class="btn btn-primary"
+      class="btn btn-outline-primary"
       (click)="next.emit()">
       Avanti
     </button>

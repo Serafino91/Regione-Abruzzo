@@ -1,51 +1,52 @@
-<p>
-  Seleziona il tipo di servizio da richiedere e compila tutti i campi della richiesta
-</p>
-
-<h5>Seleziona il servizio da richiedere</h5>
-
-<form [formGroup]="formGroup" class="mb-4">
-
-
-  <div class="column">
-    <label>Categoria</label>
-
-    <select formControlName="categoria">
-      <option value="">Seleziona...</option>
-
-      @for (categoria of categorie; track categoria.id) {
-        <option [value]="categoria.id">
-          {{ categoria.name + " - " + categoria.description }}
-        </option>
-      }
-    </select>
+<div class="container-custom">
+  <div class="w-50 pb-5 pt-3">
+    <p>
+      Seleziona il tipo di servizio da richiedere e compila tutti i campi della richiesta
+    </p>
   </div>
+  <h5 class="w-100 pb-4">Seleziona il servizio da richiedere</h5>
 
+  <form [formGroup]="formGroup" class="mb-4">
+    <div class="row">
 
-  <div class="mb-3">
-    <label class="form-label">Servizio</label>
+      <div class="col-md-6 mb-3">
+        <div class="select-wrapper">
+          <label for="categoria">Categoria</label>
+          <select id="categoria" formControlName="categoria">
+            <option value="">Seleziona...</option>
+            @for (categoria of categorie; track categoria.id) {
+              <option [value]="categoria.id">
+                {{ categoria.name + " - " + categoria.description }}
+              </option>
+            }
+          </select>
+        </div>
+      </div>
 
-    <select
-      class="form-select"
-      formControlName="servizio"
-      [disabled]="servizi.length === 0">
+      <div class="col-md-6 mb-3">
+        <div class="select-wrapper">
+          <label for="servizio">Servizio</label>
+          <select
+            id="servizio"
+            formControlName="servizio"
+            [disabled]="servizi.length === 0">
+            <option value="">Seleziona un servizio</option>
+            @for (servizio of servizi; track servizio.id) {
+              <option [value]="servizio.id">
+                {{ servizio.item }}
+              </option>
+            }
+          </select>
+        </div>
+      </div>
 
-      <option value="">Seleziona un servizio</option>
+    </div>
+  </form>
 
-      @for (servizio of servizi; track servizio.id) {
-        <option [value]="servizio.id">
-          {{ servizio.item }}
-        </option>
-      }
-    </select>
-  </div>
-
-</form>
-
-
-@if (servizio) {
-  <app-dynamic-form
-    [params]="servizio.params"
-    [formGroup]="paramsForm">
-  </app-dynamic-form>
-}
+  @if (servizio) {
+    <app-dynamic-form
+      [params]="servizio.params"
+      [formGroup]="paramsForm">
+    </app-dynamic-form>
+  }
+</div>

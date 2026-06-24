@@ -2,4 +2,9 @@
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-
+.container-custom {
+  border-radius: 6px;
+  background-color: #fafafa;
+  width: 100%;
+  padding-bottom: 200px;
+}

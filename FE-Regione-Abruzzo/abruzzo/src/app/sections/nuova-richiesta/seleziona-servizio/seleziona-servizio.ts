@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DynamicForm } from '../../../components/dynamic-form/dynamic-form';
 import { ServizioModel } from '../../../model/servizioModel';
@@ -17,6 +17,7 @@ import { CategoriaModel } from '../../../model/categoria.model';
 })
 export class SelezionaServizio implements OnInit {
   private destroyRef = inject(DestroyRef);
+  private cdr = inject(ChangeDetectorRef); // <-- 1. Iniettiamo il ChangeDetectorRef
 
   categorie: CategoriaModel[] = [];
   servizi: ServizioModel[] = [];
@@ -31,18 +32,10 @@ export class SelezionaServizio implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getCategorie();
+    // 2. Prima inizializziamo i controlli del form in modo sicuro
+    this.inizializzaForm();
 
-    if (!this.formGroup.get('categoria')) {
-      this.formGroup.addControl('categoria', new FormControl('', Validators.required));
-    }
-    if (!this.formGroup.get('servizio')) {
-      this.formGroup.addControl('servizio', new FormControl('', Validators.required));
-    }
-    if (!this.formGroup.get('params')) {
-      this.formGroup.addControl('params', new FormGroup({}));
-    }
-
+    // 3. Ascoltiamo i cambiamenti reattivi
     this.formGroup
       .get('categoria')
       ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
@@ -52,10 +45,44 @@ export class SelezionaServizio implements OnInit {
       .get('servizio')
       ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((id) => this.onServizioChange(id));
+
+    // 4. Per ultimo, chiamiamo l'API asincrona
+    this.getCategorie();
+  }
+
+  private inizializzaForm(): void {
+    if (!this.formGroup.get('categoria')) {
+      this.formGroup.addControl('categoria', new FormControl('', Validators.required));
+    }
+    if (!this.formGroup.get('servizio')) {
+      this.formGroup.addControl('servizio', new FormControl('', Validators.required));
+    }
+    if (!this.formGroup.get('params')) {
+      this.formGroup.addControl('params', new FormGroup({}));
+    }
+  }
+
+  getCategorie() {
+    this.categoriaService
+      .getCategorie()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (resp) => {
+          this.categorie = resp;
+          this.cdr.detectChanges(); // <-- 5. Forza l'aggiornamento visivo del DOM delle categorie
+        },
+        error: (err) => {
+          console.error('Errore categorie:', err);
+        },
+      });
   }
 
   popolaServizi(idCategoria: number): void {
-    if (!idCategoria) return;
+    if (!idCategoria) {
+      this.servizi = [];
+      this.cdr.detectChanges();
+      return;
+    }
 
     this.serviziService
       .getServiziDaCategoria(idCategoria)
@@ -63,6 +90,7 @@ export class SelezionaServizio implements OnInit {
       .subscribe({
         next: (resp) => {
           this.servizi = resp;
+          this.cdr.detectChanges(); // <-- 6. Forza l'aggiornamento visivo del DOM dei servizi
         },
         error: (err) => {
           console.error('Errore nel recupero servizi:', err);
@@ -86,23 +114,11 @@ export class SelezionaServizio implements OnInit {
     servizio.params.forEach((p) => {
       paramsGroup.addControl(p.name, new FormControl('', Validators.required));
     });
+
+    this.cdr.detectChanges(); // <-- 7. Consigliato anche qui per il form dinamico sottostante
   }
 
   get paramsForm(): FormGroup {
     return this.formGroup.get('params') as FormGroup;
-  }
-
-  getCategorie() {
-    this.categoriaService
-      .getCategorie()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (resp) => {
-          this.categorie = resp;
-        },
-        error: (err) => {
-          console.error('Errore categorie:', err);
-        },
-      });
   }
 }

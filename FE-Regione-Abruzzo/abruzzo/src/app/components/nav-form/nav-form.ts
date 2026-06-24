@@ -11,8 +11,8 @@ export class NavForm {
   @Input() currentStep = 1;
 
   steps = [
-    { id: 1, label: 'Scegli il progetto' },
-    { id: 2, label: 'Seleziona il servizio e compila il form' },
-    { id: 3, label: 'Controlla ed invia' },
+    { id: 1, label: '01.Scegli il progetto', icon: 'it-list' },
+    { id: 2, label: '02.Scegli servizio e compila il form', icon: 'it-software' },
+    { id: 3, label: '03.Controlla ed invia', icon: 'it-check-circle' },
   ];
 }

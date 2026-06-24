@@ -1,7 +1,8 @@
+<div class="nuova-richiesta-container">
 <h3 class="it-header-block-title"> Nuova Richiesta</h3>
 
 <app-nav-form [currentStep]="currentStep"></app-nav-form>
-
+</div>
 @if(currentStep === 1) {
   <app-scegli-progetto
     [formGroup]="richiestaForm.controls['progetto']">

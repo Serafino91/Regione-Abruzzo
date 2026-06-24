@@ -1,42 +1,61 @@
-<p> Puoi compilare la richiesta da zero oppure partendo da un progetto esistente. Se scegli da un progetto esistente,
-selezionalo tramite i filtri disponibili. Selezionata la tipologia di richeista, clicca su "Avanti".</p>
 
-<h5> Scegli il progetto a cui associare la nuova richiesta</h5>
+<div class="container-custom mt-2">
+ <div class="w-100 pb-5 pt-1">
+    <p>Puoi compilare la richiesta da zero oppure partendo da un progetto esistente. Se scegli da un progetto esistente,
+  selezionalo tramite i filtri disponibili. Selezionata la tipologia di richiesta, clicca su "Avanti".</p></div> 
+  <h5 class="w-100 pb-5">Scegli il progetto a cui associare la nuova richiesta</h5>
 
-<form [formGroup]="formGroup" class="form" #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <form [formGroup]="formGroup" class="form" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <div class="row w-100 g-4">
 
-  <div class="dati-progetto">
+      <div class="col-md-4">
+        <div class="select-wrapper">
+          <label for="categoria">Inserisci nome progetto</label>
+          <select 
+            id="categoria"
+            formControlName="selezione" 
+            name="categoria">
+            <option value="">Seleziona...</option>
+            <option value="VM1">Vm 1</option>
+            <option value="VM2">Vm 2</option>
+            <option value="VM3">Vm 3</option>
+          </select>
+        </div>
+      </div>
 
-    <div class="column">
-      <label>Inserisci nome progetto</label>
-      <select
-        formControlName="selezione"
-        name="categoria">
-        <option value="">Seleziona...</option>
-        <option value="VM1">Vm 1</option>
-        <option value="VM2">Vm 2</option>
-        <option value="VM3">Vm 3</option>
-      </select>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label class="active" for="dataDa">Data invio - da</label>
+          <input 
+            class="form-control" 
+            formControlName="dataDa" 
+            type="date" 
+            id="dataDa" 
+            name="dataDa">
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+          <label class="active" for="dataA">Data invio - a</label>
+          <input 
+            class="form-control" 
+            formControlName="dataA" 
+            type="date" 
+            id="dataA" 
+            name="dataA">
+        </div>
+      </div>
+
     </div>
 
-    <div class="column">
-      <label>Data invio - da</label>
-      <input formControlName="dataDa" type="date" name="dataDa">
+    <div class="w-100 text-end mt-4">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        mat-raised-button>
+        Cerca Progetto
+      </button>
     </div>
-
-    <div class="column">
-      <label>Data invio - a</label>
-      <input formControlName="dataA" type="date" name="dataA">
-    </div>
-
-    <button
-      type="submit"
-      class="btn btn-primary"
-      mat-raised-button
-      color="primary">
-      Cerca Progetto
-    </button>
-
-  </div>
-
-</form>
+  </form>
+</div>

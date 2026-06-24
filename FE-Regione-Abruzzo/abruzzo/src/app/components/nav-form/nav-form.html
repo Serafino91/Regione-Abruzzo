@@ -1,16 +1,24 @@
-<div class="stepper">
+<div class="stepper pb-3">
 
   @for (step of steps; track step.id) {
 
-    <div
-      class="step-box"
-      [class.active]="step.id === currentStep"
-      [class.completed]="step.id < currentStep">
+<div
+  class="step-box d-inline-flex align-items-center"
+  [class.active]="step.id === currentStep"
+  [class.completed]="step.id < currentStep">
 
-      {{ step.label }}
+  <svg class="icon icon-primary me-2">
+    <use [attr.href]="'assets/bootstrap-italia/sprites.svg#' + step.icon"></use>
+  </svg>
 
-    </div>
+  <strong>{{ step.label }}</strong>
 
+</div>
+ @if (step.id < steps.length) {
+      <div class="d-flex align-items-center">
+        <svg class="icon icon-secondary me-2"><use href="assets/bootstrap-italia/sprites.svg#it-chevron-right"></use></svg>
+      </div>
+  }
   }
 
 </div>
