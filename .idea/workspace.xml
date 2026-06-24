@@ -4,19 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c58d4ad-40c5-48dd-ad9e-199fd090ed8f" name="Changes" comment="[FRONT END UPDATE] Logica sezioni form nuova richiesta e scorrimento sezioni">
+    <list default="true" id="2c58d4ad-40c5-48dd-ad9e-199fd090ed8f" name="Changes" comment="[FRONT END UPDATE] Passaggio dati tra sezioni form nuova richiesta">
+      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/constants/request-project.constants.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BE-Regione-Abruzzo/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BE-Regione-Abruzzo/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/dynamic-form/dynamic-form.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/dynamic-form/dynamic-form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/dynamic-form/dynamic-form.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/dynamic-form/dynamic-form.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/nuova-richiesta/nuova-richiesta.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/nuova-richiesta/nuova-richiesta.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/nuova-richiesta/nuova-richiesta.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/nuova-richiesta/nuova-richiesta.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/controlla-invia/controlla-invia.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/controlla-invia/controlla-invia.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/controlla-invia/controlla-invia.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/controlla-invia/controlla-invia.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/scegli-progetto/scegli-progetto.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/scegli-progetto/scegli-progetto.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/scegli-progetto/scegli-progetto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/scegli-progetto/scegli-progetto.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/seleziona-servizio/seleziona-servizio.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/seleziona-servizio/seleziona-servizio.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/seleziona-servizio/seleziona-servizio.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/seleziona-servizio/seleziona-servizio.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/section-footer/section-footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/section-footer/section-footer.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,61 +63,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.00000000067683" />
-      <entry key="MS500" value="1.0220009285769305" />
-      <entry key="S2" value="1.6428239085069982" />
-      <entry key="S5" value="2.3465783608122956" />
-      <entry key="S10" value="2.8729246118869405" />
-      <entry key="S30" value="3.5083837191090765" />
-      <entry key="S60" value="3.7345979696945135" />
-      <entry key="M2" value="3.861900207966765" />
-      <entry key="M5" value="3.9476172021240594" />
-      <entry key="M10" value="4.212285556166429" />
-      <entry key="M15" value="5.014983185357163" />
-      <entry key="M30" value="9.368688207980322" />
-      <entry key="H1" value="23.728590914773886" />
-      <entry key="H2" value="66.46060500085943" />
-      <entry key="H4" value="184.3480429487531" />
-      <entry key="D1" value="801.5093686402246" />
-      <entry key="W1" value="1100.3435893035066" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0000000486112268" />
+      <entry key="S2" value="1.019285009575686" />
+      <entry key="S5" value="1.3011634317608491" />
+      <entry key="S10" value="1.7988348424680742" />
+      <entry key="S30" value="2.7894005076782635" />
+      <entry key="S60" value="3.761452113681228" />
+      <entry key="M2" value="6.106243768682382" />
+      <entry key="M5" value="12.33674068685775" />
+      <entry key="M10" value="19.77810033721421" />
+      <entry key="M15" value="25.314008289934993" />
+      <entry key="M30" value="36.309012577306895" />
+      <entry key="H1" value="51.7760352401253" />
+      <entry key="H2" value="87.61185089578952" />
+      <entry key="H4" value="191.46695029725998" />
+      <entry key="D1" value="821.5049082118018" />
+      <entry key="W1" value="1153.173648975721" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="0.0" />
-      <entry key="S2" value="0.0" />
-      <entry key="S5" value="1.2560042660495995E-183" />
-      <entry key="S10" value="3.544015076419402E-92" />
-      <entry key="S30" value="3.29515489137459E-31" />
-      <entry key="S60" value="6.188460189910568E-16" />
-      <entry key="M2" value="3.38327392104624E-8" />
-      <entry key="M5" value="0.0021689490477133358" />
-      <entry key="M10" value="0.11114303924703535" />
-      <entry key="M15" value="0.44446939278878783" />
-      <entry key="M30" value="2.059111077636084" />
-      <entry key="H1" value="6.459763491007563" />
-      <entry key="H2" value="16.795899281189755" />
-      <entry key="H4" value="36.98260865638083" />
-      <entry key="D1" value="126.60657969584125" />
-      <entry key="W1" value="170.7766976960255" />
+      <entry key="MS500" value="2.4031498519600084E-154" />
+      <entry key="S2" value="3.9372701399456436E-39" />
+      <entry key="S5" value="4.3458835525755153E-16" />
+      <entry key="S10" value="2.0846786920067482E-8" />
+      <entry key="S30" value="0.002768162240170187" />
+      <entry key="S60" value="0.05645691848375018" />
+      <entry key="M2" value="0.2922546756132813" />
+      <entry key="M5" value="0.8859559792162652" />
+      <entry key="M10" value="1.320421387707269" />
+      <entry key="M15" value="1.5168054878231556" />
+      <entry key="M30" value="1.9134278852217028" />
+      <entry key="H1" value="3.7481116335925715" />
+      <entry key="H2" value="11.001311180199295" />
+      <entry key="H4" value="29.142753186283425" />
+      <entry key="D1" value="122.26454641484592" />
+      <entry key="W1" value="171.52787134521628" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.001169412887550264" />
-      <entry key="MS500" value="0.2738796076749337" />
-      <entry key="S2" value="1.2947140003117354" />
-      <entry key="S5" value="2.166328906343818" />
-      <entry key="S10" value="2.7688670688130808" />
-      <entry key="S30" value="3.468217165674604" />
-      <entry key="S60" value="3.7135438618087306" />
-      <entry key="M2" value="3.8511001929211086" />
-      <entry key="M5" value="3.945386370986443" />
-      <entry key="M10" value="4.320914747467163" />
-      <entry key="M15" value="5.457077144385736" />
-      <entry key="M30" value="11.42471775724019" />
-      <entry key="H1" value="30.183835068181548" />
-      <entry key="H2" value="83.25017622945623" />
-      <entry key="H4" value="221.32277821679577" />
-      <entry key="D1" value="928.1105773842457" />
-      <entry key="W1" value="1271.119221898817" />
+      <entry key="MS100" value="6.541586075050616E-5" />
+      <entry key="MS500" value="0.145591706467493" />
+      <entry key="S2" value="0.629513323065403" />
+      <entry key="S5" value="1.0688555322871107" />
+      <entry key="S10" value="1.62575220528674" />
+      <entry key="S30" value="2.6983598459288594" />
+      <entry key="S60" value="3.756988195323483" />
+      <entry key="M2" value="6.3548125368410595" />
+      <entry key="M5" value="13.19439198929383" />
+      <entry key="M10" value="21.079023954975153" />
+      <entry key="M15" value="26.81537054604622" />
+      <entry key="M30" value="38.21245525410899" />
+      <entry key="H1" value="55.51720593463675" />
+      <entry key="H2" value="98.6066944728949" />
+      <entry key="H4" value="220.60232522298983" />
+      <entry key="D1" value="943.76407703373" />
+      <entry key="W1" value="1324.7004233993098" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -224,7 +220,7 @@
       <workItem from="1781874653299" duration="5988000" />
       <workItem from="1782111337272" duration="23616000" />
       <workItem from="1782196953475" duration="24610000" />
-      <workItem from="1782283637307" duration="8500000" />
+      <workItem from="1782283637307" duration="16616000" />
     </task>
     <task id="LOCAL-00001" summary="Carosello e componente card e section header applicato a servizio card">
       <option name="closed" value="true" />
@@ -250,7 +246,15 @@
       <option name="project" value="LOCAL" />
       <updated>1782222023982</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="[FRONT END UPDATE] Passaggio dati tra sezioni form nuova richiesta">
+      <option name="closed" value="true" />
+      <created>1782293107341</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1782293107341</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -273,6 +277,7 @@
     <MESSAGE value="Carosello e componente card e section header applicato a servizio card" />
     <MESSAGE value="sezioni form richiesta progetto" />
     <MESSAGE value="[FRONT END UPDATE] Logica sezioni form nuova richiesta e scorrimento sezioni" />
-    <option name="LAST_COMMIT_MESSAGE" value="[FRONT END UPDATE] Logica sezioni form nuova richiesta e scorrimento sezioni" />
+    <MESSAGE value="[FRONT END UPDATE] Passaggio dati tra sezioni form nuova richiesta" />
+    <option name="LAST_COMMIT_MESSAGE" value="[FRONT END UPDATE] Passaggio dati tra sezioni form nuova richiesta" />
   </component>
 </project>

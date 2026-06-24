@@ -1,12 +1,9 @@
-
 <p> Puoi compilare la richiesta da zero oppure partendo da un progetto esistente. Se scegli da un progetto esistente,
 selezionalo tramite i filtri disponibili. Selezionata la tipologia di richeista, clicca su "Avanti".</p>
 
 <h5> Scegli il progetto a cui associare la nuova richiesta</h5>
 
-
 <form [formGroup]="formGroup" class="form" #f="ngForm" (ngSubmit)="onSubmit(f)">
-
 
   <div class="dati-progetto">
 
@@ -16,9 +13,9 @@ selezionalo tramite i filtri disponibili. Selezionata la tipologia di richeista,
         formControlName="selezione"
         name="categoria">
         <option value="">Seleziona...</option>
-        <option value="1">Vm 1</option>
-        <option value="2">Vm 2</option>
-        <option value="3">Vm 3</option>
+        <option value="VM1">Vm 1</option>
+        <option value="VM2">Vm 2</option>
+        <option value="VM3">Vm 3</option>
       </select>
     </div>
 
@@ -40,11 +37,6 @@ selezionalo tramite i filtri disponibili. Selezionata la tipologia di richeista,
       Cerca Progetto
     </button>
 
-
   </div>
-
-
-
-
 
 </form>

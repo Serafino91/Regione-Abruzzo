@@ -11,6 +11,7 @@ import {FormGroup} from '@angular/forms';
 export class ControllaInvia {
   @Input() formGroup!: FormGroup;
 
+
   get servizio() {
     return this.formGroup.get('servizio')?.value;
   }
@@ -18,6 +19,7 @@ export class ControllaInvia {
   get params() {
     return this.formGroup.get('servizio')?.get('params')?.value;
   }
+
   get paramsEntries() {
     return Object.entries(this.params || {});
   }

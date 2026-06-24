@@ -10,10 +10,17 @@
     <div></div>
   }
 
+  @if (currentStep != 3) {
   <button
-    class="btn btn-primary"
-    (click)="next.emit()">
-    Avanti
-  </button>
+      class="btn btn-primary"
+      (click)="next.emit()">
+      Avanti
+    </button>
+  } @else {
+    <button
+      class="btn btn-primary">
+      Invia
+    </button>
+  }
 
 </div>
