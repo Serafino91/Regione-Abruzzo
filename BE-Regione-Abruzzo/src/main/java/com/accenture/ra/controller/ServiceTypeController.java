@@ -1,6 +1,6 @@
 package com.accenture.ra.controller;
 
-import com.accenture.ra.response.CatalogServiceTypeListResponse;
+import com.accenture.ra.response.ServiceTypeListResponse;
 import com.accenture.ra.service.impl.TypeServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class ServiceTypeController {
                     description = "Tipologie servizi recuperate correttamente",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = CatalogServiceTypeListResponse.class),
+                            schema = @Schema(implementation = ServiceTypeListResponse.class),
                             examples = @ExampleObject(
                                     name = "Esempio risposta servizio",
                                     value = """
@@ -76,9 +76,9 @@ public class ServiceTypeController {
             )
     })
 	@GetMapping
-	public ResponseEntity<CatalogServiceTypeListResponse> getCatalogServiceTypeList() {
+	public ResponseEntity<ServiceTypeListResponse> getCatalogServiceTypeList() {
 		
-        return ResponseEntity.ok(new CatalogServiceTypeListResponse(typeService.getAllServiceTypes()));
+        return ResponseEntity.ok(new ServiceTypeListResponse(typeService.getAllServiceTypes()));
 
 	}
 }

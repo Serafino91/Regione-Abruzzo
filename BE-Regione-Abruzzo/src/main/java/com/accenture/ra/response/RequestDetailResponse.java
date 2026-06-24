@@ -1,8 +1,6 @@
 package com.accenture.ra.response;
 
-import java.util.List;
-
-import com.accenture.ra.model.ServiceType;
+import com.accenture.ra.model.RequestDetail;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,8 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CatalogServiceTypeListResponse {
+public class RequestDetailResponse {
 
-    private List<ServiceType> serviceType;
-
+	private RequestDetail requestDetail;
 }
