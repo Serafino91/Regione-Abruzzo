@@ -1,79 +1,47 @@
-<form #f="ngForm" class="container">
+<div [formGroup]="formGroup">
 
-  <div class = "form-input">
-    @for(param of params; track param.id) {
+  @for(param of params; track param.id) {
 
-      <div class="form-field">
+    <div class="form-field">
 
       <label [for]="param.id">
-            {{ param.name }}
+        {{ param.name }}
       </label>
 
-          @if(param.paramType === 'String') {
+      @if(param.paramType === 'String') {
+        <input
+          class="form-control"
+          [id]="param.id"
+          type="text"
+          [formControlName]="param.name">
+      }
 
-            <input
-              class="form-control"
-              [id]="param.id"
-              type="text"
-              [(ngModel)]="values[param.id]"
-              [name]="param.id"
-              [required]="param.required"
-              [minlength]="+param.minValue"
-              [maxlength]="+param.maxValue"
-              [ngModelOptions]="{ standalone: true }">
+      @if(param.paramType === 'integer') {
+        <input
+          class="form-control"
+          [id]="param.id"
+          type="number"
+          [formControlName]="param.name">
+      }
 
-          }
+      @if(param.paramType === 'Counter') {
 
-          @if(param.paramType === 'integer') {
+        <button type="button" (click)="decrement(param)">-</button>
 
-            <input
-              class="form-control"
-              [id]="param.id"
-              type="number"
-              [(ngModel)]="values[param.id]"
-              [name]="param.id"
-              [required]="param.required"
-              [min]="+param.minValue"
-              [max]="+param.maxValue"
-              [ngModelOptions]="{ standalone: true }">
+        <input
+          class="form-control text-center"
+          type="number"
+          [formControlName]="param.id">
 
-          }
+        <button type="button" (click)="increment(param)">+</button>
 
-          @if(param.paramType === 'Counter') {
+      }
 
+      <small>
+        Min: {{ param.minValue }} - Max: {{ param.maxValue }}
+      </small>
 
-              <button
-                type="button"
-                class="btn btn-outline-primary btn-sm"
-                (click)="decrement(param)">
-                -
-              </button>
+    </div>
+  }
 
-              <input
-                class="form-control text-center"
-                type="number"
-                [(ngModel)]="values[param.id]"
-                [name]="param.id"
-                [min]="+param.minValue"
-                [max]="+param.maxValue"
-                [ngModelOptions]="{ standalone: true }">
-
-              <button
-                type="button"
-                class="btn btn-outline-primary btn-sm"
-                (click)="increment(param)">
-                +
-              </button>
-
-
-
-          }
-
-          <small>
-            Min: {{ param.minValue }} - Max: {{ param.maxValue }}
-          </small>
-
-      </div>
-    }
-  </div>
-</form>
+</div>

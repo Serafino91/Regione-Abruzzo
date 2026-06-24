@@ -1,1 +1,13 @@
-<p>controlla-invia works!</p>
+<h5>Servizio</h5>
+<p>Categoria: {{ servizio?.categoria }}</p>
+<p>Servizio: {{ servizio?.servizio }}</p>
+
+<hr>
+
+<h5>Parametri</h5>
+
+@for (item of paramsEntries; track item[0]) {
+  <p>
+    {{ item[0] }}: {{ item[1] }}
+  </p>
+}

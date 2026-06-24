@@ -1,46 +1,40 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ParamentroModel } from '../../model/parametro.model';
 
 @Component({
   selector: 'app-dynamic-form',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './dynamic-form.html',
   styleUrl: './dynamic-form.css',
 })
 export class DynamicForm {
-
   @Input() params: ParamentroModel[] = [];
+  @Input() formGroup!: FormGroup;
 
-  values: Record<string, any> = {};
+  increment(param: ParamentroModel) {
+    const ctrl = this.formGroup.get(param.name);
+    if (!ctrl) return;
 
-  increment(param: ParamentroModel): void {
     const max = Number(param.maxValue);
+    const val = Number(ctrl.value ?? param.minValue);
 
-    if (this.values[param.id] == null) {
-      this.values[param.id] = Number(param.minValue);
-    }
-
-    if (this.values[param.id] < max) {
-      this.values[param.id]++;
+    if (val < max) {
+      ctrl.setValue(val + 1);
     }
   }
 
-  decrement(param: ParamentroModel): void {
+  decrement(param: ParamentroModel) {
+    const ctrl = this.formGroup.get(param.name);
+    if (!ctrl) return;
+
     const min = Number(param.minValue);
+    const val = Number(ctrl.value ?? min);
 
-    if (this.values[param.id] == null) {
-      this.values[param.id] = min;
+    if (val > min) {
+      ctrl.setValue(val - 1);
     }
-
-    if (this.values[param.id] > min) {
-      this.values[param.id]--;
-    }
-  }
-
-  submit(): void {
-    console.log(this.values);
   }
 }
