@@ -6,7 +6,6 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin: 1rem;
   padding: 20px;
   box-sizing: border-box; 
   width: 100%;
@@ -17,5 +16,5 @@
   width: 100%;
   height: 2px;
   background-color: #004d99; /* Light gray color for the line */
-  margin: 20px 0; /* Space above and below the line */
+  margin: 5px 0; /* Space above and below the line */
 }
