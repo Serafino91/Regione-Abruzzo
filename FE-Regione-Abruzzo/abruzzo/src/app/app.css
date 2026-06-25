@@ -1,18 +1,18 @@
 /* Application-wide Styles */
 h1 {
   color: #369;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Titillium Web", Geneva, Tahoma, sans-serif;
   font-size: 250%;
 }
 h2, h3 {
   color: #444;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Titillium Web", Geneva, Tahoma, sans-serif;
   font-weight: lighter;
 }
 
 body, input[type="text"], button {
   color: #333;
-  font-family: Cambria, Georgia, serif;
+  font-family: "Titillium Web", Geneva, Tahoma, sans-serif;
 }
 button {
   background-color: #eee;
@@ -38,7 +38,7 @@ button:disabled {
 
 /* everywhere else */
 * {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Titillium Web", Geneva, Tahoma, sans-serif;
 }
 
 

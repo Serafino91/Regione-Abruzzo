@@ -17,15 +17,15 @@ export class RichiesteInCorso {
     {
       id: '1',
       codice: 'req_1234005670089',
-      nomeProgetto: 'Nome Progetto Lorem ipsum dolor sit amet',
+      nomeProgetto: 'Progetto Artigiani',
       tipoOperazione: 'Aggiungi disco virtuale',
       dataOra: '22/01/2026 - 10:30',
       stato: 'in_valutazione',
     },
     {
       id: '2',
-      codice: 'req_1234005670089',
-      nomeProgetto: 'Nome Progetto Lorem ipsum dolor sit amet',
+      codice: 'req_1234005670090',
+      nomeProgetto: 'Progetto Artigiani',
       tipoOperazione: 'Nuova VLAN/Rete VM',
       dataOra: '22/01/2026 - 10:30',
       stato: 'in_valutazione',
@@ -33,7 +33,7 @@ export class RichiesteInCorso {
     {
       id: '3',
       codice: 'req_1234005670090',
-      nomeProgetto: 'Progetto Cloud di Test',
+      nomeProgetto: 'Link 2 Abruzzo',
       tipoOperazione: 'Aggiungi disco virtuale',
       dataOra: '23/01/2026 - 09:15',
       stato: 'inviate',
@@ -41,7 +41,7 @@ export class RichiesteInCorso {
     {
       id: '4',
       codice: 'req_1234005670091',
-      nomeProgetto: 'Infrastruttura Core',
+      nomeProgetto: 'Music & Festivals',
       tipoOperazione: 'Nuova VLAN/Rete VM',
       dataOra: '24/01/2026 - 15:00',
       stato: 'in_elaborazione',

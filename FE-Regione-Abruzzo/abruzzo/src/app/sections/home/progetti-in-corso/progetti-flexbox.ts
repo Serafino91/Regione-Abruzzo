@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, PLATFORM_ID, inject } from '@angular/core';
 import { Input } from '@angular/core';
 import { ProjectCard } from './components/project-card/project-card';
 import { ProgettoModel } from '../../../model/progetto.model';
@@ -15,7 +15,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class ProgettiFlexbox {
   public project: ProgettoModel[] = [];
 
+ private platformId = inject(PLATFORM_ID);
   private destroyRef = inject(DestroyRef);
+  private cdr = inject(ChangeDetectorRef); 
+  
   constructor(private progettiService: ProgettiService) {}
 
   ngOnInit(): void {
@@ -29,6 +32,7 @@ export class ProgettiFlexbox {
       .subscribe({
         next: (resp) => {
           this.project = resp;
+             this.cdr.detectChanges();
         },
         error: (err) => {
           console.error('Errore nel recupero dei progetti:', err);
