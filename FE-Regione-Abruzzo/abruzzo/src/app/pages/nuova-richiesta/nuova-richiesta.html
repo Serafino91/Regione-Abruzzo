@@ -16,6 +16,13 @@
 }
 
 @if(currentStep === 3) {
+  <app-compila-dati
+    [formGroup]="richiestaForm.controls['dati']">
+    ></app-compila-dati>
+}
+
+
+@if(currentStep === 4) {
   <app-controlla-invia
     [formGroup]="richiestaForm">
   ></app-controlla-invia>

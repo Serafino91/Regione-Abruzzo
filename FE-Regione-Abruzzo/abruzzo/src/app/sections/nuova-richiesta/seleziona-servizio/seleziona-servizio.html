@@ -1,15 +1,16 @@
 <div class="container-custom mt-1">
-  <div class="w-50 pb-5 pt-3">
+  <div class="w-100 pb-5 pt-1">
     <p>
       Seleziona il tipo di servizio da richiedere e compila tutti i campi della richiesta
     </p>
   </div>
   <h5 class="w-100 pb-4">Seleziona il servizio da richiedere</h5>
 
-  <form [formGroup]="formGroup" class="mb-4">
-    <div class="row">
+  <form [formGroup]="formGroup" class="mb-4 col-md-12">
 
-      <div class="col-md-6 mb-3">
+    <div class="d-flex align-items-center gap-4">
+
+      <div class="col-md-4">
         <div class="select-wrapper">
           <label for="categoria">Categoria</label>
           <select id="categoria" formControlName="categoria">
@@ -23,7 +24,7 @@
         </div>
       </div>
 
-      <div class="col-md-6 mb-3">
+      <div class="col-md-4">
         <div class="select-wrapper">
           <label for="servizio">Servizio</label>
           <select
@@ -40,13 +41,30 @@
         </div>
       </div>
 
+      <div class="col-md-2 ">
+        <div class="select-wrapper">
+        <div class="input-number">
+          <label for="unit">Unità</label>
+          <input
+            id="unit"
+            type="number"
+            formControlName="unit">
+        </div>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          (click)="aggiungiServizi()">
+          Aggiungi
+        </button>
+      </div>
+
     </div>
+
+
   </form>
 
-  @if (servizio) {
-    <app-dynamic-form
-      [params]="servizio.params"
-      [formGroup]="paramsForm">
-    </app-dynamic-form>
-  }
 </div>

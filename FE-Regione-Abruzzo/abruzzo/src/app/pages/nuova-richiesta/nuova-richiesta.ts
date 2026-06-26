@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import {
-  FormBuilder,
   FormGroup,
   Validators,
   ReactiveFormsModule,
   FormControl,
+  FormArray,
 } from '@angular/forms';
 
 import { NavForm } from '../../components/nav-form/nav-form';
@@ -12,6 +12,7 @@ import { ScegliProgetto } from '../../sections/nuova-richiesta/scegli-progetto/s
 import { SelezionaServizio } from '../../sections/nuova-richiesta/seleziona-servizio/seleziona-servizio';
 import { ControllaInvia } from '../../sections/nuova-richiesta/controlla-invia/controlla-invia';
 import {SectionFooter} from '../../sections/nuova-richiesta/section-footer/section-footer';
+import { CompilaDati } from '../../sections/nuova-richiesta/compila-dati/compila-dati';
 
 @Component({
   selector: 'app-nuova-richiesta',
@@ -22,6 +23,7 @@ import {SectionFooter} from '../../sections/nuova-richiesta/section-footer/secti
     ControllaInvia,
     SectionFooter,
     ReactiveFormsModule,
+    CompilaDati,
   ],
   templateUrl: './nuova-richiesta.html',
   styleUrl: './nuova-richiesta.css',
@@ -32,7 +34,11 @@ export class NuovaRichiesta {
 
   richiestaForm = new FormGroup({
     progetto: new FormGroup({}),
-    servizio: new FormGroup({}),
+    servizio: new FormGroup({
+      categoria: new FormControl('', Validators.required),
+      servizi: new FormArray([])
+    }),
+    dati: new FormGroup({}),
     conferma: new FormGroup({}),
   });
 
@@ -58,6 +64,8 @@ export class NuovaRichiesta {
       case 2:
         return this.richiestaForm.get('servizio') as FormGroup;
       case 3:
+        return this.richiestaForm.get('servizio') as FormGroup;
+      case 4:
         return this.richiestaForm.get('conferma') as FormGroup;
       default:
         throw new Error('Step non valido');

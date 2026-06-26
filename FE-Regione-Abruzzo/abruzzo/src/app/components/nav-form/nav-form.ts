@@ -13,6 +13,7 @@ export class NavForm {
   steps = [
     { id: 1, label: '01.Scegli il progetto', icon: 'it-list' },
     { id: 2, label: '02.Scegli servizio e compila il form', icon: 'it-software' },
-    { id: 3, label: '03.Controlla ed invia', icon: 'it-check-circle' },
+    { id: 3, label: '03.Compila i dati', icon: 'it-software' },
+    { id: 4, label: '04.Controlla ed invia', icon: 'it-check-circle' },
   ];
 }

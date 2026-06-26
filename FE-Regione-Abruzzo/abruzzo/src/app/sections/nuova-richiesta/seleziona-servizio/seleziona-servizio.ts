@@ -1,16 +1,14 @@
 import { Component, DestroyRef, inject, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DynamicForm } from '../../../components/dynamic-form/dynamic-form';
 import { ServizioModel } from '../../../model/servizioModel';
 import { ServiziService } from '../../../services/servizi.service';
-import { ParamentroModel } from '../../../model/parametro.model';
 import { CategoriaService } from '../../../services/categoria.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CategoriaModel } from '../../../model/categoria.model';
 
 @Component({
   selector: 'app-seleziona-servizio',
-  imports: [DynamicForm, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './seleziona-servizio.html',
   styleUrl: './seleziona-servizio.css',
   standalone: true,
@@ -22,7 +20,7 @@ export class SelezionaServizio implements OnInit {
   categorie: CategoriaModel[] = [];
   servizi: ServizioModel[] = [];
   servizio?: ServizioModel;
-  params: ParamentroModel[] = [];
+  unit: number = 0;
   @Input({ required: true })
   formGroup!: FormGroup;
 
@@ -57,8 +55,8 @@ export class SelezionaServizio implements OnInit {
     if (!this.formGroup.get('servizio')) {
       this.formGroup.addControl('servizio', new FormControl('', Validators.required));
     }
-    if (!this.formGroup.get('params')) {
-      this.formGroup.addControl('params', new FormGroup({}));
+    if (!this.formGroup.get('unit')) {
+      this.formGroup.addControl('unit', new FormControl('', Validators.required));
     }
   }
 
@@ -103,22 +101,18 @@ export class SelezionaServizio implements OnInit {
     if (!servizio) return;
 
     this.servizio = servizio;
-    this.params = servizio.params;
-
-    const paramsGroup = this.formGroup.get('params') as FormGroup;
-
-    Object.keys(paramsGroup.controls).forEach((key) => {
-      paramsGroup.removeControl(key);
-    });
-
-    servizio.params.forEach((p) => {
-      paramsGroup.addControl(p.name, new FormControl('', Validators.required));
-    });
 
     this.cdr.detectChanges(); // <-- 7. Consigliato anche qui per il form dinamico sottostante
   }
 
-  get paramsForm(): FormGroup {
-    return this.formGroup.get('params') as FormGroup;
+
+  showServizi = false;
+
+  aggiungiServizi(): void {
+
+    this.showServizi = true;
   }
+
+
+
 }
