@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, DestroyRef, inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { RouterLink } from '@angular/router';
+
 import { RichiesteTable } from '../../components/richieste-table/richieste-table';
 import { RichiestaModel } from '../../model/richiestaModel';
 import { CategoriaService } from '../../services/categoria.service';
@@ -9,10 +9,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-richieste',
-  // imports: [RouterLink],
-  imports: [RouterLink, RichiesteTable],
+  imports: [RichiesteTable],
   templateUrl: './richieste.html',
   styleUrl: './richieste.css',
+  standalone: true,
 })
 export class Richieste implements OnInit {
   private destroyRef = inject(DestroyRef);

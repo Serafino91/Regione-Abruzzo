@@ -1,15 +1,13 @@
+<app-section-header
+  titolo="Progetti in corso"
+  link="/progetti"
+  testoLink="lista completa">
+</app-section-header>
 
-
-<div class="title-section">
-    <h4> Progetti in corso</h4>
-    <a href="/progetti">lista completa</a>
-</div>
-
-
-<div class="progetti-container">
+<div class="row g-3">
   @for (progetto of project; track progetto.idProgetto) {
-    <app-project-card
-      [progetto]="progetto">
-    </app-project-card>
+    <div class="col-12 col-md-6 col-lg-4">
+      <app-project-card [progetto]="progetto"></app-project-card>
+    </div>
   }
 </div>

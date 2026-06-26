@@ -6,6 +6,7 @@ import { ProgettoModel } from '../../../../../model/progetto.model';
   imports: [],
   templateUrl: './project-card.html',
   styleUrl: './project-card.css',
+  standalone: true,
 })
 export class ProjectCard {
   @Input() progetto!: ProgettoModel;

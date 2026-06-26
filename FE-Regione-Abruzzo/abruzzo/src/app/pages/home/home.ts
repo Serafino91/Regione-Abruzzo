@@ -10,6 +10,7 @@ import { Catalogo } from '../../sections/home/catalogo/catalogo';
   imports: [RichiesteInCorso, IncidentInCorso, ProgettiFlexbox, Catalogo],
   templateUrl: './home.html',
   styleUrl: './home.css',
+  standalone: true,
 })
-export class Home {
-}
+
+export class Home {}

@@ -5,12 +5,13 @@ import { Component } from '@angular/core';
   imports: [],
   templateUrl: './incident-card.html',
   styleUrl: './incident-card.css',
+  standalone: true,
 })
 export class IncidentCard {
   titolo: string = 'No Incident';
-  descrizione: string = 'Al momento non ci sono Incidenti in corso. Ti invitiamo a controllare periodicamente questa sezione per eventuali aggiornamenti.';
+  descrizione: string =
+    'Al momento non ci sono Incidenti in corso. Ti invitiamo a controllare periodicamente questa sezione per eventuali aggiornamenti.';
   servizio: string = 'Nessun Servizio';
   data_invio: string = '2026-06-22';
   id_servizio: string = 'Nessun ID';
-
 }

@@ -1,13 +1,11 @@
 <nav class="banner">
-  <div class="logo">
-    <h3 class="fw-normal">Regione Abruzzo</h3>
-  </div>
+  <h3 class="fw-normal">Regione Abruzzo</h3>
   <div class="user">
       <app-user ></app-user>
     </div>
 </nav>
 
-<nav class="nav">
+<div class="nav">
     <h1>Portale Unico Provisioning</h1>
     <nav class="nav-links">
         <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
@@ -16,4 +14,4 @@
         <a routerLink="/incident" routerLinkActive="active">Incident</a>
         <a routerLink="/catalogo" routerLinkActive="active">Catalogo</a>
     </nav>
-</nav>
+</div>

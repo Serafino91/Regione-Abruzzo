@@ -1,18 +1,23 @@
-<div class="project-card">
-  <h5 class="card-title">{{ progetto.nome }}</h5>
-  <p class="card-description">{{ progetto.description }}</p>
+<div class="card project-card h-100  ">
 
-  <hr class="line-separator" />
+  <h5 class="card-title mb-2">{{ progetto.nome }}</h5>
 
-  <div class="card-details">
-    
+  <p class="card-description mb-3">
+    {{ progetto.description }}
+  </p>
+
+  <hr class="line-separator my-3" />
+
+  <div class="card-details d-flex justify-content-between">
+
     <div class="d-flex align-items-start mb-3">
       <svg class="icon icon-sm me-2">
         <use href="assets/bootstrap-italia/sprites.svg#it-software"></use>
       </svg>
+
       <div class="d-flex flex-column">
         <strong class="lh-125">Servizi:</strong>
-        <span class="font-weight-semibold">{{ progetto.destinationLink }}</span>
+        <span class="fw-semibold">{{ progetto.destinationLink }}</span>
       </div>
     </div>
 
@@ -20,11 +25,13 @@
       <svg class="icon icon-sm me-2">
         <use href="assets/bootstrap-italia/sprites.svg#it-warning-circle"></use>
       </svg>
+
       <div class="d-flex flex-column">
         <strong class="lh-125">Richieste attive:</strong>
-        <span class="font-weight-semibold">{{ progetto.dataCreazione }}</span>
+        <span class="fw-semibold">{{ progetto.dataCreazione }}</span>
       </div>
     </div>
 
   </div>
+
 </div>

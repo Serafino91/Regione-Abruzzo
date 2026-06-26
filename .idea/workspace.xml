@@ -5,18 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c58d4ad-40c5-48dd-ad9e-199fd090ed8f" name="Changes" comment="[FRONT END UPDATE] Logica button form richiesta servizio">
-      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/constants/service-category.constants.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/constants/service-name.constants.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BE-Regione-Abruzzo/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BE-Regione-Abruzzo/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/constants/request-project.constants.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/nuova-richiesta/nuova-richiesta.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/nuova-richiesta/nuova-richiesta.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/footer/footer.css" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/footer/footer.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/footer/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/footer/footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/footer/footer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/footer/footer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/header/header.css" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/header/header.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/header/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/header/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/section-header/section-header.css" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/section-header/section-header.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/section-header/section-header.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/section-header/section-header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/home/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/home/home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/home/home.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/home/home.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/richieste/richieste.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/richieste/richieste.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/catalogo/catalogo.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/catalogo/catalogo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/catalogo/components/servizio-card/servizio-card.css" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/catalogo/components/servizio-card/servizio-card.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/incident-in-corso/components/incident-card/incident-card.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/incident-in-corso/components/incident-card/incident-card.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/incident-in-corso/incident-in-corso.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/incident-in-corso/incident-in-corso.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/incident-in-corso/incident-in-corso.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/incident-in-corso/incident-in-corso.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/progetti-in-corso/components/project-card/project-card.css" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/progetti-in-corso/components/project-card/project-card.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/progetti-in-corso/components/project-card/project-card.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/progetti-in-corso/components/project-card/project-card.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/progetti-in-corso/components/project-card/project-card.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/progetti-in-corso/components/project-card/project-card.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/progetti-in-corso/progetti-flexbox.css" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/progetti-in-corso/progetti-flexbox.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/progetti-in-corso/progetti-flexbox.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/progetti-in-corso/progetti-flexbox.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/progetti-in-corso/progetti-flexbox.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/progetti-in-corso/progetti-flexbox.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/richieste-in-corso/components/richieste-in-corso-card/richieste-in-corso-card.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/richieste-in-corso/components/richieste-in-corso-card/richieste-in-corso-card.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/richieste-in-corso/richieste-in-corso.css" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/richieste-in-corso/richieste-in-corso.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/richieste-in-corso/richieste-in-corso.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/richieste-in-corso/richieste-in-corso.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/richieste-in-corso/richieste-in-corso.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/richieste-in-corso/richieste-in-corso.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/controlla-invia/controlla-invia.css" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/controlla-invia/controlla-invia.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/controlla-invia/controlla-invia.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/controlla-invia/controlla-invia.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/controlla-invia/controlla-invia.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/controlla-invia/controlla-invia.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/seleziona-servizio/seleziona-servizio.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/seleziona-servizio/seleziona-servizio.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,61 +83,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.00000000624171" />
-      <entry key="S5" value="1.0005509738598162" />
-      <entry key="S10" value="1.0387053094101695" />
-      <entry key="S30" value="2.5474420533164057" />
-      <entry key="S60" value="5.406459140791463" />
-      <entry key="M2" value="8.644342736325878" />
-      <entry key="M5" value="14.456539044248226" />
-      <entry key="M10" value="26.719374768119444" />
-      <entry key="M15" value="40.954759187460255" />
-      <entry key="M30" value="78.30885477323216" />
-      <entry key="H1" value="125.32888157505526" />
-      <entry key="H2" value="182.467569636131" />
-      <entry key="H4" value="286.33399541977616" />
-      <entry key="D1" value="946.2174752403623" />
-      <entry key="W1" value="1335.4184523949045" />
+      <entry key="MS100" value="1.0051187242338218" />
+      <entry key="MS500" value="1.3482028701672588" />
+      <entry key="S2" value="1.7681713166137492" />
+      <entry key="S5" value="1.8998771759050914" />
+      <entry key="S10" value="1.9486835506573454" />
+      <entry key="S30" value="2.022776249216199" />
+      <entry key="S60" value="2.191759973915972" />
+      <entry key="M2" value="2.4434005649484076" />
+      <entry key="M5" value="2.724344985593552" />
+      <entry key="M10" value="2.9478135618382018" />
+      <entry key="M15" value="3.556868628030271" />
+      <entry key="M30" value="10.485190143234663" />
+      <entry key="H1" value="37.53741328772336" />
+      <entry key="H2" value="100.25825048662956" />
+      <entry key="H4" value="220.47380724073543" />
+      <entry key="D1" value="968.0897543912803" />
+      <entry key="W1" value="1482.1340066342977" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
-      <entry key="S2" value="1.0071984974651158E-169" />
-      <entry key="S5" value="2.51910359501858E-68" />
-      <entry key="S10" value="1.5871686261542834E-34" />
-      <entry key="S30" value="5.44170201750798E-12" />
-      <entry key="S60" value="2.497019804104368E-6" />
-      <entry key="M2" value="0.0020220201754359776" />
-      <entry key="M5" value="0.18779612863154163" />
-      <entry key="M10" value="1.3621260240431063" />
-      <entry key="M15" value="2.9563759652919486" />
-      <entry key="M30" value="6.887662720397813" />
-      <entry key="H1" value="11.183209066230585" />
-      <entry key="H2" value="17.37710785842053" />
-      <entry key="H4" value="32.49868326927096" />
-      <entry key="D1" value="128.83874089367478" />
-      <entry key="W1" value="186.38138980915517" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="4.4618937196652315E-203" />
+      <entry key="S10" value="8.801915516045105E-102" />
+      <entry key="S30" value="3.218814436084229E-34" />
+      <entry key="S60" value="2.5314401532639348E-17" />
+      <entry key="M2" value="7.170189688345622E-9" />
+      <entry key="M5" value="9.945699919249801E-4" />
+      <entry key="M10" value="0.0695058243361939" />
+      <entry key="M15" value="0.3661843544647427" />
+      <entry key="M30" value="3.009518822700862" />
+      <entry key="H1" value="11.273985397283372" />
+      <entry key="H2" value="24.98667706229455" />
+      <entry key="H4" value="44.805293191167095" />
+      <entry key="D1" value="154.15496572050066" />
+      <entry key="W1" value="229.57575640673844" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.4555542077642042E-6" />
-      <entry key="MS500" value="0.06801515260442523" />
-      <entry key="S2" value="0.5106830273754005" />
-      <entry key="S5" value="0.7648347965978755" />
-      <entry key="S10" value="0.9126354258562598" />
-      <entry key="S30" value="2.49776326266994" />
-      <entry key="S60" value="5.374183902104564" />
-      <entry key="M2" value="8.624768910796194" />
-      <entry key="M5" value="14.625874587386155" />
-      <entry key="M10" value="28.059746232199238" />
-      <entry key="M15" value="43.88754304223127" />
-      <entry key="M30" value="85.17380323756167" />
-      <entry key="H1" value="136.4945065705914" />
-      <entry key="H2" value="199.8320324625075" />
-      <entry key="H4" value="318.8224981456851" />
-      <entry key="D1" value="1075.050223237611" />
-      <entry key="W1" value="1521.7986048574323" />
+      <entry key="MS100" value="0.09807301228776658" />
+      <entry key="MS500" value="0.6372354930271034" />
+      <entry key="S2" value="1.1960443328791297" />
+      <entry key="S5" value="1.5770581350738555" />
+      <entry key="S10" value="1.7660508776752535" />
+      <entry key="S30" value="1.9547855696226408" />
+      <entry key="S60" value="2.1535443601812307" />
+      <entry key="M2" value="2.4213897564866125" />
+      <entry key="M5" value="2.715259169093455" />
+      <entry key="M10" value="3.011743871581991" />
+      <entry key="M15" value="3.918424549703645" />
+      <entry key="M30" value="13.48788521201242" />
+      <entry key="H1" value="48.80033459448878" />
+      <entry key="H2" value="125.23246675469638" />
+      <entry key="H4" value="265.2675854959203" />
+      <entry key="D1" value="1122.2378717686115" />
+      <entry key="W1" value="1711.7082872635754" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -225,7 +241,10 @@
       <workItem from="1782111337272" duration="23616000" />
       <workItem from="1782196953475" duration="24610000" />
       <workItem from="1782283637307" duration="18990000" />
-      <workItem from="1782306334676" duration="4611000" />
+      <workItem from="1782306334676" duration="8119000" />
+      <workItem from="1782369692987" duration="8650000" />
+      <workItem from="1782390233892" duration="659000" />
+      <workItem from="1782456850892" duration="3557000" />
     </task>
     <task id="LOCAL-00001" summary="Carosello e componente card e section header applicato a servizio card">
       <option name="closed" value="true" />

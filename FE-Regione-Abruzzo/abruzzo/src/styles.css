@@ -1,12 +1,11 @@
 @import '@splidejs/splide/css';
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;1,400&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap');
 :root {
   /* Colori */
   --color-primary: #0066CC;
-  --color-primary-dark: #17324D;
-  font: "Titillium Web", sans-serif;
-
+  --color-primary-dark: #003366;
+  font-family: "Titillium Web", sans-serif;
 }
 
 *, *::before, *::after {

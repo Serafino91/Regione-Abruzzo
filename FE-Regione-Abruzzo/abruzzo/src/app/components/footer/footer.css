@@ -2,24 +2,20 @@
     display: flex;
     flex-direction: row;
     background-color: var(--color-primary);
-    padding: 1rem;
+    padding: 10px 48px;
     color: white;
+    gap: 16px;
+    height: 72px;
     align-items: center;
 }
 
-.banner .logo {
-    font-size: 10px;
-}
-
 .banner .logo-icon {
-  width: 50px !important;
-  min-width: 50px !important;
+  width: 35px !important;
+  min-width: 35px !important;
   max-width: 50px !important;
-  height: 95px !important;
-  min-height: 95px !important;
+  height: 48px !important;
+  min-height: 48px !important;
   max-height: 95px !important;
-  margin-right: 8px;
-  margin-left: 8px;
   padding: unset;
   display: inline-block;
   flex-shrink: 0;
@@ -35,12 +31,26 @@
     margin-left: auto;
 }
 
+.banner h5 {
+  font-weight: 600;
+  margin: 0px;
+  font-size: 20px;
+}
+
+.banner h6 {
+  font-weight: 400;
+  margin: 0px;
+  font-size: 16px;
+}
+
 
 .nav {
     display: flex;
     flex-direction: row;
     background-color: var(--color-primary-dark);
-    padding: 1rem;
+    padding-left: 48px;
+    padding-right: 48px;
+    height: 64px;
     color: white;
     align-items: center;
     justify-content: space-between;
@@ -50,14 +60,12 @@
     display: flex;
     flex-direction: row;
     gap: 20px;
-
 }
 
 .nav-links a {
     color: white;
-    text-decoration: none;
-    font-size: 1.2rem;
-    font-size: 13px;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .nav-links a:hover {

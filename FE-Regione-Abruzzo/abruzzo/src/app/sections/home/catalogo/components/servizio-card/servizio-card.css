@@ -83,7 +83,7 @@
 /* The Typography styling */
 .storage-badge__text {
   color: #0056d6; /* Text color matching the primary branding */
-  font-family: 'Titillium Web', sans-serif; /* Bootstrap Italia standard font */
+  font-family: 'Titillium Web', Geneva, sans-serif; /* Bootstrap Italia standard font */
   font-size: 11px; /* Small, clear utility font sizing */
   font-weight: 700; /* Bold uppercase stance */
   letter-spacing: 0.5px; /* Clean readability layout tracking */
