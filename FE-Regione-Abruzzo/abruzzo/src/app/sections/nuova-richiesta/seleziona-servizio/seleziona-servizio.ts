@@ -1,10 +1,13 @@
 import { Component, DestroyRef, inject, Input, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ServizioModel } from '../../../model/servizioModel';
 import { ServiziService } from '../../../services/servizi.service';
 import { CategoriaService } from '../../../services/categoria.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CategoriaModel } from '../../../model/categoria.model';
+import {ServiceName} from "../../../constants/service-name.constants";
+import {ServiceCategory} from "../../../constants/service-category.constants";
+import {ServizioSelezionato} from "../../../model/servizioSelezionato.model";
 
 @Component({
   selector: 'app-seleziona-servizio',
@@ -16,11 +19,15 @@ import { CategoriaModel } from '../../../model/categoria.model';
 export class SelezionaServizio implements OnInit {
   private destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef); // <-- 1. Iniettiamo il ChangeDetectorRef
+  protected readonly ServiceName = ServiceName;
+  protected readonly ServiceCategory = ServiceCategory;
 
   categorie: CategoriaModel[] = [];
   servizi: ServizioModel[] = [];
   servizio?: ServizioModel;
   unit: number = 0;
+  serviziSelezionati: ServizioSelezionato[] = [];
+
   @Input({ required: true })
   formGroup!: FormGroup;
 
@@ -57,6 +64,9 @@ export class SelezionaServizio implements OnInit {
     }
     if (!this.formGroup.get('unit')) {
       this.formGroup.addControl('unit', new FormControl('', Validators.required));
+    }
+    if (!this.formGroup.get('servizi')) {
+      this.formGroup.addControl('servizi', new FormControl('', Validators.required));
     }
   }
 
@@ -99,20 +109,41 @@ export class SelezionaServizio implements OnInit {
   onServizioChange(id: string): void {
     const servizio = this.servizi.find((s) => s.id === id);
     if (!servizio) return;
-
     this.servizio = servizio;
-
     this.cdr.detectChanges(); // <-- 7. Consigliato anche qui per il form dinamico sottostante
   }
 
-
-  showServizi = false;
-
   aggiungiServizi(): void {
+    const idServizio = this.formGroup.get('servizio')?.value;
+    const unit = this.formGroup.get('unit')?.value;
+    const categoriaId = this.formGroup.get('categoria')?.value;
 
-    this.showServizi = true;
+    const servizio = this.servizi.find((s) => String(s.id) === String(idServizio));
+    if (!servizio) return;
+    const servizi = this.formGroup.get('servizi') as FormArray;
+
+    for (let i = 0; i < unit; i++) {
+      const paramsGroup = new FormGroup({});
+      servizio.params.forEach((p) => {
+        paramsGroup.addControl(p.name, new FormControl(p.minValue ?? 0));
+      });
+
+      servizi.push(
+        new FormGroup({
+          servizioId: new FormControl(servizio.id),
+          categoriaId: new FormControl(categoriaId),
+          unit: new FormControl(unit),
+          params: paramsGroup,
+        }),
+      );
+    }
+
+    this.serviziSelezionati.push({
+      servizioId: idServizio,
+      categoriaId: categoriaId,
+      unit: unit,
+    });
+
   }
-
-
 
 }

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {AbstractControl, FormArray, FormGroup } from '@angular/forms';
 import {ServiceCategory} from "../../../constants/service-category.constants";
 import {ServiceName} from "../../../constants/service-name.constants";
 
@@ -11,19 +11,19 @@ import {ServiceName} from "../../../constants/service-name.constants";
   standalone: true,
 })
 export class ControllaInvia {
-  @Input() formGroup!: FormGroup;
+  @Input() formGroupProgetto!: FormGroup;
+  @Input() formGroupServizi!: FormGroup;
 
-  get servizio() {
-    return this.formGroup.get('servizio')?.value;
+
+  get servizi(): FormArray {
+    return this.formGroupServizi.get('servizi') as FormArray;
   }
 
-  get params() {
-    return this.formGroup.get('servizio')?.get('params')?.value;
+  getParams(servizio: AbstractControl) {
+    return Object.entries((servizio.get('params') as FormGroup).value);
   }
 
-  get paramsEntries() {
-    return Object.entries(this.params || {});
-  }
-  ServiceCategory = ServiceCategory;
+
   protected readonly ServiceName = ServiceName;
+  protected readonly ServiceCategory = ServiceCategory;
 }

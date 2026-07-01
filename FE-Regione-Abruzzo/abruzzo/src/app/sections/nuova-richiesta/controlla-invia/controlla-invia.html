@@ -3,32 +3,31 @@
   <p class="card-description">Qui sarà inserita la descrizione del nuovo progetto o del progetto eventualmente selezionato </p>
   <hr class="line-separator"/>
   <div class="card-details">
-    <div class="card-column">Progetto:<p>{{ formGroup.get('progetto')?.value?.selezione }}</p></div>
-    <div class="card-column">Data da: <p>{{ formGroup.get('progetto')?.value?.dataDa }}</p></div>
-    <div class="card-column">Data a: <p>{{ formGroup.get('progetto')?.value?.dataA }}</p></div>
+    <div class="card-column">Progetto:<p>{{ formGroupProgetto.get('selezione')?.value }}</p></div>
+    <div class="card-column">Data da: <p>{{ formGroupProgetto.get('dataDa')?.value  }}</p></div>
+    <div class="card-column">Data a: <p>{{ formGroupProgetto.get('dataA')?.value  }}</p></div>
   </div>
 </div>
 
 
-<div class="project-card mb-1">
-  <h6 class="card-title">Servizio</h6>
-  <div class="card-details">
-    <div class="card-column">Categoria:<p>{{ ServiceCategory[servizio?.categoria] }}</p></div>
-    <div class="card-column">Servizio: <p>{{ ServiceName[servizio?.servizio]}}</p></div>
+@for(servizio of servizi.controls; track $index) {
+
+  <div class="project-card mt-1 mb-1">
+
+    <div class="card-details">
+      <h6 class="card-title"> Servizio {{ $index + 1 }}</h6>
+      <p>Nome: {{ ServiceName[servizio.get('servizioId')?.value.toString()] }}</p>
+      <p>Categoria: {{ ServiceCategory[servizio.get('categoriaId')?.value.toString()] }}</p>
+    </div>
+
+    <hr class="line-separator"/>
+    <div class="card-details">
+        @for(param of getParams(servizio); track param[0]) {
+          <p class="card-column">
+            {{ param[0] }} : {{ param[1] }}
+          </p>
+        }
+    </div>
   </div>
-</div>
 
-
-
-
-<div class="project-card mb-1">
-  <h6 class="card-title">Parametri</h6>
-  <div class="card-details">
-    @for (item of paramsEntries; track item[0]) {
-      <div class="card-column"><p>
-        {{ item[0] }}: {{ item[1] }}
-      </p></div>
-    }
-  </div>
-</div>
-
+}

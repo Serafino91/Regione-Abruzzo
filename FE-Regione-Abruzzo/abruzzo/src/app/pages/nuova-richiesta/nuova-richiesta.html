@@ -5,29 +5,29 @@
 </div>
 @if(currentStep === 1) {
   <app-scegli-progetto
-    [formGroup]="richiestaForm.controls['progetto']">
+    [formGroup]="richiestaForm.controls['progettoForm']">
   </app-scegli-progetto>
 }
 
 @if(currentStep === 2) {
   <app-seleziona-servizio
-    [formGroup]="richiestaForm.controls['servizio']">
-  ></app-seleziona-servizio>
+    [formGroup]="richiestaForm.controls['servizioForm']">
+  </app-seleziona-servizio>
 }
 
 @if(currentStep === 3) {
   <app-compila-dati
-    [formGroup]="richiestaForm.controls['dati']">
-    ></app-compila-dati>
+    [formGroup]="richiestaForm.controls['servizioForm']">
+  </app-compila-dati>
 }
 
 
 @if(currentStep === 4) {
   <app-controlla-invia
-    [formGroup]="richiestaForm">
-  ></app-controlla-invia>
+    [formGroupProgetto]="richiestaForm.controls['progettoForm']"
+    [formGroupServizi]="richiestaForm.controls['servizioForm']">
+  </app-controlla-invia>
 }
-
 
 <app-section-footer
   [currentStep]="currentStep"
@@ -35,6 +35,6 @@
   (previous)="previousStep()">
 </app-section-footer>
 
-<!--
-<button class="btn btn-primary" (click)="debugForm()">DEBUG FORM</button>-->
+
+<button class="btn btn-primary" (click)="debugForm()">DEBUG FORM</button>
 

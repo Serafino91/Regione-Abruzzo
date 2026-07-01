@@ -33,23 +33,22 @@ export class NuovaRichiesta {
   currentStep = 1;
 
   richiestaForm = new FormGroup({
-    progetto: new FormGroup({}),
-    servizio: new FormGroup({
+    progettoForm: new FormGroup({}),
+    servizioForm: new FormGroup({
       categoria: new FormControl('', Validators.required),
-      servizi: new FormArray([])
+      servizio: new FormControl('', Validators.required),
+      unit: new FormControl('', Validators.required),
+      servizi: new FormArray([]),
     }),
-    dati: new FormGroup({}),
-    conferma: new FormGroup({}),
+    confermaForm: new FormGroup({}),
   });
 
   nextStep() {
     const gruppoCorrente = this.getCurrentGroup();
-
     if (gruppoCorrente.invalid) {
       gruppoCorrente.markAllAsTouched();
       return;
     }
-
     this.currentStep++;
   }
 
@@ -60,13 +59,13 @@ export class NuovaRichiesta {
   private getCurrentGroup(): FormGroup {
     switch (this.currentStep) {
       case 1:
-        return this.richiestaForm.get('progetto') as FormGroup;
+        return this.richiestaForm.get('progettoForm') as FormGroup;
       case 2:
-        return this.richiestaForm.get('servizio') as FormGroup;
+        return this.richiestaForm.get('servizioForm') as FormGroup;
       case 3:
-        return this.richiestaForm.get('servizio') as FormGroup;
+        return this.richiestaForm.get('servizioForm') as FormGroup;
       case 4:
-        return this.richiestaForm.get('conferma') as FormGroup;
+        return this.richiestaForm.get('confermaForm') as FormGroup;
       default:
         throw new Error('Step non valido');
     }
