@@ -34,10 +34,8 @@ public class AuthController {
             return ResponseEntity.badRequest().body(errorResponse);
         }
 
-        // Generate the new secure BCrypt hash
         String hashedPassword = passwordEncoder.encode(rawPassword);
 
-        // Prepare the JSON response
         Map<String, String> response = new HashMap<>();
         response.put("rawPassword", rawPassword);
         response.put("bcryptHash", hashedPassword);

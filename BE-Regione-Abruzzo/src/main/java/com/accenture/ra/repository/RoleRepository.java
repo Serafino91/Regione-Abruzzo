@@ -1,11 +1,11 @@
 package com.accenture.ra.repository;
 
-import com.accenture.ra.entity.User;
+import com.accenture.ra.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByCodiceFiscale(String codiceFiscale); // <--- Usa questo
+public interface RoleRepository extends JpaRepository<Role, Long> {
+    Optional<Role> findByName(String name);
 }

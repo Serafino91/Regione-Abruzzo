@@ -1,4 +1,4 @@
-package com.accenture.ra.model;
+package com.accenture.ra.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
