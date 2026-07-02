@@ -3,7 +3,7 @@ package com.accenture.ra.service;
 import java.util.List;
 
 import com.accenture.ra.model.ServiceDetail;
-import com.accenture.ra.model.ServicePatchRequest;
+import com.accenture.ra.request.ServicePatchRequest;
 
 public interface CatalogService {
 

@@ -1,9 +1,9 @@
 package com.accenture.ra.service;
 
 import com.accenture.ra.model.ProjectDetail;
-import com.accenture.ra.model.ProjectPatchRequest;
 import com.accenture.ra.model.ServiceDetail;
-import com.accenture.ra.model.ServicePatchRequest;
+import com.accenture.ra.request.ProjectPatchRequest;
+import com.accenture.ra.request.ServicePatchRequest;
 
 import java.util.List;
 

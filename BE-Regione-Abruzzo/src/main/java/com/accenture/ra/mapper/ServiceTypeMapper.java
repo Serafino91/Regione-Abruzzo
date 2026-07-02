@@ -1,4 +1,4 @@
-package com.accenture.ra.service;
+package com.accenture.ra.mapper;
 
 import java.util.List;
 
@@ -33,5 +33,15 @@ public class ServiceTypeMapper {
         return entities.stream()
                 .map(ServiceTypeMapper::toModel)
                 .toList();
+    }
+    
+    public static ServiceTypeEntity toEntity(ServiceType model) {
+        if (model == null) return null;
+
+        return ServiceTypeEntity.builder()
+                .id(model.getId())
+                .name(model.getName())
+                .description(model.getDescription())
+                .build();
     }
 }

@@ -1,14 +1,18 @@
-package com.accenture.ra.service;
+package com.accenture.ra.mapper;
+import java.util.List;
+
 import com.accenture.ra.entity.ServiceEntity;
-import com.accenture.ra.entity.ServiceTypeEntity;
 import com.accenture.ra.model.ServiceDetail;
+import com.accenture.ra.repository.ServiceTypeRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 public final class ServiceMapper {
+	
+	@Autowired
+	private static ServiceTypeRepository serviceTypeRepository;
 
     private ServiceMapper() {
     }
@@ -29,27 +33,23 @@ public final class ServiceMapper {
                 .build();
     }
 
+    
     public static ServiceEntity toEntity(ServiceDetail model) {
-        if (model == null) {
-            return null;
-        }
+        if (model == null) return null;
 
-        ServiceEntity entity = new ServiceEntity();
-        entity.setId(model.getId());
-        entity.setServiceType(new ServiceTypeEntity(1L, model.getType(), "Description")); //TODO da riscrivere
-        entity.setName(model.getItem());
-        entity.setIsBase(model.getBase());
-        entity.setIsOptional(model.getOptional());
-//        entity.setVcpu(model.getVcpu());
-//        entity.setVramGb(model.getVramGb());
-//        entity.setStorageGb(model.getStorageGb());
-//        entity.setMinimumTechnicalFeatures(model.getMinimumTechnicalFeatures());
-//        entity.setQuantity(model.getQuantity());
-//        entity.setDurationMonths(model.getDurationMonths());
-//
-        return entity;
+        return ServiceEntity.builder()
+                .id(model.getId())
+                .name(model.getName())
+                .isBase(model.getBase())
+                .isOptional(model.getOptional())
+//                .paramListId(model.getParamsList()) //TODO: riferito alla tabella param_list 
+                .paramList(ParamListMapper.toEntityList(model.getParamsList()))
+                .serviceType(serviceTypeRepository.findByType(model.getType())) // RECUPERO CON REPO
+//                .projects(model.get()) // add a model? 
+                .params(ParamMapper.toEntityList(model.getParams()))
+                .build();
     }
-
+    
     public static List<ServiceDetail> toModelList(List<ServiceEntity> entities) {
         if (entities == null) {
             return List.of();

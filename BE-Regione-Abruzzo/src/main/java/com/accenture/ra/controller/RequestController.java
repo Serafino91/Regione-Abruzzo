@@ -1,6 +1,7 @@
 package com.accenture.ra.controller;
 
 import com.accenture.ra.model.RequestDetail;
+import com.accenture.ra.request.RequestCreationRequest;
 import com.accenture.ra.response.RequestDetailResponse;
 import com.accenture.ra.response.RequestListResponse;
 import com.accenture.ra.service.impl.RequestServiceImpl;
@@ -11,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +25,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value="/request")
@@ -156,12 +160,14 @@ public class RequestController {
                     content = @Content
             )
     })
-    @PostMapping
-    public ResponseEntity<RequestDetailResponse> createRequest() {
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PutMapping
+    public ResponseEntity<RequestDetailResponse> createRequest(@RequestBody @Valid RequestCreationRequest req) {
+		
+		RequestDetailResponse result = requestService.createRequest(req);
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 	
-	//START
 	@Operation(
             summary = "Richieste filtrate",
             description = "Recupera un elenco di richieste in funzione ai filtri impostati."

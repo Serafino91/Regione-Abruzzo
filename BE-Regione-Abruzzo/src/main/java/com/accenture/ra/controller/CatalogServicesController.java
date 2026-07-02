@@ -2,9 +2,9 @@ package com.accenture.ra.controller;
 
 import com.accenture.ra.response.CatalogServiceResponse;
 import com.accenture.ra.model.ServiceDetail;
-import com.accenture.ra.model.ServiceDetailResponse;
-import com.accenture.ra.model.ServicePatchRequest;
+import com.accenture.ra.request.ServicePatchRequest;
 import com.accenture.ra.response.CatalogServicesListResponse;
+import com.accenture.ra.response.ServiceDetailResponse;
 import com.accenture.ra.service.impl.CatalogServiceImpl;
 
 import io.swagger.v3.oas.annotations.Operation;

@@ -1,4 +1,4 @@
-package com.accenture.ra.service;
+package com.accenture.ra.mapper;
 
 import com.accenture.ra.entity.ProjectEntity;
 import com.accenture.ra.model.ProjectDetail;
@@ -33,5 +33,28 @@ public class ProjectMapper {
                 .map(ProjectMapper::toModel)
                 .toList();
     }
+    
+    
+    public static ProjectEntity toEntity(ProjectDetail model) {
+        if (model == null) return null;
 
+        return ProjectEntity.builder()
+                .id(model.getId())
+                .name(model.getName())
+                .destinationLink(model.getDestinationLink())
+                .description(model.getDescription())
+                .createdAt(model.getCreateAt())
+                .updatedAt(model.getUpdateAt())
+                .build();
+    }
+
+    public static List<ProjectEntity> toEntityList(List<ProjectDetail> models) {
+        if (models == null) {
+            return List.of();
+        }
+
+        return models.stream()
+                .map(ProjectMapper::toEntity)
+                .toList();
+    }
 }

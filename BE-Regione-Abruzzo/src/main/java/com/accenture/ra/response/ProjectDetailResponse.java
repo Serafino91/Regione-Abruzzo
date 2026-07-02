@@ -1,4 +1,6 @@
-package com.accenture.ra.model;
+package com.accenture.ra.response;
+
+import com.accenture.ra.model.ProjectDetail;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ServiceDetailResponse {
+public class ProjectDetailResponse {
 
-        private ServiceDetail serviceDetail;
+        private ProjectDetail serviceDetail;
 }
 
