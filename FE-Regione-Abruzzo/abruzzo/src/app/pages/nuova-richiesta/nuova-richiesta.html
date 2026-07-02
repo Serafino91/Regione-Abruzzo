@@ -16,13 +16,6 @@
 }
 
 @if(currentStep === 3) {
-  <app-compila-dati
-    [formGroup]="richiestaForm.controls['servizioForm']">
-  </app-compila-dati>
-}
-
-
-@if(currentStep === 4) {
   <app-controlla-invia
     [formGroupProgetto]="richiestaForm.controls['progettoForm']"
     [formGroupServizi]="richiestaForm.controls['servizioForm']">
@@ -36,5 +29,6 @@
 </app-section-footer>
 
 
-<button class="btn btn-primary" (click)="debugForm()">DEBUG FORM</button>
+<!--
+<button class="btn btn-primary" (click)="debugForm()">DEBUG FORM</button>-->
 

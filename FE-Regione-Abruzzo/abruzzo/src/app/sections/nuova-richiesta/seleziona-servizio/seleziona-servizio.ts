@@ -1,5 +1,14 @@
 import { Component, DestroyRef, inject, Input, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+
+
 import { ServizioModel } from '../../../model/servizioModel';
 import { ServiziService } from '../../../services/servizi.service';
 import { CategoriaService } from '../../../services/categoria.service';
@@ -7,7 +16,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CategoriaModel } from '../../../model/categoria.model';
 import {ServiceName} from "../../../constants/service-name.constants";
 import {ServiceCategory} from "../../../constants/service-category.constants";
-import {ServizioSelezionato} from "../../../model/servizioSelezionato.model";
+
 
 @Component({
   selector: 'app-seleziona-servizio',
@@ -26,7 +35,6 @@ export class SelezionaServizio implements OnInit {
   servizi: ServizioModel[] = [];
   servizio?: ServizioModel;
   unit: number = 0;
-  serviziSelezionati: ServizioSelezionato[] = [];
 
   @Input({ required: true })
   formGroup!: FormGroup;
@@ -66,7 +74,7 @@ export class SelezionaServizio implements OnInit {
       this.formGroup.addControl('unit', new FormControl('', Validators.required));
     }
     if (!this.formGroup.get('servizi')) {
-      this.formGroup.addControl('servizi', new FormControl('', Validators.required));
+      this.formGroup.addControl('servizi', new FormArray([]));
     }
   }
 
@@ -136,14 +144,31 @@ export class SelezionaServizio implements OnInit {
           params: paramsGroup,
         }),
       );
-    }
 
-    this.serviziSelezionati.push({
-      servizioId: idServizio,
-      categoriaId: categoriaId,
-      unit: unit,
-    });
+      this.formGroup.patchValue({
+        categoria: '',
+        servizio: '',
+        unit: '',
+      });
+
+    }
 
   }
 
+  get serviziArray(): FormArray {
+    return this.formGroup.get('servizi') as FormArray;
+  }
+
+  getParamControl(servizio: AbstractControl, param: string): FormControl {
+    return servizio.get(['params', param]) as FormControl;
+  }
+
+  rimuoviServizio(index: number): void {
+    this.serviziArray.removeAt(index);
+  }
+
+
+  getKeys(control: AbstractControl): string[] {
+    return control instanceof FormGroup ? Object.keys(control.controls) : [];
+  }
 }

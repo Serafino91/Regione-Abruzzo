@@ -1,0 +1,116 @@
+<div class="container mt-4">
+
+  <div class="card shadow-sm rounded-4">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">Dati utente (SPID)</h5>
+    </div>
+
+    <div class="card-body">
+
+      <form [formGroup]="spidForm">
+
+        <!-- Nome e Cognome -->
+        <div class="row mb-3">
+
+          <div class="col-md-6">
+            <label class="form-label">Nome</label>
+            <input type="text"
+                   class="form-control"
+                   formControlName="nome"
+                   readonly>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Cognome</label>
+            <input type="text"
+                   class="form-control"
+                   formControlName="cognome"
+                   readonly>
+          </div>
+
+        </div>
+
+        <!-- Codice fiscale -->
+        <div class="row mb-3">
+
+          <div class="col-md-6">
+            <label class="form-label">Codice Fiscale</label>
+            <input type="text"
+                   class="form-control"
+                   formControlName="codiceFiscale"
+                   readonly>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Data di nascita</label>
+            <input type="date"
+                   class="form-control"
+                   formControlName="dataNascita"
+                   readonly>
+          </div>
+
+        </div>
+
+        <!-- Luogo di nascita -->
+        <div class="row mb-3">
+
+          <div class="col-md-4">
+            <label class="form-label">Comune di nascita</label>
+            <input type="text"
+                   class="form-control"
+                   formControlName="comuneNascita"
+                   readonly>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Provincia</label>
+            <input type="text"
+                   class="form-control"
+                   formControlName="provinciaNascita"
+                   readonly>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Nazione</label>
+            <input type="text"
+                   class="form-control"
+                   formControlName="nazioneNascita"
+                   readonly>
+          </div>
+
+        </div>
+
+        <!-- Contatti -->
+        <div class="row mb-3">
+
+          <div class="col-md-6">
+            <label class="form-label">Email</label>
+            <input type="email"
+                   class="form-control"
+                   formControlName="email">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Telefono</label>
+            <input type="tel"
+                   class="form-control"
+                   formControlName="telefono">
+          </div>
+
+        </div>
+
+        <!-- Submit -->
+        <div class="d-flex justify-content-end mt-4">
+          <button type="submit"
+                  class="btn btn-primary"
+                  [disabled]="spidForm.invalid">
+            Conferma dati
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+</div>
