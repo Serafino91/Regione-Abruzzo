@@ -53,7 +53,7 @@ public final class ParamMapper {
                 .minValue(model.getMinValue())
                 .maxValue(model.getMaxValue())
                 .isRequired(model.isRequired())
-                .service(serviceRepository.findById(model.getServiceId()).orElse(null)) // TODO: gestire meglio il secondo caso?
+//                .service(serviceRepository.findById(model.getServiceId()).orElse(null)) // TODO: gestire meglio il secondo caso?
                 .build();	
     }
     

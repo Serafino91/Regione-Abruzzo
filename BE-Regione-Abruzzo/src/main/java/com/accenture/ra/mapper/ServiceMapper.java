@@ -1,18 +1,15 @@
 package com.accenture.ra.mapper;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.accenture.ra.entity.ServiceEntity;
 import com.accenture.ra.model.ServiceDetail;
-import com.accenture.ra.repository.ServiceTypeRepository;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 @Component
 public final class ServiceMapper {
 	
-	@Autowired
-	private static ServiceTypeRepository serviceTypeRepository;
+//	private ServiceTypeRepository serviceTypeRepository;
 
     private ServiceMapper() {
     }
@@ -44,7 +41,7 @@ public final class ServiceMapper {
                 .isOptional(model.getOptional())
 //                .paramListId(model.getParamsList()) //TODO: riferito alla tabella param_list 
                 .paramList(ParamListMapper.toEntityList(model.getParamsList()))
-                .serviceType(serviceTypeRepository.findByType(model.getType())) // RECUPERO CON REPO
+//                .serviceType(model.)
 //                .projects(model.get()) // add a model? 
                 .params(ParamMapper.toEntityList(model.getParams()))
                 .build();

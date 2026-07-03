@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ServiceTypeRepository extends JpaRepository<ServiceTypeEntity, String> {
 
-	ServiceTypeEntity findByType(String type);
+	ServiceTypeEntity findByName(String name);
 }
