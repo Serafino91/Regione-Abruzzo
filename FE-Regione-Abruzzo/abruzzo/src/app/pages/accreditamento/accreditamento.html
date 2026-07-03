@@ -17,7 +17,7 @@
             <input type="text"
                    class="form-control"
                    formControlName="nome"
-                   readonly>
+                   >
           </div>
 
           <div class="col-md-6">
@@ -25,7 +25,7 @@
             <input type="text"
                    class="form-control"
                    formControlName="cognome"
-                   readonly>
+                   >
           </div>
 
         </div>
@@ -38,7 +38,7 @@
             <input type="text"
                    class="form-control"
                    formControlName="codiceFiscale"
-                   readonly>
+                   >
           </div>
 
           <div class="col-md-6">
@@ -46,7 +46,7 @@
             <input type="date"
                    class="form-control"
                    formControlName="dataNascita"
-                   readonly>
+                   >
           </div>
 
         </div>
@@ -59,7 +59,7 @@
             <input type="text"
                    class="form-control"
                    formControlName="comuneNascita"
-                   readonly>
+                   >
           </div>
 
           <div class="col-md-4">
@@ -67,7 +67,7 @@
             <input type="text"
                    class="form-control"
                    formControlName="provinciaNascita"
-                   readonly>
+                   >
           </div>
 
           <div class="col-md-4">
@@ -75,7 +75,7 @@
             <input type="text"
                    class="form-control"
                    formControlName="nazioneNascita"
-                   readonly>
+            >
           </div>
 
         </div>
@@ -103,6 +103,7 @@
         <div class="d-flex justify-content-end mt-4">
           <button type="submit"
                   class="btn btn-primary"
+                  (click)="register()"
                   [disabled]="spidForm.invalid">
             Conferma dati
           </button>

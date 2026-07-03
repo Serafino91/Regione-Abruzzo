@@ -1,20 +1,22 @@
-<div class="user-logged">
-  @if (user.isLoggedIn) {
+ <div class="user-logged">
 
-    <svg class="icon icon-white user-icon">
-      <use href="assets/bootstrap-italia/sprites.svg#it-user"></use>
-    </svg>
+    @if (user?.isLoggedIn) {
+
+      <svg class="icon icon-white user-icon">
+        <use href="assets/bootstrap-italia/sprites.svg#it-user"></use>
+      </svg>
 
       <div class="user-info">
-        <span class="user-name">{{ user.name }}</span>
-        <span class="user-role">{{ user.role }}</span>
+        <span class="user-name">{{ user?.name }}</span>
+        <span class="user-role">{{ user?.role }}</span>
       </div>
 
-  } @else {
+    } @else {
+      @if (!isLoginPage) {
+        <a routerLink="/login" class="btn">
+          Accedi
+        </a>
+      }
 
-    <a routerLink="/login" class="btn">
-      Login
-    </a>
-
-  }
-</div>
+    }
+  </div>

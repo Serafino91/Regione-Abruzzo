@@ -65,13 +65,13 @@ export class SelezionaServizio implements OnInit {
 
   private inizializzaForm(): void {
     if (!this.formGroup.get('categoria')) {
-      this.formGroup.addControl('categoria', new FormControl('', Validators.required));
+      this.formGroup.addControl('categoria', new FormControl(''));
     }
     if (!this.formGroup.get('servizio')) {
-      this.formGroup.addControl('servizio', new FormControl('', Validators.required));
+      this.formGroup.addControl('servizio', new FormControl(''));
     }
     if (!this.formGroup.get('unit')) {
-      this.formGroup.addControl('unit', new FormControl('', Validators.required));
+      this.formGroup.addControl('unit', new FormControl(''));
     }
     if (!this.formGroup.get('servizi')) {
       this.formGroup.addControl('servizi', new FormArray([]));
@@ -150,9 +150,7 @@ export class SelezionaServizio implements OnInit {
         servizio: '',
         unit: '',
       });
-
     }
-
   }
 
   get serviziArray(): FormArray {
@@ -166,7 +164,6 @@ export class SelezionaServizio implements OnInit {
   rimuoviServizio(index: number): void {
     this.serviziArray.removeAt(index);
   }
-
 
   getKeys(control: AbstractControl): string[] {
     return control instanceof FormGroup ? Object.keys(control.controls) : [];

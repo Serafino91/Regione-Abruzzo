@@ -8,7 +8,6 @@ import { RouterModule } from '@angular/router';
   imports: [User, RouterLink, RouterModule],
   templateUrl: './header.html',
   styleUrl: './header.css',
+  standalone: true,
 })
-export class Header {
-
-}
+export class Header {}

@@ -47,7 +47,7 @@ export class NuovaRichiesta {
       gruppoCorrente.markAllAsTouched();
       return;
     }
-    this.currentStep++;
+      this.currentStep++;
   }
 
   previousStep() {
@@ -63,6 +63,18 @@ export class NuovaRichiesta {
       default:
         throw new Error('Step non valido');
     }
+  }
+
+  canGoNext(): boolean {
+    const servizi = this.richiestaForm.get('servizioForm.servizi') as FormArray;
+
+    switch (this.currentStep) {
+      case 2:
+        return servizi.length > 0;
+    default:
+        return true;
+    }
+
   }
 
   debugForm() {

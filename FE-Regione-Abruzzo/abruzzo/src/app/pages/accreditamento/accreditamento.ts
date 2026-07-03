@@ -1,18 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-registrazione',
+  selector: 'app-accreditamento',
   standalone: true,
   imports: [ReactiveFormsModule],
-  templateUrl: './registrazione.html',
-  styleUrl: './registrazione.css',
+  templateUrl: './accreditamento.html',
+  styleUrl: './accreditamento.css',
 })
 
 
-export class Registrazione implements OnInit {
+export class Accreditamento implements OnInit {
 
-  constructor(private fb: FormBuilder) {}
+
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private fb: FormBuilder
+  ) {}
+
   spidForm!: FormGroup;
   ngOnInit() {
     this.spidForm = this.fb.group({
@@ -26,5 +34,15 @@ export class Registrazione implements OnInit {
       email: ['', Validators.required],
       telefono: ['', Validators.required],
     });
+  }
+
+
+  register() {
+    this.userService.setUser({
+      name: this.spidForm.get('nome')?.value,
+      role: 'Utente',
+      isLoggedIn: true,
+    });
+    this.router.navigate(['/home']);
   }
 }

@@ -4,27 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c58d4ad-40c5-48dd-ad9e-199fd090ed8f" name="Changes" comment="[FRONT END UPDATE] selezione d servizi multipli con espansione, pagina accreditamento">
-      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/registrazione/registrazione.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/registrazione/registrazione.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/registrazione/registrazione.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/registrazione/registrazione.ts" afterDir="false" />
+    <list default="true" id="2c58d4ad-40c5-48dd-ad9e-199fd090ed8f" name="Changes" comment="[FRONT END UPDATE] pagine accreditamento e login, inizio controlli su scorrimento sezioni selezione servizi multipli">
+      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/model/user.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/accreditamento/accreditamento.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/login/login.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/login/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/login/login.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/services/user.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BE-Regione-Abruzzo/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BE-Regione-Abruzzo/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/app.routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/dynamic-form/dynamic-form.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/dynamic-form/dynamic-form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/nav-form/nav-form.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/nav-form/nav-form.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/header/header.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/header/header.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/user/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/user/user.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/user/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/user/user.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/nuova-richiesta/nuova-richiesta.css" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/nuova-richiesta/nuova-richiesta.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/nuova-richiesta/nuova-richiesta.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/nuova-richiesta/nuova-richiesta.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/nuova-richiesta/nuova-richiesta.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/nuova-richiesta/nuova-richiesta.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/scegli-progetto/scegli-progetto.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/scegli-progetto/scegli-progetto.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/registrazione/registrazione.css" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/accreditamento/accreditamento.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/registrazione/registrazione.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/accreditamento/accreditamento.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/registrazione/registrazione.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/login/login.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/registrazione/registrazione.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/accreditamento/accreditamento.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/section-footer/section-footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/section-footer/section-footer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/seleziona-servizio/seleziona-servizio.css" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/seleziona-servizio/seleziona-servizio.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/seleziona-servizio/seleziona-servizio.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/seleziona-servizio/seleziona-servizio.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/section-footer/section-footer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/section-footer/section-footer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/seleziona-servizio/seleziona-servizio.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/nuova-richiesta/seleziona-servizio/seleziona-servizio.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,61 +76,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0066612100924741" />
-      <entry key="MS500" value="1.3732271069706705" />
-      <entry key="S2" value="2.526216837575177" />
-      <entry key="S5" value="4.853969921121527" />
-      <entry key="S10" value="8.278539827631041" />
-      <entry key="S30" value="14.606285252154448" />
-      <entry key="S60" value="17.41737565654251" />
-      <entry key="M2" value="19.230068914653824" />
-      <entry key="M5" value="20.670842919904178" />
-      <entry key="M10" value="21.470989611738318" />
-      <entry key="M15" value="22.596822796766514" />
-      <entry key="M30" value="28.834583046001676" />
-      <entry key="H1" value="46.85301210356472" />
-      <entry key="H2" value="98.32660961980297" />
-      <entry key="H4" value="217.17324254472246" />
-      <entry key="D1" value="1170.1304391312137" />
-      <entry key="W1" value="2212.290379215376" />
+      <entry key="MS100" value="1.013375303959533" />
+      <entry key="MS500" value="1.735917654073076" />
+      <entry key="S2" value="4.602326322303376" />
+      <entry key="S5" value="9.09740301190805" />
+      <entry key="S10" value="13.584015344949794" />
+      <entry key="S30" value="19.41874751743189" />
+      <entry key="S60" value="21.718230959946933" />
+      <entry key="M2" value="23.503854998436154" />
+      <entry key="M5" value="25.812667037197915" />
+      <entry key="M10" value="28.048744980078652" />
+      <entry key="M15" value="29.419287294204604" />
+      <entry key="M30" value="32.50334574129578" />
+      <entry key="H1" value="42.118635022262374" />
+      <entry key="H2" value="62.83388225627861" />
+      <entry key="H4" value="91.59829731763611" />
+      <entry key="D1" value="742.799405196498" />
+      <entry key="W1" value="2150.553793964382" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="6.880532284376945E-196" />
-      <entry key="S2" value="2.1286539938829586E-49" />
-      <entry key="S5" value="4.9666799349680056E-20" />
-      <entry key="S10" value="3.131377037967488E-10" />
-      <entry key="S30" value="0.0010763804845783033" />
-      <entry key="S60" value="0.04638938440715326" />
-      <entry key="M2" value="0.3045821672151996" />
-      <entry key="M5" value="0.9425626827902809" />
-      <entry key="M10" value="1.4421593259981513" />
-      <entry key="M15" value="1.940338054457898" />
-      <entry key="M30" value="4.141417379441508" />
-      <entry key="H1" value="10.267798921007046" />
-      <entry key="H2" value="27.263733530500563" />
-      <entry key="H4" value="61.77985256528963" />
-      <entry key="D1" value="251.88145493067887" />
-      <entry key="W1" value="424.677032623587" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="5.074066461832172E-151" />
+      <entry key="S5" value="7.636627359403367E-61" />
+      <entry key="S10" value="9.276302645647944E-31" />
+      <entry key="S30" value="1.7045178554184503E-10" />
+      <entry key="S60" value="2.4646903567110203E-5" />
+      <entry key="M2" value="0.009792272677743092" />
+      <entry key="M5" value="0.35991814164486763" />
+      <entry key="M10" value="1.1999449014637826" />
+      <entry key="M15" value="1.80845324404273" />
+      <entry key="M30" value="3.2014024336604234" />
+      <entry key="H1" value="7.205525611035437" />
+      <entry key="H2" value="15.804702358133733" />
+      <entry key="H4" value="27.30281098460218" />
+      <entry key="D1" value="174.63143177983474" />
+      <entry key="W1" value="432.33681988447444" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9723706337477601" />
-      <entry key="MS500" value="1.3637311853723615" />
-      <entry key="S2" value="2.521571499299755" />
-      <entry key="S5" value="4.84734451636511" />
-      <entry key="S10" value="8.265102296001224" />
-      <entry key="S30" value="14.59280099039196" />
-      <entry key="S60" value="17.452645848196823" />
-      <entry key="M2" value="19.524780169374914" />
-      <entry key="M5" value="21.605778801991093" />
-      <entry key="M10" value="22.907837733085998" />
-      <entry key="M15" value="24.532393651615727" />
-      <entry key="M30" value="32.97058774122223" />
-      <entry key="H1" value="57.12169611760765" />
-      <entry key="H2" value="125.6716110488831" />
-      <entry key="H4" value="279.2432506699678" />
-      <entry key="D1" value="1422.821066585088" />
-      <entry key="W1" value="2637.9367803780824" />
+      <entry key="MS100" value="0.9786781862839923" />
+      <entry key="MS500" value="1.710217847145266" />
+      <entry key="S2" value="4.481273821029641" />
+      <entry key="S5" value="8.95991744941811" />
+      <entry key="S10" value="13.326056078599489" />
+      <entry key="S30" value="18.819562622939422" />
+      <entry key="S60" value="21.013674275694967" />
+      <entry key="M2" value="22.89777863911763" />
+      <entry key="M5" value="25.80573661043807" />
+      <entry key="M10" value="29.033719978637595" />
+      <entry key="M15" value="31.075491977784488" />
+      <entry key="M30" value="35.62273644311987" />
+      <entry key="H1" value="49.27966012247727" />
+      <entry key="H2" value="78.61374847550505" />
+      <entry key="H4" value="118.89377463260405" />
+      <entry key="D1" value="917.8577918317324" />
+      <entry key="W1" value="2583.7757599545425" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -240,7 +241,7 @@
       <workItem from="1782470647439" duration="130000" />
       <workItem from="1782715263156" duration="26843000" />
       <workItem from="1782888186504" duration="8508000" />
-      <workItem from="1782979043031" duration="17837000" />
+      <workItem from="1782979043031" duration="32603000" />
     </task>
     <task id="LOCAL-00001" summary="Carosello e componente card e section header applicato a servizio card">
       <option name="closed" value="true" />
@@ -298,7 +299,15 @@
       <option name="project" value="LOCAL" />
       <updated>1782470749023</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="[FRONT END UPDATE] selezione d servizi multipli con espansione, pagina accreditamento">
+      <option name="closed" value="true" />
+      <created>1783004906239</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1783004906239</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -327,6 +336,7 @@
     <MESSAGE value="[FRONT END UPDATE] Aggiornamento sezione compila dati per scelta di servizio multipla" />
     <MESSAGE value="[FRONT END UPDATE] Logica selezione di servizi multipli" />
     <MESSAGE value="[FRONT END UPDATE] selezione d servizi multipli con espansione, pagina accreditamento" />
-    <option name="LAST_COMMIT_MESSAGE" value="[FRONT END UPDATE] selezione d servizi multipli con espansione, pagina accreditamento" />
+    <MESSAGE value="[FRONT END UPDATE] pagine accreditamento e login, inizio controlli su scorrimento sezioni selezione servizi multipli" />
+    <option name="LAST_COMMIT_MESSAGE" value="[FRONT END UPDATE] pagine accreditamento e login, inizio controlli su scorrimento sezioni selezione servizi multipli" />
   </component>
 </project>

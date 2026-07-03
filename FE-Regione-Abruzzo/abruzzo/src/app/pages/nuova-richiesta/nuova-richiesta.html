@@ -24,6 +24,7 @@
 
 <app-section-footer
   [currentStep]="currentStep"
+  [canGoNext]="canGoNext()"
   (next)="nextStep()"
   (previous)="previousStep()">
 </app-section-footer>
