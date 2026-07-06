@@ -7,7 +7,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -58,15 +58,17 @@ public class SpidUserController {
         return "OK";
     }
 
+
+    // Mock che utilizza ms locali per simulare il flusso completo di autenticazione SPID -> ADFS -> RAAuth
+
     @PostMapping("/mock-callback")
     public ResponseEntity<?> mockCallback(
             @RequestBody Map<String, Object> claims) {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        // =====================================================
+
         // STEP 1 - SPID
-        // =====================================================
 
         String cf = (String) claims.get("fiscalNumber");
         String nome = (String) claims.get("givenName");
@@ -99,9 +101,9 @@ public class SpidUserController {
                     .body("SPID Code non valido");
         }
 
-        // =====================================================
+
         // STEP 2 - ADFS
-        // =====================================================
+
 
         Map<?, ?> adfsResponse =
                 restTemplate.postForObject(
@@ -124,9 +126,9 @@ public class SpidUserController {
                     .body("Access token assente");
         }
 
-        // =====================================================
+
         // STEP 3 - RAAUTH
-        // =====================================================
+
 
         Map<?, ?> raauthResponse =
                 restTemplate.postForObject(
@@ -169,9 +171,9 @@ public class SpidUserController {
                     .body("Utente non SPID");
         }
 
-        // =====================================================
+
         // STEP 4 - RUOLI
-        // =====================================================
+
 
         List<Map<String,Object>> ruoli =
                 (List<Map<String,Object>>)
@@ -195,9 +197,9 @@ public class SpidUserController {
                     .body("Ruolo EXT_AUTH mancante");
         }
 
-        // =====================================================
+
         // SUCCESSO
-        // =====================================================
+
 
         return ResponseEntity.ok(
                 Map.of(
