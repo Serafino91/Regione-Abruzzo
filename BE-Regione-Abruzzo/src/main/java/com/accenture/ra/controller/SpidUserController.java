@@ -43,9 +43,6 @@ public class SpidUserController {
     }
 
     // NEW: Endpoint temporaneo per verificare lo step 2 (In cascata)
-
-
-
     @GetMapping("/claims")
     public Map<String, Object> claims(
             @AuthenticationPrincipal OidcUser principal) {
