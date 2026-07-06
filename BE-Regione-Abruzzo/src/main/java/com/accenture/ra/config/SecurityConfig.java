@@ -18,9 +18,7 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/actuator/health",
-                                "/error",
-                                "/api/v1/auth/ping",
-                                "/api/v1/auth/mock-callback"
+                                "/error"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
