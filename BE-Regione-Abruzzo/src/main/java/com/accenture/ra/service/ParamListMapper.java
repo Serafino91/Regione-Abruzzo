@@ -1,8 +1,6 @@
 package com.accenture.ra.service;
-import com.accenture.ra.entity.ParamEntity;
 import com.accenture.ra.entity.ParamListEntity;
-import com.accenture.ra.model.ParamDetail;
-import com.accenture.ra.model.ParamList;
+import com.accenture.ra.dto.request.ParamList;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.accenture.ra.model;
+package com.accenture.ra.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,13 +11,11 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectDetail {
-
+public class ProjectPatchRequest {
     private Long id;
     private String name;
     private String destinationLink;
     private String description;
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
-
 }

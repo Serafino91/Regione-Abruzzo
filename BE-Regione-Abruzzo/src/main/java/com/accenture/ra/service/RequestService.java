@@ -2,7 +2,7 @@ package com.accenture.ra.service;
 
 import java.util.List;
 
-import com.accenture.ra.model.RequestDetail;
+import com.accenture.ra.dto.request.RequestDetail;
 
 public interface RequestService {
 

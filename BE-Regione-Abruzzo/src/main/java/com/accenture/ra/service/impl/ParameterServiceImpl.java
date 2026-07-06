@@ -1,7 +1,7 @@
 package com.accenture.ra.service.impl;
 
 import com.accenture.ra.entity.ParamEntity;
-import com.accenture.ra.model.ParamDetail;
+import com.accenture.ra.dto.request.ParamDetail;
 import com.accenture.ra.repository.ParamRepository;
 import com.accenture.ra.service.ParamMapper;
 import com.accenture.ra.service.ParameterService;

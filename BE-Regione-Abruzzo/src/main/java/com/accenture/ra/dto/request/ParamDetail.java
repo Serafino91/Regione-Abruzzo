@@ -1,4 +1,4 @@
-package com.accenture.ra.model;
+package com.accenture.ra.dto.request;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;

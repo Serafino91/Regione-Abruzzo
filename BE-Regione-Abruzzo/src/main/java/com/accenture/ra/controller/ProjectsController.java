@@ -1,10 +1,8 @@
 package com.accenture.ra.controller;
 
-import com.accenture.ra.model.*;
-import com.accenture.ra.response.CatalogServiceResponse;
-import com.accenture.ra.response.CatalogServicesListResponse;
-import com.accenture.ra.response.ProjectListResponse;
-import com.accenture.ra.service.impl.CatalogServiceImpl;
+import com.accenture.ra.dto.request.ProjectDetail;
+import com.accenture.ra.dto.request.ProjectPatchRequest;
+import com.accenture.ra.dto.response.*;
 import com.accenture.ra.service.impl.ProjectServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

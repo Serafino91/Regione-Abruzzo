@@ -1,7 +1,7 @@
 package com.accenture.ra.service;
 
 import com.accenture.ra.entity.ProjectEntity;
-import com.accenture.ra.model.ProjectDetail;
+import com.accenture.ra.dto.request.ProjectDetail;
 
 import java.util.List;
 

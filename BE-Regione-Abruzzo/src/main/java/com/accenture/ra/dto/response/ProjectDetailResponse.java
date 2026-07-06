@@ -1,5 +1,6 @@
-package com.accenture.ra.model;
+package com.accenture.ra.dto.response;
 
+import com.accenture.ra.dto.request.ProjectDetail;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
