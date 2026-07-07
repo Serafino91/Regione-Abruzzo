@@ -1,8 +1,7 @@
 package com.accenture.ra.service;
 import com.accenture.ra.entity.ServiceEntity;
 import com.accenture.ra.entity.ServiceTypeEntity;
-import com.accenture.ra.model.ServiceDetail;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.accenture.ra.dto.request.ServiceDetail;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

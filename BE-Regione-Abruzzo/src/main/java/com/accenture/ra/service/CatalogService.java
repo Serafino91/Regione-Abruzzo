@@ -2,8 +2,8 @@ package com.accenture.ra.service;
 
 import java.util.List;
 
-import com.accenture.ra.model.ServiceDetail;
-import com.accenture.ra.model.ServicePatchRequest;
+import com.accenture.ra.dto.request.ServiceDetail;
+import com.accenture.ra.dto.request.ServicePatchRequest;
 
 public interface CatalogService {
 

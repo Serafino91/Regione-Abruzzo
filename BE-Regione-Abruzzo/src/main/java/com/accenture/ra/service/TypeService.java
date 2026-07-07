@@ -2,7 +2,7 @@ package com.accenture.ra.service;
 
 import java.util.List;
 
-import com.accenture.ra.model.ServiceType;
+import com.accenture.ra.dto.request.ServiceType;
 
 public interface TypeService {
 

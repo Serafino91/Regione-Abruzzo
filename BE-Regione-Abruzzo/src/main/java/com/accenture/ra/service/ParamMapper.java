@@ -1,10 +1,6 @@
 package com.accenture.ra.service;
 import com.accenture.ra.entity.ParamEntity;
-import com.accenture.ra.entity.ServiceEntity;
-import com.accenture.ra.entity.ServiceTypeEntity;
-import com.accenture.ra.model.ParamDetail;
-import com.accenture.ra.model.ServiceDetail;
-import org.springframework.stereotype.Component;
+import com.accenture.ra.dto.request.ParamDetail;
 
 import java.util.List;
 

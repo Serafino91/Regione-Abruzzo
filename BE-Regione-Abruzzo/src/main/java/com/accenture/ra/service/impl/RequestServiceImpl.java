@@ -3,7 +3,7 @@ package com.accenture.ra.service.impl;
 import java.util.List;
 
 import com.accenture.ra.entity.RequestEntity;
-import com.accenture.ra.model.RequestDetail;
+import com.accenture.ra.dto.request.RequestDetail;
 import com.accenture.ra.repository.RequestRepository;
 import com.accenture.ra.service.RequestMapper;
 import com.accenture.ra.service.RequestService;

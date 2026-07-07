@@ -1,8 +1,8 @@
-package com.accenture.ra.response;
+package com.accenture.ra.dto.response;
 
 import java.util.List;
 
-import com.accenture.ra.model.ServiceType;
+import com.accenture.ra.dto.request.RequestDetail;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,8 +13,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ServiceTypeListResponse {
-
-    private List<ServiceType> serviceType;
-
+public class RequestListResponse {
+	private List<RequestDetail> requestsList;
 }

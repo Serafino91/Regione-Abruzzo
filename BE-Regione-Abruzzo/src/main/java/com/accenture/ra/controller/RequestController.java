@@ -1,8 +1,8 @@
 package com.accenture.ra.controller;
 
-import com.accenture.ra.model.RequestDetail;
-import com.accenture.ra.response.RequestDetailResponse;
-import com.accenture.ra.response.RequestListResponse;
+import com.accenture.ra.dto.request.RequestDetail;
+import com.accenture.ra.dto.response.RequestDetailResponse;
+import com.accenture.ra.dto.response.RequestListResponse;
 import com.accenture.ra.service.impl.RequestServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,12 +1,9 @@
 package com.accenture.ra.service.impl;
 
 import com.accenture.ra.entity.ProjectEntity;
-import com.accenture.ra.model.ProjectDetail;
-import com.accenture.ra.model.ProjectPatchRequest;
-import com.accenture.ra.model.ServiceDetail;
-import com.accenture.ra.model.ServicePatchRequest;
+import com.accenture.ra.dto.request.ProjectDetail;
+import com.accenture.ra.dto.request.ProjectPatchRequest;
 import com.accenture.ra.repository.ProjectRepository;
-import com.accenture.ra.service.CatalogService;
 import com.accenture.ra.service.ProjectMapper;
 import com.accenture.ra.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;

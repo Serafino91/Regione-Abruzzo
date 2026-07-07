@@ -1,6 +1,4 @@
-package com.accenture.ra.response;
-
-import com.accenture.ra.model.RequestDetail;
+package com.accenture.ra.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RequestDetailResponse {
+public class ServiceType {
 
-	private RequestDetail requestDetail;
+	private Long id;
+    private String name;
+    private String description;
 }

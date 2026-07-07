@@ -1,9 +1,7 @@
 package com.accenture.ra.service;
 
-import com.accenture.ra.entity.ServiceTypeEntity;
 import com.accenture.ra.entity.StateEntity;
-import com.accenture.ra.model.ServiceType;
-import com.accenture.ra.model.StateDetail;
+import com.accenture.ra.dto.request.StateDetail;
 
 import java.util.List;
 
