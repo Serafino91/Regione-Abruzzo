@@ -1,6 +1,5 @@
 package com.accenture.ra.service.impl;
 
-import com.accenture.ra.dto.response.RaAuthUserResponse;
 import com.accenture.ra.service.RaAuthService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -21,28 +20,25 @@ public class RaAuthServiceImpl implements RaAuthService {
     private final RestTemplate restTemplate = new RestTemplate();
 
     @Override
-    public RaAuthUserResponse searchUser(
-            String codiceFiscale,
-            String accessToken) {
+    public Map<String, Object> getRolesForUser(String accessToken) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(accessToken);
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         Map<String, Object> payload = Map.of(
-                "appCode", appCode,
-                "CF", codiceFiscale
+                "appCode", appCode
         );
 
         HttpEntity<Map<String, Object>> entity =
                 new HttpEntity<>(payload, headers);
 
-        ResponseEntity<RaAuthUserResponse> response =
+        ResponseEntity<Map> response =
                 restTemplate.exchange(
-                        baseUrl + "/data/searchUser",
+                        baseUrl + "/data/getRolesForUser",
                         HttpMethod.POST,
                         entity,
-                        RaAuthUserResponse.class
+                        Map.class
                 );
 
         return response.getBody();

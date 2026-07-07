@@ -1,7 +1,6 @@
 package com.accenture.ra.controller;
 
 import com.accenture.ra.dto.response.AuthenticatedUserDto;
-import com.accenture.ra.dto.response.RaAuthUserResponse;
 import com.accenture.ra.service.AdfsTokenService;
 import com.accenture.ra.service.RaAuthService;
 import org.springframework.http.ResponseEntity;
@@ -54,28 +53,17 @@ public class AuthController {
         return ResponseEntity.ok(principal.getClaims());
     }
 
-    @GetMapping("/raauth-user")
-    public ResponseEntity<?> raAuthUser(
-            @AuthenticationPrincipal OidcUser principal) {
 
-        if (principal == null) {
-            return ResponseEntity.status(401).build();
-        }
 
-        String cf = principal.getClaim("fiscalNumber");
-
-        if (cf == null || cf.isBlank()) {
-            return ResponseEntity.badRequest()
-                    .body("Claim fiscalNumber non presente");
-        }
-
-        cf = cf.replace("TINIT-", "");
+    @GetMapping("/roles")
+    public ResponseEntity<?> roles() {
 
         String accessToken = adfsTokenService.getAdfsToken();
 
-        RaAuthUserResponse user =
-                raAuthService.searchUser(cf, accessToken);
-
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(
+                raAuthService.getRolesForUser(accessToken)
+        );
     }
+
+
 }
