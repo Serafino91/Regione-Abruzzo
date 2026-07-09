@@ -1,30 +1,20 @@
 package com.accenture.ra.service.impl;
 
+import com.accenture.ra.dto.request.RequestDetail;
+import com.accenture.ra.dto.request.ServiceDetail;
+import com.accenture.ra.dto.response.RequestDetailResponse;
+import com.accenture.ra.entity.RequestEntity;
+import com.accenture.ra.mapper.*;
+import com.accenture.ra.repository.*;
+import com.accenture.ra.request.RequestCreationRequest;
+import com.accenture.ra.service.RequestService;
+import com.accenture.ra.utils.RequestIdGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.accenture.ra.entity.RequestEntity;
-import com.accenture.ra.dto.request.RequestDetail;
-import com.accenture.ra.mapper.ProjectMapper;
-import com.accenture.ra.mapper.RequestMapper;
-import com.accenture.ra.mapper.ServiceMapper;
-import com.accenture.ra.mapper.ServiceTypeMapper;
-import com.accenture.ra.mapper.StateMapper;
-import com.accenture.ra.model.RequestDetail;
-import com.accenture.ra.model.ServiceDetail;
-import com.accenture.ra.repository.ProjectRepository;
-import com.accenture.ra.repository.RequestRepository;
-import com.accenture.ra.repository.ServiceRepository;
-import com.accenture.ra.repository.ServiceTypeRepository;
-import com.accenture.ra.repository.StateRepository;
-import com.accenture.ra.request.RequestCreationRequest;
-import com.accenture.ra.dto.response.RequestDetailResponse;
-import com.accenture.ra.service.RequestService;
-import com.accenture.ra.utils.RequestIdGenerator;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service
 public class RequestServiceImpl implements RequestService {

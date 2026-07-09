@@ -5,9 +5,9 @@ import java.util.List;
 import com.accenture.ra.entity.ServiceEntity;
 import com.accenture.ra.dto.request.ServiceDetail;
 import com.accenture.ra.dto.request.ServicePatchRequest;
+import com.accenture.ra.mapper.ServiceMapper;
 import com.accenture.ra.repository.ServiceRepository;
 import com.accenture.ra.service.CatalogService;
-import com.accenture.ra.service.ServiceMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,9 +1,13 @@
 package com.accenture.ra.service;
 
-import java.util.List;
-
-import com.accenture.ra.entity.RequestEntity;
 import com.accenture.ra.dto.request.RequestDetail;
+import com.accenture.ra.entity.RequestEntity;
+import com.accenture.ra.mapper.ProjectMapper;
+import com.accenture.ra.mapper.ServiceMapper;
+import com.accenture.ra.mapper.ServiceTypeMapper;
+import com.accenture.ra.mapper.StateMapper;
+
+import java.util.List;
 
 public class RequestMapper {
 
@@ -19,7 +23,7 @@ public class RequestMapper {
         return RequestDetail.builder()
                 .requestId(entity.getRequestId())
                 .project(ProjectMapper.toModel(entity.getProject()))
-                .service(ServiceMapper.toModel(entity.getService()))
+                .services(ServiceMapper.toModelList(entity.getServices()))
                 .category(ServiceTypeMapper.toModel(entity.getCategory()))
                 .state(StateMapper.toModel(entity.getState()))
                 .sendFrom(entity.getSendFrom())

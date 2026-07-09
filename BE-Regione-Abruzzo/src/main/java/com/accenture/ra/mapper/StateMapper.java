@@ -1,4 +1,4 @@
-package com.accenture.ra.service;
+package com.accenture.ra.mapper;
 
 import com.accenture.ra.entity.StateEntity;
 import com.accenture.ra.dto.request.StateDetail;

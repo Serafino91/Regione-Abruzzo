@@ -1,9 +1,9 @@
 package com.accenture.ra.mapper;
 
-import java.util.List;
-
+import com.accenture.ra.dto.request.RequestDetail;
 import com.accenture.ra.entity.RequestEntity;
-import com.accenture.ra.model.RequestDetail;
+
+import java.util.List;
 
 public class RequestMapper {
 

@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:BE-Regione-Abruzzo/src/main/java/com/accenture/ra/request/ServicePatchRequest.java
-package com.accenture.ra.request;
-========
 package com.accenture.ra.dto.request;
->>>>>>>> develop:BE-Regione-Abruzzo/src/main/java/com/accenture/ra/dto/request/ServicePatchRequest.java
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

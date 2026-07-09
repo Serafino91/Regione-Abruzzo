@@ -1,6 +1,7 @@
 package com.accenture.ra.mapper;
 import java.util.List;
 
+import com.accenture.ra.service.ParamListMapper;
 import org.springframework.stereotype.Component;
 
 import com.accenture.ra.entity.ServiceEntity;

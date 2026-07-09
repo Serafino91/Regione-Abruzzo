@@ -1,16 +1,15 @@
 package com.accenture.ra.mapper;
-import java.util.List;
 
+import com.accenture.ra.dto.request.ParamDetail;
 import com.accenture.ra.entity.ParamEntity;
-import com.accenture.ra.model.ParamDetail;
 import com.accenture.ra.repository.ServiceRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
 
 
 public final class ParamMapper {
 	
-	@Autowired
+
 	private static ServiceRepository serviceRepository;
 	
     private ParamMapper() {
