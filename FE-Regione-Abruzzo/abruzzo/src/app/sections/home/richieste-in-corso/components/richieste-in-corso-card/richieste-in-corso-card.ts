@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { RichiestaModel } from '../../../../../model/richiestaModel';
 
 export interface Richieste {
   id: string;
@@ -8,15 +9,15 @@ export interface Richieste {
   nomeProgetto: string;
   tipoOperazione: string;
   dataOra: string;
-  stato: 'inviate' | 'in_valutazione' | 'in_elaborazione';
+  // stato: 'inviate' | 'in_valutazione' | 'in_elaborazione';
 }
 
 @Component({
-  selector: 'app-richieste-in-corso-card', 
+  selector: 'app-richieste-in-corso-card',
   standalone: true,
   imports: [CommonModule,RouterLink],
   templateUrl: './richieste-in-corso-card.html'
 })
 export class RichiesteInCorsoCard {
-  @Input() dati!: Richieste;
+  @Input() dati!: RichiestaModel;
 }
