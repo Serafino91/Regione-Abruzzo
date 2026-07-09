@@ -1,11 +1,8 @@
-package com.accenture.ra.mapper;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.accenture.ra.entity.ParamEntity;
+package com.accenture.ra.service;
 import com.accenture.ra.entity.ParamListEntity;
-import com.accenture.ra.model.ParamDetail;
-import com.accenture.ra.model.ParamList;
+import com.accenture.ra.dto.request.ParamList;
+
+import java.util.List;
 
 
 public final class ParamListMapper {
@@ -24,6 +21,7 @@ public final class ParamListMapper {
                 .build();
     }
 
+
     public static List<ParamList> toModelList(List<ParamListEntity> entities) {
         if (entities == null) {
             return List.of();
@@ -33,7 +31,7 @@ public final class ParamListMapper {
                 .map(ParamListMapper::toModel)
                 .toList();
     }
-    
+
     public static ParamListEntity toEntity(ParamList model) {
         if (model == null) return null;
 
@@ -41,9 +39,9 @@ public final class ParamListMapper {
                 .id(model.getId())
                 .idParam(model.getIdParam())
                 .build();
-         
+
     }
-    
+
     public static List<ParamListEntity> toEntityList(List<ParamList> models) {
         if (models == null) {
             return List.of();
@@ -53,5 +51,5 @@ public final class ParamListMapper {
                 .map(ParamListMapper::toEntity)
                 .toList();
     }
-    
+
 }

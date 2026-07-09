@@ -4,12 +4,14 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.accenture.ra.entity.ServiceEntity;
-import com.accenture.ra.model.ServiceDetail;
+import com.accenture.ra.entity.ServiceTypeEntity;
+import com.accenture.ra.dto.request.ServiceDetail;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public final class ServiceMapper {
-	
-//	private ServiceTypeRepository serviceTypeRepository;
 
     private ServiceMapper() {
     }
@@ -30,7 +32,7 @@ public final class ServiceMapper {
                 .build();
     }
 
-    
+
     public static ServiceEntity toEntity(ServiceDetail model) {
         if (model == null) return null;
 
@@ -39,14 +41,14 @@ public final class ServiceMapper {
                 .name(model.getName())
                 .isBase(model.getBase())
                 .isOptional(model.getOptional())
-//                .paramListId(model.getParamsList()) //TODO: riferito alla tabella param_list 
+//                .paramListId(model.getParamsList()) //TODO: riferito alla tabella param_list
                 .paramList(ParamListMapper.toEntityList(model.getParamsList()))
 //                .serviceType(model.)
-//                .projects(model.get()) // add a model? 
+//                .projects(model.get()) // add a model?
                 .params(ParamMapper.toEntityList(model.getParams()))
                 .build();
     }
-    
+
     public static List<ServiceDetail> toModelList(List<ServiceEntity> entities) {
         if (entities == null) {
             return List.of();

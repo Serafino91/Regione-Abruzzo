@@ -1,4 +1,4 @@
-package com.accenture.ra.model;
+package com.accenture.ra.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ServiceType {
+public class StateDetail {
 
 	private Long id;
-    private String name;
-    private String description;
+    private String stateName;
 }

@@ -1,62 +1,56 @@
+<div class="">
 
-<div class="container-custom mt-2">
- <div class="w-100 pb-5 pt-1">
-    <p>Puoi compilare la richiesta da zero oppure partendo da un progetto esistente. Se scegli da un progetto esistente,
-  selezionalo tramite i filtri disponibili. Selezionata la tipologia di richiesta, clicca su "Avanti".</p></div> 
-  <h5 class="w-100 pb-5">Scegli il progetto a cui associare la nuova richiesta</h5>
+<div class="w-100 pb-5">
+  <p>Puoi compilare la richiesta da zero oppure partendo da un progetto esistente. Se scegli da un progetto esistente,
+    selezionalo tramite i filtri disponibili. Selezionata la tipologia di richiesta, clicca su "Avanti".</p>
+</div>
 
-  <form [formGroup]="formGroup" class="form" #f="ngForm" (ngSubmit)="onSubmit(f)">
-    <div class="row w-100 g-4">
+<h5 class=" w-100 pb-5">Scegli il progetto a cui associare la nuova richiesta</h5>
 
-      <div class="col-md-4">
-        <div class="select-wrapper">
-          <label for="categoria">Inserisci nome progetto</label>
-          <select 
-            id="categoria"
-            formControlName="selezione" 
-            name="categoria">
-            <option value="">Seleziona...</option>
-            <option value="VM1">Progetto Artigianato</option>
-            <option value="VM2">Progetto Musica</option>
-            <option value="VM3">Progetto Trekking Montano</option>
-            <option value="VM4">Progetto Trekking Sito Informazioni</option>
-          </select>
-        </div>
+<form [formGroup]="formGroup" class="form pb-5" #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <div class="row w-100 align-items-end g-4">
+
+    <div class="col-md-6">
+      <div class="select-wrapper">
+        <label class="form-control" for="categoria">Inserisci nome progetto</label>
+        <select
+          id="categoria"
+          formControlName="selezione"
+          name="categoria">
+          <option value="">Seleziona...</option>
+          <option value="VM1">Progetto Artigianato</option>
+          <option value="VM2">Progetto Musica</option>
+          <option value="VM3">Progetto Trekking Montano</option>
+          <option value="VM4">Progetto Trekking Sito Informazioni</option>
+        </select>
       </div>
+    </div>
 
-      <div class="col-md-4">
-        <div class="form-group">
-          <label class="active" for="dataDa">Data invio - da</label>
-          <input 
-            class="form-control" 
-            formControlName="dataDa" 
-            type="date" 
-            id="dataDa" 
-            name="dataDa">
-        </div>
-      </div>
+    <div class="col-md-3">
 
-      <div class="col-md-4">
-        <div class="form-group">
-          <label class="active" for="dataA">Data invio - a</label>
-          <input 
-            class="form-control" 
-            formControlName="dataA" 
-            type="date" 
-            id="dataA" 
-            name="dataA">
-        </div>
-      </div>
+      <label class="active" for="dataDa">Data invio - da</label>
+      <input
+        class="form-control"
+        formControlName="dataDa"
+        type="date"
+        id="dataDa"
+        name="dataDa">
 
     </div>
 
-  <div class="w-100 text-end mt-4">
-      <button
-        type="submit"
-        class="btn btn-primary"
-        mat-raised-button>
-        Cerca Progetto
-      </button>
-    </div> 
-  </form>
+    <div class="col-md-3">
+
+      <label class="active" for="dataA">Data invio - a</label>
+      <input
+        class="form-control"
+        formControlName="dataA"
+        type="date"
+        id="dataA"
+        name="dataA">
+
+    </div>
+
+    <div class="w-100 text-end mt-4"> <button type="submit" class="btn btn-primary" mat-raised-button> Cerca Progetto </button> </div>
+  </div>
+</form>
 </div>

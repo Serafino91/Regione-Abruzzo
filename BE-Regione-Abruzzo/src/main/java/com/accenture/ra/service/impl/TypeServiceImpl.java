@@ -3,8 +3,7 @@ package com.accenture.ra.service.impl;
 import java.util.List;
 
 import com.accenture.ra.entity.ServiceTypeEntity;
-import com.accenture.ra.mapper.ServiceTypeMapper;
-import com.accenture.ra.model.ServiceType;
+import com.accenture.ra.dto.request.ServiceType;
 import com.accenture.ra.repository.ServiceTypeRepository;
 import com.accenture.ra.service.TypeService;
 

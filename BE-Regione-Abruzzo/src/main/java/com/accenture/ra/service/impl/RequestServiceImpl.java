@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.accenture.ra.entity.RequestEntity;
+import com.accenture.ra.dto.request.RequestDetail;
 import com.accenture.ra.mapper.ProjectMapper;
 import com.accenture.ra.mapper.RequestMapper;
 import com.accenture.ra.mapper.ServiceMapper;
@@ -18,7 +19,7 @@ import com.accenture.ra.repository.ServiceRepository;
 import com.accenture.ra.repository.ServiceTypeRepository;
 import com.accenture.ra.repository.StateRepository;
 import com.accenture.ra.request.RequestCreationRequest;
-import com.accenture.ra.response.RequestDetailResponse;
+import com.accenture.ra.dto.response.RequestDetailResponse;
 import com.accenture.ra.service.RequestService;
 import com.accenture.ra.utils.RequestIdGenerator;
 
@@ -38,8 +39,8 @@ public class RequestServiceImpl implements RequestService {
 	private ServiceRepository serviceRepository;
 	@Autowired
 	private StateRepository stateRepository;
-	
-	
+
+
 	@Override
 	public List<RequestDetail> getAllRequests() {
 		List<RequestEntity> entity = requestRepository.findAll();
@@ -63,7 +64,7 @@ public class RequestServiceImpl implements RequestService {
 		reqDetail.setRequestId(RequestIdGenerator.generateId());
 		// Cosa riceverò nel requestbody per project,cetegory,service,state? MODIFICARE se necessario
 		// TODO: flussi diversi per caso di PROGETTO NUOVO e caso PRE ESISTENTE
-		reqDetail.setProject(ProjectMapper.toModel(projectRepository.getReferenceById(Long.parseLong(req.getProject())))); 
+		reqDetail.setProject(ProjectMapper.toModel(projectRepository.getReferenceById(Long.parseLong(req.getProject()))));
 		reqDetail.setCategory(ServiceTypeMapper.toModel(categoryRepository.getReferenceById(req.getCategory()))); // se cerco nelle repo verifico che ciò che mi arriva sia corretto o cerco direttamente?
 		// I SERVIZI SARANNO N
 		List<ServiceDetail> servicesList = new ArrayList<>();
@@ -73,17 +74,17 @@ public class RequestServiceImpl implements RequestService {
 		reqDetail.setServices(servicesList); // sarà possibile selezionarne più di uno se si vuole
 		reqDetail.setState(StateMapper.toModel(stateRepository.getReferenceById(Long.parseLong(req.getState()))));
 		reqDetail.setSendFrom(req.getSendFrom());
-		reqDetail.setSendTo(req.getSendTo()); 
+		reqDetail.setSendTo(req.getSendTo());
 		reqDetail.setCreatedAt(LocalDateTime.now());
 		reqDetail.setUpdatedAt(LocalDateTime.now());
-		
+
 		requestResp.setRequestDetail(reqDetail);
-		
+
 		// TODO: save a db - Save andata a buon fine + save non riuscita ... altri casi?
 		// ADD SAVE
 		requestRepository.save(RequestMapper.toEntity(reqDetail));
-		
-		return requestResp; 
+
+		return requestResp;
 	}
 
 }

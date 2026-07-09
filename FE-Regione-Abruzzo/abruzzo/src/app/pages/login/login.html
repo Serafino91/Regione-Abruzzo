@@ -1,0 +1,46 @@
+<div class="container mt-4">
+
+  <div class="card shadow-sm rounded-4">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">Login</h5>
+    </div>
+
+    <div class="card-body">
+
+      <form [formGroup]="loginForm">
+
+        <!-- Nome e Cognome -->
+        <div class="row mb-3">
+
+          <div class="col-md-6">
+            <label class="form-label">Nome</label>
+            <input type="text"
+                   class="form-control"
+                   formControlName="nome"
+            >
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Email</label>
+            <input type="email"
+                   class="form-control"
+                   formControlName="email">
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="d-flex justify-content-end mt-4">
+          <button type="submit"
+                  class="btn btn-primary"
+                  (click)="login()"
+                  [disabled]="loginForm.invalid">
+            Accedi
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+</div>

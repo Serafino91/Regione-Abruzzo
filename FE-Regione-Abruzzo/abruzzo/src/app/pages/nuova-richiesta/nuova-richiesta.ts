@@ -23,7 +23,6 @@ import { CompilaDati } from '../../sections/nuova-richiesta/compila-dati/compila
     ControllaInvia,
     SectionFooter,
     ReactiveFormsModule,
-    CompilaDati,
   ],
   templateUrl: './nuova-richiesta.html',
   styleUrl: './nuova-richiesta.css',
@@ -39,8 +38,7 @@ export class NuovaRichiesta {
       servizio: new FormControl('', Validators.required),
       unit: new FormControl('', Validators.required),
       servizi: new FormArray([]),
-    }),
-    confermaForm: new FormGroup({}),
+    })
   });
 
   nextStep() {
@@ -49,7 +47,7 @@ export class NuovaRichiesta {
       gruppoCorrente.markAllAsTouched();
       return;
     }
-    this.currentStep++;
+      this.currentStep++;
   }
 
   previousStep() {
@@ -62,13 +60,21 @@ export class NuovaRichiesta {
         return this.richiestaForm.get('progettoForm') as FormGroup;
       case 2:
         return this.richiestaForm.get('servizioForm') as FormGroup;
-      case 3:
-        return this.richiestaForm.get('servizioForm') as FormGroup;
-      case 4:
-        return this.richiestaForm.get('confermaForm') as FormGroup;
       default:
         throw new Error('Step non valido');
     }
+  }
+
+  canGoNext(): boolean {
+    const servizi = this.richiestaForm.get('servizioForm.servizi') as FormArray;
+
+    switch (this.currentStep) {
+      case 2:
+        return servizi.length > 0;
+    default:
+        return true;
+    }
+
   }
 
   debugForm() {

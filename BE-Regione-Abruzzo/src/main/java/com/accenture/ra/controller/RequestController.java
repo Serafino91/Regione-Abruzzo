@@ -1,9 +1,8 @@
 package com.accenture.ra.controller;
 
-import com.accenture.ra.model.RequestDetail;
-import com.accenture.ra.request.RequestCreationRequest;
-import com.accenture.ra.response.RequestDetailResponse;
-import com.accenture.ra.response.RequestListResponse;
+import com.accenture.ra.dto.request.RequestDetail;
+import com.accenture.ra.dto.response.RequestDetailResponse;
+import com.accenture.ra.dto.response.RequestListResponse;
 import com.accenture.ra.service.impl.RequestServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -162,12 +161,13 @@ public class RequestController {
     })
     @PutMapping
     public ResponseEntity<RequestDetailResponse> createRequest(@RequestBody @Valid RequestCreationRequest req) {
-		
+
 		RequestDetailResponse result = requestService.createRequest(req);
-		
+
 		return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 	
+	//START
 	@Operation(
             summary = "Richieste filtrate",
             description = "Recupera un elenco di richieste in funzione ai filtri impostati."

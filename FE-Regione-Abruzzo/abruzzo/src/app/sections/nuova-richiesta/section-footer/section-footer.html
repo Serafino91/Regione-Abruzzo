@@ -8,13 +8,19 @@
       Indietro
     </button>
   } @else {
-    <div></div>
+    <div>
+      <button
+        class="btn btn-outline-primary">
+        Annulla
+      </button>
+    </div>
   }
 
-  @if (currentStep != 4) {
+  @if (currentStep != 3) {
   <button
       class="btn btn-outline-primary"
-      (click)="next.emit()">
+      (click)="next.emit()"
+      [disabled]="!canGoNext">
       Avanti
     </button>
   } @else {

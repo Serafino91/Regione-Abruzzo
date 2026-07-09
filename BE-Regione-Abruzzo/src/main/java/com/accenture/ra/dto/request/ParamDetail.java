@@ -1,4 +1,4 @@
-package com.accenture.ra.model;
+package com.accenture.ra.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

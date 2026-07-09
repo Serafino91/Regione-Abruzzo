@@ -2,10 +2,8 @@ package com.accenture.ra.mapper;
 
 import java.util.List;
 
-import com.accenture.ra.entity.ParamEntity;
 import com.accenture.ra.entity.ServiceTypeEntity;
-import com.accenture.ra.model.ParamDetail;
-import com.accenture.ra.model.ServiceType;
+import com.accenture.ra.dto.request.ServiceType;
 
 public class ServiceTypeMapper {
 

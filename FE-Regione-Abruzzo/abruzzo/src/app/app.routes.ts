@@ -6,6 +6,8 @@ import { Catalogo } from './pages/catalogo/catalogo';
 import { Incident } from './pages/incident/incident';
 import { Progetti } from './pages/progetti/progetti';
 import { NuovoIncident } from './pages/nuovo-incident/nuovo-incident';
+import { Accreditamento } from './pages/accreditamento/accreditamento';
+import { Login } from './pages/login/login';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -14,7 +16,9 @@ export const routes: Routes = [
   { path: 'richieste', component: Richieste },
   { path: 'incident', component: Incident },
   { path: 'catalogo', component: Catalogo },
-  { path: 'home/richieste/nuova-richiesta', component: NuovaRichiesta},
-  { path: 'richieste/nuova-richiesta', component: NuovaRichiesta},
-  { path: 'incident/nuovo-incident', component: NuovoIncident},
+  { path: 'accreditamento', component: Accreditamento },
+  { path: 'home/richieste/nuova-richiesta', component: NuovaRichiesta },
+  { path: 'richieste/nuova-richiesta', component: NuovaRichiesta },
+  { path: 'incident/nuovo-incident', component: NuovoIncident },
+  { path: 'login', component: Login },
 ];
