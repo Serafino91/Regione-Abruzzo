@@ -10,4 +10,5 @@ import { ServizioModel } from '../../../../../model/servizioModel';
 })
 export class ServizioCard {
   @Input() servizio!: ServizioModel;
+  descrizione: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 }

@@ -33,9 +33,6 @@
   top: 50%;
   transform: translateY(-50%);
 }
-.splide{
-  margin-bottom: 2%;
-}
 
 .splide__pagination {
   position: static;
@@ -52,4 +49,14 @@
   margin-right: 5%;
   gap: 10%;
   align-items: center;
+}
+
+:host ::ng-deep .splide__pagination__page {
+  opacity: 1;
+}
+
+
+:host ::ng-deep  .splide__pagination__page.is-active {
+  background-color: var(--color-primary);
+  transform: scale(1.2);
 }

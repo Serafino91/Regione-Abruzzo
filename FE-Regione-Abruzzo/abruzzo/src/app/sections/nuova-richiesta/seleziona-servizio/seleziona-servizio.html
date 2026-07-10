@@ -1,124 +1,175 @@
-<div class="w-100 pb-4 pt-1">
-  <p>Seleziona il tipo di servizio da richiedere e compila tutti i campi della richiesta</p>
+
+<div class="section-padding">
+  <div class="w-100">
+    <p>Seleziona il tipo di servizio da richiedere e compila tutti i campi della richiesta</p>
+  </div>
 </div>
 
-<div class="mb-4">
 
-  <h5 class="pb-5">Seleziona il servizio da richiedere</h5>
+  <div class="color-bg-lightblue">
 
-  <form [formGroup]="formGroup" class="">
-    <div class="row mb-5 align-items-end justify-content-lg-evenly ">
-      <div class="col-12 col-md-5">
-        <label for="categoria" class="form-label">Categoria</label>
-        <select id="categoria"
-                class="form-select"
-                formControlName="categoria">
-          <option value="">Seleziona...</option>
-          @for (categoria of categorie; track categoria.id) {
-            <option [value]="categoria.id">
-              {{ categoria.name + " - " + categoria.description }}
-            </option>
-          }
-        </select>
-      </div>
+    <div class="section-padding">
+    <h5 class="pb-3">Seleziona il servizio da richiedere</h5>
 
-      <div class="col-12 col-md-3">
-        <label for="servizio" class="form-label">Servizio</label>
-        <select id="servizio"
-                class="form-select"
-                formControlName="servizio"
-                [disabled]="servizi.length === 0">
-          <option value="">Seleziona un servizio</option>
-          @for (servizio of servizi; track servizio.id) {
-            <option [value]="servizio.id">
-              {{ servizio.item }}
-            </option>
-          }
-        </select>
-      </div>
-
-      <div class="col-12 col-md-1">
-        <label for="unit" class="form-label">Unità</label>
-        <input id="unit"
-               type="number"
-               class="form-control"
-               formControlName="unit">
-      </div>
-
-      <div class="col-12 col-md-1 d-grid">
-        <button type="button"
-                class="btn btn-primary"
-                (click)="aggiungiServizi()">
-          Aggiungi
-        </button>
-      </div>
-
-    </div>
-
-  </form>
-
-  @if ((serviziArray.length > 0)) {
-
-    <div class="d-flex flex-column gap-3 mt-4">
-
-      @for (servizio of serviziArray.controls; track $index; let i = $index) {
-        <div class="card rounded-4 pb-0 border shadow-sm p-4">
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="flex-fill">
-                <strong class="d-block">Servizio</strong>
-                <p class="mb-0">{{ ServiceName[servizio.get('servizioId')?.value] }}</p>
-              </div>
-
-
-              <button
-                type="button"
-                class="btn btn-primary"
-                (click)="rimuoviServizio(i)">
-                Elimina
-              </button>
-
-
-              <button
-                class="btn"
-                type="button"
-                data-bs-toggle="collapse"
-                [attr.data-bs-target]="'#collapse-' + servizio.get('servizioId')?.value + '-' + i"
-                aria-expanded="false">
-                Espandi
-              </button>
-
-            </div>
-
-          <div
-            class="collapse"
-            [id]="'collapse-' + servizio.get('servizioId')?.value + '-' + i">
-
-          <div class="px-3 pb-3">
-              <hr>
-              <p class="mb-0">
-              </p>
-          </div>
-
-            <div class="row justify-content-lg-evenly">
-            @for (param of getKeys(servizio.get('params')!); track param) {
-              <div class="col-3 mb-3">
-
-                <label class="form-label">
-                  {{ param }}
-                </label>
-
-                <input
-                  type="number"
-                  class="form-control"
-                  [formControl]="getParamControl(servizio, param)"
-                />
-              </div>
+    <form [formGroup]="aggiungiServizioForm" class="">
+      <div class="row mb-4 align-items-end justify-content-between ">
+        <div class="col-12 col-md-5">
+          <label for="categoria" class="form-label">Categoria</label>
+          <select id="categoria"
+                  class="form-select form-select-rounded"
+                  formControlName="categoria">
+            <option value="">Seleziona Categoria</option>
+            @for (categoria of categorie; track categoria.id) {
+              <option [value]="categoria.id">
+                {{ categoria.name + " - " + categoria.description }}
+              </option>
             }
+          </select>
+        </div>
+
+        <div class="col-12 col-md-3">
+          <label for="servizio" class="form-label">Servizio</label>
+          <select id="servizio"
+                  class="form-select form-select-rounded"
+                  formControlName="servizio"
+                  [disabled]="servizi.length === 0">
+            <option value="">Seleziona Servizio</option>
+            @for (servizio of servizi; track servizio.id) {
+              <option [value]="servizio.id">
+                {{ servizio.item }}
+              </option>
+            }
+          </select>
+        </div>
+
+        <div class="col-12 col-md-1">
+          <label for="unit" class="form-label">Unità</label>
+          <input id="unit"
+                 type="number"
+                 class="form-control form-control-rounded"
+                 formControlName="unit">
+        </div>
+
+        <div class="col-12 col-md-1 d-grid">
+          <button type="button"
+                  class="btn btn-primary"
+                  (click)="aggiungiServizi()">
+            Aggiungi
+          </button>
+        </div>
+      </div>
+    </form>
+
+    </div>
+  </div>
+
+  <div class="section-padding">
+    @if ((serviziArray.length > 0)) {
+
+      <div class="d-flex flex-column gap-3 mt-4">
+
+        @for (servizio of serviziArray.controls; track $index; let i = $index) {
+          <div class="card rounded-4 pb-0 shadow-sm p-4">
+
+            <div class="d-flex justify-content-between align-items-center gap-3">
+
+                <app-label-servizio
+                [categoryId]="servizio.get('type')?.value"></app-label-servizio>
+
+                <div
+                  class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center fw-bold"
+                  style="width: 2rem; height: 2rem;">
+                  {{ i + 1 }}
+                </div>
+
+                <div class="flex-fill">
+                  <h6 class="mb-0">{{ ServiceName[servizio.get('servizioId')?.value] }}</h6>
+                </div>
+
+
+
+
+                <button
+                  class="btn btn-link text-decoration-none"
+                  (click)="rimuoviServizio(i)">
+                  <svg class="icon icon-primary icon-sm me-1">
+                    <use href="assets/bootstrap-italia/sprites.svg#it-delete"></use>
+                  </svg>
+                  Elimina
+                </button>
+
+                <button
+                  class="btn btn-link text-primary"
+                  type="button"
+                  (click)="toggleCollapse(i)"
+                  data-bs-toggle="collapse"
+                  [attr.data-bs-target]="'#collapse-' + servizio.get('servizioId')?.value + '-' + i">
+
+                  @if (expanded[i]) {
+                    <svg class="icon icon-primary icon-sm me-1">
+                      <use  href="assets/bootstrap-italia/sprites.svg#it-minus-circle"></use>
+                    </svg>
+                    Riduci
+                  } @else {
+                    <svg class="icon  icon-primary icon-sm me-1">
+                      <use href="assets/bootstrap-italia/sprites.svg#it-plus-circle"></use>
+                    </svg>
+                    Espandi
+                  }
+                </button>
+            </div>
+
+            <div
+              class="collapse"
+              [id]="'collapse-' + servizio.get('servizioId')?.value + '-' + i">
+
+                <hr class="py-3">
+
+
+
+              <div class="color-bg-lightblue">
+                <div class="d-flex flex-row py-3 justify-content-between px-5">
+                  <div>
+                    <p class="fw-semibold">Descrizione</p>
+                    <p>Pluralitas non est ponenda sine necessitate</p>
+                  </div>
+
+                  <div>
+                    <p class="fw-semibold">Dimensione</p>
+                    <p>Pluralitas non est ponenda sine necessitate</p>
+                  </div>
+
+                  <div>
+                    <p class="fw-semibold">Tipo</p>
+                    <p>Pluralitas non est ponenda sine necessitate</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row justify-content-between mt-4">
+
+                <h5>Dati richiesta</h5>
+
+                @for (param of getKeys(servizio.get('params')!); track param) {
+                  <div class="col-3 mb-3">
+
+                    <label class="form-label">
+                      {{ param }}
+                    </label>
+
+                    <input
+                      type="number"
+                      class="form-control form-control-rounded"
+                      [formControl]="getParamControl(servizio, param)"/>
+                  </div>
+                }
+              </div>
             </div>
           </div>
-        </div>
-      }
-    </div>
-  }
+        }
+      </div>
+    }
 
-</div>
+  </div>
+
+

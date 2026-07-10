@@ -1,21 +1,22 @@
-<div class="">
+<div class="page-padding">
 
-<div class="w-100 pb-5">
+<div class="w-100 pb-4">
   <p>Puoi compilare la richiesta da zero oppure partendo da un progetto esistente. Se scegli da un progetto esistente,
     selezionalo tramite i filtri disponibili. Selezionata la tipologia di richiesta, clicca su "Avanti".</p>
 </div>
 
 <h5 class=" w-100 pb-5">Scegli il progetto a cui associare la nuova richiesta</h5>
 
-<form [formGroup]="formGroup" class="form pb-5" #f="ngForm" (ngSubmit)="onSubmit(f)">
+<form [formGroup]="formGroup" class="pb-5" #f="ngForm">
   <div class="row w-100 align-items-end g-4">
 
     <div class="col-md-6">
       <div class="select-wrapper">
-        <label class="form-control" for="categoria">Inserisci nome progetto</label>
+        <label for="categoria">Inserisci nome progetto</label>
         <select
           id="categoria"
           formControlName="selezione"
+          class="form-control form-control-rounded"
           name="categoria">
           <option value="">Seleziona...</option>
           <option value="VM1">Progetto Artigianato</option>
@@ -30,7 +31,7 @@
 
       <label class="active" for="dataDa">Data invio - da</label>
       <input
-        class="form-control"
+        class="form-control form-control-rounded"
         formControlName="dataDa"
         type="date"
         id="dataDa"
@@ -42,15 +43,68 @@
 
       <label class="active" for="dataA">Data invio - a</label>
       <input
-        class="form-control"
+        class="form-control form-control-rounded"
         formControlName="dataA"
         type="date"
         id="dataA"
         name="dataA">
-
     </div>
 
-    <div class="w-100 text-end mt-4"> <button type="submit" class="btn btn-primary" mat-raised-button> Cerca Progetto </button> </div>
+
+
+    <div class="w-100 text-end mt-4">
+      <button type="submit" class="btn btn-primary"> Cerca Progetto </button>
+    </div>
+
+    <hr class="line-separator mt-5">
+    </div>
+
+
+  <div>
+    <div class="form-check-inline">
+      <div class="toggles">
+        <label for="toggleEsempio1a">
+          Vuoi associare questa richiesta ad un nuovo progetto?
+          <input type="checkbox" id="toggleEsempio1a">
+          <span (click)="associaProgetto()" class="lever"></span>
+        </label>
+      </div>
+    </div>
   </div>
+
+  <h5 class="pt-5">Dati del progetto</h5>
+  <div class=" mt-3 row gap-4">
+    <div class="d-flex col-md-6 flex-column  gap-4">
+      <div class="">
+        <label class="active" for="nome">Nome</label>
+        <input
+          class="form-control form-control-rounded"
+          formControlName="nome"
+          id="nome"
+          name="nome">
+      </div>
+
+      <div class="">
+        <label class="active" for="link">Link destinazione</label>
+        <input
+          class="form-control form-control-rounded"
+          formControlName="link"
+          id="link"
+          name="link">
+      </div>
+    </div>
+
+    <div class="">
+      <label class="active" for="descrizione">Descrizione</label>
+      <input
+        id="note"
+        class="form-control form-control-rounded"
+        rows="5"
+        formControlName="descrizione"
+        [attr.maxlength]="maxNoteLength">
+    </div>
+  </div>
+
 </form>
+
 </div>

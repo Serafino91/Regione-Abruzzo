@@ -8,17 +8,18 @@ import { Progetti } from './pages/progetti/progetti';
 import { NuovoIncident } from './pages/nuovo-incident/nuovo-incident';
 import { Accreditamento } from './pages/accreditamento/accreditamento';
 import { Login } from './pages/login/login';
+import {DettaglioRichiesta} from './pages/dettaglio-richiesta/dettaglio-richiesta';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: Home },
-  { path: 'progetti', component: Progetti },
-  { path: 'richieste', component: Richieste },
-  { path: 'incident', component: Incident },
-  { path: 'catalogo', component: Catalogo },
-  { path: 'accreditamento', component: Accreditamento },
+  { path: 'home/progetti', component: Progetti },
+  { path: 'home/richieste', component: Richieste },
+  { path: 'home/incident', component: Incident },
+  { path: 'home/catalogo', component: Catalogo },
+  { path: 'home/accreditamento', component: Accreditamento },
   { path: 'home/richieste/nuova-richiesta', component: NuovaRichiesta },
-  { path: 'richieste/nuova-richiesta', component: NuovaRichiesta },
-  { path: 'incident/nuovo-incident', component: NuovoIncident },
+  { path: 'home/incident/nuovo-incident', component: NuovoIncident },
+  { path: 'home/richieste/dettaglio-richiesta', component: DettaglioRichiesta },
   { path: 'login', component: Login },
 ];

@@ -5,6 +5,7 @@ import { Button } from '../../components/button/button';
 @Component({
   selector: 'app-incident',
   imports: [Button],
+  standalone: true,
   templateUrl: './incident.html',
   styleUrl: './incident.css',
 })

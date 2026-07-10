@@ -9,17 +9,22 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
   standalone: true,
 })
 export class ScegliProgetto {
-  onSubmit(form: any) {
-    console.log(form.value);
-  }
 
   @Input({ required: true })
   formGroup!: FormGroup;
 
   ngOnInit() {
-    this.formGroup.addControl('selezione', new FormControl('', Validators.required));
+    this.formGroup.addControl('selezione', new FormControl(''));
     this.formGroup.addControl('dataDa', new FormControl(''));
-    this.formGroup.addControl('dataA', new FormControl(''));
+    this.formGroup.addControl('dataA', new FormControl(''))
+    this.formGroup.addControl('nome', new FormControl('', Validators.required));
+    this.formGroup.addControl('link', new FormControl('', Validators.required));
+    this.formGroup.addControl('descrizione', new FormControl('', Validators.required));
+  }
+  readonly maxNoteLength = 500;
+
+  associaProgetto() {
+
   }
 
 }

@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// Importiamo la classe aggiornata "RichiestaInCorsoCard"
 import { RichiesteInCorsoCard, Richieste } from './components/richieste-in-corso-card/richieste-in-corso-card';
 import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-richieste-in-corso',
   standalone: true,
-  imports: [CommonModule, RichiesteInCorsoCard, RouterLink], // Aggiornato anche qui
+  imports: [CommonModule, RichiesteInCorsoCard, RouterLink],
   templateUrl: './richieste-in-corso.html',
 })
 export class RichiesteInCorso {

@@ -15,6 +15,7 @@
   font-weight: 500;
   font-size: 0.95rem;
   transition: all 0.2s ease;
+  justify-content: center;
 }
 
 .step-box.active {

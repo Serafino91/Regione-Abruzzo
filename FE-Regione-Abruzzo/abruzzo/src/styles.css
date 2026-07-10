@@ -6,6 +6,7 @@
   --color-primary: #0066CC;
   --color-primary-dark: #003366;
   --color-primary-light: #f0f6ff;
+  --color-primary-bg-light: #F2F7FC;
   font-family: "Titillium Web", sans-serif;
 }
 
@@ -22,4 +23,33 @@ body {
 /* Ensures form elements use your standard font stack too */
 input, button, textarea, select {
   font-family: inherit;
+}
+
+.page-padding {
+  padding: 24px 48px;
+}
+
+.section-padding {
+  padding: 24px 48px;
+}
+.color-bg-lightblue  {
+  background: #F2F7FC;
+}
+
+
+.form-control.form-control-rounded {
+  border: 1px solid #ccc;
+  border-radius: 5px !important;
+}
+
+.form-select.form-select-rounded {
+  border: 1px solid #ccc;
+  border-radius: 5px !important;
+}
+
+
+input[type="date"],
+input[type="datetime-local"],
+input[type="time"] {
+  display: block !important;
 }

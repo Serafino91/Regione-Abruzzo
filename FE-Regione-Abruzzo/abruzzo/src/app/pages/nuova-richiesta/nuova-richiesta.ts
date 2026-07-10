@@ -1,18 +1,17 @@
 import { Component } from '@angular/core';
 import {
   FormGroup,
-  Validators,
   ReactiveFormsModule,
-  FormControl,
   FormArray,
 } from '@angular/forms';
-
+import {Router} from "@angular/router";
 import { NavForm } from '../../components/nav-form/nav-form';
 import { ScegliProgetto } from '../../sections/nuova-richiesta/scegli-progetto/scegli-progetto';
 import { SelezionaServizio } from '../../sections/nuova-richiesta/seleziona-servizio/seleziona-servizio';
 import { ControllaInvia } from '../../sections/nuova-richiesta/controlla-invia/controlla-invia';
 import {SectionFooter} from '../../sections/nuova-richiesta/section-footer/section-footer';
-import { CompilaDati } from '../../sections/nuova-richiesta/compila-dati/compila-dati';
+import {Url} from '../../components/url/url';
+import {RichiesteService} from "../../services/richieste.service";
 
 @Component({
   selector: 'app-nuova-richiesta',
@@ -23,6 +22,7 @@ import { CompilaDati } from '../../sections/nuova-richiesta/compila-dati/compila
     ControllaInvia,
     SectionFooter,
     ReactiveFormsModule,
+    Url,
   ],
   templateUrl: './nuova-richiesta.html',
   styleUrl: './nuova-richiesta.css',
@@ -30,24 +30,21 @@ import { CompilaDati } from '../../sections/nuova-richiesta/compila-dati/compila
 })
 export class NuovaRichiesta {
   currentStep = 1;
+  url = '';
 
+  constructor(
+    private router: Router,
+    private richiestaService: RichiesteService,
+  ) {}
   richiestaForm = new FormGroup({
     progettoForm: new FormGroup({}),
     servizioForm: new FormGroup({
-      categoria: new FormControl('', Validators.required),
-      servizio: new FormControl('', Validators.required),
-      unit: new FormControl('', Validators.required),
       servizi: new FormArray([]),
-    })
+    }),
   });
 
   nextStep() {
-    const gruppoCorrente = this.getCurrentGroup();
-    if (gruppoCorrente.invalid) {
-      gruppoCorrente.markAllAsTouched();
-      return;
-    }
-      this.currentStep++;
+    this.currentStep++;
   }
 
   previousStep() {
@@ -69,12 +66,16 @@ export class NuovaRichiesta {
     const servizi = this.richiestaForm.get('servizioForm.servizi') as FormArray;
 
     switch (this.currentStep) {
+      case 1:
+        const gruppoCorrente = this.getCurrentGroup();
+        if (gruppoCorrente.invalid) {
+          return false;
+        } else return true;
       case 2:
         return servizi.length > 0;
-    default:
+      default:
         return true;
     }
-
   }
 
   debugForm() {

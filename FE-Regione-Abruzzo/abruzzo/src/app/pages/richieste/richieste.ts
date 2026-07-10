@@ -3,25 +3,33 @@ import { ChangeDetectorRef, Component, DestroyRef, inject, OnInit, PLATFORM_ID }
 import { RichiesteTable } from '../../components/richieste-table/richieste-table';
 import { RichiestaModel } from '../../model/richiestaModel';
 import { CategoriaService } from '../../services/categoria.service';
-import { ServiziService } from '../../services/servizi.service';
 import { RichiesteService } from '../../services/richieste.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {RouterLink} from '@angular/router';
+import {Url} from '../../components/url/url';
+import {ReactiveFormsModule} from '@angular/forms';
+import {CategoriaModel} from '../../model/categoria.model';
+import {Filtri} from '../../sections/richieste/filtri/filtri';
 
 @Component({
   selector: 'app-richieste',
-  imports: [RichiesteTable],
+  imports: [RichiesteTable, ReactiveFormsModule, Filtri, RouterLink, Url],
   templateUrl: './richieste.html',
   styleUrl: './richieste.css',
   standalone: true,
 })
 export class Richieste implements OnInit {
   private destroyRef = inject(DestroyRef);
-  private platformId = inject(PLATFORM_ID);
   private cdr = inject(ChangeDetectorRef);
-  constructor(private richiestaService: RichiesteService) {}
+  categorie: CategoriaModel[] = [];
+  constructor(
+    private richiestaService: RichiesteService,
+    private categoriaService: CategoriaService,
+  ) {}
 
   ngOnInit(): void {
     this.getRichieste();
+    this.getCategorie();
   }
 
   listaRichieste: RichiestaModel[] = [];
@@ -38,6 +46,21 @@ export class Richieste implements OnInit {
         },
         error: (err) => {
           console.error('Errore nel recupero richieste:', err);
+        },
+      });
+  }
+
+  getCategorie() {
+    this.categoriaService
+      .getCategorie()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (resp) => {
+          this.categorie = resp;
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Errore categorie:', err);
         },
       });
   }
