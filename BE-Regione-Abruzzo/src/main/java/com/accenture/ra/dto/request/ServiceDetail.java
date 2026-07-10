@@ -13,7 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 public class ServiceDetail {
 
-    private String id;
+    private Long id;
+    private String name;
     private String type;
     private String item;
     private Boolean base;

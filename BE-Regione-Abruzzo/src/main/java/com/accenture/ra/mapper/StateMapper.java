@@ -1,4 +1,4 @@
-package com.accenture.ra.service;
+package com.accenture.ra.mapper;
 
 import com.accenture.ra.entity.StateEntity;
 import com.accenture.ra.dto.request.StateDetail;
@@ -29,6 +29,26 @@ public class StateMapper {
 
         return entities.stream()
                 .map(StateMapper::toModel)
+                .toList();
+    }
+
+
+    public static StateEntity toEntity(StateDetail model) {
+        if (model == null) return null;
+
+        return StateEntity.builder()
+                .id(model.getId())
+                .stateName(model.getStateName())
+                .build();
+    }
+
+    public static List<StateEntity> toEntityList(List<StateDetail> models) {
+        if (models == null) {
+            return List.of();
+        }
+
+        return models.stream()
+                .map(StateMapper::toEntity)
                 .toList();
     }
 }

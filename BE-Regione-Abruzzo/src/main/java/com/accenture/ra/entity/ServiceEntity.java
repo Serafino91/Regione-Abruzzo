@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -20,7 +19,7 @@ import java.util.Set;
 public class ServiceEntity {
 
     @Id
-    private String id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -53,4 +52,5 @@ public class ServiceEntity {
 
     @OneToMany(mappedBy = "service", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ParamEntity> params = new ArrayList<>();
+
 }

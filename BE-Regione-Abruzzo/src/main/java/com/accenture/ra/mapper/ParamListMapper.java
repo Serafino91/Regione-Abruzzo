@@ -31,4 +31,25 @@ public final class ParamListMapper {
                 .map(ParamListMapper::toModel)
                 .toList();
     }
+
+    public static ParamListEntity toEntity(ParamList model) {
+        if (model == null) return null;
+
+        return ParamListEntity.builder()
+                .id(model.getId())
+                .idParam(model.getIdParam())
+                .build();
+
+    }
+
+    public static List<ParamListEntity> toEntityList(List<ParamList> models) {
+        if (models == null) {
+            return List.of();
+        }
+
+        return models.stream()
+                .map(ParamListMapper::toEntity)
+                .toList();
+    }
+
 }

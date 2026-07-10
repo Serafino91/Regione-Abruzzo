@@ -1,11 +1,7 @@
-package com.accenture.ra.service;
+package com.accenture.ra.mapper;
 
 import com.accenture.ra.dto.request.RequestDetail;
 import com.accenture.ra.entity.RequestEntity;
-import com.accenture.ra.mapper.ProjectMapper;
-import com.accenture.ra.mapper.ServiceMapper;
-import com.accenture.ra.mapper.ServiceTypeMapper;
-import com.accenture.ra.mapper.StateMapper;
 
 import java.util.List;
 
@@ -40,6 +36,34 @@ public class RequestMapper {
 
         return entities.stream()
                 .map(RequestMapper::toModel)
+                .toList();
+    }
+    
+    public static RequestEntity toEntity(RequestDetail model) {
+        if (model == null) {
+            return null;
+        }
+
+        RequestEntity entity = new RequestEntity();
+        entity.setRequestId(model.getRequestId());
+        entity.setSendFrom(model.getSendFrom());
+        entity.setSendTo(model.getSendTo());
+        entity.setCreatedAt(model.getCreatedAt());
+        entity.setUpdatedAt(model.getUpdatedAt());
+        entity.setProject(ProjectMapper.toEntity(model.getProject())); 
+        entity.setState(StateMapper.toEntity(model.getState()));
+        entity.setServices(ServiceMapper.toEntityList(model.getServices()));
+        entity.setCategory(ServiceTypeMapper.toEntity(model.getCategory()));
+
+        return entity;
+    }
+    public static List<RequestEntity> toEntityList(List<RequestDetail> models) {
+        if (models == null) {
+            return List.of();
+        }
+
+        return models.stream()
+                .map(RequestMapper::toEntity)
                 .toList();
     }
 }

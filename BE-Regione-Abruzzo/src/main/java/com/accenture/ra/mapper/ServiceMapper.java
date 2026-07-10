@@ -1,4 +1,9 @@
-package com.accenture.ra.service;
+package com.accenture.ra.mapper;
+import java.util.List;
+
+import com.accenture.ra.service.ParamListMapper;
+import org.springframework.stereotype.Component;
+
 import com.accenture.ra.entity.ServiceEntity;
 import com.accenture.ra.entity.ServiceTypeEntity;
 import com.accenture.ra.dto.request.ServiceDetail;
@@ -28,25 +33,21 @@ public final class ServiceMapper {
                 .build();
     }
 
-    public static ServiceEntity toEntity(ServiceDetail model) {
-        if (model == null) {
-            return null;
-        }
 
-        ServiceEntity entity = new ServiceEntity();
-        entity.setId(model.getId());
-        entity.setServiceType(new ServiceTypeEntity(1L, model.getType(), "Description")); //TODO da riscrivere
-        entity.setName(model.getItem());
-        entity.setIsBase(model.getBase());
-        entity.setIsOptional(model.getOptional());
-//        entity.setVcpu(model.getVcpu());
-//        entity.setVramGb(model.getVramGb());
-//        entity.setStorageGb(model.getStorageGb());
-//        entity.setMinimumTechnicalFeatures(model.getMinimumTechnicalFeatures());
-//        entity.setQuantity(model.getQuantity());
-//        entity.setDurationMonths(model.getDurationMonths());
-//
-        return entity;
+    public static ServiceEntity toEntity(ServiceDetail model) {
+        if (model == null) return null;
+
+        return ServiceEntity.builder()
+                .id(model.getId())
+                .name(model.getName())
+                .isBase(model.getBase())
+                .isOptional(model.getOptional())
+//                .paramListId(model.getParamsList()) //TODO: riferito alla tabella param_list
+                .paramList(ParamListMapper.toEntityList(model.getParamsList()))
+//                .serviceType(model.)
+//                .projects(model.get()) // add a model?
+                .params(ParamMapper.toEntityList(model.getParams()))
+                .build();
     }
 
     public static List<ServiceDetail> toModelList(List<ServiceEntity> entities) {
