@@ -1,3 +1,36 @@
-<div class="page-padding">
-<p>WORK IN PROGRESS</p>
+<div class="progetti-container">
+
+  <app-table 
+    [data]="listaProgetti" 
+    [columns]="colonneProgetti" 
+    defaultSortColumn="idProgetto" 
+    defaultSortDir="asc">
+    
+    <ng-template #cellTemplate let-row let-col="column">
+      
+      @if (col.key === 'idProgetto') {
+        <span class="fw-bold">{{ row.idProgetto }}</span>
+      }
+
+      @else if (col.key === 'azioni') {
+        <div class="dropdown text-center">
+          <button class="btn btn-link p-0 kebab-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Azioni">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="#0066CC">
+              <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+            </svg>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">Visualizza dettagli</a></li>
+            <li><a class="dropdown-item" href="#">Modifica</a></li>
+          </ul>
+        </div>
+      }
+
+      @else {
+        {{ getValue(row, col.key) }}
+      }
+
+    </ng-template>
+  </app-table>
+
 </div>
