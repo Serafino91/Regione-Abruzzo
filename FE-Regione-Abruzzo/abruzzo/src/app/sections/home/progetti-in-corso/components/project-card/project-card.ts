@@ -10,6 +10,5 @@ import { ProgettoModel } from '../../../../../model/progetto.model';
 })
 export class ProjectCard {
   @Input() progetto!: ProgettoModel;
-  id: String= "4378264378"
-  nome: String = "Nome progetto Lorem ipsum dolor sit amet"
+
 }

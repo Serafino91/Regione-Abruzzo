@@ -1,45 +1,61 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TableComponent, TableColumn } from '../../components/table/table';
+import { Url } from '../../components/url/url';
+import {Filtri} from '../../sections/progetti/filtri/filtri';
+import {TabellaProgetti} from '../../sections/progetti/tabella-progetti/tabella-progetti';
+import {map} from 'rxjs';
+import {ProgettoModel} from '../../model/progetto.model';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {ProgettiService} from '../../services/progetti.service';
 
 
 @Component({
   selector: 'app-progetti',
   standalone: true,
-  imports: [CommonModule, TableComponent],
+  imports: [CommonModule,  Url, Filtri, TabellaProgetti],
   templateUrl: './progetti.html',
+  styleUrl: './progetti.css',
 })
 export class Progetti implements OnInit {
-  listaProgetti: any[] = [];
 
-  // Configurazione con le 8 colonne totali nell'ordine richiesto
-  colonneProgetti: TableColumn[] = [
-    { key: 'idProgetto', label: 'ID progetto', sortable: true, class: 'col-id' },
-    { key: 'nomeProgetto', label: 'Nome progetto', sortable: true, class: 'col-nome' },
-    { key: 'descrizione', label: 'Descrizione progetto', sortable: true, class: 'col-desc' },
-    { key: 'dataCreazione', label: 'Data creazione', sortable: true, class: 'col-data' },
-    { key: 'totaleServizi', label: 'Totale servizi', sortable: true, class: 'text-end col-small' },
-    { key: 'richiesteAttive', label: 'Richieste attive', sortable: true, class: 'text-end col-small' },
-    { key: 'incidentAperti', label: 'Incidenti aperti', sortable: true, class: 'text-end col-small' },
-    { key: 'azioni', label: 'Azioni', sortable: false, class: 'text-center col-azioni' }
-  ];
+  progetti: ProgettoModel[] = [];
+  private destroyRef = inject(DestroyRef);
+  private cdr = inject(ChangeDetectorRef);
+
+  constructor(private progettiService: ProgettiService) {}
 
   ngOnInit(): void {
-    // Mock dei dati strutturato con i campi separati
-    this.listaProgetti = Array(6).fill(null).map((_, i) => ({
-      idProgetto: 'REQ_1781595972077168',
-      nomeProgetto: 'Nome Progetto Lorem ipsum dolor sit amet, consectetuer adipiscing...',
-      descrizione: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque...',
-      dataCreazione: 'GG/MM/AAAA',
-      totaleServizi: i % 2 === 0 ? 2 : 15,
-      richiesteAttive: i % 2 === 0 ? 1 : 15,
-      incidentAperti: i % 2 === 0 ? '1' : '-'
-    }));
+    this.getProgetti();
   }
 
-  // Risolve in sicurezza le chiavi nell'HTML, incluse eventuali proprietà annidate
-  getValue(row: any, key: string): string {
-    if (!key) return '';
-    return key.split('.').reduce((acc, part) => acc && acc[part], row) ?? '';
+
+  private getProgetti(): void {
+    this.progettiService
+      .getProgetti()
+      .pipe(
+        map((resp: ProgettoModel[]) => resp.slice(0, 3)), //prende massimo 3 progetti per la sezione in home
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe({
+        next: (resp: any[]) => {
+          // mapping repsonse dal backend
+          this.progetti = resp.map((p) => ({
+            idProgetto: p.id,
+            nome: p.name,
+            destinationLink: p.destinationLink,
+            description: p.description,
+            dataCreazione: p.createAt,
+            dataUltimaModifica: p.updateAt,
+          }));
+          this.cdr.detectChanges();
+
+        },
+        error: (err) => {
+          console.error('Errore nel recupero dei progetti:', err);
+        },
+      });
+
   }
+
+
 }

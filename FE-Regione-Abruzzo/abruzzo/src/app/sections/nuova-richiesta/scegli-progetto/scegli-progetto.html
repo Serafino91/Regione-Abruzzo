@@ -13,20 +13,24 @@
 
       <div class="col-md-6">
         <div class="select-wrapper">
-          <label for="categoria">Inserisci nome progetto</label>
+          <label for="progetto">Inserisci nome progetto</label>
           <select
-            id="categoria"
+            id="progetto"
             formControlName="selezione"
             class="form-control form-control-rounded"
-            name="categoria">
+            name="progetto">
             <option value="">Seleziona...</option>
-            <option value="VM1">Progetto Artigianato</option>
-            <option value="VM2">Progetto Musica</option>
-            <option value="VM3">Progetto Trekking Montano</option>
-            <option value="VM4">Progetto Trekking Sito Informazioni</option>
+
+            @for (progetto of progetti; track progetto.idProgetto) {
+              <option  [ngValue]="progetto">
+                {{ progetto.description }}
+              </option>
+            }
           </select>
         </div>
       </div>
+
+
 
       <div class="col-md-3">
 
@@ -56,6 +60,14 @@
       <div class="w-100 text-end mt-4">
         <button type="submit" class="btn btn-primary"> Cerca Progetto </button>
       </div>
+
+
+      <div class="">
+        @for (progetto of progetti; track progetto.idProgetto) {
+
+        }
+      </div>
+
 
       <hr class="line-separator mt-5">
       </div>

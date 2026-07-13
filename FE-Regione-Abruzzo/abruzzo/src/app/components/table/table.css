@@ -1,11 +1,10 @@
 /* --- Contenitore Principale con Scroll --- */
 .table-responsive {
-  border-bottom: 4px solid #0066CC;
   overflow-x: auto !important;
   display: block;
   width: 100%;
   position: relative;
-}
+  scrollbar-color: #0066CC #f4f7fc;}
 
 .table {
   border-collapse: separate !important; /* Mantiene la stabilità delle colonne fisse */
@@ -88,7 +87,7 @@
 }
 .col-small {
   min-width: 85px !important;
-  
+
 }
 .col-azioni {
   min-width: 95px !important;
@@ -128,3 +127,5 @@
 .sort-icon.active {
   color: #0066CC;
 }
+
+

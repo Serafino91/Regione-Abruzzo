@@ -15,7 +15,7 @@ import {ProgettoDetailCard} from "../../../components/progetto-detail-card/proge
 export class ControllaInvia {
   @Input() formGroupProgetto!: FormGroup;
   @Input() formGroupServizi!: FormGroup;
-  @Input() progettoAssociato!: boolean;
+  @Input() nuovaRichiesta!: boolean;
 
   expanded: boolean[] = [];
 

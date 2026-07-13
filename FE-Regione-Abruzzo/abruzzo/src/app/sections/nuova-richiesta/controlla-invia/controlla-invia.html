@@ -5,24 +5,23 @@
 
 <div class="project-card mt-4 mb-4 color-bg-lightblue ">
 
-  <app-progetto-detail-card
-    [nome]="formGroupProgetto.get('progetto.nome')?.value"
-    [link]="formGroupProgetto.get('progetto.link')?.value"
-    [descrizione]="formGroupProgetto.get('progetto.descrizione')?.value">
-  </app-progetto-detail-card>
+  @if (nuovaRichiesta) {
+    <app-progetto-detail-card
+      [nome]="formGroupProgetto.get('progetto.nome')?.value"
+      [link]="formGroupProgetto.get('progetto.link')?.value"
+      [descrizione]="formGroupProgetto.get('progetto.descrizione')?.value">
+    </app-progetto-detail-card>
+  } @else {
+    <app-progetto-detail-card
+      [nome]="formGroupProgetto.get('selezione')?.value.name"
+      [link]="formGroupProgetto.get('selezione')?.value.destinationLink"
+      [descrizione]="formGroupProgetto.get('selezione')?.value.description">
+    </app-progetto-detail-card>
 
-  @if (progettoAssociato) {
-    <hr class="line-separator"/>
-    <div class="d-flex flex-row justify-content-between">
-      <div>Progetto:<p>{{ formGroupProgetto.get('selezione')?.value }}</p></div>
-      <div>Data da: <p>{{ formGroupProgetto.get('dataDa')?.value  }}</p></div>
-      <div>Data a: <p>{{ formGroupProgetto.get('dataA')?.value  }}</p></div>
-    </div>
+
   }
 </div>
-
   <h5 class="card-title">Servizi Selezionati</h5>
-
 
 @for(servizio of servizi.controls; track $index; let i = $index) {
 

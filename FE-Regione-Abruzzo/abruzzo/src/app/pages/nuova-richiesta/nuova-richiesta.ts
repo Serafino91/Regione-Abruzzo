@@ -74,10 +74,10 @@ export class NuovaRichiesta {
     }
   }
 
-  progettoAssociato = false;
+  nuovaRichiesta = false;
 
   onNuovaRichiesta(flag: boolean) {
-    this.progettoAssociato = flag;
+    this.nuovaRichiesta = flag;
   }
 
   debugForm() {

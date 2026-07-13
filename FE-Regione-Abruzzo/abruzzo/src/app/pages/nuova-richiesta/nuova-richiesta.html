@@ -7,7 +7,7 @@
 @if(currentStep === 1) {
   <app-scegli-progetto
     [formGroup]="richiestaForm.controls['progettoForm']"
-    (nuovaRichiesta)="onNuovaRichiesta($event)" )>
+    (nuovaRichiesta)="onNuovaRichiesta($event)">
   </app-scegli-progetto>
 }
 
@@ -20,7 +20,8 @@
 @if(currentStep === 3) {
   <app-controlla-invia
     [formGroupProgetto]="richiestaForm.controls['progettoForm']"
-    [formGroupServizi]="richiestaForm.controls['servizioForm']">
+    [formGroupServizi]="richiestaForm.controls['servizioForm']"
+    [nuovaRichiesta]="nuovaRichiesta">
   </app-controlla-invia>
 }
 
