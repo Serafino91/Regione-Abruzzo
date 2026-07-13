@@ -1,27 +1,32 @@
 package com.accenture.ra.service.impl;
 
-import com.accenture.ra.entity.ProjectEntity;
-import com.accenture.ra.dto.request.ProjectDetail;
-import com.accenture.ra.dto.request.ProjectPatchRequest;
-import com.accenture.ra.mapper.ProjectMapper;
-import com.accenture.ra.repository.ProjectRepository;
-import com.accenture.ra.service.ProjectService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.accenture.ra.dto.request.ProjectDetail;
+import com.accenture.ra.dto.request.ProjectPatchRequest;
+import com.accenture.ra.entity.ProjectEntity;
+import com.accenture.ra.mapper.ProjectMapper;
+import com.accenture.ra.repository.ProjectRepository;
+import com.accenture.ra.service.ProjectService;
+
+import lombok.RequiredArgsConstructor;
 
 
 @Service
+@RequiredArgsConstructor
 public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private ProjectRepository projectRepository;
+    private final ProjectMapper projectMapper;
 
     @Override
     public ProjectDetail getProjectById(Long projectId) {
          ProjectEntity projectEntity = projectRepository.findById(projectId).get();
-        return ProjectMapper.toModel(projectEntity);
+        return projectMapper.toModel(projectEntity);
     }
 
     /**
@@ -33,7 +38,7 @@ public class ProjectServiceImpl implements ProjectService {
     public List<ProjectDetail> getProjectAll() {
         List<ProjectEntity> entity = projectRepository.findAll();
 
-        return ProjectMapper.toModelList(entity);
+        return projectMapper.toModelList(entity);
     }
 
     /**

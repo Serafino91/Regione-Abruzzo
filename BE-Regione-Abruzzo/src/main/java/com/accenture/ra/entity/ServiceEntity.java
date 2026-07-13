@@ -42,7 +42,7 @@ public class ServiceEntity {
     )
     private List<ParamListEntity> paramList;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "service_type_id", nullable = false)
     private ServiceTypeEntity serviceType;
 

@@ -1,72 +1,27 @@
 package com.accenture.ra.mapper;
+
 import java.util.List;
 
-import com.accenture.ra.service.ParamListMapper;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-import com.accenture.ra.entity.ServiceEntity;
-import com.accenture.ra.entity.ServiceTypeEntity;
 import com.accenture.ra.dto.request.ServiceDetail;
-import org.springframework.stereotype.Component;
+import com.accenture.ra.entity.ServiceEntity;
 
-import java.util.List;
+@Mapper(componentModel = "spring", uses = {ParamMapper.class, ParamListMapper.class, ServiceTypeMapper.class})
+public interface ServiceMapper {
 
-@Component
-public final class ServiceMapper {
+	@Mapping(source = "isBase", target = "base")
+	@Mapping(source = "isOptional", target = "optional")
+	@Mapping(source = "serviceType.name", target = "type")
+	@Mapping(source = "paramList", target = "paramsList")
+	@Mapping(source = "params", target = "params")
+    ServiceDetail toModel(ServiceEntity entity);
 
-    private ServiceMapper() {
-    }
+    List<ServiceDetail> toModelList(List<ServiceEntity> entities);
 
-    public static ServiceDetail toModel(ServiceEntity entity) {
-        if (entity == null) {
-            return null;
-        }
+    ServiceEntity toEntity(ServiceDetail model);
 
-        return ServiceDetail.builder()
-                .id(entity.getId())
-                .type(entity.getServiceType().getName())
-                .item(entity.getName())
-                .base(entity.getIsBase())
-                .optional(entity.getIsOptional())
-                .params(ParamMapper.toModelList(entity.getParams()))
-                .paramsList(ParamListMapper.toModelList(entity.getParamList()))
-                .build();
-    }
+    List<ServiceEntity> toEntityList(List<ServiceDetail> models);
 
-
-    public static ServiceEntity toEntity(ServiceDetail model) {
-        if (model == null) return null;
-
-        return ServiceEntity.builder()
-                .id(model.getId())
-                .name(model.getName())
-                .isBase(model.getBase())
-                .isOptional(model.getOptional())
-//                .paramListId(model.getParamsList()) //TODO: riferito alla tabella param_list
-                .paramList(ParamListMapper.toEntityList(model.getParamsList()))
-//                .serviceType(model.)
-//                .projects(model.get()) // add a model?
-                .params(ParamMapper.toEntityList(model.getParams()))
-                .build();
-    }
-
-    public static List<ServiceDetail> toModelList(List<ServiceEntity> entities) {
-        if (entities == null) {
-            return List.of();
-        }
-
-        return entities.stream()
-                .map(ServiceMapper::toModel)
-                .toList();
-    }
-
-    public static List<ServiceEntity> toEntityList(List<ServiceDetail> models) {
-        if (models == null) {
-            return List.of();
-        }
-
-        return models.stream()
-                .map(ServiceMapper::toEntity)
-                .toList();
-    }
 }

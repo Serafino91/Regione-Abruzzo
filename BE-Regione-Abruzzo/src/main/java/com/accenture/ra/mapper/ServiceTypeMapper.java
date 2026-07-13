@@ -1,45 +1,20 @@
 package com.accenture.ra.mapper;
 
+import com.accenture.ra.dto.request.ServiceType;
+import com.accenture.ra.entity.ServiceTypeEntity;
+import org.mapstruct.Mapper;
+
 import java.util.List;
 
-import com.accenture.ra.entity.ServiceTypeEntity;
-import com.accenture.ra.dto.request.ServiceType;
+@Mapper(componentModel = "spring")
+public interface ServiceTypeMapper {
 
-public class ServiceTypeMapper {
+    ServiceType toModel(ServiceTypeEntity entity);
 
-	private ServiceTypeMapper() {
-	}
-	
-    public static ServiceType toModel(ServiceTypeEntity entity) {
-        if (entity == null) {
-            return null;
-        }
+    List<ServiceType> toModelList(List<ServiceTypeEntity> entities);
 
-        return ServiceType.builder()
-                .id(entity.getId())
-                .name(entity.getName())
-                .description(entity.getDescription())
-                .build();
-    }
+    ServiceTypeEntity toEntity(ServiceType model);
 
+    List<ServiceTypeEntity> toEntityList(List<ServiceType> models);
 
-    public static List<ServiceType> toModelList(List<ServiceTypeEntity> entities) {
-        if (entities == null) {
-            return List.of();
-        }
-
-        return entities.stream()
-                .map(ServiceTypeMapper::toModel)
-                .toList();
-    }
-    
-    public static ServiceTypeEntity toEntity(ServiceType model) {
-        if (model == null) return null;
-
-        return ServiceTypeEntity.builder()
-                .id(model.getId())
-                .name(model.getName())
-                .description(model.getDescription())
-                .build();
-    }
 }
