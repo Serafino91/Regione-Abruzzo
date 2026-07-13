@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges, ContentChild, TemplateRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, ContentChild, TemplateRef } from '@angular/core';
+import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 export interface TableColumn {
@@ -9,89 +9,98 @@ export interface TableColumn {
   class?: string;
 }
 
-export type SortDir = 'asc' | 'desc';
-
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './table.html', // Corretto senza .component
-  styleUrl: './table.css'       // Corretto senza .component
+  imports: [CommonModule, FormsModule, NgTemplateOutlet],
+  templateUrl: './table.html',
+  styleUrl: './table.css'
 })
-export class TableComponent<T = any> implements OnChanges {
-  @Input() data: T[] = [];
+export class TableComponent implements OnInit, OnChanges {
+  @Input() data: any[] = [];
   @Input() columns: TableColumn[] = [];
   @Input() defaultSortColumn: string = '';
-  @Input() defaultSortDir: SortDir = 'asc';
-  @Input() itemsPerPage = 10;
-  @Input() noDataMessage = 'Nessun dato trovato.';
+  @Input() defaultSortDir: 'asc' | 'desc' = 'asc';
 
   @ContentChild('cellTemplate') cellTemplate!: TemplateRef<any>;
 
-  currentPage = 1;
+  // Variabili di Paginazione e Ordinamento
+  currentPage: number = 1;
+  pageSize: number = 10;
   sortColumn: string = '';
-  sortDir: SortDir = 'asc';
-  perPageOptions = [5, 10, 20, 50];
+  sortDir: 'asc' | 'desc' = 'asc';
+  
+  paginatedData: any[] = [];
 
-  ngOnChanges(): void {
-    this.currentPage = 1;
-    if (!this.sortColumn && this.defaultSortColumn) {
-      this.sortColumn = this.defaultSortColumn;
-      this.sortDir = this.defaultSortDir;
-    }
+  ngOnInit() {
+    this.sortColumn = this.defaultSortColumn;
+    this.sortDir = this.defaultSortDir;
+    this.updateTable();
   }
 
-  getNestedValue(obj: any, path: string): any {
-    if (!path) return '';
-    return path.split('.').reduce((acc, part) => acc && acc[part], obj);
-  }
-
-  get sorted(): T[] {
-    if (!this.sortColumn) return this.data;
-
-    return [...this.data].sort((a, b) => {
-      const va = String(this.getNestedValue(a, this.sortColumn) ?? '');
-      const vb = String(this.getNestedValue(b, this.sortColumn) ?? '');
-      
-      return this.sortDir === 'asc' 
-        ? va.localeCompare(vb, undefined, { numeric: true, sensitivity: 'base' }) 
-        : vb.localeCompare(va, undefined, { numeric: true, sensitivity: 'base' });
-    });
-  }
-
-  get totalResults(): number {
-    return this.data.length;
+  ngOnChanges(changes: SimpleChanges) {
+    this.updateTable();
   }
 
   get totalPages(): number {
-    return Math.max(1, Math.ceil(this.totalResults / this.itemsPerPage));
+    return Math.ceil(this.data.length / this.pageSize) || 1;
   }
 
-  get paginated(): T[] {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    return this.sorted.slice(start, start + this.itemsPerPage);
+  updateTable() {
+    let processedData = [...this.data];
+
+    // 1. Logica di Ordinamento (Opzionale)
+    if (this.sortColumn) {
+      processedData.sort((a, b) => {
+        const valA = this.getNestedValue(a, this.sortColumn);
+        const valB = this.getNestedValue(b, this.sortColumn);
+        if (valA < valB) return this.sortDir === 'asc' ? -1 : 1;
+        if (valA > valB) return this.sortDir === 'asc' ? 1 : -1;
+        return 0;
+      });
+    }
+
+    // 2. Logica di Paginazione
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    this.paginatedData = processedData.slice(startIndex, startIndex + this.pageSize);
   }
 
-  sort(col: TableColumn): void {
-    if (!col.sortable) return;
-    
-    if (this.sortColumn === col.key) {
-      this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
-    } else {
-      this.sortColumn = col.key;
-      this.sortDir = 'asc';
+  // Azioni dei pulsanti
+  onPageSizeChange(newSize: number) {
+    this.pageSize = Number(newSize);
+    this.currentPage = 1; // Resetta alla prima pagina
+    this.updateTable();
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updateTable();
     }
   }
 
-  onPerPageChange(): void {
-    this.currentPage = 1;
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updateTable();
+    }
   }
 
-  prevPage(): void {
-    if (this.currentPage > 1) this.currentPage--;
+  sort(key: string) {
+    const column = this.columns.find(c => c.key === key);
+    if (!column || column.sortable === false) return;
+
+    if (this.sortColumn === key) {
+      this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortColumn = key;
+      this.sortDir = 'asc';
+    }
+    this.updateTable();
   }
 
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) this.currentPage++;
+  getNestedValue(row: any, key: string): any {
+    if (!key) return '';
+    return key.split('.').reduce((acc, part) => acc && acc[part], row) ?? '';
   }
 }
