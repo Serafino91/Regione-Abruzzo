@@ -1,0 +1,60 @@
+/* Wrapper con la barra blu spessa sul fondo (come da screenshot) */
+.table-responsive {
+  border-bottom: 4px solid #0066CC;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+/* Intestazione: testo scuro, sfondo bianco e bordo grigio leggero */
+.table thead th {
+  background-color: #ffffff;
+  color: #002b55;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 16px 12px;
+  border-bottom: 2px solid #e6e9f2;
+}
+
+/* Righe DISPARI (1a, 3a, 5a...): Sfondo Bianco */
+.table tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+/* Righe PARI (2a, 4a, 6a...): Sfondo Azzurro Chiarissimo alternato */
+.table tbody tr:nth-child(even) {
+  background-color: #f4f7fc;
+}
+
+/* Stile delle celle del corpo */
+.table tbody td {
+  padding: 20px 16px;
+  font-size: 14px;
+  color: #1a1a1a;
+  position: relative;
+  border: none; /* Rimuove la linea orizzontale di default di Bootstrap */
+}
+
+/* Separatore verticale parziale (non tocca i bordi) */
+/* Crea una linea grigia sul lato destro di ogni cella, escludendo l'ultima (le azioni) */
+.table tbody tr td:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 25%;    /* Inizia al 25% dall'alto */
+  height: 50%; /* Si estende solo per la metà centrale della riga */
+  width: 1px;
+  background-color: #d1d7e3;
+}
+
+/* Stile per le icone di ordinamento */
+.sort-icon {
+  margin-left: 4px;
+  color: #a0aab4;
+}
+.sort-icon.active {
+  color: #0066CC;
+}

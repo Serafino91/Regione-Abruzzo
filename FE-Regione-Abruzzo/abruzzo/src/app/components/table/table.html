@@ -1,0 +1,44 @@
+<div class="table-container-wrapper">
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          @for (col of columns; track col.key) {
+            <th [className]="col.class || ''" 
+                [style.cursor]="col.sortable ? 'pointer' : 'default'"
+                (click)="sort(col)">
+              {{ col.label }}
+              @if (col.sortable) {
+                <span class="sort-icon" [class.active]="sortColumn === col.key">
+                  {{ sortColumn === col.key ? (sortDir === 'asc' ? '↑' : '↓') : '⇅' }}
+                </span>
+              }
+            </th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of paginated; track row) {
+          <tr>
+            @for (col of columns; track col.key) {
+              <td [className]="col.class || ''">
+                <ng-container *ngTemplateOutlet="cellTemplate ? cellTemplate : defaultCell; context: { $implicit: row, column: col }"></ng-container>
+                
+                <ng-template #defaultCell>
+                  {{ getNestedValue(row, col.key) }}
+                </ng-template>
+              </td>
+            }
+          </tr>
+        } @empty {
+          <tr>
+            <td [attr.colspan]="columns.length" class="text-center text-muted py-4">
+              {{ noDataMessage }}
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  
+  </div>
