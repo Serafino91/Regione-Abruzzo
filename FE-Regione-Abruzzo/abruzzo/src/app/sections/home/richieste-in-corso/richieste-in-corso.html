@@ -12,7 +12,7 @@
   <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
     <ul class="nav nav-tabs m-0 p-0" role="tablist" style="min-height: auto !important; height: auto !important;">
       <li class="nav-item">
-        <a class="nav-link py-2 px-3 d-flex align-items-center" href="#" [class.active]="statoSelezionato === 'inviate'" (click)="setStato('inviate', $event)" role="tab">
+        <a class="nav-link py-2 px-3 d-flex align-items-center" href="#" [class.active]="statoSelezionato === 'Inviate'" (click)="setStato('Inviate', $event)" role="tab">
          <svg xmlns="http://www.w3.org/2000/svg"
      viewBox="0 0 16 16"
      class="icon icon-sm me-2"
@@ -22,11 +22,11 @@
   <path d="M5.854 10.803a.5.5 0 1 1-.708-.707L9.243 6H6.475a.5.5 0 1 1 0-1h3.975a.5.5 0 0 1 .5.5v3.975a.5.5 0 1 1-1 0V6.707z"
         style="fill: #ffffff !important;" />
 </svg>
-          <span class="text-nowrap">Inviate ({{ getConteggio('inviate') }})</span>
+          <span class="text-nowrap">Inviate ({{ getConteggio('Inviate') }})</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link py-2 px-3 d-flex align-items-center" href="#" [class.active]="statoSelezionato === 'in valutazione'" (click)="setStato('in valutazione', $event)" role="tab">
+        <a class="nav-link py-2 px-3 d-flex align-items-center" href="#" [class.active]="statoSelezionato === 'In valutazione'" (click)="setStato('In valutazione', $event)" role="tab">
         <svg xmlns="http://www.w3.org/2000/svg"
      viewBox="0 0 16 16"
      class="icon icon-sm me-2"
@@ -38,11 +38,11 @@
 
   <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" style="fill: #ffffff !important;" />
 </svg>
-          <span class="text-nowrap">In valutazione ({{ getConteggio('in valutazione') }})</span>
+          <span class="text-nowrap">In valutazione ({{ getConteggio('In valutazione') }})</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link py-2 px-3 d-flex align-items-center" href="#" [class.active]="statoSelezionato === 'in elaborazione'" (click)="setStato('in elaborazione', $event)" role="tab">
+        <a class="nav-link py-2 px-3 d-flex align-items-center" href="#" [class.active]="statoSelezionato === 'In elaborazione'" (click)="setStato('In elaborazione', $event)" role="tab">
 <svg xmlns="http://www.w3.org/2000/svg"
      viewBox="0 0 16 16"
      class="icon icon-sm me-2"
@@ -66,17 +66,22 @@
           0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z" />
   </g>
 </svg>
-          <span class="text-nowrap">In elaborazione ({{ getConteggio('in elaborazione') }})</span>
+          <span class="text-nowrap">In elaborazione ({{ getConteggio('In elaborazione') }})</span>
         </a>
       </li>
     </ul>
 
-    <a href="#" class="text-decoration-underline text-primary mb-1"><strong>Vedi lista completa</strong></a>
+    <a [routerLink]="['/home/richieste']" class="text-decoration-underline text-primary mb-1"><strong>Vedi lista completa</strong></a>
   </div>
 
   <div class="w-100 d-block">
+
     @for (richiesta of listaFiltrata; track richiesta.requestId) {
-      <app-richieste-in-corso-card [dati]="richiesta" class="d-block w-100 mb-2"></app-richieste-in-corso-card>
+      <app-richieste-in-corso-card
+        [dati]="richiesta"
+        (click)="apriDettaglio(richiesta.requestId)"
+        class="d-block w-100 mb-2">
+      </app-richieste-in-corso-card>
     } @empty {
       <div class="alert alert-neutral border-light text-center py-4 rounded">
         <p class="mb-0 text-muted small">Nessuna richiesta presente in questa categoria.</p>

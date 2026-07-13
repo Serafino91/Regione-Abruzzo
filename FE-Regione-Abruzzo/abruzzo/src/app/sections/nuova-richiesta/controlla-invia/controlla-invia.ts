@@ -3,10 +3,11 @@ import { AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule
 import {ServiceCategory} from "../../../constants/service-category.constants";
 import {ServiceName} from "../../../constants/service-name.constants";
 import {LabelServizio} from '../../../components/label-servizio/label-servizio';
+import {ProgettoDetailCard} from "../../../components/progetto-detail-card/progetto-detail-card";
 
 @Component({
   selector: 'app-controlla-invia',
-  imports: [ReactiveFormsModule, LabelServizio],
+  imports: [ReactiveFormsModule, LabelServizio, ProgettoDetailCard],
   templateUrl: './controlla-invia.html',
   styleUrl: './controlla-invia.css',
   standalone: true,
@@ -14,6 +15,7 @@ import {LabelServizio} from '../../../components/label-servizio/label-servizio';
 export class ControllaInvia {
   @Input() formGroupProgetto!: FormGroup;
   @Input() formGroupServizi!: FormGroup;
+  @Input() progettoAssociato!: boolean;
 
   expanded: boolean[] = [];
 

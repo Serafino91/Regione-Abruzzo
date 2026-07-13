@@ -6,7 +6,8 @@
 
 @if(currentStep === 1) {
   <app-scegli-progetto
-    [formGroup]="richiestaForm.controls['progettoForm']">
+    [formGroup]="richiestaForm.controls['progettoForm']"
+    (nuovaRichiesta)="onNuovaRichiesta($event)" )>
   </app-scegli-progetto>
 }
 
@@ -30,6 +31,6 @@
   (previous)="previousStep()">
 </app-section-footer>
 
-<!--
-<button class="btn btn-primary" (click)="debugForm()">DEBUG FORM</button>-->
+
+<button class="btn btn-primary" (click)="debugForm()">DEBUG FORM</button>
 

@@ -9,22 +9,19 @@ import { RichiestaModel } from '../model/richiestaModel';
   providedIn: 'root',
 })
 export class RichiesteService {
-  constructor(private http: HttpClient) {}
 
+  constructor(private http: HttpClient) {}
   getAllRichieste() {
     return this.http
       .get<{ requestsList: RichiestaModel[] }>(ChiamateApiUrl.BASE_URL_RICHIESTA)
       .pipe(map((resp) => resp.requestsList));
   }
-
-  getRichieste(id: number) {
+  getRichiesta(id: string) {
     return this.http.get<RichiestaModel>(`${ChiamateApiUrl.BASE_URL_RICHIESTA}/${id}`);
   }
-
   createServizio(richiesta: RichiestaModel) {
     return this.http.post<RichiestaModel>(ChiamateApiUrl.BASE_URL_RICHIESTA, richiesta);
   }
-
   filterRichieste(richiesta: RichiestaModel) {
     return this.http.post<RichiestaModel>(ChiamateApiUrl.BASE_URL_RICHIESTA + '/filter', richiesta);
   }

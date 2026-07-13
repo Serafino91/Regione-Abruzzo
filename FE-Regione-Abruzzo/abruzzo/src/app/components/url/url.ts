@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, Input } from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
@@ -9,8 +9,12 @@ import {Router} from '@angular/router';
   styleUrl: './url.css',
 })
 export class Url {
-
   constructor(private router: Router) {}
+  private cdr = inject(ChangeDetectorRef);
+
+  ngOnInit() {
+    this.cdr.detectChanges();
+  }
 
   get urlToUse(): string {
     return this.router.url;

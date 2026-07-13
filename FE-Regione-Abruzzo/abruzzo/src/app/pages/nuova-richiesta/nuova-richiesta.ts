@@ -32,10 +32,6 @@ export class NuovaRichiesta {
   currentStep = 1;
   url = '';
 
-  constructor(
-    private router: Router,
-    private richiestaService: RichiesteService,
-  ) {}
   richiestaForm = new FormGroup({
     progettoForm: new FormGroup({}),
     servizioForm: new FormGroup({
@@ -76,6 +72,12 @@ export class NuovaRichiesta {
       default:
         return true;
     }
+  }
+
+  progettoAssociato = false;
+
+  onNuovaRichiesta(flag: boolean) {
+    this.progettoAssociato = flag;
   }
 
   debugForm() {

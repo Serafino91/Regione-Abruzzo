@@ -22,6 +22,7 @@ export type SortDir = 'asc' | 'desc';
 })
 export class RichiesteTable implements OnChanges {
   @Input() dati: RichiestaModel[] = [];
+
   constructor() {
     console.log("dati",this.dati);
   }

@@ -20,6 +20,6 @@ export const routes: Routes = [
   { path: 'home/accreditamento', component: Accreditamento },
   { path: 'home/richieste/nuova-richiesta', component: NuovaRichiesta },
   { path: 'home/incident/nuovo-incident', component: NuovoIncident },
-  { path: 'home/richieste/dettaglio-richiesta', component: DettaglioRichiesta },
+  { path: 'home/richieste/dettaglio-richiesta/:id', component: DettaglioRichiesta },
   { path: 'login', component: Login },
 ];
