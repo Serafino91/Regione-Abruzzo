@@ -140,6 +140,8 @@ export class SelezionaServizio implements OnInit {
           categoriaId: new FormControl(categoriaId),
           unit: new FormControl(unit),
           params: paramsGroup,
+          item: new FormControl(servizio.item),
+          type: new FormControl(servizio.type),
         }),
       );
 

@@ -4,6 +4,7 @@ import {ServiceCategory} from "../../../constants/service-category.constants";
 import {ServiceName} from "../../../constants/service-name.constants";
 import {LabelServizio} from '../../../components/label-servizio/label-servizio';
 import {ProgettoDetailCard} from "../../../components/progetto-detail-card/progetto-detail-card";
+import { RichiestaModel } from '../../../model/richiestaModel';
 
 @Component({
   selector: 'app-controlla-invia',

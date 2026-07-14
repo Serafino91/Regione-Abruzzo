@@ -6,7 +6,7 @@
     </svg>
     <div class="info-content">
       <span class="info-label">ID richiesta</span>
-      <span class="info-value">{{ richiesta.requestId }}</span>
+      <span class="info-value">{{ idRichiesta}}</span>
     </div>
   </div>
 
@@ -16,7 +16,7 @@
     </svg>
     <div class="info-content">
       <span class="info-label">Stato</span>
-      <span class="info-value">{{ richiesta.state?.stateName }}</span>
+      <span class="info-value">{{ stato }}</span>
     </div>
   </div>
 
@@ -26,7 +26,7 @@
     </svg>
     <div class="info-content">
       <span class="info-label">Data apertura</span>
-      <span class="info-value">{{ richiesta.createdAt | date:'dd/MM/yyyy' }}</span>
+      <span class="info-value">{{ createdAt | date:'dd/MM/yyyy' }}</span>
     </div>
   </div>
 

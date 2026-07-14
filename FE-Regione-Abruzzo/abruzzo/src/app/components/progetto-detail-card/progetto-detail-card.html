@@ -1,55 +1,31 @@
-@if (richiesta) {
+@if (!nuovaRichiesta) {
   <div class="richiesta-detail-card">
 
     <div class="d-flex justify-content-between align-items-center">
-      <h5 class="fw-bold mb-0"> Nome Progetto {{ richiesta.project?.name }}</h5>
-      <span ><strong>ID {{ richiesta.requestId }}</strong></span>
+      <h5 class="fw-bold mb-0"> Nome Progetto {{ nome }}</h5>
+      <span ><strong>ID {{ idProgetto }}</strong></span>
     </div>
-
     <hr class="my-3">
-
-    <p class="text-dark mb-3">{{ richiesta.project?.description }}</p>
-
+    <p class="text-dark mb-3">{{ descrizione }}</p>
     <div class="d-flex gap-5">
       <div>
         <div class="text-primary fw-semibold small mb-1 d-flex align-items-center gap-1">
           <svg class="icon icon-sm"><use href="assets/bootstrap-italia/sprites.svg#it-pa"></use></svg>
           Servizi
         </div>
-        <div>{{ richiesta.services?.length ?? 0 }}</div>
+        <div>{{ numeroServizi ?? 0 }}</div>
       </div>
       <div>
         <div class="text-primary fw-semibold small mb-1 d-flex align-items-center gap-1">
           <svg class="icon icon-sm"><use href="assets/bootstrap-italia/sprites.svg#it-calendar"></use></svg>
           Data creazione
         </div>
-        <div>{{ richiesta.createdAt | date:'dd/MM/yyyy' }}</div>
+        <div>{{ createdAt | date:'dd/MM/yyyy' }}</div>
       </div>
     </div>
-
-  </div>
-} @else if (servizio) {
-  <div class="servizio-detail-card">
-
-    <div class="servizio-detail-card__descrizione">
-      <p class="fw-bold mb-1">Descrizione</p>
-      <p class="mb-0">{{ servizio.item }}</p>
-    </div>
-
-    @if (servizio.params?.length) {
-      <div class="servizio-detail-card__params">
-        @for (param of servizio.params; track param.id) {
-          <div class="servizio-detail-card__param-col">
-            <p class="fw-bold mb-1">{{ param.name }}</p>
-            <p class="mb-0">{{ param.paramType }}</p>
-          </div>
-        }
-      </div>
-    }
-
   </div>
 } @else {
-  <div class="project-card mt-4 mb-4 color-bg-lightblue ">
+  <div class="richiesta-detail-card">
     <div class="d-flex flex-column gap-4 ">
       <h5 class="card-title">Dati nuovo progetto</h5>
       <div class="d-flex flex-column gap-3">

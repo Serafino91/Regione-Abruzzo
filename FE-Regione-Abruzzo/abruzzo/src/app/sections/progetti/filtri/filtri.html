@@ -1,31 +1,28 @@
-<form [formGroup]="filtersForm" class="row p-2 mb-4 gap-3 align-items-end justify-content-evenly">
+<form [formGroup]="filtersForm" class="row p-2 mb-4 gap-3 align-items-end">
 
   <div class="col-4">
     <label class="active" for="id">ID Progetto</label>
     <input
       class="form-control form-control-rounded"
       formControlName="id"
-      id="id"
-      name="id">
+      id="id">
   </div>
 
   <div class="col-4">
-    <label class="active" for="id">Nome Progetto</label>
+    <label class="active" for="nome">Nome Progetto</label>
     <input
       class="form-control form-control-rounded"
       formControlName="nome"
-      id="nome"
-      name="nome">
+      id="nome">
   </div>
 
-  <div class="col-2">
-    <button type="button"
-            class="btn btn-primary col-2  w-auto"
-            (click)="cercaProgetti()">
+  <div class="col d-flex justify-content-end">
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="cercaProgetti()">
       Cerca
     </button>
   </div>
 
 </form>
-
-

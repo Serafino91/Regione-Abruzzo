@@ -1,13 +1,13 @@
 <div class="section-padding">
   <app-url></app-url>
-<div class="d-flex justify-content-between align-items-center mb-4">
-  <h4 class="title-section"> <strong>Gestione richieste</strong></h4>
-  <buttons
-    type="button" class="btn btn-primary text-normal fw-semibold"
-    [routerLink]="['/home/richieste/nuova-richiesta']">
-    Nuova richiesta
-  </buttons>
-</div>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="title-section"> <strong>Gestione Richieste</strong></h4>
+    <buttons
+      type="button" class="btn btn-primary text-normal fw-semibold"
+      [routerLink]="['/home/richieste/nuova-richiesta']">
+      Nuova richiesta
+    </buttons>
+  </div>
 </div>
 
 <div class="color-bg-lightblue section-padding">
@@ -15,7 +15,8 @@
   </app-filtri>
 </div>
 
-<div class="page-padding">
+<div class="section-padding mb-4 ">
   <app-tabella-richieste [richieste]="listaRichieste">
   </app-tabella-richieste>
+  <hr class="line-separator m-0">
 </div>

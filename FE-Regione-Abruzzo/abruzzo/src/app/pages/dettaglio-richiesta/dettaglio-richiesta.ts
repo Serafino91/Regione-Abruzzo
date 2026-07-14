@@ -4,14 +4,20 @@ import { ActivatedRoute } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Url } from '../../components/url/url';
 import { ProgettoDetailCard } from "../../components/progetto-detail-card/progetto-detail-card";
-import { ServiziAccordion } from '../../components/servizi-accordion/servizi-accordion';
 import { RichiestaInfoBar } from '../../components/richiesta-info-bar/richiesta-info-bar';
 import { RichiesteService } from "../../services/richieste.service";
 import { RichiestaModel } from "../../model/richiestaModel";
+import { ServizioAccordion } from '../../components/servizio-accordion/servizio-accordion';
 
 @Component({
   selector: 'app-dettaglio-richiesta',
-  imports: [Url, ProgettoDetailCard, ServiziAccordion, RichiestaInfoBar, RouterLink],
+  imports: [
+    Url,
+    ProgettoDetailCard,
+    RichiestaInfoBar,
+    RouterLink,
+    ServizioAccordion,
+  ],
   templateUrl: './dettaglio-richiesta.html',
   styleUrl: './dettaglio-richiesta.css',
   standalone: true,
@@ -19,6 +25,7 @@ import { RichiestaModel } from "../../model/richiestaModel";
 export class DettaglioRichiesta {
   richiestaId!: string;
   richiestaDetail!: RichiestaModel;
+  nuovaRichiesta: boolean = false;
   showDeleteModal = false;
 
   private destroyRef = inject(DestroyRef);

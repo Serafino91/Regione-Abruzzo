@@ -1,0 +1,44 @@
+<div class="accordion-item">
+
+  <div class="accordion-header">
+
+    <span class="type-badge">
+      <svg aria-hidden="true">
+        <use [attr.href]="'assets/bootstrap-italia/sprites.svg#' + iconForType(servizio.type)"></use>
+      </svg>
+      {{ servizio.type | uppercase }}
+    </span>
+
+    <span class="service-name">
+      {{ servizio.item }}
+    </span>
+
+    @if (servizio.quantity) {
+      <span class="quantity-badge">
+        {{ servizio.quantity }}
+      </span>
+    }
+
+    <button class="toggle-btn" (click)="toggle()">
+      @if (expanded) {
+        <svg aria-hidden="true">
+          <use href="assets/bootstrap-italia/sprites.svg#it-minus-circle"></use>
+        </svg>
+        Riduci sezione
+      } @else {
+        <svg aria-hidden="true">
+          <use href="assets/bootstrap-italia/sprites.svg#it-plus-circle"></use>
+        </svg>
+        Espandi sezione
+      }
+    </button>
+
+  </div>
+
+  @if (expanded) {
+    <div class="accordion-body">
+      <app-servizio-detail-card [servizio]="servizio"></app-servizio-detail-card>
+    </div>
+  }
+
+</div>

@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { RichiestaModel } from '../../model/richiestaModel';
 
 @Component({
   selector: 'app-richiesta-info-bar',
@@ -10,5 +9,8 @@ import { RichiestaModel } from '../../model/richiestaModel';
   styleUrl: './richiesta-info-bar.css',
 })
 export class RichiestaInfoBar {
-  @Input() richiesta!: RichiestaModel;
+  @Input() idRichiesta!: string;
+  @Input() stato!: string;
+  @Input() createdAt!: string;
+
 }

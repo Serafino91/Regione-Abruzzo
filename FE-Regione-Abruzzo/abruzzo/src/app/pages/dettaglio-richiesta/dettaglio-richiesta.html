@@ -19,9 +19,28 @@
   </div>
 
   @if (richiestaDetail) {
-    <app-richiesta-info-bar [richiesta]="richiestaDetail"></app-richiesta-info-bar>
-    <app-progetto-detail-card [richiesta]="richiestaDetail"></app-progetto-detail-card>
-    <app-servizi-accordion [servizi]="richiestaDetail.services!"></app-servizi-accordion>
+
+    <app-richiesta-info-bar
+      [idRichiesta]="richiestaDetail.requestId"
+      [stato]="richiestaDetail.state.stateName"
+      [createdAt]="richiestaDetail.createdAt"
+    ></app-richiesta-info-bar>
+
+    <app-progetto-detail-card
+      [nome]="richiestaDetail.project.name"
+      [link]="richiestaDetail.project.destinationLink!"
+      [descrizione]="richiestaDetail.project.description!"
+      [numeroServizi]="richiestaDetail.services.length"
+      [createdAt]="richiestaDetail.createdAt"
+      [idProgetto]="richiestaDetail.project.id!"
+      [nuovaRichiesta]="nuovaRichiesta">
+    </app-progetto-detail-card>
+
+    @for (servizio of richiestaDetail.services; track servizio.id) {
+      <app-servizio-accordion
+        [servizio]="servizio">
+      </app-servizio-accordion>
+    }
   }
 </div>
 

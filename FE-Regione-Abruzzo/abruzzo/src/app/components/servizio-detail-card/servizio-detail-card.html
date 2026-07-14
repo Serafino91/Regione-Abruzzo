@@ -1,0 +1,18 @@
+<div class="servizio-detail-card">
+  <div class="servizio-detail-card__descrizione">
+    <p class="fw-bold mb-1">Descrizione</p>
+    <p class="mb-0">{{ servizio?.item }}</p>
+  </div>
+
+  @if (servizio?.params?.length) {
+    <div class="servizio-detail-card__params">
+      @for (param of servizio?.params; track param.id) {
+        <div class="servizio-detail-card__param-col">
+          <p class="fw-bold mb-1">{{ param.name }}</p>
+          <p class="mb-0">{{ param.paramType }}</p>
+        </div>
+      }
+    </div>
+  }
+
+</div>

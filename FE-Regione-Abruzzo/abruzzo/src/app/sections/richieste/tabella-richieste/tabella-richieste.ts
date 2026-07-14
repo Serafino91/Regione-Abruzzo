@@ -3,11 +3,12 @@ import { TableColumn, TableComponent } from '../../../components/table/table';
 import { RichiestaModel } from '../../../model/richiestaModel';
 import { ServizioModel } from '../../../model/servizioModel';
 // 🌟 Importiamo la costante e il tipo dal file appena creato
-import { STATO_CONFIG, StatoRichiesta } from '../../../constants/request-state-badge.constants'; 
+import { STATO_CONFIG, StatoRichiesta } from '../../../constants/request-state-badge.constants';
 
 @Component({
   selector: 'app-tabella-richieste',
   imports: [TableComponent],
+  standalone: true,
   templateUrl: './tabella-richieste.html',
   styleUrl: './tabella-richieste.css',
 })
@@ -28,14 +29,14 @@ export class TabellaRichieste {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['richieste'] && this.richieste) {
       const datiUguali: any = this.richieste;
-      const arrayRichieste: RichiestaModel[] = Array.isArray(datiUguali) 
-        ? datiUguali 
+      const arrayRichieste: RichiestaModel[] = Array.isArray(datiUguali)
+        ? datiUguali
         : (datiUguali.requestsList || []);
 
       this.listaRichieste = arrayRichieste.flatMap((richiesta: RichiestaModel) => {
-        
+
         const statoKey = this.getStatoKey(richiesta.state?.stateName);
-        
+
         // 🌟 Usiamo la costante globale STATO_CONFIG al posto di this.statoConfig
         const config = STATO_CONFIG[statoKey] || STATO_CONFIG['incompleta'];
 
@@ -50,7 +51,7 @@ export class TabellaRichieste {
             state: stateData,
             requestId: richiesta.requestId,
             project: richiesta.project?.name,
-            service: 'Nessun servizio', 
+            service: 'Nessun servizio',
             category: richiesta.category?.name,
             createdAt: richiesta.createdAt
           }];
@@ -60,7 +61,7 @@ export class TabellaRichieste {
           state: stateData,
           requestId: richiesta.requestId,
           project: richiesta.project?.name,
-          service: servizio.item, 
+          service: servizio.item,
           category: richiesta.category?.name,
           createdAt: richiesta.createdAt
         }));

@@ -3,24 +3,31 @@
   <p class="mb-4">Controlla che tutti i campi siano compilati correttamente, aggiungi eventuali note
   ed invia la richiesta, cliccando su "Invia Richiesta".</p>
 
-<div class="project-card mt-4 mb-4 color-bg-lightblue ">
 
-  @if (nuovaRichiesta) {
-    <app-progetto-detail-card
-      [nome]="formGroupProgetto.get('progetto.nome')?.value"
-      [link]="formGroupProgetto.get('progetto.link')?.value"
-      [descrizione]="formGroupProgetto.get('progetto.descrizione')?.value">
-    </app-progetto-detail-card>
-  } @else {
+  @if (!nuovaRichiesta) {
+
     <app-progetto-detail-card
       [nome]="formGroupProgetto.get('selezione')?.value.name"
       [link]="formGroupProgetto.get('selezione')?.value.destinationLink"
-      [descrizione]="formGroupProgetto.get('selezione')?.value.description">
+      [descrizione]="formGroupProgetto.get('selezione')?.value.description"
+      [createdAt]="formGroupProgetto.get('selezione')?.value.createAt"
+      [numeroServizi]="servizi.controls.length"
+      [idProgetto]="formGroupProgetto.get('selezione')?.value.id"
+      [nuovaRichiesta]="nuovaRichiesta">
     </app-progetto-detail-card>
-
-
+  } @else {
+    <app-progetto-detail-card
+      [nome]="formGroupProgetto.get('progetto.nome')?.value"
+      [link]="formGroupProgetto.get('progetto.link')?.value"
+      [descrizione]="formGroupProgetto.get('progetto.descrizione')?.value"
+      [nuovaRichiesta]="nuovaRichiesta">
+    </app-progetto-detail-card>
   }
-</div>
+
+
+
+  <!-- Cambiare badge tipologia servizio -->
+
   <h5 class="card-title">Servizi Selezionati</h5>
 
 @for(servizio of servizi.controls; track $index; let i = $index) {
