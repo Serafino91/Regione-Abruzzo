@@ -3,6 +3,7 @@ package com.accenture.ra.mapper;
 import java.util.List;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import com.accenture.ra.dto.request.ParamDetail;
 import com.accenture.ra.entity.ParamEntity;
@@ -10,6 +11,7 @@ import com.accenture.ra.entity.ParamEntity;
 @Mapper(componentModel = "spring")
 public interface ParamMapper {
 
+	@Mapping(source = "service.id", target = "serviceId")
     ParamDetail toModel(ParamEntity entity);
 
     List<ParamDetail> toModelList(List<ParamEntity> entities);

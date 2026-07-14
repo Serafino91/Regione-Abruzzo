@@ -16,12 +16,19 @@ public interface ServiceMapper {
 	@Mapping(source = "serviceType.name", target = "type")
 	@Mapping(source = "paramList", target = "paramsList")
 	@Mapping(source = "params", target = "params")
+	@Mapping(source = "name", target = "item")
     ServiceDetail toModel(ServiceEntity entity);
 
     List<ServiceDetail> toModelList(List<ServiceEntity> entities);
 
     ServiceEntity toEntity(ServiceDetail model);
 
+    @Mapping(source = "base", target = "isBase")
+	@Mapping(source = "optional", target = "isOptional")
+//    @Mapping(source = "type", target = "serviceType.name")
+	@Mapping(source = "paramsList", target = "paramList")
+	@Mapping(source = "params", target = "params")
+//    @Mapping(source = "item", target = "name")
     List<ServiceEntity> toEntityList(List<ServiceDetail> models);
 
 }
