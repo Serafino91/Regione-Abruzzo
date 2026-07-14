@@ -1,3 +1,5 @@
+import { ServizioModel } from './servizioModel';
+
 export class ProgettoModel {
   idProgetto!: number;
   nome!: string;
@@ -5,4 +7,5 @@ export class ProgettoModel {
   description!: string;
   dataCreazione!: string;
   dataUltimaModifica?: string;
+  servizi?: ServizioModel[];
 }

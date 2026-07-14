@@ -15,7 +15,7 @@ export interface Richieste {
 @Component({
   selector: 'app-richieste-in-corso-card',
   standalone: true,
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule],
   templateUrl: './richieste-in-corso-card.html'
 })
 export class RichiesteInCorsoCard {

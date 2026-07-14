@@ -1,10 +1,51 @@
 <div class="page-padding">
-  <app-url> </app-url>
-  <h5 class="py-3">Dettaglio Richiesta</h5>
+  <app-url></app-url>
 
-  <p> {{richiestaId}} </p>
+  <a class="back-link" routerLink="/home/richieste">
+    <svg class="icon icon-sm me-1" aria-hidden="true">
+      <use href="assets/bootstrap-italia/sprites.svg#it-arrow-left"></use>
+    </svg>
+    Torna alla lista
+  </a>
 
-  <div class="color-bg-lightblue">
+  <div class="page-header">
+    <h5 class="fw-bold mb-0">Dettaglio richiesta</h5>
+    <button class="delete-btn" (click)="showDeleteModal = true">
+      <svg class="icon icon-sm me-1" aria-hidden="true">
+        <use href="assets/bootstrap-italia/sprites.svg#it-delete"></use>
+      </svg>
+      Elimina
+    </button>
   </div>
+
+  @if (richiestaDetail) {
+    <app-richiesta-info-bar [richiesta]="richiestaDetail"></app-richiesta-info-bar>
+    <app-progetto-detail-card [richiesta]="richiestaDetail"></app-progetto-detail-card>
+    <app-servizi-accordion [servizi]="richiestaDetail.services!"></app-servizi-accordion>
+  }
 </div>
 
+@if (showDeleteModal) {
+  <div class="modal-overlay" (click)="showDeleteModal = false">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <svg class="icon icon-danger me-2" aria-hidden="true">
+          <use href="assets/bootstrap-italia/sprites.svg#it-delete"></use>
+        </svg>
+        <h6 class="mb-0 fw-bold">Elimina richiesta</h6>
+      </div>
+      <div class="modal-body">
+        <p class="mb-0">
+          Sei sicuro di voler eliminare la richiesta
+          <strong>{{ richiestaDetail?.requestId }}</strong>?
+          <br>
+          <span class="text-muted small">Questa operazione non è reversibile.</span>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-annulla" (click)="showDeleteModal = false">Annulla</button>
+        <button class="btn-elimina" (click)="onElimina()">Elimina</button>
+      </div>
+    </div>
+  </div>
+}

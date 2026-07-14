@@ -3,7 +3,7 @@ import { ChiamateApiUrl } from '../constants/chiamate-api-url.constants';
 import { ServizioModel } from '../model/servizioModel';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
-import { RichiestaModel } from '../model/richiestaModel';
+import { RichiestaDetailResponse, RichiestaModel } from '../model/richiestaModel';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,7 @@ export class RichiesteService {
       .pipe(map((resp) => resp.requestsList));
   }
   getRichiesta(id: string) {
-    return this.http.get<RichiestaModel>(`${ChiamateApiUrl.BASE_URL_RICHIESTA}/${id}`);
+    return this.http.get<RichiestaDetailResponse>(`${ChiamateApiUrl.BASE_URL_RICHIESTA}/${id}`);
   }
   createServizio(richiesta: RichiestaModel) {
     return this.http.post<RichiestaModel>(ChiamateApiUrl.BASE_URL_RICHIESTA, richiesta);
