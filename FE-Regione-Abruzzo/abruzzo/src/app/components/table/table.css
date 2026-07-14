@@ -92,6 +92,15 @@
 .col-azioni {
   min-width: 95px !important;
 }
+.col-proj {
+  min-width: 180px !important;
+}
+.col-reqid {
+  min-width: 100px !important;
+}
+.col-serv {
+  min-width: 100px !important;
+}
 
 /* --- STRUTTURA CELLE E LINEE DIVISORIE PARZIALI --- */
 .table tbody td {

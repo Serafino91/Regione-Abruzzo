@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, DestroyRef, inject, OnInit, PLATFORM_ID } from '@angular/core';
-
-import { RichiesteTable } from '../../components/richieste-table/richieste-table';
+import { TabellaRichieste } from '../../sections/richieste/tabella-richieste/tabella-richieste';
 import { RichiestaModel } from '../../model/richiestaModel';
 import { CategoriaService } from '../../services/categoria.service';
 import { RichiesteService } from '../../services/richieste.service';
@@ -13,7 +12,7 @@ import {Filtri} from '../../sections/richieste/filtri/filtri';
 
 @Component({
   selector: 'app-richieste',
-  imports: [RichiesteTable, ReactiveFormsModule, Filtri, RouterLink, Url],
+  imports: [TabellaRichieste, ReactiveFormsModule, Filtri, RouterLink, Url],
   templateUrl: './richieste.html',
   styleUrl: './richieste.css',
   standalone: true,
