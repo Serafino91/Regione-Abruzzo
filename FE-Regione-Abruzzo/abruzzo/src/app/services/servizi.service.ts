@@ -26,7 +26,7 @@ export class ServiziService {
       }));
   }
 
-  getServizio(id: number) {
+  getServizio(id: string) {
     return this.http.get<ServizioModel>(`${ChiamateApiUrl.BASE_URL_SERVIZI}/${id}`);
   }
 

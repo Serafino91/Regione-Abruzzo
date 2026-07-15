@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
   templateUrl: './progetto-detail-card.html',
   styleUrl: './progetto-detail-card.css',
 })
+
 export class ProgettoDetailCard {
   @Input() nome?: string = '';
   @Input() link?: string = '';

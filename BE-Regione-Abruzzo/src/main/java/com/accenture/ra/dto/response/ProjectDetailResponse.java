@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProjectDetailResponse {
-
         private ProjectDetail serviceDetail;
 }
 

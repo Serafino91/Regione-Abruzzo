@@ -1,9 +1,9 @@
 .info-bar {
   display: flex;
-  gap: 16px;
-  background: #f2f7fc;;
-  border-radius: 12px;
   padding: 16px 48px;
+  gap: 16px;
+  border-radius: 12px;
+
 }
 
 .info-card {

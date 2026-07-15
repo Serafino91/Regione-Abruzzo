@@ -17,14 +17,19 @@
       Elimina
     </button>
   </div>
+</div>
 
+
+  <app-richiesta-info-bar
+    [idRichiesta]="richiestaDetail.requestId"
+    [stato]="richiestaDetail.state.stateName"
+    [createdAt]="richiestaDetail.createdAt"
+  ></app-richiesta-info-bar>
+
+<div class="page-padding">
   @if (richiestaDetail) {
 
-    <app-richiesta-info-bar
-      [idRichiesta]="richiestaDetail.requestId"
-      [stato]="richiestaDetail.state.stateName"
-      [createdAt]="richiestaDetail.createdAt"
-    ></app-richiesta-info-bar>
+
 
     <app-progetto-detail-card
       [nome]="richiestaDetail.project.name"

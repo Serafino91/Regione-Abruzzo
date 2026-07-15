@@ -9,6 +9,7 @@ import { NuovoIncident } from './pages/nuovo-incident/nuovo-incident';
 import { Accreditamento } from './pages/accreditamento/accreditamento';
 import { Login } from './pages/login/login';
 import {DettaglioRichiesta} from './pages/dettaglio-richiesta/dettaglio-richiesta';
+import { DettaglioServizio } from './pages/dettaglio-servizio/dettaglio-servizio';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -21,5 +22,6 @@ export const routes: Routes = [
   { path: 'home/richieste/nuova-richiesta', component: NuovaRichiesta },
   { path: 'home/incident/nuovo-incident', component: NuovoIncident },
   { path: 'home/richieste/dettaglio-richiesta/:id', component: DettaglioRichiesta },
+  { path: 'home/catalogo/dettaglio-servizio/:id',  component: DettaglioServizio},
   { path: 'login', component: Login },
 ];

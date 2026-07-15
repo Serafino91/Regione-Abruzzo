@@ -13,4 +13,5 @@ import { Catalogo } from '../../sections/home/catalogo/catalogo';
   standalone: true,
 })
 
-export class Home {}
+export class Home {
+}
