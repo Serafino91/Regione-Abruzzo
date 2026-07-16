@@ -18,6 +18,7 @@
 
     <properties>
         <java.version>21</java.version>
+        <org.mapstruct.version>1.6.3</org.mapstruct.version>
     </properties>
 
     <dependencies>
@@ -90,11 +91,44 @@
             <artifactId>spring-boot-starter-webmvc-test</artifactId>
             <scope>test</scope>
         </dependency>
+        
+        <!-- Mapping -->
+        <dependency>
+  			<groupId>org.mapstruct</groupId>
+  			<artifactId>mapstruct</artifactId>
+ 			<version>${org.mapstruct.version}</version>
+		</dependency>
+        	
     </dependencies>
 
     <build>
         <plugins>
+        <!-- INIZIO aggiunto per mapstruct come consigliato da copilot, ma ci serve tutto?  -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+				<annotationProcessorPaths>
+				<path>
+				<groupId>org.mapstruct</groupId>
+				<artifactId>mapstruct-processor</artifactId>
+				<version>${org.mapstruct.version}</version>
+				</path>
+				<path>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				</path>
+				<path>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok-mapstruct-binding</artifactId>
+				<version>0.2.0</version>
+				</path>
+				</annotationProcessorPaths>
+				</configuration>
+				</plugin>
             <plugin>
+		<!-- FINE aggiunto per mapstruct come consigliato da copilot, ma ci serve tutto?  -->
+
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>

@@ -1,60 +1,26 @@
 package com.accenture.ra.mapper;
 
-import com.accenture.ra.entity.ProjectEntity;
-import com.accenture.ra.dto.request.ProjectDetail;
-
 import java.util.List;
 
-public class ProjectMapper {
-    private ProjectMapper() {
-    }
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-    public static ProjectDetail toModel(ProjectEntity entity) {
-        if (entity == null) {
-            return null;
-        }
+import com.accenture.ra.dto.request.ProjectDetail;
+import com.accenture.ra.entity.ProjectEntity;
 
-        return ProjectDetail.builder()
-                .id(entity.getId())
-                .name(entity.getName())
-                .description(entity.getDescription())
-                .destinationLink(entity.getDestinationLink())
-                .createAt(entity.getCreatedAt())
-                .updateAt(entity.getUpdatedAt())
-                .build();
-    }
+@Mapper(componentModel = "spring")
+public interface ProjectMapper {
 
-    public static List<ProjectDetail> toModelList(List<ProjectEntity> entities) {
-        if (entities == null) {
-            return List.of();
-        }
+	@Mapping(source = "createdAt", target = "createAt")
+	@Mapping(source = "updatedAt", target = "updateAt")
+    ProjectDetail toModel(ProjectEntity entity);
 
-        return entities.stream()
-                .map(ProjectMapper::toModel)
-                .toList();
-    }
-    
-    
-    public static ProjectEntity toEntity(ProjectDetail model) {
-        if (model == null) return null;
+    List<ProjectDetail> toModelList(List<ProjectEntity> entities);
 
-        return ProjectEntity.builder()
-                .id(model.getId())
-                .name(model.getName())
-                .destinationLink(model.getDestinationLink())
-                .description(model.getDescription())
-                .createdAt(model.getCreateAt())
-                .updatedAt(model.getUpdateAt())
-                .build();
-    }
+    @Mapping(source = "createAt", target = "createdAt")
+	@Mapping(source = "updateAt", target = "updatedAt")
+    ProjectEntity toEntity(ProjectDetail model);
 
-    public static List<ProjectEntity> toEntityList(List<ProjectDetail> models) {
-        if (models == null) {
-            return List.of();
-        }
+    List<ProjectEntity> toEntityList(List<ProjectDetail> models);
 
-        return models.stream()
-                .map(ProjectMapper::toEntity)
-                .toList();
-    }
 }

@@ -1,55 +1,21 @@
-package com.accenture.ra.service;
-import com.accenture.ra.entity.ParamListEntity;
-import com.accenture.ra.dto.request.ParamList;
+package com.accenture.ra.mapper;
 
 import java.util.List;
 
+import org.mapstruct.Mapper;
 
-public final class ParamListMapper {
+import com.accenture.ra.dto.request.ParamList;
+import com.accenture.ra.entity.ParamListEntity;
 
-    private ParamListMapper() {
-    }
+@Mapper(componentModel = "spring")
+public interface ParamListMapper {
 
-    public static ParamList toModel(ParamListEntity entity) {
-        if (entity == null) {
-            return null;
-        }
+    ParamList toModel(ParamListEntity entity);
 
-        return ParamList.builder()
-                .id(entity.getId())
-                .idParam(entity.getIdParam())
-                .build();
-    }
+    List<ParamList> toModelList(List<ParamListEntity> entities);
 
+    ParamListEntity toEntity(ParamList model);
 
-    public static List<ParamList> toModelList(List<ParamListEntity> entities) {
-        if (entities == null) {
-            return List.of();
-        }
-
-        return entities.stream()
-                .map(ParamListMapper::toModel)
-                .toList();
-    }
-
-    public static ParamListEntity toEntity(ParamList model) {
-        if (model == null) return null;
-
-        return ParamListEntity.builder()
-                .id(model.getId())
-                .idParam(model.getIdParam())
-                .build();
-
-    }
-
-    public static List<ParamListEntity> toEntityList(List<ParamList> models) {
-        if (models == null) {
-            return List.of();
-        }
-
-        return models.stream()
-                .map(ParamListMapper::toEntity)
-                .toList();
-    }
+    List<ParamListEntity> toEntityList(List<ParamList> models);
 
 }
