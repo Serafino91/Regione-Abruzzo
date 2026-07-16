@@ -4,6 +4,7 @@ import com.accenture.ra.dto.request.RequestDetail;
 import com.accenture.ra.dto.response.RequestDetailResponse;
 import com.accenture.ra.dto.response.RequestListResponse;
 import com.accenture.ra.request.RequestCreationRequest;
+import com.accenture.ra.request.RequestFilterCriteria;
 import com.accenture.ra.service.impl.RequestServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value="/request")
@@ -371,8 +374,11 @@ public class RequestController {
 					)
 	})
 	@PostMapping(value = "/filter")
-	public ResponseEntity<RequestListResponse> getFilteredRequests() {
-		return new ResponseEntity<>(HttpStatus.OK);
+	public ResponseEntity<RequestListResponse> getFilteredRequests(@RequestBody @Valid RequestFilterCriteria criteria) {
+		
+		List<RequestDetail> results = requestService.filterRequest(criteria);
+
+		return ResponseEntity.status(HttpStatus.OK).body(new RequestListResponse(results));
 	}
 
 

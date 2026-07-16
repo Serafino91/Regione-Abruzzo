@@ -7,8 +7,11 @@ import com.accenture.ra.entity.RequestEntity;
 import com.accenture.ra.mapper.*;
 import com.accenture.ra.repository.*;
 import com.accenture.ra.request.RequestCreationRequest;
+import com.accenture.ra.request.RequestFilterCriteria;
 import com.accenture.ra.service.RequestService;
 import com.accenture.ra.utils.RequestIdGenerator;
+import com.accenture.ra.utils.RequestSpecification;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -76,6 +79,13 @@ public class RequestServiceImpl implements RequestService {
 		requestRepository.save(testRequestMapper.toEntity(reqDetail));
 
 		return requestResp;
+	}
+
+	@Override
+	public List<RequestDetail> filterRequest(RequestFilterCriteria criteria) {
+		// Utilizzo la Specification per costruire la query dinamicamente
+		List<RequestEntity> entities = requestRepository.findAll(RequestSpecification.withFilters(criteria));
+		return testRequestMapper.toModelList(entities);
 	}
 
 }
