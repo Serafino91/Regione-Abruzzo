@@ -9,6 +9,7 @@ import {Url} from '../../components/url/url';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CategoriaModel} from '../../model/categoria.model';
 import {Filtri} from '../../sections/richieste/filtri/filtri';
+import { FiltroRichiestaCriteriaModel } from '../../model/filtro-richiesta-criteria.model';
 
 @Component({
   selector: 'app-richieste',
@@ -62,6 +63,25 @@ export class Richieste implements OnInit {
           console.error('Errore categorie:', err);
         },
       });
+  }
+
+  onFiltra(criteria: FiltroRichiestaCriteriaModel): void {
+    this.richiestaService
+      .filterRichieste(criteria)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (richieste) => {
+          this.listaRichieste = richieste;
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Errore durante il filtro delle richieste:', err);
+        },
+      });
+  }
+
+  onResetFiltri(): void {
+    this.getRichieste();
   }
 }
 

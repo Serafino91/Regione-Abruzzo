@@ -38,6 +38,7 @@ export class ProgettiFlexbox {
       .subscribe({
         next: (resp: any[]) => {
           // mapping repsonse dal backend
+          console.log(resp);
           this.progetti = resp.map((p) => ({
             idProgetto: p.id,
             nome: p.name,

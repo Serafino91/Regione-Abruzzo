@@ -11,7 +11,9 @@
 </div>
 
 <div class="color-bg-lightblue section-padding">
-  <app-filtri>
+  <app-filtri
+    (filtra)="onFiltra($event)"
+    (reset)="onResetFiltri()">>
   </app-filtri>
 </div>
 

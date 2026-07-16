@@ -42,6 +42,7 @@ export class DettaglioProgetto {
         next: (resp: any) => {
           const progetto = resp.serviceDetail ?? resp;
 
+          console.log(progetto);
           this.progettoDetail = {
             ...progetto,
             nome: resp.serviceDetail.name,
