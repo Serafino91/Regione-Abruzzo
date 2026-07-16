@@ -1,10 +1,7 @@
-import {ChangeDetectorRef, Component, DestroyRef, inject, PLATFORM_ID} from '@angular/core';
-import {ServizioModel} from '../../../model/servizioModel';
-import {ServiziService} from '../../../services/servizi.service';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {ServizioCard} from '../../../components/servizio-card/servizio-card';
-import {FormsModule} from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, Input } from '@angular/core';
+import { ServizioModel } from '../../../model/servizioModel';
+import { ServizioCard } from '../../../components/servizio-card/servizio-card';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-lista-servizi',
@@ -13,35 +10,10 @@ import { Router } from '@angular/router';
   templateUrl: './lista-servizi.html',
   styleUrl: './lista-servizi.css',
 })
+
 export class ListaServizi {
-  private destroyRef = inject(DestroyRef);
-  private cdr = inject(ChangeDetectorRef);
 
-  public servizi: ServizioModel[] = [];
-
-  constructor(
-    private servizioService: ServiziService,
-    private router: Router,
-  ) {}
-
-  ngOnInit(): void {
-    this.getServizi();
-  }
-
-  private getServizi(): void {
-    this.servizioService
-      .getServizi()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (resp) => {
-          this.servizi = resp;
-          this.cdr.detectChanges();
-        },
-        error: (err) => {
-          console.error('Errore nel recupero dei servizi:', err);
-        },
-      });
-  }
+  @Input() servizi!: ServizioModel[];
 
   pageSize = 6;
   currentPage = 1;
@@ -72,7 +44,4 @@ export class ListaServizi {
     this.currentPage = 1;
   }
 
-  apriDettaglio(id: string) {
-    this.router.navigate(['/home/catalogo/dettaglio-servizio', id]);
-  }
 }

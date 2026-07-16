@@ -1,12 +1,12 @@
 <div class="custom-table-wrapper">
 
   <div class="d-flex justify-content-between align-items-center mb-3 table-header-bar text-uppercase fw-bold text-secondary" style="font-size: 13px; letter-spacing: 0.5px;">
-    
+
     <div class="d-flex align-items-center gap-3">
       <div class="d-flex align-items-center gap-2">
         <span>Visualizza</span>
-        <select class="form-select form-select-sm d-inline-block w-auto border-secondary-subtle" 
-                [ngModel]="pageSize" 
+        <select class="form-select form-select-sm d-inline-block w-auto border-secondary-subtle"
+                [ngModel]="pageSize"
                 (ngModelChange)="onPageSizeChange($event)"
                 style="color: #002b55; font-weight: 700;">
           <option [value]="5">5 per pagina</option>
@@ -20,21 +20,22 @@
     </div>
 
     <div class="d-flex align-items-center gap-2">
-      <button class="btn btn-link p-1 text-decoration-none" 
-              [disabled]="currentPage === 1" 
+      <button class="btn btn-link p-1 text-decoration-none"
+              [disabled]="currentPage === 1"
               (click)="previousPage()"
               style="color: #002b55;">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
         </svg>
       </button>
-      
+
       <span class="px-3 py-1 border rounded bg-white text-dark" style="font-weight: 700;">
         {{ currentPage }}
       </span>
+      / {{totalPages}}
 
-      <button class="btn btn-link p-1 text-decoration-none" 
-              [disabled]="currentPage >= totalPages" 
+      <button class="btn btn-link p-1 text-decoration-none"
+              [disabled]="currentPage >= totalPages"
               (click)="nextPage()"
               style="color: #002b55;">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
@@ -63,7 +64,7 @@
       </thead>
       <tbody>
         @for (row of paginatedData; track row) {
-          <tr>
+            <tr [class.dropdown-open]="openedRow === row">
             @for (col of columns; track col.key) {
               <td [className]="col.class || ''">
                 <ng-container *ngTemplateOutlet="cellTemplate ? cellTemplate : defaultCell; context: { $implicit: row, column: col }"></ng-container>

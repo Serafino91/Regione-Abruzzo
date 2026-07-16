@@ -42,7 +42,7 @@
     </div>
 
 <div class="text-end ms-auto" style="width: 30%;">
-  <button type="button" class="btn btn-padded btn-icon p-0 text-primary" aria-label="Visualizza Dettagli">
+  <button (click)="apriDettaglio()" type="button" class="btn btn-padded btn-icon p-0 text-primary" aria-label="Visualizza Dettagli">
 
     <svg class="icon m-0 pe-none"
          style="width: 28px !important;
@@ -51,7 +51,8 @@
                 stroke: var(--bs-primary, #0066cc) !important;
                 stroke-width: 1.2px !important;
                 stroke-linejoin: round !important;"
-         aria-hidden="true">
+         aria-hidden="true"
+          >
       <use href="assets/bootstrap-italia/sprites.svg#it-zoom-in"></use>
     </svg>
 

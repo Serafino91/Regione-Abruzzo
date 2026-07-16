@@ -79,7 +79,6 @@
     @for (richiesta of listaFiltrata; track richiesta.requestId) {
       <app-richieste-in-corso-card
         [dati]="richiesta"
-        (click)="apriDettaglio(richiesta.requestId)"
         class="d-block w-100 mb-2">
       </app-richieste-in-corso-card>
     } @empty {

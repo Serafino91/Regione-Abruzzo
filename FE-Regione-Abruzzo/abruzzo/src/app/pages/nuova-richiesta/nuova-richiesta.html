@@ -1,7 +1,9 @@
 <div class="page-padding">
   <app-url></app-url>
   <h3 class="it-header-block-title py-3"> Nuova Richiesta</h3>
-  <app-nav-form  [currentStep]="currentStep"></app-nav-form>
+  <app-nav-form
+    [currentStep]="currentStep"
+  ></app-nav-form>
 </div>
 
 @if(currentStep === 1) {

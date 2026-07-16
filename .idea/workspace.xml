@@ -5,7 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c58d4ad-40c5-48dd-ad9e-199fd090ed8f" name="Changes" comment="[FRONT END UPDATE] Pagina catalogo e dettaglio servizio, refactor componenti">
-      <change afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/constants/InfoBarItem.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE-Regione-Abruzzo/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BE-Regione-Abruzzo/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/app.routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/progetto-detail-card/progetto-detail-card.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/progetto-detail-card/progetto-detail-card.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/servizio-card/servizio-card.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/servizio-card/servizio-card.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/servizio-card/servizio-card.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/servizio-card/servizio-card.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/table/table.css" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/table/table.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/table/table.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/table/table.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/table/table.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/components/table/table.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/constants/InfoBarItem.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/constants/InfoBarItem.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/catalogo/catalogo.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/catalogo/catalogo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/catalogo/catalogo.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/catalogo/catalogo.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/dettaglio-richiesta/dettaglio-richiesta.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/dettaglio-richiesta/dettaglio-richiesta.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/nuova-richiesta/nuova-richiesta.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/pages/nuova-richiesta/nuova-richiesta.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/catalogo/lista-servizi/lista-servizi.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/catalogo/lista-servizi/lista-servizi.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/catalogo/lista-servizi/lista-servizi.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/catalogo/lista-servizi/lista-servizi.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/progetti-in-corso/components/project-card/project-card.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/progetti-in-corso/components/project-card/project-card.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/progetti-in-corso/components/project-card/project-card.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/progetti-in-corso/components/project-card/project-card.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/richieste-in-corso/components/richieste-in-corso-card/richieste-in-corso-card.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/richieste-in-corso/components/richieste-in-corso-card/richieste-in-corso-card.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/richieste-in-corso/components/richieste-in-corso-card/richieste-in-corso-card.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/richieste-in-corso/components/richieste-in-corso-card/richieste-in-corso-card.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/richieste-in-corso/richieste-in-corso.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/home/richieste-in-corso/richieste-in-corso.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/progetti/tabella-progetti/tabella-progetti.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/progetti/tabella-progetti/tabella-progetti.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/richieste/tabella-richieste/tabella-richieste.html" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/sections/richieste/tabella-richieste/tabella-richieste.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/services/progetti.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/app/services/progetti.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/FE-Regione-Abruzzo/abruzzo/src/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,7 +258,7 @@
       <workItem from="1783925072314" duration="6725000" />
       <workItem from="1783933556028" duration="15565000" />
       <workItem from="1784011235967" duration="20816000" />
-      <workItem from="1784097376117" duration="19680000" />
+      <workItem from="1784097376117" duration="37601000" />
     </task>
     <task id="LOCAL-00001" summary="Carosello e componente card e section header applicato a servizio card">
       <option name="closed" value="true" />
@@ -340,7 +364,15 @@
       <option name="project" value="LOCAL" />
       <updated>1784042569835</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="[FRONT END UPDATE] Pagina catalogo e dettaglio servizio, refactor componenti">
+      <option name="closed" value="true" />
+      <created>1784125725465</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1784125725465</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -375,6 +407,7 @@
     <MESSAGE value="[FRONT END UPDATE] mapping progetti da backend, sezioni pagina progetti" />
     <MESSAGE value="[FRONT END UPDATE] unificazione componenti pagine dettaglio progetto e nuova richiesta" />
     <MESSAGE value="[FRONT END UPDATE] Pagina catalogo e dettaglio servizio, refactor componenti" />
-    <option name="LAST_COMMIT_MESSAGE" value="[FRONT END UPDATE] Pagina catalogo e dettaglio servizio, refactor componenti" />
+    <MESSAGE value="[FRONT END UPDATE] pagina dettaglio progetto e componente info bar" />
+    <option name="LAST_COMMIT_MESSAGE" value="[FRONT END UPDATE] pagina dettaglio progetto e componente info bar" />
   </component>
 </project>
