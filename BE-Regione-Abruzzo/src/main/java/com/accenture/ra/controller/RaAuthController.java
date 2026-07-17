@@ -1,11 +1,12 @@
 package com.accenture.ra.controller;
 
+import com.accenture.ra.dto.request.addUserForAppRequestDto;
 import com.accenture.ra.service.AdfsTokenService;
 import com.accenture.ra.service.RaAuthService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.Map;
 
 @RestController
@@ -30,6 +31,34 @@ public class RaAuthController {
 
         Map<String, Object> response =
                 raAuthService.getRolesForUser(token);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/add-user-no-admin")
+    @PreAuthorize("hasAnyRole('STAFF')")
+    public ResponseEntity<Map<String, Object>> addUserForAppNoAdmin(@RequestBody addUserForAppRequestDto request) {
+
+        String token = adfsTokenService.getAdfsToken();
+
+        Map<String, Object> response =
+                raAuthService.getRolesForUser(token);
+
+
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/add-user")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ResponseEntity<Map<String, Object>> addUserForApp(@RequestBody addUserForAppRequestDto request) {
+
+        String token = adfsTokenService.getAdfsToken();
+
+        Map<String, Object> response =
+                raAuthService.getRolesForUser(token);
+
+
 
         return ResponseEntity.ok(response);
     }

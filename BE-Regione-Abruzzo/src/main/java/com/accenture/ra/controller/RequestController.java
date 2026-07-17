@@ -8,6 +8,7 @@ import com.accenture.ra.service.impl.RequestServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -98,6 +99,7 @@ public class RequestController {
             )
     })
     @GetMapping
+    @PreAuthorize("hasAuthority('data:view')")
     public ResponseEntity<RequestListResponse> getCatalogRequestsList() {
 
         return ResponseEntity.ok(new RequestListResponse(requestService.getAllRequests()));
@@ -157,6 +159,7 @@ public class RequestController {
             )
     })
     @PostMapping
+    @PreAuthorize("hasAuthority('request:create')")
     public ResponseEntity<RequestDetailResponse> createRequest() {
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -229,6 +232,7 @@ public class RequestController {
             )
     })
     @PostMapping(value = "/filter")
+    @PreAuthorize("hasAuthority('data:view')")
     public ResponseEntity<RequestListResponse> getFilteredRequests() {
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -290,6 +294,7 @@ public class RequestController {
             )
     })
     @GetMapping("/{request-id}")
+    @PreAuthorize("hasAuthority('data:view')")
     public ResponseEntity<RequestDetailResponse> getRequestDetail(
             @Parameter(
                     description = "Identificativo univoco della richiesta",
