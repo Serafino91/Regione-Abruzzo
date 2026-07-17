@@ -24,6 +24,8 @@ export class ProgettiFlexbox {
 
   constructor(private progettiService: ProgettiService) {}
 
+  servizi: number[] = [1, 3, 5];
+  richieste: number[] = [1, 2, 1];
   ngOnInit(): void {
     this.getProgetti();
   }

@@ -12,11 +12,10 @@ import {ProgettiService} from "../../../../../services/progetti.service";
 })
 export class ProjectCard {
   @Input() progetto!: ProgettoModel;
+  @Input() servizi!: number;
+  @Input() richieste!: number;
 
-  constructor(
-
-    private router: Router,
-  ) {}
+  constructor(private router: Router) {}
 
   apriDettaglio() {
     this.router.navigate(['/home/progetti/dettaglio-progetto', this.progetto.idProgetto]);
