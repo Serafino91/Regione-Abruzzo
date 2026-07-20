@@ -6,6 +6,5 @@ public enum Roles {
     ROLE_USER,
     ROLE_PENDING,
     ROLE_DELEGATE,
-    ROLE_DELEGATE_VIEW,
-    ROLE_DELEGATE_EDIT,
+    ROLE_SUB_DELEGATE,
 }
