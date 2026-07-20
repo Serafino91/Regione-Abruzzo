@@ -1,0 +1,87 @@
+<form [formGroup]="filtersForm" class="row mx-4 g-4">
+
+  <div class="col-4">
+    <label for="codice" class="form-label">Codice</label>
+    <input
+      id="codice"
+      type="text"
+      class="form-select form-select-rounded"
+      formControlName="codice">
+  </div>
+
+  <div class="col-4">
+    <label for="categoria" class="form-label">Categoria</label>
+    <select
+      class="form-select form-select-rounded"
+      formControlName="categoria">
+      <option value="">Seleziona...</option>
+    </select>
+  </div>
+
+  <div class="col-4">
+    <label for="sottocategoria" class="form-label">Sottocategoria</label>
+    <select
+      class="form-select form-select-rounded"
+      formControlName="sottocategoria">
+      <option value="">Seleziona...</option>
+    </select>
+  </div>
+
+  <div class="col-4">
+    <label for="stato" class="form-label">Stato</label>
+    <select
+      class="form-select form-select-rounded"
+      formControlName="stato">
+      <option value="">Seleziona...</option>
+    </select>
+  </div>
+
+  <div class="col-4">
+    <label class="active" for="dataDa">Data invio - da</label>
+    <input
+      class="form-control form-control-rounded"
+      formControlName="dataDa"
+      type="date"
+      id="dataDa"
+      name="dataDa">
+  </div>
+
+  <div class="col-4">
+    <label class="active" for="dataA">Data invio - a</label>
+    <input
+      class="form-control form-control-rounded"
+      formControlName="dataA"
+      type="date"
+      id="dataA"
+      name="dataA">
+  </div>
+
+
+  <div class="col-8">
+    <label for="richiedente" class="form-label">Seleziona Richiedente</label>
+    <select
+      class="form-select form-select-rounded"
+      formControlName="richiedente">
+      <option value="">Seleziona...</option>
+    </select>
+  </div>
+
+
+
+</form>
+
+
+<div class="pt-4 row gap-2 justify-content-end ">
+  <button type="button"
+          class="btn btn-primary col-2 w-auto"
+          (click)="eliminaFiltri()">
+    Elimina filtri
+  </button>
+
+
+  <button type="button"
+          class="btn btn-primary col-2  w-auto"
+          (click)="applicaFiltri()">
+    Applica filtri
+  </button>
+</div>

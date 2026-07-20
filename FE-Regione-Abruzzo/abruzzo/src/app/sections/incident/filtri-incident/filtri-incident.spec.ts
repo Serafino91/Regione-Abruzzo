@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NavForm } from './nav-form';
+import { FiltriIncident } from './filtri-incident';
 
-describe('NavForm', () => {
-  let component: NavForm;
-  let fixture: ComponentFixture<NavForm>;
+describe('FiltriIncident', () => {
+  let component: FiltriIncident;
+  let fixture: ComponentFixture<FiltriIncident>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NavForm],
+      imports: [FiltriIncident],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(NavForm);
+    fixture = TestBed.createComponent(FiltriIncident);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

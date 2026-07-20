@@ -1,0 +1,31 @@
+<div class="color-bg-lightblue">
+
+  <div class="info-bar">
+
+    @for (item of items; track item.label) {
+
+      <div class="info-card">
+
+        @if(item.icon) {
+          <svg class="info-icon" aria-hidden="true">
+            <use [attr.href]="'assets/bootstrap-italia/sprites.svg#' + item.icon"></use>
+          </svg>
+        }
+
+        <div class="info-content">
+          <span class="info-label">
+            {{ item.label }}
+          </span>
+
+          <span class="info-value">
+            {{ item.value }}
+          </span>
+        </div>
+
+      </div>
+
+    }
+
+  </div>
+
+</div>

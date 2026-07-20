@@ -20,16 +20,13 @@
 </div>
 
 
-  <app-richiesta-info-bar
-    [idRichiesta]="richiestaDetail.requestId"
-    [stato]="richiestaDetail.state.stateName"
-    [createdAt]="richiestaDetail.createdAt"
-  ></app-richiesta-info-bar>
+<app-info-bar
+  [items]="infoRichiesta">
+</app-info-bar>
+
 
 <div class="page-padding">
   @if (richiestaDetail) {
-
-
 
     <app-progetto-detail-card
       [nome]="richiestaDetail.project.name"

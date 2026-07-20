@@ -4,10 +4,11 @@ import { RichiestaModel } from '../../../model/richiestaModel';
 import { ServizioModel } from '../../../model/servizioModel';
 // 🌟 Importiamo la costante e il tipo dal file appena creato
 import { STATO_CONFIG, StatoRichiesta } from '../../../constants/request-state-badge.constants';
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-tabella-richieste',
-  imports: [TableComponent],
+  imports: [TableComponent, RouterLink],
   standalone: true,
   templateUrl: './tabella-richieste.html',
   styleUrl: './tabella-richieste.css',
@@ -31,10 +32,9 @@ export class TabellaRichieste {
       const datiUguali: any = this.richieste;
       const arrayRichieste: RichiestaModel[] = Array.isArray(datiUguali)
         ? datiUguali
-        : (datiUguali.requestsList || []);
+        : datiUguali.requestsList || [];
 
       this.listaRichieste = arrayRichieste.flatMap((richiesta: RichiestaModel) => {
-
         const statoKey = this.getStatoKey(richiesta.state?.stateName);
 
         // 🌟 Usiamo la costante globale STATO_CONFIG al posto di this.statoConfig
@@ -43,18 +43,20 @@ export class TabellaRichieste {
         const stateData = {
           ...richiesta.state,
           key: statoKey,
-          config: config
+          config: config,
         };
 
         if (!richiesta.services || richiesta.services.length === 0) {
-          return [{
-            state: stateData,
-            requestId: richiesta.requestId,
-            project: richiesta.project?.name,
-            service: 'Nessun servizio',
-            category: richiesta.category?.name,
-            createdAt: richiesta.createdAt
-          }];
+          return [
+            {
+              state: stateData,
+              requestId: richiesta.requestId,
+              project: richiesta.project?.name,
+              service: 'Nessun servizio',
+              category: richiesta.category?.name,
+              createdAt: richiesta.createdAt,
+            },
+          ];
         }
 
         return richiesta.services.map((servizio: ServizioModel) => ({
@@ -63,7 +65,7 @@ export class TabellaRichieste {
           project: richiesta.project?.name,
           service: servizio.item,
           category: richiesta.category?.name,
-          createdAt: richiesta.createdAt
+          createdAt: richiesta.createdAt,
         }));
       });
     }

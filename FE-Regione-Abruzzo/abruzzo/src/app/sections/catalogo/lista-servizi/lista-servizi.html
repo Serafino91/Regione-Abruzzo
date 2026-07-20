@@ -2,13 +2,14 @@
 
   <div class="d-flex align-items-center gap-3">
 
-    <div class="d-flex align-items-center gap-2">
+    <div class="d-flex align-items-center gap-2 text-uppercase fw-bold text-secondary">
       <span>Visualizza</span>
 
       <select
-        class="form-select form-select-sm w-auto"
+        class="form-select form-select-sm d-inline-block w-auto border-secondary-subtle"
         [ngModel]="pageSize"
-        (ngModelChange)="onPageSizeChange($event)">
+        (ngModelChange)="onPageSizeChange($event)"
+        style="color: #002b55; font-weight: 700;">
         <option [ngValue]="3">3 per pagina</option>
         <option [ngValue]="6">6 per pagina</option>
         <option [ngValue]="9">9 per pagina</option>
@@ -16,7 +17,7 @@
       </select>
     </div>
 
-    <span>Totale: {{ servizi.length }}</span>
+    <span class="text-uppercase fw-bold text-secondary">Totale: {{ servizi.length }}</span>
   </div>
 
   <div class="d-flex align-items-center gap-2">
@@ -35,6 +36,7 @@
     <span class="px-3 py-1 border rounded">
       {{ currentPage }}
     </span>
+    / {{totalPages}}
 
     <button
       class="btn btn-link p-1"
@@ -55,8 +57,7 @@
   @for (servizio of  paginatedServizi; track servizio.id) {
     <div class="col-12 col-md-6 col-lg-4">
       <app-servizio-card
-        [servizio]="servizio"
-        (click)="apriDettaglio(servizio.id)">
+        [servizio]="servizio">
       </app-servizio-card>
     </div>
   }

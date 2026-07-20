@@ -1,4 +1,11 @@
-import { ChangeDetectorRef, Component, DestroyRef, inject } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  DestroyRef,
+  EventEmitter,
+  inject,
+  Output,
+} from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RichiestaModel } from '../../../model/richiestaModel';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -8,6 +15,7 @@ import { CategoriaService } from '../../../services/categoria.service';
 import { ServizioModel } from '../../../model/servizioModel';
 import { ServiziService } from '../../../services/servizi.service';
 import { RequestState } from '../../../constants/request-state-constants';
+import { FiltroRichiestaCriteriaModel } from '../../../model/filtro-richiesta-criteria.model';
 
 @Component({
   selector: 'app-filtri',
@@ -26,6 +34,9 @@ export class Filtri {
     key,
     value,
   }));
+  @Output() filtra = new EventEmitter<FiltroRichiestaCriteriaModel>();
+  @Output() reset = new EventEmitter<void>();
+
   constructor(
     private categoriaService: CategoriaService,
     private serviziService: ServiziService,
@@ -98,8 +109,36 @@ export class Filtri {
         },
       });
   }
-  applicaFiltri() {}
+  applicaFiltri() {
+    const criteria: FiltroRichiestaCriteriaModel = {
+      stateId: this.filtersForm.value.stato ? Number(this.filtersForm.value.stato) : undefined,
+
+      categoryId: this.filtersForm.value.categoria
+        ? Number(this.filtersForm.value.categoria)
+        : undefined,
+
+      serviceIds: this.filtersForm.value.servizio
+        ? [Number(this.filtersForm.value.servizio)]
+        : undefined,
+
+      sendFrom: this.filtersForm.value.dataDa
+        ? `${this.filtersForm.value.dataDa}T00:00:00`
+        : undefined,
+
+      sendTo: this.filtersForm.value.dataA
+        ? `${this.filtersForm.value.dataA}T23:59:59`
+        : undefined,
+    };
+
+    this.filtra.emit(criteria);
+  }
   eliminaFiltri() {
     this.filtersForm.reset();
+
+    this.servizi = [];
+    this.servizio = undefined;
+
+    this.reset.emit();
+
   }
 }

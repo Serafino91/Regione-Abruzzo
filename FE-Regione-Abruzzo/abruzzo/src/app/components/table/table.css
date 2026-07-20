@@ -6,6 +6,7 @@
   position: relative;
   scrollbar-color: #0066CC #f4f7fc;}
 
+
 .table {
   border-collapse: separate !important; /* Mantiene la stabilità delle colonne fisse */
   border-spacing: 0;
@@ -35,17 +36,16 @@
 }
 
 /* 2. Blocca la colonna Azioni a destra */
-.table th:last-child,
-.table tbody tr td:last-child {
+.table th:last-child
+.table tbody tr td:first-child{
   position: sticky !important;
   right: 0;
-  z-index: 3; /* Sta sopra al contenuto che scorre sotto */
+  z-index: 3;
 }
 
 /* Impedisce al testo di sfarfallare sopra le intestazioni fisse */
 .table thead th:first-child,
 .table thead th:last-child {
-  z-index: 4;
   background-color: #ffffff !important;
 }
 

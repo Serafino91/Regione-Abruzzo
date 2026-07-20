@@ -1,22 +1,23 @@
 import { Component } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, FormArray } from '@angular/forms';
-import { NavForm } from '../../components/nav-form/nav-form';
 import { ScegliProgetto } from '../../sections/nuova-richiesta/scegli-progetto/scegli-progetto';
 import { SelezionaServizio } from '../../sections/nuova-richiesta/seleziona-servizio/seleziona-servizio';
 import { ControllaInvia } from '../../sections/nuova-richiesta/controlla-invia/controlla-invia';
 import { SectionFooter } from '../../sections/nuova-richiesta/section-footer/section-footer';
 import { Url } from '../../components/url/url';
+import { WizardBar } from '../../components/wizard-bar/wizard-bar';
+import { WizardLabelItem } from '../../constants/WizardLabelItem';
 
 @Component({
   selector: 'app-nuova-richiesta',
   imports: [
-    NavForm,
     ScegliProgetto,
     SelezionaServizio,
     ControllaInvia,
     SectionFooter,
     ReactiveFormsModule,
     Url,
+    WizardBar,
   ],
   templateUrl: './nuova-richiesta.html',
   styleUrl: './nuova-richiesta.css',
@@ -32,6 +33,12 @@ export class NuovaRichiesta {
       servizi: new FormArray([]),
     }),
   });
+
+  wizardItems: WizardLabelItem[] = [
+    { id: 1, label: '01.Scegli il progetto', icon: 'it-list' },
+    { id: 2, label: '02.Scegli servizio e compila il form', icon: 'it-software' },
+    { id: 3, label: '03.Controlla ed invia', icon: 'it-check-circle' },
+  ];
 
   nextStep() {
     this.currentStep++;

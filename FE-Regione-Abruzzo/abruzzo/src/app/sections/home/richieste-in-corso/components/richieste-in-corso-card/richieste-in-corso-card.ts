@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { RichiestaModel } from '../../../../../model/richiestaModel';
 
 export interface Richieste {
@@ -16,8 +16,14 @@ export interface Richieste {
   selector: 'app-richieste-in-corso-card',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './richieste-in-corso-card.html'
+  templateUrl: './richieste-in-corso-card.html',
 })
 export class RichiesteInCorsoCard {
   @Input() dati!: RichiestaModel;
+
+  constructor(private router: Router) {}
+
+  apriDettaglio() {
+    this.router.navigate(['/home/richieste/dettaglio-richiesta', this.dati.requestId]);
+  }
 }

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Input } from '@angular/core'
 import { ProgettoModel } from '../../../../../model/progetto.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import {ProgettiService} from "../../../../../services/progetti.service";
 @Component({
   selector: 'app-project-card',
   imports: [],
@@ -10,5 +12,12 @@ import { ProgettoModel } from '../../../../../model/progetto.model';
 })
 export class ProjectCard {
   @Input() progetto!: ProgettoModel;
+  @Input() servizi!: number;
+  @Input() richieste!: number;
 
+  constructor(private router: Router) {}
+
+  apriDettaglio() {
+    this.router.navigate(['/home/progetti/dettaglio-progetto', this.progetto.idProgetto]);
+  }
 }

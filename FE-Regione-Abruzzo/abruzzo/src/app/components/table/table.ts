@@ -21,6 +21,7 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() columns: TableColumn[] = [];
   @Input() defaultSortColumn: string = '';
   @Input() defaultSortDir: 'asc' | 'desc' = 'asc';
+  openedRow: any = null;
 
   @ContentChild('cellTemplate') cellTemplate!: TemplateRef<any>;
 
@@ -29,7 +30,7 @@ export class TableComponent implements OnInit, OnChanges {
   pageSize: number = 10;
   sortColumn: string = '';
   sortDir: 'asc' | 'desc' = 'asc';
-  
+
   paginatedData: any[] = [];
 
   ngOnInit() {
@@ -103,4 +104,8 @@ export class TableComponent implements OnInit, OnChanges {
     if (!key) return '';
     return key.split('.').reduce((acc, part) => acc && acc[part], row) ?? '';
   }
+  toggleDropdown(row: any) {
+    this.openedRow = this.openedRow === row ? null : row;
+  }
+
 }

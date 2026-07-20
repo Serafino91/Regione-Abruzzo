@@ -15,7 +15,7 @@
 
       <div>
         <strong class="d-block">Servizi:</strong>
-        <span class="fw-semibold">{{ progetto.destinationLink }}</span>
+        <span class="fw-semibold">{{ servizi }}</span>
       </div>
     </div>
 
@@ -26,13 +26,13 @@
 
       <div>
         <strong class="d-block">Richieste attive:</strong>
-        <span class="fw-semibold">{{ progetto.dataCreazione }}</span>
+        <span class="fw-semibold">{{ richieste }}</span>
       </div>
     </div>
   </div>
 
 
-  <a href="#" class="progetto-card__link mt-3">
+  <a (click)="apriDettaglio()" class="progetto-card__link mt-3">
     Dettaglio progetto <span aria-hidden="true">→</span>
   </a>
 </article>

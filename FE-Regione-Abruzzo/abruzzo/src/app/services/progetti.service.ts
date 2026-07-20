@@ -18,7 +18,7 @@ export class ProgettiService {
     );
   }
 
-  getProgetto(id: number) {
+  getProgetto(id: string) {
     return this.http.get<ProgettoModel>(`${ChiamateApiUrl.BASE_URL_PROGETTI}/${id}`);
   }
 
