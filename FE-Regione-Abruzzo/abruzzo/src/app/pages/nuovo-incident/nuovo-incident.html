@@ -1,86 +1,140 @@
-<h1>Nuovo incident</h1>
-<p>Compila tutti i dati per creare un nuovo incident.</p>
+<div class="section-padding d-flex flex-column gap-2">
+  <app-url></app-url>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="title-section"> <strong>Nuovo Incident</strong></h4>
+  </div>
+  <p>Compila tutti i dati per creare un nuovo incident</p>
+</div>
 
 
+  <form [formGroup]="incidentForm">
 
-<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <div class="section-padding color-bg-lightgrey">
 
-  <h2>Dati Servizio</h2>
+      <div class="row g-4 mb-4">
 
-  <div class="dati-servizio">
+        <h5>Dati Incident</h5>
 
-    <label>Categoria</label>
-    <select
-      name="categoria"
-      [(ngModel)]="selezione"
-      required
-      (change)="onSelezioneChange()">
+        <div class="col-6">
+          <label for="categoria" class="form-label">Categoria</label>
+          <select
+            class="form-select form-select-rounded"
+            formControlName="categoria">
+            <option value="">Seleziona...</option>
+          </select>
+        </div>
 
-      <option value="">Seleziona...</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
+        <div class="col-6">
+          <label for="sottocategoria" class="form-label">Sottocategoria</label>
+          <select
+            class="form-select form-select-rounded"
+            formControlName="sottocategoria">
+            <option value="">Seleziona...</option>
+          </select>
+        </div>
 
-    </select>
+        <div class="col-6">
+          <label for="idProgetto" class="form-label">ID Progetto</label>
+          <select
+            class="form-select form-select-rounded"
+            formControlName="idProgetto">
+            <option value="">Seleziona...</option>
+          </select>
+        </div>
 
-    <label>Servizio</label>
-    <select
-      name="servizio"
-      [(ngModel)]="servizio"
-      required
-      [disabled]="selezioni2.length === 0">
+        <div class="col-6">
+          <label for="idServizio" class="form-label">ID Servizio</label>
+          <select
+            class="form-select form-select-rounded"
+            formControlName="idServizio">
+            <option value="">Seleziona...</option>
+          </select>
+        </div>
 
-      <option value="">Seleziona...</option>
 
-      @for(item of selezioni2; track item) {
-        <option [value]="item">
-          {{ item }}
-        </option>
-      }
+        <div class="col-12">
+        <label for="descrizione" class="form-label">Descrizione problema</label>
+        <textarea
+            id="descrizione"
+            class="mt-0 form-control form-control-rounded "
+            rows="5"
+            formControlName="descrizione"
+            [attr.maxlength]="maxNoteLength">
+        </textarea>
 
-    </select>
+          <div class="d-flex justify-content-end">
+            <small class="text-muted">
+              {{ incidentForm.get('descrizione')?.value?.length || 0 }}/{{ maxNoteLength }}
+            </small>
+          </div>
+        </div>
 
-    <label for="id-servizio">ID Servizio</label>
-    <textarea
-      id="id-servizio"
-      name="idServizio"
-      [(ngModel)]="idServizio"
-      required>
-    </textarea>
+        <div class="col-12">
+        <input
+          type="file"
+          id="allegato"
+          class="d-none"
+          formControlName="file"
+          (change)="onFileSelected($event)"/>
+
+        <label for="allegato" class="upload-area">
+          <svg class="icon icon-sm me-2" aria-hidden="true">
+            <use href="assets/bootstrap-italia/sprites.svg#it-upload"></use>
+          </svg>
+
+          <span>Trascina qui il file da allegare o clicca per scegliere</span>
+        </label>
+      </div>
+        <hr>
+
+        <h5>Dati Richiedente</h5>
+        <div class="col-12">
+          <label for="sede" class="form-label">Sede</label>
+          <input
+            id="sede"
+            type="text"
+            formControlName="sede"
+            class="form-control form-control-rounded">
+        </div>
+
+        <div class="col-6">
+          <label for="email" class="form-label">E-mail</label>
+          <input
+            id="email"
+            type="text"
+            formControlName="email"
+            class="form-control form-control-rounded">
+        </div>
+
+
+        <div class="col-6">
+          <label for="telefono" class="form-label">Telefono</label>
+          <input
+            id="telefono"
+            type="text"
+            formControlName="telefono"
+            class="form-control form-control-rounded">
+        </div>
+      </div>
+    </div>
+  </form>
+
+
+<div class="section-padding">
+  <div class="line-separator"></div>
+  <div class="section-footer">
+      <div>
+        <button
+          class="btn btn-outline-primary">
+          Annulla
+        </button>
+      </div>
+
+      <button
+        class="btn btn-outline-primary">
+        Invia
+      </button>
 
   </div>
-
-  <h2>Dati Incident</h2>
-
-  <div class="dati-incident">
-
-    <label for="descrizione-breve">Descrizione breve</label>
-    <textarea
-      id="descrizione-breve"
-      name="descrizioneBreve"
-      [(ngModel)]="descrizioneBreve"
-      required>
-    </textarea>
-
-    <label for="descrizione">Descrizione</label>
-    <textarea
-      id="descrizione"
-      name="descrizione"
-      [(ngModel)]="descrizione"
-      required>
-    </textarea>
-
-  </div>
-
-  <button
-    type="submit"
-    class="button-invia-incident"
-    mat-raised-button
-    color="primary"
-    [disabled]="f.invalid">
-    Invia Incident
-  </button>
-
-
-</form>
+</div>
 

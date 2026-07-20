@@ -4,20 +4,14 @@ import { ActivatedRoute } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Url } from '../../components/url/url';
 import { ProgettoDetailCard } from "../../components/progetto-detail-card/progetto-detail-card";
-import { RichiestaInfoBar } from '../../components/richiesta-info-bar/richiesta-info-bar';
 import { RichiesteService } from "../../services/richieste.service";
 import { RichiestaModel } from "../../model/richiestaModel";
 import { ServizioAccordion } from '../../components/servizio-accordion/servizio-accordion';
+import {InfoBar} from '../../components/info-bar/info-bar';
 
 @Component({
   selector: 'app-dettaglio-richiesta',
-  imports: [
-    Url,
-    ProgettoDetailCard,
-    RichiestaInfoBar,
-    RouterLink,
-    ServizioAccordion,
-  ],
+  imports: [Url, ProgettoDetailCard,  RouterLink, ServizioAccordion, InfoBar],
   templateUrl: './dettaglio-richiesta.html',
   styleUrl: './dettaglio-richiesta.css',
   standalone: true,
@@ -27,6 +21,7 @@ export class DettaglioRichiesta {
   richiestaDetail!: RichiestaModel;
   nuovaRichiesta: boolean = false;
   showDeleteModal = false;
+  infoRichiesta: any;
 
   private destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef);
@@ -65,6 +60,23 @@ export class DettaglioRichiesta {
       .subscribe({
         next: (resp: any) => {
           this.richiestaDetail = resp.requestDetail ?? resp;
+          this.infoRichiesta = [
+            {
+              label: 'ID Richiesta',
+              value: this.richiestaDetail.requestId,
+              icon: 'it-file',
+            },
+            {
+              label: 'Stato',
+              value: this.richiestaDetail.state.stateName,
+              icon: 'it-file',
+            },
+            {
+              label: 'Data apertura',
+              value: this.richiestaDetail.createdAt,
+              icon: 'it-calendar',
+            },
+          ];
           this.cdr.detectChanges();
         },
         error: (err) => {

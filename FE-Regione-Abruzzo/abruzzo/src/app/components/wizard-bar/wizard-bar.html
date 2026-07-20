@@ -1,0 +1,30 @@
+<div class="stepper mb-2">
+
+  @for (item of items; track item.id; let i = $index; let last = $last) {
+
+    <div
+      class="step-box d-inline-flex align-items-center"
+      [class.active]="currentStep === i + 1"
+      [class.completed]="currentStep > i + 1">
+
+      @if (item.icon) {
+        <svg class="icon icon-primary me-2">
+          <use [attr.href]="'assets/bootstrap-italia/sprites.svg#' + item.icon"></use>
+        </svg>
+      }
+
+      <strong>{{ item.label }}</strong>
+
+    </div>
+
+    @if (!last) {
+      <div class="d-flex align-items-center mx-2">
+        <svg class="icon icon-secondary">
+          <use href="assets/bootstrap-italia/sprites.svg#it-chevron-right"></use>
+        </svg>
+      </div>
+    }
+
+  }
+
+</div>

@@ -1,15 +1,15 @@
 import { ChangeDetectorRef, Component, DestroyRef, inject } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ServizioModel } from '../../model/servizioModel';
 import { ServiziService } from '../../services/servizi.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ServizioInfoBar } from '../../components/servizio-info-bar/servizio-info-bar';
 import { Url } from '../../components/url/url';
 import { ServizioDetailCard } from '../../components/servizio-detail-card/servizio-detail-card';
+import { InfoBar } from '../../components/info-bar/info-bar';
 
 @Component({
   selector: 'app-dettaglio-servizio',
-  imports: [ServizioInfoBar, Url, RouterLink, ServizioDetailCard],
+  imports: [Url, RouterLink, ServizioDetailCard, InfoBar],
   templateUrl: './dettaglio-servizio.html',
   styleUrl: './dettaglio-servizio.css',
   standalone: true,
@@ -17,14 +17,14 @@ import { ServizioDetailCard } from '../../components/servizio-detail-card/serviz
 export class DettaglioServizio {
   servizioId!: string;
   servizioDetail!: ServizioModel;
+  infoServizio: any;
 
   private destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef);
 
   constructor(
     private route: ActivatedRoute,
-    private serviziService: ServiziService,
-    private router: Router,
+    private serviziService: ServiziService
   ) {}
 
   ngOnInit() {
@@ -39,6 +39,23 @@ export class DettaglioServizio {
       .subscribe({
         next: (resp: any) => {
           this.servizioDetail = resp.serviceDetail ?? resp;
+          this.infoServizio = [
+            {
+              label: 'ID Servizio',
+              value: this.servizioDetail.id,
+              icon: 'it-file',
+            },
+            {
+              label: 'Servizio',
+              value: this.servizioDetail.item,
+              icon: 'it-file',
+            },
+            {
+              label: 'Categoria',
+              value: this.servizioDetail.type,
+              icon: 'it-calendar',
+            },
+          ];
           console.log(this.servizioDetail);
           this.cdr.detectChanges();
         },

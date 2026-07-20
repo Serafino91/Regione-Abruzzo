@@ -4,7 +4,6 @@ import {ServiceCategory} from "../../../constants/service-category.constants";
 import {ServiceName} from "../../../constants/service-name.constants";
 import {LabelServizio} from '../../../components/label-servizio/label-servizio';
 import {ProgettoDetailCard} from "../../../components/progetto-detail-card/progetto-detail-card";
-import { RichiestaModel } from '../../../model/richiestaModel';
 
 @Component({
   selector: 'app-controlla-invia',
@@ -17,7 +16,8 @@ export class ControllaInvia {
   @Input() formGroupProgetto!: FormGroup;
   @Input() formGroupServizi!: FormGroup;
   @Input() nuovaRichiesta!: boolean;
-
+  protected readonly ServiceName = ServiceName;
+  protected readonly ServiceCategory = ServiceCategory;
   expanded: boolean[] = [];
 
   toggleCollapse(index: number): void {
@@ -37,6 +37,4 @@ export class ControllaInvia {
     return Object.entries((servizio.get('params') as FormGroup).value);
   }
 
-  protected readonly ServiceName = ServiceName;
-  protected readonly ServiceCategory = ServiceCategory;
 }

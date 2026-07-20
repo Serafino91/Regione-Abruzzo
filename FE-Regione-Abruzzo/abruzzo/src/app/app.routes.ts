@@ -11,9 +11,11 @@ import { Login } from './pages/login/login';
 import {DettaglioRichiesta} from './pages/dettaglio-richiesta/dettaglio-richiesta';
 import { DettaglioServizio } from './pages/dettaglio-servizio/dettaglio-servizio';
 import { DettaglioProgetto } from './pages/dettaglio-progetto/dettaglio-progetto';
+import {PreAccesso} from "./pages/pre-accesso/pre-accesso";
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'pre-accesso', component: PreAccesso },
   { path: 'home', component: Home },
   { path: 'home/progetti', component: Progetti },
   { path: 'home/richieste', component: Richieste },

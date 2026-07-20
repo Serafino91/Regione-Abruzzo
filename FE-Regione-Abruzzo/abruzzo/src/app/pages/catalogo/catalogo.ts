@@ -5,7 +5,7 @@ import { FiltriServizi } from '../../sections/catalogo/filtri-servizi/filtri-ser
 import { ListaServizi } from '../../sections/catalogo/lista-servizi/lista-servizi';
 import {ServizioModel} from '../../model/servizioModel';
 import {ServiziService} from '../../services/servizi.service';
-import {Router} from '@angular/router';
+import {Router, RouterLink } from '@angular/router';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 

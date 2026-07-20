@@ -1,13 +1,26 @@
-<div class="page-padding">
-  <p>WORK IN PROGRESS</p>
-
-  <app-button
-    label="Nuovo incident"
-    link="/incident/nuovo-incident"> Nuovo incident
-  </app-button>
-
-
-
-
+<div class="section-padding">
+  <app-url></app-url>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="title-section"> <strong>Gestione Incident</strong></h4>
+    <buttons
+      type="button" class="btn btn-primary text-normal fw-semibold"
+      [routerLink]="['/home/incident/nuovo-incident']">
+      Nuovo Incident
+    </buttons>
+  </div>
+  <p>Puoi consultare tutti gli incident inviati, sia in corso che chiusi, utilizzando i filtri disponibili.</p>
 </div>
 
+
+<div class="color-bg-lightblue section-padding">
+  <app-filtri-incident>
+  </app-filtri-incident>
+</div>
+
+
+
+<div class="section-padding">
+  <app-tabella-incident>
+
+  </app-tabella-incident>
+</div>

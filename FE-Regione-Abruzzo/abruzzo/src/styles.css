@@ -7,6 +7,7 @@
   --color-primary-dark: #003366;
   --color-primary-light: #f0f6ff;
   --color-primary-bg-light: #F2F7FC;
+  --color-grey-98: #FAFAFA;
 }
 
 *, *::before, *::after {
@@ -32,6 +33,10 @@ body {
 /* Background blu chiaro sezioni  */
 .color-bg-lightblue  {
   background: #F2F7FC;
+}
+
+.color-bg-lightgrey  {
+  background: #FAFAFA;
 }
 
 /* Stile campi di input */
