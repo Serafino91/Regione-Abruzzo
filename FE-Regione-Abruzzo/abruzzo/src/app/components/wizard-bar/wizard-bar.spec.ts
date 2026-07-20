@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ServizioInfoBar } from './servizio-info-bar';
+import { WizardBar } from './wizard-bar';
 
-describe('ServizioInfoBar', () => {
-  let component: ServizioInfoBar;
-  let fixture: ComponentFixture<ServizioInfoBar>;
+describe('WizardBar', () => {
+  let component: WizardBar;
+  let fixture: ComponentFixture<WizardBar>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ServizioInfoBar],
+      imports: [WizardBar],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ServizioInfoBar);
+    fixture = TestBed.createComponent(WizardBar);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

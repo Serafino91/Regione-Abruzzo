@@ -3,6 +3,8 @@ package com.accenture.ra.dto.request;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.accenture.ra.dto.request.ProjectDetail;
+
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class RequestCreationRequest {
 	
 	@NotNull
-	private String project;
+	private ProjectDetail project;
 	@NotNull
 	private String state;
 	@NotNull

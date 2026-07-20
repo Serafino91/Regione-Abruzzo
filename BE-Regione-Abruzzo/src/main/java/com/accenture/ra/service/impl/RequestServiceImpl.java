@@ -1,11 +1,26 @@
 package com.accenture.ra.service.impl;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.accenture.ra.dto.request.RequestDetail;
 import com.accenture.ra.dto.request.ServiceDetail;
 import com.accenture.ra.dto.response.RequestDetailResponse;
+import com.accenture.ra.entity.ProjectEntity;
 import com.accenture.ra.entity.RequestEntity;
-import com.accenture.ra.mapper.*;
-import com.accenture.ra.repository.*;
+import com.accenture.ra.mapper.ProjectMapper;
+import com.accenture.ra.mapper.RequestMapper;
+import com.accenture.ra.mapper.ServiceMapper;
+import com.accenture.ra.mapper.ServiceTypeMapper;
+import com.accenture.ra.mapper.StateMapper;
+import com.accenture.ra.repository.ProjectRepository;
+import com.accenture.ra.repository.RequestRepository;
+import com.accenture.ra.repository.ServiceRepository;
+import com.accenture.ra.repository.ServiceTypeRepository;
+import com.accenture.ra.repository.StateRepository;
 import com.accenture.ra.dto.request.RequestCreationRequest;
 import com.accenture.ra.dto.request.RequestFilterCriteria;
 import com.accenture.ra.service.RequestService;
@@ -58,7 +73,9 @@ public class RequestServiceImpl implements RequestService {
 		reqDetail.setRequestId(RequestIdGenerator.generateId());
 		// Cosa riceverò nel requestbody per project,cetegory,service,state? MODIFICARE se necessario
 		// TODO: flussi diversi per caso di PROGETTO NUOVO e caso PRE ESISTENTE
-		reqDetail.setProject(testProjectMapper.toModel(projectRepository.getReferenceById(Long.parseLong(req.getProject()))));
+		// arriva oggetto, controllo per id e poi nome se già esistente, poi continuo
+		//
+		reqDetail.setProject(testProjectMapper.toModel(createOrFindProject(req)));
 		reqDetail.setCategory(testServiceTypeMapper.toModel(categoryRepository.getReferenceById(req.getCategory()))); // se cerco nelle repo verifico che ciò che mi arriva sia corretto o cerco direttamente?
 		// I SERVIZI SARANNO N
 		List<ServiceDetail> servicesList = new ArrayList<>();
@@ -79,6 +96,24 @@ public class RequestServiceImpl implements RequestService {
 		requestRepository.save(testRequestMapper.toEntity(reqDetail));
 
 		return requestResp;
+	}
+
+	private ProjectEntity createOrFindProject(RequestCreationRequest req) {
+		if(projectRepository.existsById(req.getProject().getId())) {
+			return projectRepository.getReferenceById(req.getProject().getId());
+		}
+		else if(!projectRepository.existsByName(req.getProject().getName())) {
+			ProjectEntity newProject = new ProjectEntity();
+			newProject.setName(req.getProject().getName());
+			newProject.setDescription(req.getProject().getDescription());
+//			newProject.setDestinationLink(req.getProject().getDestinationLink());
+			return projectRepository.save(newProject);
+		}
+		else {
+			throw new IllegalArgumentException("Project with name " + req.getProject().getName() + " already exists.");
+		}
+
+
 	}
 
 	@Override

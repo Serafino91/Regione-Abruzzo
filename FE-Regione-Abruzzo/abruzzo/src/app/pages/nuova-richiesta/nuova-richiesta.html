@@ -1,9 +1,10 @@
 <div class="page-padding">
   <app-url></app-url>
   <h3 class="it-header-block-title py-3"> Nuova Richiesta</h3>
-  <app-nav-form
-    [currentStep]="currentStep"
-  ></app-nav-form>
+  <app-wizard-bar
+    [items]="wizardItems"
+    [currentStep]="currentStep">
+  </app-wizard-bar>
 </div>
 
 @if(currentStep === 1) {
@@ -35,5 +36,6 @@
 </app-section-footer>
 
 
-<button class="btn btn-primary" (click)="debugForm()">DEBUG FORM</button>
+<!--
+<button class="btn btn-primary" (click)="debugForm()">DEBUG FORM</button> -->
 

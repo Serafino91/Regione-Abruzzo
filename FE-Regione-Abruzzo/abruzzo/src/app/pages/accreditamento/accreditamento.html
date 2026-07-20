@@ -1,117 +1,184 @@
-<div class="container mt-4">
+<div class="section-padding d-flex flex-column gap-2">
+  <app-url></app-url>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="title-section"> <strong>Richiesta accreditamento</strong></h4>
+  </div>
+  <p>Compila tutti i campi obbligatori per poter inviare la richiesta.</p>
+</div>
 
-  <div class="card shadow-sm rounded-4">
-    <div class="card-header bg-primary text-white">
-      <h5 class="mb-0">Dati utente (SPID)</h5>
-    </div>
 
-    <div class="card-body">
 
-      <form [formGroup]="spidForm">
+<form [formGroup]="accreditamentoForm">
 
-        <!-- Nome e Cognome -->
-        <div class="row mb-3">
+  <div class="section-padding color-bg-lightgrey">
 
-          <div class="col-md-6">
-            <label class="form-label">Nome</label>
-            <input type="text"
-                   class="form-control"
-                   formControlName="nome"
-                   >
-          </div>
+    <div class="row g-4 mb-4">
 
-          <div class="col-md-6">
-            <label class="form-label">Cognome</label>
-            <input type="text"
-                   class="form-control"
-                   formControlName="cognome"
-                   >
-          </div>
+      <h5>Dati Utente</h5>
 
-        </div>
+      <div class="d-flex flex-row align-items-center">
+        <svg class="icon me-2" aria-hidden="true">
+          <use href="assets/bootstrap-italia/sprites.svg#it-file"></use>
+        </svg>
+        <h6>Identificazione utente</h6>
+      </div>
 
-        <!-- Codice fiscale -->
-        <div class="row mb-3">
 
-          <div class="col-md-6">
-            <label class="form-label">Codice Fiscale</label>
-            <input type="text"
-                   class="form-control"
-                   formControlName="codiceFiscale"
-                   >
-          </div>
+      <div class="col-6">
+        <label for="nome" class="form-label">Nome</label>
+        <input
+          id="nome"
+          type="text"
+          formControlName="nome"
+          placeholder="Inserisci Nome"
+          class="form-control form-control-rounded">
+      </div>
 
-          <div class="col-md-6">
-            <label class="form-label">Data di nascita</label>
-            <input type="date"
-                   class="form-control"
-                   formControlName="dataNascita"
-                   >
-          </div>
 
-        </div>
+      <div class="col-6">
+        <label for="cognome" class="form-label">Cognome</label>
+        <input
+          id="cognome"
+          type="text"
+          formControlName="cognome"
+          placeholder="Inserisci Cognome"
+          class="form-control form-control-rounded">
+      </div>
 
-        <!-- Luogo di nascita -->
-        <div class="row mb-3">
+      <div class="col-6">
+        <label for="codiceFiscale" class="form-label">Codice fiscale</label>
+        <input
+          id="codiceFiscale"
+          type="text"
+          formControlName="codiceFiscale"
+          placeholder="Inserisci Codice Fiscale"
+          class="form-control form-control-rounded">
+      </div>
 
-          <div class="col-md-4">
-            <label class="form-label">Comune di nascita</label>
-            <input type="text"
-                   class="form-control"
-                   formControlName="comuneNascita"
-                   >
-          </div>
+      <div class="col-6">
+        <label for="partitaIVA" class="form-label">Partita IVA</label>
+        <input
+          id="partitaIVA"
+          type="text"
+          formControlName="partitaIVA"
+          placeholder="Inserisci Partita IVA"
+          class="form-control form-control-rounded">
+      </div>
 
-          <div class="col-md-4">
-            <label class="form-label">Provincia</label>
-            <input type="text"
-                   class="form-control"
-                   formControlName="provinciaNascita"
-                   >
-          </div>
+      <div class="col-6">
+        <label for="ruolo" class="form-label">Ruolo aziendale</label>
+        <input
+          id="ruolo"
+          type="text"
+          formControlName="ruolo"
+          placeholder="Inserisci Ruolo Aziendale"
+          class="form-control form-control-rounded">
+      </div>
 
-          <div class="col-md-4">
-            <label class="form-label">Nazione</label>
-            <input type="text"
-                   class="form-control"
-                   formControlName="nazioneNascita"
-            >
-          </div>
 
-        </div>
+      <div class="d-flex flex-row align-items-center">
+        <svg class="icon me-2" aria-hidden="true">
+          <use href="assets/bootstrap-italia/sprites.svg#it-file"></use>
+        </svg>
+        <h6>Contatti</h6>
+      </div>
 
-        <!-- Contatti -->
-        <div class="row mb-3">
+      <div class="col-6">
+        <label for="email" class="form-label">Indirizzo e-mail</label>
+        <input
+          id="email"
+          type="text"
+          formControlName="email"
+          placeholder="Inserisci indirizzo e-mail"
+          class="form-control form-control-rounded">
+      </div>
 
-          <div class="col-md-6">
-            <label class="form-label">Email</label>
-            <input type="email"
-                   class="form-control"
-                   formControlName="email">
-          </div>
+      <div class="col-6">
+        <label for="pec" class="form-label">Inserisci PEC</label>
+        <input
+          id="pec"
+          type="text"
+          formControlName="pec"
+          placeholder="Inserisci PEC"
+          class="form-control form-control-rounded">
+      </div>
 
-          <div class="col-md-6">
-            <label class="form-label">Telefono</label>
-            <input type="tel"
-                   class="form-control"
-                   formControlName="telefono">
-          </div>
 
-        </div>
 
-        <!-- Submit -->
-        <div class="d-flex justify-content-end mt-4">
-          <button type="submit"
-                  class="btn btn-primary"
-                  (click)="register()"
-                  [disabled]="spidForm.invalid">
-            Conferma dati
-          </button>
-        </div>
 
-      </form>
 
     </div>
   </div>
+</form>
 
+
+<div class="section-padding">
+  <div class="line-separator"></div>
+  <div class="section-footer">
+    <div>
+      <button
+        class="btn btn-outline-primary">
+        Annulla
+      </button>
+    </div>
+    <button
+      type="submit"
+      [disabled]="accreditamentoForm.invalid"
+      (click)="showModal = true"
+      class="btn btn-outline-primary">
+      Invia Richiesta
+    </button>
+  </div>
 </div>
+
+
+
+@if (showModal) {
+  <div class="modal-overlay" (click)="showModal = false">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <svg class="icon me-2" aria-hidden="true">
+          <use href="assets/bootstrap-italia/sprites.svg#it-warning-circle"></use>
+        </svg>
+        <h6 class="mb-0">Invio Nuova Richiesta</h6>
+      </div>
+      <div class="modal-body">
+        <p class="mb-0">
+          Cliccando su Conferma, la richiesta verrà inviata.
+          <br>
+          <strong>Si conferma l'invio?</strong>
+          <br>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-annulla " (click)="showModal = false">Annulla</button>
+        <button class="btn btn-primary" (click)="inviaRichiesta()">Conferma</button>
+      </div>
+    </div>
+  </div>
+}
+
+
+@if (showModalRichiesta) {
+  <div class="modal-overlay">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <svg class="icon me-2" aria-hidden="true">
+          <use href="assets/bootstrap-italia/sprites.svg#it-check-circle"></use>
+        </svg>
+        <h6 class="mb-0">Richiesta Inviata </h6>
+      </div>
+      <div class="modal-body">
+        <p class="mb-0">
+          La richiesta è stata inviata correttamente.
+          <br>
+          Quando l'account verrà accreditato ti verrà inviata una notifica ed avrai accesso
+          a tutti i servizi disponibili sul portale.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" (click)="goToHome()">Vai alla Home</button>
+      </div>
+    </div>
+  </div>
+}

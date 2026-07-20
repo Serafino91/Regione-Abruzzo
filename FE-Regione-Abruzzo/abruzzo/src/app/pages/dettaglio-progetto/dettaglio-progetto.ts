@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, DestroyRef, inject} from '@angular/core';
 import {Url} from '../../components/url/url';
-import { ActivatedRoute, Router, RouterLink} from '@angular/router';
+import { ActivatedRoute, RouterLink} from '@angular/router';
 import {ProgettoModel} from '../../model/progetto.model';
 import {ProgettiService} from '../../services/progetti.service';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
