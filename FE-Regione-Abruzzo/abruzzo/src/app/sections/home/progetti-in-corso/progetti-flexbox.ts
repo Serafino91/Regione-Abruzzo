@@ -16,7 +16,7 @@ import { map } from 'rxjs';
   standalone: true,
 })
 export class ProgettiFlexbox {
-  public project: ProgettoModel[] = [];
+  progetti: ProgettoModel[] = [];
 
   private platformId = inject(PLATFORM_ID);
   private destroyRef = inject(DestroyRef);
@@ -24,6 +24,8 @@ export class ProgettiFlexbox {
 
   constructor(private progettiService: ProgettiService) {}
 
+  servizi: number[] = [1, 3, 5];
+  richieste: number[] = [1, 2, 1];
   ngOnInit(): void {
     this.getProgetti();
   }
@@ -36,8 +38,17 @@ export class ProgettiFlexbox {
         takeUntilDestroyed(this.destroyRef),
       )
       .subscribe({
-        next: (resp) => {
-          this.project = resp;
+        next: (resp: any[]) => {
+          // mapping repsonse dal backend
+          console.log(resp);
+          this.progetti = resp.map((p) => ({
+            idProgetto: p.id,
+            nome: p.name,
+            destinationLink: p.destinationLink,
+            description: p.description,
+            dataCreazione: p.createAt,
+            dataUltimaModifica: p.updateAt,
+          }));
           this.cdr.detectChanges();
         },
         error: (err) => {

@@ -2,15 +2,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;1,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap');
 :root {
-  /* Colori */
+  /* Colori generali */
   --color-primary: #0066CC;
   --color-primary-dark: #003366;
-  font-family: "Titillium Web", sans-serif;
+  --color-primary-light: #f0f6ff;
+  --color-primary-bg-light: #F2F7FC;
 }
 
 *, *::before, *::after {
   box-sizing: border-box;
 }
+
 
 body {
   font-family: "Titillium Web", Geneva, Tahoma, sans-serif;
@@ -18,7 +20,33 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Ensures form elements use your standard font stack too */
-input, button, textarea, select {
-  font-family: inherit;
+
+/* padding contenuto sezioni e pagine */
+.page-padding {
+  padding: 24px 48px;
 }
+.section-padding {
+  padding: 24px 48px;
+}
+
+/* Background blu chiaro sezioni  */
+.color-bg-lightblue  {
+  background: #F2F7FC;
+}
+
+/* Stile campi di input */
+.form-control.form-control-rounded {
+  border: 1px solid #ccc;
+  border-radius: 5px !important;
+}
+.form-select.form-select-rounded {
+  border: 1px solid #ccc;
+  border-radius: 5px !important;
+}
+
+input[type="date"],
+input[type="datetime-local"],
+input[type="time"] {
+  display: block !important;
+}
+

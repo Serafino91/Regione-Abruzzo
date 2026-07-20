@@ -1,0 +1,73 @@
+<div class="page-padding">
+  <app-url></app-url>
+
+  <a class="back-link" routerLink="/home/richieste">
+    <svg class="icon icon-sm me-1" aria-hidden="true">
+      <use href="assets/bootstrap-italia/sprites.svg#it-arrow-left"></use>
+    </svg>
+    Torna alla lista
+  </a>
+
+  <div class="page-header">
+    <h5 class="fw-bold mb-0">Dettaglio richiesta</h5>
+    <button class="delete-btn" (click)="showDeleteModal = true">
+      <svg class="icon icon-sm me-1" aria-hidden="true">
+        <use href="assets/bootstrap-italia/sprites.svg#it-delete"></use>
+      </svg>
+      Elimina
+    </button>
+  </div>
+</div>
+
+
+  <app-richiesta-info-bar
+    [idRichiesta]="richiestaDetail.requestId"
+    [stato]="richiestaDetail.state.stateName"
+    [createdAt]="richiestaDetail.createdAt"
+  ></app-richiesta-info-bar>
+
+<div class="page-padding">
+  @if (richiestaDetail) {
+
+    <app-progetto-detail-card
+      [nome]="richiestaDetail.project.name"
+      [link]="richiestaDetail.project.destinationLink!"
+      [descrizione]="richiestaDetail.project.description!"
+      [numeroServizi]="richiestaDetail.services.length"
+      [createdAt]="richiestaDetail.createdAt"
+      [idProgetto]="richiestaDetail.project.id!"
+      [nuovaRichiesta]="nuovaRichiesta">
+    </app-progetto-detail-card>
+
+    @for (servizio of richiestaDetail.services; track servizio.id) {
+      <app-servizio-accordion
+        [servizio]="servizio">
+      </app-servizio-accordion>
+    }
+  }
+</div>
+
+@if (showDeleteModal) {
+  <div class="modal-overlay" (click)="showDeleteModal = false">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <svg class="icon icon-danger me-2" aria-hidden="true">
+          <use href="assets/bootstrap-italia/sprites.svg#it-delete"></use>
+        </svg>
+        <h6 class="mb-0 fw-bold">Elimina richiesta</h6>
+      </div>
+      <div class="modal-body">
+        <p class="mb-0">
+          Sei sicuro di voler eliminare la richiesta
+          <strong>{{ richiestaDetail?.requestId }}</strong>?
+          <br>
+          <span class="text-muted small">Questa operazione non è reversibile.</span>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-annulla" (click)="showDeleteModal = false">Annulla</button>
+        <button class="btn-elimina" (click)="onElimina()">Elimina</button>
+      </div>
+    </div>
+  </div>
+}

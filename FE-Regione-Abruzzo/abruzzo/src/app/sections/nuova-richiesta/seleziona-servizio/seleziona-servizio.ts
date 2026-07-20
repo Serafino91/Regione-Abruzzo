@@ -1,14 +1,17 @@
 import { Component, DestroyRef, inject, Input, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators,} from '@angular/forms';
 import { ServizioModel } from '../../../model/servizioModel';
 import { ServiziService } from '../../../services/servizi.service';
 import { CategoriaService } from '../../../services/categoria.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CategoriaModel } from '../../../model/categoria.model';
+import {ServiceName} from "../../../constants/service-name.constants";
+import {ServiceCategory} from "../../../constants/service-category.constants";
+import {LabelServizio} from '../../../components/label-servizio/label-servizio';
 
 @Component({
   selector: 'app-seleziona-servizio',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, LabelServizio],
   templateUrl: './seleziona-servizio.html',
   styleUrl: './seleziona-servizio.css',
   standalone: true,
@@ -16,11 +19,13 @@ import { CategoriaModel } from '../../../model/categoria.model';
 export class SelezionaServizio implements OnInit {
   private destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef); // <-- 1. Iniettiamo il ChangeDetectorRef
+  protected readonly ServiceName = ServiceName;
+  protected readonly ServiceCategory = ServiceCategory;
 
   categorie: CategoriaModel[] = [];
   servizi: ServizioModel[] = [];
   servizio?: ServizioModel;
-  unit: number = 0;
+
   @Input({ required: true })
   formGroup!: FormGroup;
 
@@ -29,34 +34,41 @@ export class SelezionaServizio implements OnInit {
     private serviziService: ServiziService,
   ) {}
 
+  aggiungiServizioForm = new FormGroup({
+    categoria: new FormControl('', Validators.required),
+    servizio: new FormControl('', Validators.required),
+    unit: new FormControl(1, [Validators.required, Validators.min(1)]),
+  });
+
+  expanded: boolean[] = [];
+
+  toggleCollapse(index: number): void {
+    this.expanded[index] = !this.expanded[index];
+  }
   ngOnInit(): void {
-    // 2. Prima inizializziamo i controlli del form in modo sicuro
     this.inizializzaForm();
 
-    // 3. Ascoltiamo i cambiamenti reattivi
-    this.formGroup
+    this.aggiungiServizioForm
       .get('categoria')
       ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((id) => this.popolaServizi(id));
+      .subscribe((id) => this.popolaServizi(Number(id)));
 
-    this.formGroup
+    this.aggiungiServizioForm
       .get('servizio')
       ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((id) => this.onServizioChange(id));
+      .subscribe((id) => {
+        if (id == null) {
+          return;
+        }
+        this.onServizioChange(id);
+      });
 
-    // 4. Per ultimo, chiamiamo l'API asincrona
     this.getCategorie();
   }
 
   private inizializzaForm(): void {
-    if (!this.formGroup.get('categoria')) {
-      this.formGroup.addControl('categoria', new FormControl('', Validators.required));
-    }
-    if (!this.formGroup.get('servizio')) {
-      this.formGroup.addControl('servizio', new FormControl('', Validators.required));
-    }
-    if (!this.formGroup.get('unit')) {
-      this.formGroup.addControl('unit', new FormControl('', Validators.required));
+    if (!this.formGroup.get('servizi')) {
+      this.formGroup.addControl('servizi', new FormArray([]));
     }
   }
 
@@ -67,7 +79,7 @@ export class SelezionaServizio implements OnInit {
       .subscribe({
         next: (resp) => {
           this.categorie = resp;
-          this.cdr.detectChanges(); // <-- 5. Forza l'aggiornamento visivo del DOM delle categorie
+          this.cdr.detectChanges();
         },
         error: (err) => {
           console.error('Errore categorie:', err);
@@ -88,7 +100,7 @@ export class SelezionaServizio implements OnInit {
       .subscribe({
         next: (resp) => {
           this.servizi = resp;
-          this.cdr.detectChanges(); // <-- 6. Forza l'aggiornamento visivo del DOM dei servizi
+          this.cdr.detectChanges(); //
         },
         error: (err) => {
           console.error('Errore nel recupero servizi:', err);
@@ -99,20 +111,63 @@ export class SelezionaServizio implements OnInit {
   onServizioChange(id: string): void {
     const servizio = this.servizi.find((s) => s.id === id);
     if (!servizio) return;
-
     this.servizio = servizio;
-
-    this.cdr.detectChanges(); // <-- 7. Consigliato anche qui per il form dinamico sottostante
+    this.cdr.detectChanges();
   }
-
-
-  showServizi = false;
 
   aggiungiServizi(): void {
+    const idServizio = this.aggiungiServizioForm.get('servizio')?.value;
+    const unit = this.aggiungiServizioForm.get('unit')?.value;
+    const categoriaId = this.aggiungiServizioForm.get('categoria')?.value;
 
-    this.showServizi = true;
+    if (unit == null || idServizio == null || categoriaId == null) {
+      return;
+    }
+
+    const servizio = this.servizi.find((s) => String(s.id) === String(idServizio));
+    if (!servizio) return;
+    const servizi = this.formGroup.get('servizi') as FormArray;
+
+    for (let i = 0; i < unit; i++) {
+      const paramsGroup = new FormGroup({});
+      servizio.params.forEach((p) => {
+        paramsGroup.addControl(p.name, new FormControl(p.minValue ?? 0));
+      });
+
+      servizi.push(
+        new FormGroup({
+          servizioId: new FormControl(servizio.id),
+          categoriaId: new FormControl(categoriaId),
+          unit: new FormControl(unit),
+          params: paramsGroup,
+          item: new FormControl(servizio.item),
+          type: new FormControl(servizio.type),
+        }),
+      );
+
+      this.aggiungiServizioForm.reset({
+        categoria: '',
+        servizio: '',
+        unit: 1,
+      });
+      this.servizi = [];
+      this.servizio = undefined;
+    }
   }
 
+  get serviziArray(): FormArray {
+    return this.formGroup.get('servizi') as FormArray;
+  }
 
+  getParamControl(servizio: AbstractControl, param: string): FormControl {
+    return servizio.get(['params', param]) as FormControl;
+  }
 
+  rimuoviServizio(index: number): void {
+    this.serviziArray.removeAt(index);
+  }
+
+  getKeys(control: AbstractControl): string[] {
+    return control instanceof FormGroup ? Object.keys(control.controls) : [];
+  }
 }

@@ -1,34 +1,145 @@
-<div class="project-card mt-1 mb-1">
-  <h6 class="card-title">Dati nuovo progetto</h6>
-  <p class="card-description">Qui sarà inserita la descrizione del nuovo progetto o del progetto eventualmente selezionato </p>
-  <hr class="line-separator"/>
-  <div class="card-details">
-    <div class="card-column">Progetto:<p>{{ formGroup.get('progetto')?.value?.selezione }}</p></div>
-    <div class="card-column">Data da: <p>{{ formGroup.get('progetto')?.value?.dataDa }}</p></div>
-    <div class="card-column">Data a: <p>{{ formGroup.get('progetto')?.value?.dataA }}</p></div>
+<div class="page-padding">
+
+  <p class="mb-4">Controlla che tutti i campi siano compilati correttamente, aggiungi eventuali note
+  ed invia la richiesta, cliccando su "Invia Richiesta".</p>
+
+
+  @if (!nuovaRichiesta) {
+
+    <app-progetto-detail-card
+      [nome]="formGroupProgetto.get('selezione')?.value.name"
+      [link]="formGroupProgetto.get('selezione')?.value.destinationLink"
+      [descrizione]="formGroupProgetto.get('selezione')?.value.description"
+      [createdAt]="formGroupProgetto.get('selezione')?.value.createAt"
+      [numeroServizi]="servizi.controls.length"
+      [idProgetto]="formGroupProgetto.get('selezione')?.value.id"
+      [nuovaRichiesta]="nuovaRichiesta">
+    </app-progetto-detail-card>
+  } @else {
+    <app-progetto-detail-card
+      [nome]="formGroupProgetto.get('progetto.nome')?.value"
+      [link]="formGroupProgetto.get('progetto.link')?.value"
+      [descrizione]="formGroupProgetto.get('progetto.descrizione')?.value"
+      [nuovaRichiesta]="nuovaRichiesta">
+    </app-progetto-detail-card>
+  }
+
+
+
+  <!-- Cambiare badge tipologia servizio -->
+
+  <h5 class="card-title">Servizi Selezionati</h5>
+
+@for(servizio of servizi.controls; track $index; let i = $index) {
+
+  <div class="d-flex flex-column mt-4 mb-1 shadow-sm rounded-3 p-4 ">
+
+    <div class="d-flex justify-content-between align-items-center gap-3">
+
+      <div class="d-flex align-items-center gap-3">
+      <app-label-servizio [categoryId]="servizio.get('type')?.value"></app-label-servizio>
+
+
+        <h6 class="flex-fill">{{ ServiceName[servizio.get('servizioId')?.value.toString()] }}</h6>
+
+        <div
+          class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center fw-bold"
+          style="width: 2rem; height: 2rem;">
+          {{ i + 1 }}
+        </div>
+      </div>
+
+
+
+      <button
+        class="btn btn-link text-primary align-content-end"
+        type="button"
+        (click)="toggleCollapse(i)"
+        data-bs-toggle="collapse"
+        [attr.data-bs-target]="'#collapse-' + servizio.get('servizioId')?.value + '-' + i">
+
+        @if (expanded[i]) {
+          <svg class="icon icon-primary icon-sm me-1">
+            <use  href="assets/bootstrap-italia/sprites.svg#it-minus-circle"></use>
+          </svg>
+          Riduci
+        } @else {
+          <svg class="icon  icon-primary icon-sm me-1">
+            <use href="assets/bootstrap-italia/sprites.svg#it-plus-circle"></use>
+          </svg>
+          Espandi
+        }
+      </button>
+    </div>
+
+    <div
+      class="collapse"
+      [id]="'collapse-' + servizio.get('servizioId')?.value + '-' + i">
+
+      <hr class="line-separator">
+
+      <div class="color-bg-lightblue pt-0">
+        <div class="d-flex flex-row py-3 justify-content-between px-5">
+          <div>
+            <p class="fw-semibold">Descrizione</p>
+            <p>Pluralitas non est ponenda sine necessitate</p>
+          </div>
+
+          <div>
+            <p class="fw-semibold">Dimensione</p>
+            <p>Pluralitas non est ponenda sine necessitate</p>
+          </div>
+
+          <div>
+            <p class="fw-semibold">Tipo</p>
+            <p>Pluralitas non est ponenda sine necessitate</p>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="d-flex flex-row justify-content-between mt-4">
+
+        <h5>Dati richiesta</h5>
+
+        <div class="d-flex flex-column" >
+          <p>{{ ServiceCategory[servizio.get('categoriaId')?.value.toString()] }}</p>
+        </div>
+
+      </div>
+
+      <div class="d-flex flex-row justify-content-between">
+          @for(param of getParams(servizio); track param[0]) {
+            <p class="card-column">
+              {{ param[0] }} : {{ param[1] }}
+            </p>
+          }
+      </div>
+
   </div>
-</div>
 
-
-<div class="project-card mb-1">
-  <h6 class="card-title">Servizio</h6>
-  <div class="card-details">
-    <div class="card-column">Categoria:<p>{{ ServiceCategory[servizio?.categoria] }}</p></div>
-    <div class="card-column">Servizio: <p>{{ ServiceName[servizio?.servizio]}}</p></div>
   </div>
-</div>
 
 
+}
 
+<hr class="line-separator my-4"/>
 
-<div class="project-card mb-1">
-  <h6 class="card-title">Parametri</h6>
-  <div class="card-details">
-    @for (item of paramsEntries; track item[0]) {
-      <div class="card-column"><p>
-        {{ item[0] }}: {{ item[1] }}
-      </p></div>
-    }
+<form [formGroup]="formGroupNote" class="mb-4">
+  <label for="note" class="form-label">Note</label>
+
+  <textarea
+    id="note"
+    class="form-control form-control-rounded"
+    rows="5"
+    formControlName="note"
+    [attr.maxlength]="maxNoteLength">
+  </textarea>
+
+  <div class="d-flex justify-content-end mt-1">
+    <small class="text-muted">
+      {{ formGroupNote.get('note')?.value?.length || 0 }}/{{ maxNoteLength }}
+    </small>
   </div>
+</form>
 </div>
-

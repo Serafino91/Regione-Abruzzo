@@ -1,6 +1,6 @@
 package com.accenture.ra.controller;
 
-import com.accenture.ra.response.ServiceTypeListResponse;
+import com.accenture.ra.dto.response.ServiceTypeListResponse;
 import com.accenture.ra.service.impl.TypeServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;

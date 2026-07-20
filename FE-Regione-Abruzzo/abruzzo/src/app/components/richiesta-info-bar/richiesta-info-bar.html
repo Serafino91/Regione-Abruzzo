@@ -1,0 +1,33 @@
+<div class="info-bar">
+
+  <div class="info-card">
+    <svg class="info-icon" aria-hidden="true">
+      <use href="assets/bootstrap-italia/sprites.svg#it-file"></use>
+    </svg>
+    <div class="info-content">
+      <span class="info-label">ID richiesta</span>
+      <span class="info-value">{{ idRichiesta}}</span>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <svg class="info-icon" aria-hidden="true">
+      <use href="assets/bootstrap-italia/sprites.svg#it-arrow-up-right"></use>
+    </svg>
+    <div class="info-content">
+      <span class="info-label">Stato</span>
+      <span class="info-value">{{ stato }}</span>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <svg class="info-icon" aria-hidden="true">
+      <use href="assets/bootstrap-italia/sprites.svg#it-calendar"></use>
+    </svg>
+    <div class="info-content">
+      <span class="info-label">Data apertura</span>
+      <span class="info-value">{{ createdAt | date:'dd/MM/yyyy' }}</span>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,119 @@
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  color: #0066cc;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  margin-bottom: 12px;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #d0dbe6;
+  margin-bottom: 8px;
+}
+
+.delete-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: #0066cc;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: none;
+}
+
+.delete-btn:hover {
+  text-decoration: underline;
+}
+
+.delete-btn .icon {
+  fill: #0066cc;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-box {
+  background: #ffffff;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid #d0dbe6;
+}
+
+.modal-header .icon-danger {
+  /*fill: #d9364f;*/
+  fill: #0066cc;
+  width: 22px;
+  height: 22px;
+}
+
+.modal-body {
+  padding: 20px 24px;
+  line-height: 1.6;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 24px;
+  border-top: 1px solid #d0dbe6;
+}
+
+.btn-annulla {
+  background: none;
+  border: 1px solid #d0dbe6;
+  border-radius: 6px;
+  padding: 8px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #17324d;
+}
+
+.btn-annulla:hover {
+  background: #f2f7fc;
+}
+
+.btn-elimina {
+  background: #0066cc;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.btn-elimina:hover {
+  background: #0066cc;
+}

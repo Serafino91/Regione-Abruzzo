@@ -10,6 +10,7 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 })
 export class SectionFooter {
   @Input() currentStep: number = 1;
+  @Input() canGoNext: boolean = true;
   @Output() next = new EventEmitter<void>();
   @Output() previous = new EventEmitter<void>();
 }

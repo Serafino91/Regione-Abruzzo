@@ -1,0 +1,43 @@
+<div class="page-padding">
+  <app-url></app-url>
+
+  <a class="back-link" routerLink="/home/catalogo">
+    <svg class="icon icon-sm me-1" aria-hidden="true">
+      <use href="assets/bootstrap-italia/sprites.svg#it-arrow-left"></use>
+    </svg>
+    Torna alla lista
+  </a>
+
+  <div class="d-flex align-items-center my-4 ">
+    <h4 class="title-section"> <strong>Dettaglio Progetto</strong></h4>
+  </div>
+
+</div>
+
+<app-info-bar
+  [items]="infoProgetto">
+</app-info-bar>
+
+<div class="section-padding">
+
+  <app-progetto-detail-card
+    [nome]="progettoDetail.nome"
+    [link]="progettoDetail.destinationLink"
+    [descrizione]="progettoDetail.description"
+    [nuovaRichiesta]="nuovaRichiesta"
+  >
+  </app-progetto-detail-card>
+
+
+  @for (servizio of progettoDetail.servizi; track servizio.id) {
+    <app-servizio-accordion
+      [servizio]="servizio">
+    </app-servizio-accordion>
+  }
+
+
+</div>
+
+
+
+

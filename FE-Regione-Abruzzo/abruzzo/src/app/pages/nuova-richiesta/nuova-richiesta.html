@@ -1,40 +1,39 @@
-<div class="nuova-richiesta-container">
-<h3 class="it-header-block-title"> Nuova Richiesta</h3>
-
-<app-nav-form [currentStep]="currentStep"></app-nav-form>
+<div class="page-padding">
+  <app-url></app-url>
+  <h3 class="it-header-block-title py-3"> Nuova Richiesta</h3>
+  <app-nav-form
+    [currentStep]="currentStep"
+  ></app-nav-form>
 </div>
+
 @if(currentStep === 1) {
   <app-scegli-progetto
-    [formGroup]="richiestaForm.controls['progetto']">
+    [formGroup]="richiestaForm.controls['progettoForm']"
+    (nuovaRichiesta)="onNuovaRichiesta($event)">
   </app-scegli-progetto>
 }
 
 @if(currentStep === 2) {
   <app-seleziona-servizio
-    [formGroup]="richiestaForm.controls['servizio']">
-  ></app-seleziona-servizio>
+    [formGroup]="richiestaForm.controls['servizioForm']">
+  </app-seleziona-servizio>
 }
 
 @if(currentStep === 3) {
-  <app-compila-dati
-    [formGroup]="richiestaForm.controls['dati']">
-    ></app-compila-dati>
-}
-
-
-@if(currentStep === 4) {
   <app-controlla-invia
-    [formGroup]="richiestaForm">
-  ></app-controlla-invia>
+    [formGroupProgetto]="richiestaForm.controls['progettoForm']"
+    [formGroupServizi]="richiestaForm.controls['servizioForm']"
+    [nuovaRichiesta]="nuovaRichiesta">
+  </app-controlla-invia>
 }
-
 
 <app-section-footer
   [currentStep]="currentStep"
+  [canGoNext]="canGoNext()"
   (next)="nextStep()"
   (previous)="previousStep()">
 </app-section-footer>
 
-<!--
-<button class="btn btn-primary" (click)="debugForm()">DEBUG FORM</button>-->
+
+<button class="btn btn-primary" (click)="debugForm()">DEBUG FORM</button>
 

@@ -1,0 +1,42 @@
+.info-bar {
+  display: flex;
+  gap: 16px;
+  background: #f2f7fc;;
+  border-radius: 12px;
+  padding: 16px 48px;
+}
+
+.info-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #ffffff;
+  border: 1px solid #d0dbe6;
+  border-radius: 10px;
+  padding: 14px 20px;
+  flex: 1;
+}
+
+.info-icon {
+  width: 24px;
+  height: 24px;
+  fill: #17324d;
+  flex-shrink: 0;
+}
+
+.info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #17324d;
+}
+
+.info-value {
+  font-size: 0.9rem;
+  color: #17324d;
+}

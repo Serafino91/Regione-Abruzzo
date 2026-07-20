@@ -1,15 +1,13 @@
 package com.accenture.ra.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "param")
 public class ParamEntity {
@@ -35,5 +33,5 @@ public class ParamEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "service_id", nullable = false)
 	private ServiceEntity service;
-
+	
 }

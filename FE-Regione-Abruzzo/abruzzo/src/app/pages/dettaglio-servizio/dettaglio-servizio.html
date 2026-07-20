@@ -1,0 +1,32 @@
+<div class="section-padding">
+
+  <app-url></app-url>
+  <a class="back-link" routerLink="/home/catalogo">
+    <svg class="icon icon-sm me-1" aria-hidden="true">
+      <use href="assets/bootstrap-italia/sprites.svg#it-arrow-left"></use>
+    </svg>
+    Torna alla lista
+  </a>
+
+  <div class="d-flex align-items-center my-4 ">
+    <h4 class="title-section"> <strong>Dettaglio Servizio</strong></h4>
+  </div>
+
+</div>
+
+<app-servizio-info-bar
+  [idServizio]="servizioDetail.id"
+  [servizio]="servizioDetail.item"
+  [Categoria]="servizioDetail.type"
+></app-servizio-info-bar>
+
+<div class="section-padding">
+
+
+  <app-servizio-detail-card
+    [servizio]="servizioDetail">
+  </app-servizio-detail-card>
+
+
+</div>
+

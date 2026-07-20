@@ -5,9 +5,13 @@
 </app-section-header>
 
 <div class="row g-3">
-  @for (progetto of project; track progetto.idProgetto) {
+  @for (progetto of progetti; track progetto.idProgetto; let i = $index) {
     <div class="col-12 col-md-6 col-lg-4">
-      <app-project-card [progetto]="progetto"></app-project-card>
+      <app-project-card
+        [progetto]="progetto"
+        [servizi]="servizi[i]"
+        [richieste]="richieste[i]"
+      ></app-project-card>
     </div>
   }
 </div>

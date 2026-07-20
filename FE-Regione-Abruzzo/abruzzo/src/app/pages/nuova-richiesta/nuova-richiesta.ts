@@ -1,18 +1,11 @@
 import { Component } from '@angular/core';
-import {
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-  FormControl,
-  FormArray,
-} from '@angular/forms';
-
+import { FormGroup, ReactiveFormsModule, FormArray } from '@angular/forms';
 import { NavForm } from '../../components/nav-form/nav-form';
 import { ScegliProgetto } from '../../sections/nuova-richiesta/scegli-progetto/scegli-progetto';
 import { SelezionaServizio } from '../../sections/nuova-richiesta/seleziona-servizio/seleziona-servizio';
 import { ControllaInvia } from '../../sections/nuova-richiesta/controlla-invia/controlla-invia';
-import {SectionFooter} from '../../sections/nuova-richiesta/section-footer/section-footer';
-import { CompilaDati } from '../../sections/nuova-richiesta/compila-dati/compila-dati';
+import { SectionFooter } from '../../sections/nuova-richiesta/section-footer/section-footer';
+import { Url } from '../../components/url/url';
 
 @Component({
   selector: 'app-nuova-richiesta',
@@ -23,7 +16,7 @@ import { CompilaDati } from '../../sections/nuova-richiesta/compila-dati/compila
     ControllaInvia,
     SectionFooter,
     ReactiveFormsModule,
-    CompilaDati,
+    Url,
   ],
   templateUrl: './nuova-richiesta.html',
   styleUrl: './nuova-richiesta.css',
@@ -31,25 +24,16 @@ import { CompilaDati } from '../../sections/nuova-richiesta/compila-dati/compila
 })
 export class NuovaRichiesta {
   currentStep = 1;
+  url = '';
 
   richiestaForm = new FormGroup({
-    progetto: new FormGroup({}),
-    servizio: new FormGroup({
-      categoria: new FormControl('', Validators.required),
-      servizi: new FormArray([])
+    progettoForm: new FormGroup({}),
+    servizioForm: new FormGroup({
+      servizi: new FormArray([]),
     }),
-    dati: new FormGroup({}),
-    conferma: new FormGroup({}),
   });
 
   nextStep() {
-    const gruppoCorrente = this.getCurrentGroup();
-
-    if (gruppoCorrente.invalid) {
-      gruppoCorrente.markAllAsTouched();
-      return;
-    }
-
     this.currentStep++;
   }
 
@@ -60,16 +44,34 @@ export class NuovaRichiesta {
   private getCurrentGroup(): FormGroup {
     switch (this.currentStep) {
       case 1:
-        return this.richiestaForm.get('progetto') as FormGroup;
+        return this.richiestaForm.get('progettoForm') as FormGroup;
       case 2:
-        return this.richiestaForm.get('servizio') as FormGroup;
-      case 3:
-        return this.richiestaForm.get('servizio') as FormGroup;
-      case 4:
-        return this.richiestaForm.get('conferma') as FormGroup;
+        return this.richiestaForm.get('servizioForm') as FormGroup;
       default:
         throw new Error('Step non valido');
     }
+  }
+
+  canGoNext(): boolean {
+    const servizi = this.richiestaForm.get('servizioForm.servizi') as FormArray;
+
+    switch (this.currentStep) {
+      case 1:
+        const gruppoCorrente = this.getCurrentGroup();
+        if (gruppoCorrente.invalid) {
+          return false;
+        } else return true;
+      case 2:
+        return servizi.length > 0;
+      default:
+        return true;
+    }
+  }
+
+  nuovaRichiesta = false;
+
+  onNuovaRichiesta(flag: boolean) {
+    this.nuovaRichiesta = flag;
   }
 
   debugForm() {

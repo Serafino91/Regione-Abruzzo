@@ -1,1 +1,22 @@
-<p>WORK IN PROGRESS</p>
+ <div class="section-padding">
+    <app-url></app-url>
+    <div class="d-flex align-items-center mb-4">
+      <h4 class="title-section"> <strong>Gestione Progetti</strong></h4>
+    </div>
+ </div>
+
+
+  <div class="color-bg-lightblue">
+    <div class="section-padding">
+      <app-filtri></app-filtri>
+    </div>
+  </div>
+
+
+  <div class="section-padding">
+    <app-tabella-progetti
+    [progetti]="progetti">
+    </app-tabella-progetti>
+
+
+</div>

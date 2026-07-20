@@ -1,0 +1,140 @@
+/* --- Contenitore Principale con Scroll --- */
+.table-responsive {
+  overflow-x: auto !important;
+  display: block;
+  width: 100%;
+  position: relative;
+  scrollbar-color: #0066CC #f4f7fc;}
+
+
+.table {
+  border-collapse: separate !important; /* Mantiene la stabilità delle colonne fisse */
+  border-spacing: 0;
+  width: 100%;
+  margin-bottom: 0;
+  table-layout: auto;
+}
+
+/* --- STILE INTESTAZIONE BASE --- */
+.table thead th {
+  background-color: #ffffff;
+  color: #002b55;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 16px 12px;
+  border-bottom: 2px solid #e6e9f2;
+}
+
+/* --- DOPPIO BLOCCO STICKY (ID A SINISTRA, AZIONI A DESTRA) --- */
+
+/* 1. Blocca la colonna ID Progetto a sinistra */
+.table th:first-child,
+.table tbody tr td:first-child {
+  position: sticky !important;
+  left: 0;
+  z-index: 3; /* Sta sopra al contenuto che scorre sotto */
+}
+
+/* 2. Blocca la colonna Azioni a destra */
+.table th:last-child
+.table tbody tr td:first-child{
+  position: sticky !important;
+  right: 0;
+  z-index: 3;
+}
+
+/* Impedisce al testo di sfarfallare sopra le intestazioni fisse */
+.table thead th:first-child,
+.table thead th:last-child {
+  background-color: #ffffff !important;
+}
+
+/* --- SFONDI SOLIDI PER LE RIGHE ALTERNATE --- */
+/* Obbligatorio per coprire ed evitare che i testi centrali si leggano in trasparenza dietro l'ID o le Azioni */
+
+/* Righe DISPARI (Bianco) */
+.table tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+.table tbody tr:nth-child(odd) td:first-child,
+.table tbody tr:nth-child(odd) td:last-child {
+  background-color: #ffffff !important;
+}
+
+/* Righe PARI (Azzurro Chiarissimo) */
+.table tbody tr:nth-child(even) {
+  background-color: #f4f7fc;
+}
+.table tbody tr:nth-child(even) td:first-child,
+.table tbody tr:nth-child(even) td:last-child {
+  background-color: #f4f7fc !important;
+}
+
+/* --- LE LARGHEZZE DELLE COLONNE PER SPINGERE LO SCROLL --- */
+.col-id {
+  min-width: 300px !important;
+  white-space: nowrap;
+}
+.col-nome {
+  min-width: 360px !important;
+}
+.col-desc {
+  min-width: 460px !important;
+}
+.col-data {
+  min-width: 140px !important;
+  white-space: nowrap;
+}
+.col-small {
+  min-width: 85px !important;
+
+}
+.col-azioni {
+  min-width: 95px !important;
+}
+.col-proj {
+  min-width: 180px !important;
+}
+.col-reqid {
+  min-width: 100px !important;
+}
+.col-serv {
+  min-width: 100px !important;
+}
+
+/* --- STRUTTURA CELLE E LINEE DIVISORIE PARZIALI --- */
+.table tbody td {
+  padding: 20px 16px;
+  font-size: 14px;
+  color: #1a1a1a;
+  position: relative;
+  border: none;
+}
+
+/* Linea divisoria verticale parziale sulle celle centrali */
+.table tbody tr td:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 25%;
+  height: 50%;
+  width: 1px;
+  background-color: #d1d7e3;
+}
+
+/* Rimuove l'effetto linea sull'ultimo elemento utile prima del blocco Azioni, evita artefatti grafici */
+.table tbody tr td:nth-last-child(2)::after,
+.table tbody tr td:last-child::after {
+  display: none !important;
+}
+
+/* Icona ordinamento freccette */
+.sort-icon {
+  margin-left: 4px;
+  color: #a0aab4;
+}
+.sort-icon.active {
+  color: #0066CC;
+}
+
+

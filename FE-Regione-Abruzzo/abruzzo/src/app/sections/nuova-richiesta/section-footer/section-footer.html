@@ -1,27 +1,33 @@
-<div class="line-separator"></div>
-<div class="section-footer">
+<div class="section-padding">
+  <div class="line-separator"></div>
+  <div class="section-footer">
+      @if (currentStep != 1) {
+        <button
+          class="btn btn-outline-primary"
+          (click)="previous.emit()">
+          Indietro
+        </button>
+      } @else {
+        <div>
+          <button
+            class="btn btn-outline-primary">
+            Annulla
+          </button>
+        </div>
+      }
 
-  @if (currentStep != 1) {
-    <button
-      class="btn btn-outline-primary"
-      (click)="previous.emit()">
-      Indietro
-    </button>
-  } @else {
-    <div></div>
-  }
-
-  @if (currentStep != 3) {
-  <button
-      class="btn btn-outline-primary"
-      (click)="next.emit()">
-      Avanti
-    </button>
-  } @else {
-    <button
-      class="btn btn-outline-primary">
-      Invia
-    </button>
-  }
-
+      @if (currentStep != 3) {
+      <button
+          class="btn btn-outline-primary"
+          (click)="next.emit()"
+          [disabled]="!canGoNext">
+          Avanti
+        </button>
+      } @else {
+        <button
+          class="btn btn-outline-primary">
+          Invia
+        </button>
+      }
+  </div>
 </div>

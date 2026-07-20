@@ -3,15 +3,15 @@
   <div class="d-flex flex-row align-items-center justify-content-between text-muted small w-100">
 
     <div class="text-dark fw-bold text-nowrap border-end border-light pe-4" style="width: 15%;">
-      {{ dati.codice }}
+      {{ dati.requestId }}
     </div>
 
     <div class="text-dark text-truncate border-end border-light px-4" style="width: 48%;">
-      {{ dati.nomeProgetto }}
+      {{ dati.project.name }}
     </div>
 
     <div class="text-dark d-flex align-items-center border-end border-light px-4" style="width: 30%;">
-      @if (dati.tipoOperazione.includes('disco') || dati.tipoOperazione.includes('Disco')) {
+      @if (dati.category?.name?.includes('disco') || dati.category?.name?.includes('Disco')) {
        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-database  me-2" viewBox="0 0 16 16">
   <path d="M4.318 2.687C5.234 2.271 6.536 2 8 2s2.766.27 3.682.687C12.644 3.125 13 3.627 13 4c0 .374-.356.875-1.318 1.313C10.766 5.729
    9.464 6 8 6s-2.766-.27-3.682-.687C3.356 4.875 3 4.373 3 4c0-.374.356-.875 1.318-1.313M13 5.698V7c0 .374-.356.875-1.318 1.313C10.766
@@ -23,17 +23,17 @@
    15s-2.766-.27-3.682-.687C3.356 13.875 3 13.373 3 13v-1.302c.271.202.58.378.904.525C4.978 12.71 6.427 13 8 13s3.022-.289
    4.096-.777c.324-.147.633-.323.904-.525"/>
 </svg>
-      } @else if (dati.tipoOperazione.includes('VLAN') || dati.tipoOperazione.includes('Rete')) {
+      } @else if (dati.category?.name?.includes('VLAN') || dati.category?.name?.includes('Rete')) {
         <svg class="icon me-2"><use href="assets/bootstrap-italia/sprites.svg#it-share"></use></svg>
       } @else {
        <svg class="icon me-2"><use href="assets/bootstrap-italia/sprites.svg#it-box"></use></svg>
       }
-      <span class="fw-medium text-truncate">{{ dati.tipoOperazione }}</span>
+      <span class="fw-medium text-truncate">{{ dati.category?.name }}</span>
     </div>
 
     <div class="d-flex align-items-center text-dark ps-4" style="width: 40%;">
       <svg class="icon me-2" ><use href="assets/bootstrap-italia/sprites.svg#it-calendar"></use></svg>
-      <span class="text-nowrap">{{ dati.dataOra }}</span>
+      <span class="text-nowrap">{{ dati.createdAt }}</span>
     </div>
 
 <div class="ps-4" style="width: 15%;">
@@ -42,7 +42,7 @@
     </div>
 
 <div class="text-end ms-auto" style="width: 30%;">
-  <button type="button" class="btn btn-padded btn-icon p-0 text-primary" aria-label="Visualizza Dettagli" routerLink="/richieste">
+  <button (click)="apriDettaglio()" type="button" class="btn btn-padded btn-icon p-0 text-primary" aria-label="Visualizza Dettagli">
 
     <svg class="icon m-0 pe-none"
          style="width: 28px !important;
@@ -51,7 +51,8 @@
                 stroke: var(--bs-primary, #0066cc) !important;
                 stroke-width: 1.2px !important;
                 stroke-linejoin: round !important;"
-         aria-hidden="true">
+         aria-hidden="true"
+          >
       <use href="assets/bootstrap-italia/sprites.svg#it-zoom-in"></use>
     </svg>
 
