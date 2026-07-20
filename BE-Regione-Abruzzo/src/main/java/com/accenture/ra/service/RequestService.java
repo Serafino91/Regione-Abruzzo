@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.accenture.ra.dto.request.RequestDetail;
 import com.accenture.ra.dto.response.RequestDetailResponse;
-import com.accenture.ra.request.RequestCreationRequest;
-import com.accenture.ra.request.RequestFilterCriteria;
+import com.accenture.ra.dto.request.RequestCreationRequest;
+import com.accenture.ra.dto.request.RequestFilterCriteria;
 
 public interface RequestService {
 

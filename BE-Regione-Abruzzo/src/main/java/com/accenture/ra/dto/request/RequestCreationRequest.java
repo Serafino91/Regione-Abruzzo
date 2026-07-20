@@ -1,4 +1,4 @@
-package com.accenture.ra.request;
+package com.accenture.ra.dto.request;
 
 import java.time.LocalDateTime;
 import java.util.List;

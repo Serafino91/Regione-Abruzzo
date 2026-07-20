@@ -2,7 +2,7 @@ package com.accenture.ra.controller;
 
 import com.accenture.ra.response.AuthResponse;
 import com.accenture.ra.service.UserService;
-import com.accenture.ra.request.AuthRequest;
+import com.accenture.ra.dto.request.AuthRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;

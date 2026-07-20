@@ -1,7 +1,7 @@
 package com.accenture.ra.service.impl;
 
 
-import com.accenture.ra.request.AuthRequest;
+import com.accenture.ra.dto.request.AuthRequest;
 import com.accenture.ra.response.AuthResponse;
 import com.accenture.ra.security.JwtUtils;
 import com.accenture.ra.service.UserService;

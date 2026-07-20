@@ -2,7 +2,7 @@ package com.accenture.ra.utils;
 
 import com.accenture.ra.entity.RequestEntity;
 import com.accenture.ra.entity.ServiceEntity;
-import com.accenture.ra.request.RequestFilterCriteria;
+import com.accenture.ra.dto.request.RequestFilterCriteria;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import org.springframework.data.jpa.domain.Specification;
