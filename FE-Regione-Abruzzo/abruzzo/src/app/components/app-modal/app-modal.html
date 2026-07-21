@@ -1,1 +1,49 @@
-<p>app-modal works!</p>
+<div class="modal-overlay" (click)="onCancel()">
+
+  <div
+    class="modal-box"
+    (click)="$event.stopPropagation()">
+
+    <div class="modal-header">
+
+      @if (icon) {
+        <svg class="icon me-2" aria-hidden="true">
+          <use [attr.href]="'assets/bootstrap-italia/sprites.svg#' + icon"></use>
+        </svg>
+      }
+
+      <h6 class="mb-0">
+        {{ title }}
+      </h6>
+
+    </div>
+
+    <div class="modal-body">
+      <p class="mb-0">
+        {{ message }}
+      </p>
+    </div>
+
+    <div class="modal-footer">
+
+      @if (showCancel) {
+        <button
+          type="button"
+          class="btn-annulla"
+          (click)="onCancel()">
+          {{ cancelText }}
+        </button>
+      }
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="onConfirm()">
+        {{ confirmText }}
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

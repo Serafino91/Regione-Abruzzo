@@ -9,11 +9,12 @@ import {
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import {Url} from '../../components/url/url';
+import {AppModal} from '../../components/app-modal/app-modal';
 
 @Component({
   selector: 'app-accreditamento',
   standalone: true,
-  imports: [ReactiveFormsModule, Url],
+  imports: [ReactiveFormsModule, Url, AppModal],
   templateUrl: './accreditamento.html',
   styleUrl: './accreditamento.css',
 })
@@ -23,6 +24,7 @@ export class Accreditamento implements OnInit {
     protected router: Router,
     private fb: FormBuilder,
   ) {}
+
   showModal = false;
   showModalRichiesta = false;
 
@@ -38,6 +40,7 @@ export class Accreditamento implements OnInit {
       pec: new FormControl('', [Validators.required]),
     });
   }
+
 
   inviaRichiesta() {
     this.showModalRichiesta = true;
