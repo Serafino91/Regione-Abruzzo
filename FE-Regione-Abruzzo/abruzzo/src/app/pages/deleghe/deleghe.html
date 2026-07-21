@@ -1,0 +1,28 @@
+<div class="section-padding">
+  <app-url></app-url>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="title-section"> <strong>Gestione Deleghe</strong></h4>
+    <buttons
+      type="button" class="btn btn-primary text-normal fw-semibold"
+      [routerLink]="['/home/deleghe/nuova-delega']">
+      Nuova Delega
+    </buttons>
+  </div>
+  <p>Puoi consultare tutte le utenze per cui hai già richiesto una delega, e richiederne di nuove, cliccando su Nuova Delega.</p>
+</div>
+
+
+
+<div class="color-bg-lightblue section-padding">
+  <app-filtri-deleghe>
+  </app-filtri-deleghe>
+</div>
+
+
+<div class="section-padding mb-4 ">
+  <app-tabella-deleghe>
+  </app-tabella-deleghe>
+  <hr class="line-separator m-0">
+</div>
+
+

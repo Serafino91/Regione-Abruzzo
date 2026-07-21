@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-app-modal',
@@ -7,4 +7,22 @@ import { Component } from '@angular/core';
   templateUrl: './app-modal.html',
   styleUrl: './app-modal.css',
 })
-export class AppModal {}
+export class AppModal {
+  @Input() title = '';
+  @Input() message = '';
+  @Input() icon = '';
+  @Input() confirmText = 'Conferma';
+  @Input() cancelText = 'Annulla';
+  @Input() showCancel = true;
+
+  @Output() confirm = new EventEmitter<void>();
+  @Output() cancel = new EventEmitter<void>();
+
+  onConfirm(): void {
+    this.confirm.emit();
+  }
+
+  onCancel(): void {
+    this.cancel.emit();
+  }
+}
