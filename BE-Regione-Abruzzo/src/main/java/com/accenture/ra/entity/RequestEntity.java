@@ -62,4 +62,9 @@ public class RequestEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     private ServiceTypeEntity category;
+
+    // Direct requester (can be the project owner OR a delegate acting on their behalf)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "requested_by_id", nullable = false)
+    private User requestedBy;
 }

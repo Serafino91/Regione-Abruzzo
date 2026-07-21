@@ -1,8 +1,10 @@
 package com.accenture.ra.service;
 
 import com.accenture.ra.entity.Role;
+
+import java.util.Collection;
 import java.util.Set;
 
 public interface JwtService {
-    String generaTokenLocale(String codiceFiscale, String statoAccreditamento, Set<Role> roles);
+    public String generaTokenLocale(String fiscalCode, String stato, Collection<String> roles);
 }

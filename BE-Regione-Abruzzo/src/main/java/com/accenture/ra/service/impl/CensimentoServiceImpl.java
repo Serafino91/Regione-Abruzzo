@@ -1,7 +1,9 @@
 package com.accenture.ra.service.impl;
 
-import com.accenture.ra.entity.Role;
+import com.accenture.ra.entity.Delegates;
 import com.accenture.ra.entity.User;
+import com.accenture.ra.enums.RoleType;
+import com.accenture.ra.enums.StatoAccreditamento;
 import com.accenture.ra.repository.RoleRepository;
 import com.accenture.ra.repository.UserRepository;
 import com.accenture.ra.service.CensimentoService;
@@ -9,9 +11,12 @@ import com.accenture.ra.service.JwtService;
 import com.accenture.ra.service.RaTichetService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.Objects;
 
 @Service
 public class CensimentoServiceImpl implements CensimentoService {
@@ -44,24 +49,22 @@ public class CensimentoServiceImpl implements CensimentoService {
         // Pulizia prefisso istituzionale SPID
         String codiceFiscale = cfGrezzo.toUpperCase().startsWith("TINIT-") ? cfGrezzo.substring(6) : cfGrezzo;
 
-        // Logica di Censimento ed eventuale assegnazione del Ruolo
-        User utente = userRepository.findByCodiceFiscale(codiceFiscale)
+        // Logica di Censimento
+        User utente = userRepository.findByFiscalCode(codiceFiscale)
                 .map(esistente -> {
                     esistente.setEmail(email); // Aggiorna l'email se modificata su SPID
                     return userRepository.save(esistente);
                 })
                 .orElseGet(() -> {
                     User nuovo = new User();
-                    nuovo.setCodiceFiscale(codiceFiscale);
+                    nuovo.setFiscalCode(codiceFiscale);
                     nuovo.setEmail(email);
-                    nuovo.setDataCensimento(LocalDateTime.now());
-                    nuovo.setStatoAccreditamento(User.StatoAccreditamento.IN_ATTESA);
+                    nuovo.setSignupDate(LocalDateTime.now()); // Data di creazione impostata qui
+                    nuovo.setStatoAccreditamento(StatoAccreditamento.IN_ATTESA);
+                    nuovo.setActive(true);
 
-                    // Recupera il ruolo standard dal database usando il RoleRepository
-                    Role defaultRole = roleRepository.findByName("ROLE_USER")
-                            .orElseThrow(() -> new RuntimeException("Configurazione DB Errata: Ruolo 'ROLE_USER' non trovato."));
-
-                    nuovo.setRoles(Set.of(defaultRole));
+                    // Assegnazione diretta dell'enum di default
+                    nuovo.setRole(RoleType.ROLE_USER);
 
                     User salvato = userRepository.save(nuovo);
 
@@ -71,17 +74,44 @@ public class CensimentoServiceImpl implements CensimentoService {
                     return salvato;
                 });
 
-        // Passiamo CF, Stato e l'insieme dei Ruoli reali dell'utente al generatore JWT
+        // Raccogliamo le authorities reali (ruolo primario + eventuali deleghe attive)
+        List<String> rolesOrAuthorities = estraiAuthoritiesString(utente);
+
+        // Generazione Token JWT
         String jwtLocale = jwtService.generaTokenLocale(
-                utente.getCodiceFiscale(),
+                utente.getFiscalCode(),
                 utente.getStatoAccreditamento().name(),
-                utente.getRoles()
+                rolesOrAuthorities
         );
 
         return Map.of(
                 "token", jwtLocale,
                 "statoAccreditamento", utente.getStatoAccreditamento().name(),
-                "codiceFiscale", utente.getCodiceFiscale()
+                "codiceFiscale", utente.getFiscalCode()
         );
+    }
+
+    /**
+     * Helper per estrarre sia il ruolo base sia le deleghe attive come stringhe
+     */
+    private List<String> estraiAuthoritiesString(User user) {
+        List<String> authorities = new ArrayList<>();
+
+        // 1. Ruolo primario
+        if (user.getRole() != null) {
+            authorities.add(user.getRole().name());
+        }
+
+        // 2. Ruoli/Tipi da deleghe attive
+        if (user.getDelegates() != null) {
+            user.getDelegates().stream()
+                    .filter(Delegates::isActive)
+                    .map(Delegates::getDelegateType)
+                    .filter(Objects::nonNull)
+                    .map(Enum::name)
+                    .forEach(authorities::add);
+        }
+
+        return authorities;
     }
 }

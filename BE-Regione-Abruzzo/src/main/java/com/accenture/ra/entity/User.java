@@ -1,13 +1,17 @@
 package com.accenture.ra.entity;
 
+import com.accenture.ra.enums.RoleType;
+import com.accenture.ra.enums.StatoAccreditamento;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "users") // <--- Modificato da "utenti_censiti" a "users" per allinearsi al tuo DB
 public class User {
@@ -17,7 +21,7 @@ public class User {
     private Long id;
 
     @Column(name = "codice_fiscale", unique = true, nullable = false, length = 16)
-    private String codiceFiscale;
+    private String fiscalCode;
 
     @Column(name = "email", nullable = false)
     private String email;
@@ -26,18 +30,15 @@ public class User {
     @Column(name = "stato_accreditamento", nullable = false)
     private StatoAccreditamento statoAccreditamento;
 
-    @Column(name = "data_censimento")
-    private LocalDateTime dataCensimento;
+    @Column(name = "signup_date")
+    private LocalDateTime signupDate;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles = new HashSet<>();
+    @Column(name = "role")
+    private RoleType role;
 
-    public enum StatoAccreditamento {
-        IN_ATTESA, APPROVATO, RIFIUTATO
-    }
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Delegates> delegates = new ArrayList<>();
+
+    @Column(name = "is_active")
+    private boolean active;
 }
