@@ -24,6 +24,11 @@ public class ProjectServiceImpl implements ProjectService {
     private final ProjectMapper projectMapper;
 
     @Override
+    public Boolean existsProject(String name, String destinationLink) {
+        return projectRepository.existsByNameAndDestinationLink(name, destinationLink);
+    }
+
+    @Override
     public ProjectDetail getProjectById(Long projectId) {
          ProjectEntity projectEntity = projectRepository.findById(projectId).get();
         return projectMapper.toModel(projectEntity);

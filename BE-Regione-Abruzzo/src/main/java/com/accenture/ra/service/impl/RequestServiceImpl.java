@@ -100,15 +100,16 @@ public class RequestServiceImpl implements RequestService {
 		if(projectRepository.existsById(req.getProject().getId())) {
 			return projectRepository.getReferenceById(req.getProject().getId());
 		} 
-		else if(!projectRepository.existsByName(req.getProject().getName())) { 
+		else if(!projectRepository.existsByNameAndDestinationLink(req.getProject().getName(),req.getProject().getDestinationLink())) { 
 			ProjectEntity newProject = new ProjectEntity();
 			newProject.setName(req.getProject().getName());
 			newProject.setDescription(req.getProject().getDescription());
-//			newProject.setDestinationLink(req.getProject().getDestinationLink());
+			newProject.setDestinationLink(req.getProject().getDestinationLink());
+			// TODO: settare le date qui o a db...? Decidiamo
 			return projectRepository.save(newProject);
 		} 
 		else {
-			throw new IllegalArgumentException("Project with name " + req.getProject().getName() + " already exists.");
+			throw new IllegalArgumentException("Project with name " + req.getProject().getName() + "and destination " + req.getProject().getDestinationLink() + " already exists.");
 		}
 			
 		

@@ -15,4 +15,6 @@ public interface ProjectService {
 	
     public Boolean deleteProject(Long projectId);
     
+    public Boolean existsProject(String name, String destinationLink);
+    
 }

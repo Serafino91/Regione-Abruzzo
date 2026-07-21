@@ -431,4 +431,25 @@ public class ProjectsController {
 
         return ResponseEntity.notFound().build();
     }
+
+    @Operation(
+            summary = "Controlla se esiste un progetto con nome e destinationLink",
+            description = "Restituisce true se esiste un progetto che ha contemporaneamente il nome e il destinationLink forniti"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Risposta con il risultato booleano"),
+            @ApiResponse(responseCode = "400", description = "Parametri non validi")
+    })
+    @GetMapping("/{name}/{destination-link}")
+    public ResponseEntity<Boolean> existsProject(
+    		@PathVariable("name") String name,
+    		@PathVariable("destination-link") String destinationLink) {
+
+        if (name == null || name.isBlank() || destinationLink == null || destinationLink.isBlank()) {
+            return ResponseEntity.badRequest().body(false);
+        }
+
+        Boolean exists = projectService.existsProject(name, destinationLink);
+        return ResponseEntity.ok(exists);
+    }
 }
