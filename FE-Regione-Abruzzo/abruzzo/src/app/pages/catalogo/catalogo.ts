@@ -1,17 +1,17 @@
 import { ChangeDetectorRef, Component, DestroyRef, inject } from '@angular/core';
-import { Button } from '../../components/button/button';
 import { Url } from '../../components/url/url';
 import { FiltriServizi } from '../../sections/catalogo/filtri-servizi/filtri-servizi';
 import { ListaServizi } from '../../sections/catalogo/lista-servizi/lista-servizi';
 import {ServizioModel} from '../../model/servizioModel';
 import {ServiziService} from '../../services/servizi.service';
-import {Router, RouterLink } from '@angular/router';
+import {Router } from '@angular/router';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import { PageHeader } from '../../components/page-header/page-header';
 
 
 @Component({
   selector: 'app-catalogue',
-  imports: [Url, FiltriServizi, ListaServizi],
+  imports: [ FiltriServizi, ListaServizi, PageHeader],
   standalone: true,
   templateUrl: './catalogo.html',
   styleUrl: './catalogo.css',

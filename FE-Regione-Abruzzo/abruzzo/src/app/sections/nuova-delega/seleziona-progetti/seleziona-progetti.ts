@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-seleziona-progetti',
-  imports: [],
+  imports: [ReactiveFormsModule],
   standalone: true,
   templateUrl: './seleziona-progetti.html',
   styleUrl: './seleziona-progetti.css',
@@ -11,4 +11,10 @@ import { FormGroup } from '@angular/forms';
 export class SelezionaProgetti {
   @Input({ required: true })
   formGroup!: FormGroup;
+
+  progettiForm = new FormGroup({
+    progetto: new FormControl(''),
+  });
+
+  cercaProgetto() {}
 }

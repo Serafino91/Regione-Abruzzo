@@ -1,6 +1,11 @@
-<div class="page-padding">
-  <app-url></app-url>
-  <h3 class="it-header-block-title py-3"> Nuova Richiesta</h3>
+
+<div class="section-padding">
+
+  <app-page-header
+    [titolo]="'Nuova Richiesta'">
+  </app-page-header>
+
+
   <app-wizard-bar
     [items]="wizardItems"
     [currentStep]="currentStep">

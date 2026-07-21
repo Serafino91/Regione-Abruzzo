@@ -1,11 +1,9 @@
- <div class="section-padding">
-    <app-url></app-url>
-    <div class="d-flex align-items-center mb-4">
-      <h4 class="title-section"> <strong>Gestione Progetti</strong></h4>
-    </div>
- </div>
-
-
+<div class="section-padding">
+<app-page-header
+ [titolo]="'Gestione Progetti'"
+ [sottotitolo]="'Puoi consultare e gestire tutti i progetti attivi per il tuo progilo e per i delegati.'">
+ </app-page-header>
+</div>
   <div class="color-bg-lightblue">
     <div class="section-padding">
       <app-filtri></app-filtri>
@@ -17,6 +15,4 @@
     <app-tabella-progetti
     [progetti]="progetti">
     </app-tabella-progetti>
-
-
-</div>
+  </div>

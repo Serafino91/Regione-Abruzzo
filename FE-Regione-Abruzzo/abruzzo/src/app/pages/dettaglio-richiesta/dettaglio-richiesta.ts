@@ -1,17 +1,17 @@
 import { ChangeDetectorRef, Component, DestroyRef, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Url } from '../../components/url/url';
 import { ProgettoDetailCard } from "../../components/progetto-detail-card/progetto-detail-card";
 import { RichiesteService } from "../../services/richieste.service";
 import { RichiestaModel } from "../../model/richiestaModel";
 import { ServizioAccordion } from '../../components/servizio-accordion/servizio-accordion';
 import {InfoBar} from '../../components/info-bar/info-bar';
+import { PageHeader } from '../../components/page-header/page-header';
 
 @Component({
   selector: 'app-dettaglio-richiesta',
-  imports: [Url, ProgettoDetailCard,  RouterLink, ServizioAccordion, InfoBar],
+  imports: [ ProgettoDetailCard, ServizioAccordion, InfoBar, PageHeader],
   templateUrl: './dettaglio-richiesta.html',
   styleUrl: './dettaglio-richiesta.css',
   standalone: true,

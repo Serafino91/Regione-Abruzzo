@@ -1,14 +1,12 @@
 <div class="section-padding">
-  <app-url></app-url>
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="title-section"> <strong>Nuova delega</strong></h4>
-  </div>
+  <app-page-header
+    [titolo]="'Nuova Delega'">
+  </app-page-header>
   <app-wizard-bar
     [currentStep]="currentStep"
     [items]="wizardItems">
   </app-wizard-bar>
 </div>
-
 
 
 @if(currentStep === 1) {

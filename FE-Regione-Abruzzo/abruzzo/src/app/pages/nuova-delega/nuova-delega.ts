@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
 import { WizardLabelItem } from '../../constants/WizardLabelItem';
 import { WizardBar } from '../../components/wizard-bar/wizard-bar';
-import { Url } from '../../components/url/url';
 import { SectionFooter } from '../../sections/nuova-richiesta/section-footer/section-footer';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ScegliUtenza } from '../../sections/nuova-delega/scegli-utenza/scegli-utenza';
 import { SelezionaProgetti } from '../../sections/nuova-delega/seleziona-progetti/seleziona-progetti';
 import { ControllaDati } from '../../sections/nuova-delega/controlla-dati/controlla-dati';
+import {PageHeader} from '../../components/page-header/page-header';
 
 @Component({
   selector: 'app-nuova-delega',
   imports: [
     WizardBar,
-    Url,
     SectionFooter,
     ScegliUtenza,
     SelezionaProgetti,
     ControllaDati,
     ReactiveFormsModule,
+    PageHeader,
   ],
   standalone: true,
   templateUrl: './nuova-delega.html',

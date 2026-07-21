@@ -14,7 +14,7 @@
     <form [formGroup]="aggiungiServizioForm" class="">
       <div class="row mb-4 align-items-end justify-content-evenly ">
         <div class="col-12 col-md-5">
-          <label for="categoria" class="form-label">Categoria</label>
+          <label for="categoria">Categoria</label>
           <select id="categoria"
                   class="form-select form-select-rounded"
                   formControlName="categoria">
@@ -28,7 +28,7 @@
         </div>
 
         <div class="col-12 col-md-3">
-          <label for="servizio" class="form-label">Servizio</label>
+          <label for="servizio" >Servizio</label>
           <select id="servizio"
                   class="form-select form-select-rounded"
                   formControlName="servizio"
@@ -43,7 +43,7 @@
         </div>
 
         <div class="col-12 col-md-1">
-          <label for="unit" class="form-label">Unità</label>
+          <label for="unit" >Unità</label>
           <input id="unit"
                  type="number"
                  class="form-control form-control-rounded"
@@ -153,7 +153,7 @@
                 @for (param of getKeys(servizio.get('params')!); track param) {
                   <div class="col-3 mb-3">
 
-                    <label class="form-label">
+                    <label>
                       {{ param }}
                     </label>
 

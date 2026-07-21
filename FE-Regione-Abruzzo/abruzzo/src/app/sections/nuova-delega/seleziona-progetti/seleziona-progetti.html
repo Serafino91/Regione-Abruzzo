@@ -1,1 +1,31 @@
-<p>seleziona-progetti works!</p>
+<div class="section-padding">
+  <p>Seleziona i progetti che desideri associare alla delega. Solo i progetti selezionati saranno accessibili al delegato.</p>
+</div>
+
+<div class="section-padding color-bg-lightblue">
+
+  <div [formGroup]="progettiForm" class="row mb-4 align-items-end">
+
+    <h5 class="mb-4"> Seleziona i progetti da associare al delegato</h5>
+    <div class="col-11">
+      <label for="progetto" class="form-label">Cerca progetto per ID o Nome</label>
+      <input
+        id="progetto"
+        type="text"
+        formControlName="progetto"
+        placeholder="Cerca Progetto"
+        class="form-control form-control-rounded">
+    </div>
+
+    <div class="col d-flex justify-content-end">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="cercaProgetto()">
+        Cerca
+      </button>
+    </div>
+  </div>
+
+
+</div>

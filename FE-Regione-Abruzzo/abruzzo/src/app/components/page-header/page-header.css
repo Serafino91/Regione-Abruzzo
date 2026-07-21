@@ -1,0 +1,13 @@
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  color: #0066cc;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  margin-bottom: 12px;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}

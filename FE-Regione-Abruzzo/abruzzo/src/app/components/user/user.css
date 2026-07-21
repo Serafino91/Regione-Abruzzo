@@ -1,12 +1,11 @@
 .user-logged {
     display: flex !important;
-    flex-direction: row !important; /* Mantiene la disposizione orizzontale */
-    align-items: center !important;  /* Centra l'icona verticalmente a metà tra i due testi */
-    margin-left: auto;              /* Continua a spingere tutto il blocco a destra nel banner */
-    gap: 10px;                      /* Spazio tra l'icona e l'inizio del testo */
+    flex-direction: row !important;
+    align-items: center !important;
+    margin-left: auto;
+    gap: 10px;
 }
 
-/* Stile per l'icona posizionata a sinistra */
 .user-logged .user-icon {
     width: 22px !important;
     height: 22px !important;
@@ -15,11 +14,11 @@
     display: block;
 }
 
-/* Contenitore per le scritte */
+
 .user-logged .user-info {
     display: flex;
     flex-direction: column;
-    text-align: left;              /* 👈 Testo orientato a sinistra, coerente con l'icona */
+    text-align: left;
 }
 
 .user-logged .user-name {
@@ -35,4 +34,9 @@
     font-weight: 400 !important;
     line-height: 1.1 !important;
     color: rgba(255, 255, 255, 0.7) !important;
+}
+
+
+.user-dropdown {
+  min-width: 250px;
 }

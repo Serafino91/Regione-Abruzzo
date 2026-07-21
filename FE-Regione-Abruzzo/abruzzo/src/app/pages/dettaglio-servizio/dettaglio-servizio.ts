@@ -1,15 +1,15 @@
 import { ChangeDetectorRef, Component, DestroyRef, inject } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ServizioModel } from '../../model/servizioModel';
 import { ServiziService } from '../../services/servizi.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Url } from '../../components/url/url';
 import { ServizioDetailCard } from '../../components/servizio-detail-card/servizio-detail-card';
 import { InfoBar } from '../../components/info-bar/info-bar';
+import { PageHeader } from '../../components/page-header/page-header';
 
 @Component({
   selector: 'app-dettaglio-servizio',
-  imports: [Url, RouterLink, ServizioDetailCard, InfoBar],
+  imports: [ ServizioDetailCard, InfoBar, PageHeader],
   templateUrl: './dettaglio-servizio.html',
   styleUrl: './dettaglio-servizio.css',
   standalone: true,
@@ -24,7 +24,7 @@ export class DettaglioServizio {
 
   constructor(
     private route: ActivatedRoute,
-    private serviziService: ServiziService
+    private serviziService: ServiziService,
   ) {}
 
   ngOnInit() {

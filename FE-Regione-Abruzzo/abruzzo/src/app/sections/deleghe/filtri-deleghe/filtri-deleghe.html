@@ -1,1 +1,45 @@
-<p>filtri-deleghe works!</p>
+
+  <div [formGroup]="filtersForm" class="row mb-4 align-items-end">
+
+    <div class="col-3">
+      <label for="utente" >Cerca utente per Nome e Cognome o ID</label>
+      <input
+        id="utente"
+        type="text"
+        formControlName="utente"
+        placeholder="Cerca Utente"
+        class="form-control form-control-rounded">
+    </div>
+
+    <div class="col-3">
+      <label for="idProgetto">ID Progetto</label>
+      <input
+        id="idProgetto"
+        type="text"
+        placeholder="Cerca ID Progetto"
+        formControlName="idProgetto"
+        class="form-control form-control-rounded">
+    </div>
+
+
+
+    <div class="col-3">
+      <label for="idServizio">ID Servizio</label>
+      <input
+        id="utente"
+        type="text"
+        formControlName="idServizio"
+        placeholder="Cerca ID Servizio"
+        class="form-control form-control-rounded">
+    </div>
+
+    <div class="col d-flex justify-content-end">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="cercaDeleghe()">
+        Cerca
+      </button>
+    </div>
+  </div>
+

@@ -1,1 +1,31 @@
-<p>scegli-utenza works!</p>
+<div class="section-padding">
+<p>Individua l'utenza destinataria della delega oppure registrane una nuova compilando i dati richiesti</p>
+</div>
+
+<div class="section-padding color-bg-lightblue">
+
+  <div [formGroup]="utenteForm" class="row mb-4 align-items-end">
+
+    <h5 class="mb-4"> Seleziona Delegato</h5>
+    <div class="col-11">
+      <label for="utente">Cerca utente per Nome e Cognome o ID</label>
+      <input
+        id="utente"
+        type="text"
+        formControlName="utente"
+        placeholder="Cerca Utente"
+        class="form-control form-control-rounded">
+    </div>
+
+    <div class="col d-flex justify-content-end">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="cercaUtente()">
+        Cerca
+      </button>
+    </div>
+  </div>
+
+
+</div>

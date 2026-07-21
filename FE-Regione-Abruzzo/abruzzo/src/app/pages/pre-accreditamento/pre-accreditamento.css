@@ -41,7 +41,6 @@
 .step-line {
   flex: 1;
   height: 2px;
-  margin: 0rem 1rem;
   background-color: #b3b3b3;
 }
 
@@ -56,4 +55,36 @@
 .step-info {
   text-align: center;
   padding: 1rem;
+}
+
+.step-container {
+  position: relative;
+}
+
+.step-container::after {
+  content: '';
+  position: absolute;
+
+  top: 50%;
+  left: calc(50% + 3rem);
+  right: calc(-50% - 3.5rem);
+
+  height: 2px;
+  background-color: #b5b5b5;
+  z-index: 0;
+}
+
+.step-number {
+  position: relative;
+  z-index: 1;
+  width: 3rem;
+  height: 3rem;
+
+  border-radius: 50%;
+  background-color: var(--bs-primary);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
 }

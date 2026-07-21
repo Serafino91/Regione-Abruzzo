@@ -1,18 +1,11 @@
-<div class="page-padding">
-  <app-url></app-url>
-
-  <a class="back-link" routerLink="/home/catalogo">
-    <svg class="icon icon-sm me-1" aria-hidden="true">
-      <use href="assets/bootstrap-italia/sprites.svg#it-arrow-left"></use>
-    </svg>
-    Torna alla lista
-  </a>
-
-  <div class="d-flex align-items-center my-4 ">
-    <h4 class="title-section"> <strong>Dettaglio Progetto</strong></h4>
-  </div>
-
+<div class="section-padding">
+<app-page-header
+  [titolo]="'Dettaglio Progetto'"
+  [backspace]="'Torna alla lista'"
+  [linkBackspace]="'/home/progetti'">
+</app-page-header>
 </div>
+
 
 <app-info-bar
   [items]="infoProgetto">

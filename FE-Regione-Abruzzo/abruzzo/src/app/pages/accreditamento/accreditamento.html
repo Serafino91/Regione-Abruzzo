@@ -1,9 +1,8 @@
-<div class="section-padding d-flex flex-column gap-2">
-  <app-url></app-url>
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="title-section"> <strong>Richiesta accreditamento</strong></h4>
-  </div>
-  <p>Compila tutti i campi obbligatori per poter inviare la richiesta.</p>
+<div class="section-padding">
+  <app-page-header
+    [titolo]="'Richiesta Accreditamento'"
+    [sottotitolo]="'Compila tutti i campi obbligatori per poter inviare la richiesta.'">
+  </app-page-header>
 </div>
 
 <form [formGroup]="accreditamentoForm">
@@ -20,7 +19,7 @@
 
 
       <div class="col-6">
-        <label for="nome" class="form-label">Nome</label>
+        <label for="nome">Nome</label>
         <input
           id="nome"
           type="text"
@@ -31,7 +30,7 @@
 
 
       <div class="col-6">
-        <label for="cognome" class="form-label">Cognome</label>
+        <label for="cognome">Cognome</label>
         <input
           id="cognome"
           type="text"
@@ -41,7 +40,7 @@
       </div>
 
       <div class="col-6">
-        <label for="codiceFiscale" class="form-label">Codice fiscale</label>
+        <label for="codiceFiscale" >Codice fiscale</label>
         <input
           id="codiceFiscale"
           type="text"
@@ -51,7 +50,7 @@
       </div>
 
       <div class="col-6">
-        <label for="partitaIVA" class="form-label">Partita IVA</label>
+        <label for="partitaIVA" >Partita IVA</label>
         <input
           id="partitaIVA"
           type="text"
@@ -61,7 +60,7 @@
       </div>
 
       <div class="col-6">
-        <label for="ruolo" class="form-label">Ruolo aziendale</label>
+        <label for="ruolo" >Ruolo aziendale</label>
         <input
           id="ruolo"
           type="text"
@@ -79,7 +78,7 @@
       </div>
 
       <div class="col-6">
-        <label for="email" class="form-label">Indirizzo e-mail</label>
+        <label for="email" >Indirizzo e-mail</label>
         <input
           id="email"
           type="text"
@@ -89,7 +88,7 @@
       </div>
 
       <div class="col-6">
-        <label for="pec" class="form-label">Inserisci PEC</label>
+        <label for="pec">Inserisci PEC</label>
         <input
           id="pec"
           type="text"

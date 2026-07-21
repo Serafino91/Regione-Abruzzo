@@ -4,13 +4,13 @@ import { ScegliProgetto } from '../../sections/nuova-richiesta/scegli-progetto/s
 import { SelezionaServizio } from '../../sections/nuova-richiesta/seleziona-servizio/seleziona-servizio';
 import { ControllaInvia } from '../../sections/nuova-richiesta/controlla-invia/controlla-invia';
 import { SectionFooter } from '../../sections/nuova-richiesta/section-footer/section-footer';
-import { Url } from '../../components/url/url';
 import { WizardBar } from '../../components/wizard-bar/wizard-bar';
 import { WizardLabelItem } from '../../constants/WizardLabelItem';
 import { RichiesteService } from '../../services/richieste.service';
 import { Router } from '@angular/router';
 import { ProgettoModel } from '../../model/progetto.model';
 import { RichiestaSafeModel, RichiestaProjectDto } from '../../model/richiestaSafeModel';
+import {PageHeader} from '../../components/page-header/page-header';
 
 @Component({
   selector: 'app-nuova-richiesta',
@@ -20,8 +20,8 @@ import { RichiestaSafeModel, RichiestaProjectDto } from '../../model/richiestaSa
     ControllaInvia,
     SectionFooter,
     ReactiveFormsModule,
-    Url,
     WizardBar,
+    PageHeader,
   ],
   templateUrl: './nuova-richiesta.html',
   styleUrl: './nuova-richiesta.css',
@@ -33,7 +33,10 @@ class NuovaRichiesta {
   showModal = false;
   showModalSuccess = false;
 
-  constructor(private richiesteService: RichiesteService, private router: Router) {}
+  constructor(
+    private richiesteService: RichiesteService,
+    private router: Router,
+  ) {}
 
   richiestaForm = new FormGroup({
     progettoForm: new FormGroup({}),
@@ -97,7 +100,9 @@ class NuovaRichiesta {
     const progettoForm = this.richiestaForm.get('progettoForm')!.value as any;
     const servizi = (this.richiestaForm.get('servizioForm.servizi') as FormArray).value;
     const primoServizio = servizi[0];
-    const categoria = primoServizio ? { id: Number(primoServizio.categoriaId), name: '' } : undefined;
+    const categoria = primoServizio
+      ? { id: Number(primoServizio.categoriaId), name: '' }
+      : undefined;
 
     let project: RichiestaProjectDto;
     if (this.nuovaRichiesta) {
@@ -123,7 +128,7 @@ class NuovaRichiesta {
 
     const richiesta: RichiestaSafeModel = {
       requestId: '',
-      state: "In elaborazione",
+      state: 'In elaborazione',
       project,
       service: null!,
       services: servizi.map((s: any) => ({
@@ -143,15 +148,14 @@ class NuovaRichiesta {
       updatedAt: new Date().toISOString(),
     };
 
-
-    console.log("richiesta:",richiesta);
+    console.log('richiesta:', richiesta);
     this.richiesteService.createRichiesta(richiesta).subscribe({
       next: () => {
         this.showModal = false;
         this.showModalSuccess = true;
       },
       error: (err) => {
-        console.error('Errore durante l\'invio della richiesta:', err);
+        console.error("Errore durante l'invio della richiesta:", err);
         this.showModal = false;
       },
     });
