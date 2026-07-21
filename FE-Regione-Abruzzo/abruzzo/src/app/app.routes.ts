@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { Home } from './pages/home/home';
-import { NuovaRichiesta } from './pages/nuova-richiesta/nuova-richiesta';
+import NuovaRichiesta from './pages/nuova-richiesta/nuova-richiesta';
 import { Richieste } from './pages/richieste/richieste';
 import { Catalogo } from './pages/catalogo/catalogo';
 import { Incident } from './pages/incident/incident';

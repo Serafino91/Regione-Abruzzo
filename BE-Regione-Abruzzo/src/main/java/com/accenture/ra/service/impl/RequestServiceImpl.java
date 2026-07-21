@@ -43,6 +43,7 @@ public class RequestServiceImpl implements RequestService {
 	private final ServiceTypeMapper testServiceTypeMapper;
 	private final ServiceMapper testServiceMapper;
 	private final StateMapper testStateMapper;
+	private final StateMapper stateMapper;
 
 
 	@Override
@@ -71,14 +72,16 @@ public class RequestServiceImpl implements RequestService {
 		// arriva oggetto, controllo per id e poi nome se già esistente, poi continuo 
 		// 
 		reqDetail.setProject(testProjectMapper.toModel(createOrFindProject(req)));
-		reqDetail.setCategory(testServiceTypeMapper.toModel(categoryRepository.getReferenceById(req.getCategory()))); // se cerco nelle repo verifico che ciò che mi arriva sia corretto o cerco direttamente?
-		// I SERVIZI SARANNO N
-		List<ServiceDetail> servicesList = new ArrayList<>();
-		for (String service : req.getServices()) {
-			servicesList.add(testServiceMapper.toModel(serviceRepository.getReferenceById(service))); // TODO: caso di service non trovato?
+		if (req.getCategory() != null) {
+			reqDetail.setCategory(req.getCategory());
 		}
-		reqDetail.setServices(servicesList); // sarà possibile selezionarne più di uno se si vuole
-		reqDetail.setState(testStateMapper.toModel(stateRepository.getReferenceById(Long.parseLong(req.getState()))));
+		// I SERVIZI SARANNO N
+
+		reqDetail.setServices(req.getServices()); // sarà possibile selezionarne più di uno se si vuole
+		reqDetail.setState(stateMapper.toModel(stateRepository.findByStateName(req.getState()).get())); //TODO da cambiare non mi piace
+//		stateRepository.findByStateName(req.getState().getStateName())
+//				.map(testStateMapper::toModel)
+//				.ifPresent(reqDetail::setState);
 		reqDetail.setSendFrom(req.getSendFrom());
 		reqDetail.setSendTo(req.getSendTo());
 		reqDetail.setCreatedAt(LocalDateTime.now());

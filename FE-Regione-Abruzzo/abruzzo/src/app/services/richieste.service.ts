@@ -4,12 +4,12 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
 import { RichiestaDetailResponse, RichiestaModel } from '../model/richiestaModel';
 import {FiltroRichiestaCriteriaModel} from '../model/filtro-richiesta-criteria.model';
+import { RichiestaSafeModel } from '../model/richiestaSafeModel';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RichiesteService {
-
   constructor(private http: HttpClient) {}
 
   getAllRichieste() {
@@ -20,15 +20,14 @@ export class RichiesteService {
   getRichiesta(id: string) {
     return this.http.get<RichiestaDetailResponse>(`${ChiamateApiUrl.BASE_URL_RICHIESTA}/${id}`);
   }
-  createServizio(richiesta: RichiestaModel) {
-    return this.http.post<RichiestaModel>(ChiamateApiUrl.BASE_URL_RICHIESTA, richiesta);
+  createRichiesta(richiesta: RichiestaSafeModel) {
+    return this.http.put<RichiestaSafeModel>(ChiamateApiUrl.BASE_URL_RICHIESTA, richiesta);
   }
   /*
   filterRichieste(richiesta: RichiestaModel) {
     return this.http.post<RichiestaModel>(ChiamateApiUrl.BASE_URL_RICHIESTA + '/filter', richiesta);
   }
   */
-
 
   updateRichieste(richiesta: RichiestaModel) {
     return this.http.patch<RichiestaModel>(
@@ -43,12 +42,10 @@ export class RichiesteService {
 
   filterRichieste(criteria: FiltroRichiestaCriteriaModel) {
     return this.http
-      .post<{ requestsList: RichiestaModel[] }>(
-        `${ChiamateApiUrl.BASE_URL_RICHIESTA}/filter`,
-        criteria
-      )
-      .pipe(map(resp => resp.requestsList));
+      .post<{
+        requestsList: RichiestaModel[];
+      }>(`${ChiamateApiUrl.BASE_URL_RICHIESTA}/filter`, criteria)
+      .pipe(map((resp) => resp.requestsList));
   }
-
 }
 

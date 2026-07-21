@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, ReactiveFormsModule, FormArray } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule, FormArray, FormControl, Validators } from '@angular/forms';
 import { ScegliProgetto } from '../../sections/nuova-richiesta/scegli-progetto/scegli-progetto';
 import { SelezionaServizio } from '../../sections/nuova-richiesta/seleziona-servizio/seleziona-servizio';
 import { ControllaInvia } from '../../sections/nuova-richiesta/controlla-invia/controlla-invia';
@@ -7,6 +7,10 @@ import { SectionFooter } from '../../sections/nuova-richiesta/section-footer/sec
 import { Url } from '../../components/url/url';
 import { WizardBar } from '../../components/wizard-bar/wizard-bar';
 import { WizardLabelItem } from '../../constants/WizardLabelItem';
+import { RichiesteService } from '../../services/richieste.service';
+import { Router } from '@angular/router';
+import { ProgettoModel } from '../../model/progetto.model';
+import { RichiestaSafeModel, RichiestaProjectDto } from '../../model/richiestaSafeModel';
 
 @Component({
   selector: 'app-nuova-richiesta',
@@ -23,15 +27,23 @@ import { WizardLabelItem } from '../../constants/WizardLabelItem';
   styleUrl: './nuova-richiesta.css',
   standalone: true,
 })
-export class NuovaRichiesta {
+class NuovaRichiesta {
   currentStep = 1;
   url = '';
+  showModal = false;
+  showModalSuccess = false;
+
+  constructor(private richiesteService: RichiesteService, private router: Router) {}
 
   richiestaForm = new FormGroup({
     progettoForm: new FormGroup({}),
     servizioForm: new FormGroup({
       servizi: new FormArray([]),
     }),
+  });
+
+  noteForm = new FormGroup({
+    note: new FormControl('', [Validators.maxLength(500)]),
   });
 
   wizardItems: WizardLabelItem[] = [
@@ -81,7 +93,77 @@ export class NuovaRichiesta {
     this.nuovaRichiesta = flag;
   }
 
+  inviaRichiesta(): void {
+    const progettoForm = this.richiestaForm.get('progettoForm')!.value as any;
+    const servizi = (this.richiestaForm.get('servizioForm.servizi') as FormArray).value;
+    const primoServizio = servizi[0];
+    const categoria = primoServizio ? { id: Number(primoServizio.categoriaId), name: '' } : undefined;
+
+    let project: RichiestaProjectDto;
+    if (this.nuovaRichiesta) {
+      const p = progettoForm['progetto'];
+      project = {
+        id: 0,
+        name: p.nome,
+        destinationLink: p.link,
+        description: p.descrizione,
+        createAt: new Date().toISOString(),
+      };
+    } else {
+      const p: ProgettoModel = progettoForm['selezione'];
+      project = {
+        id: p.idProgetto,
+        name: p.nome,
+        destinationLink: p.destinationLink,
+        description: p.description,
+        createAt: p.dataCreazione,
+        updateAt: p.dataUltimaModifica,
+      };
+    }
+
+    const richiesta: RichiestaSafeModel = {
+      requestId: '',
+      state: "In elaborazione",
+      project,
+      service: null!,
+      services: servizi.map((s: any) => ({
+        id: s.servizioId,
+        type: s.type,
+        item: s.item,
+        base: false,
+        optional: false,
+        quantity: String(s.unit),
+        durationMonths: null,
+        params: Object.entries(s.params ?? {}).map(([name, value]) => ({ name, value })),
+      })),
+      category: categoria,
+      sendFrom: progettoForm['dataDa'] ? new Date(progettoForm['dataDa']).toISOString() : '',
+      sendTo: progettoForm['dataA'] ? new Date(progettoForm['dataA']).toISOString() : '',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+
+    console.log("richiesta:",richiesta);
+    this.richiesteService.createRichiesta(richiesta).subscribe({
+      next: () => {
+        this.showModal = false;
+        this.showModalSuccess = true;
+      },
+      error: (err) => {
+        console.error('Errore durante l\'invio della richiesta:', err);
+        this.showModal = false;
+      },
+    });
+  }
+
+  goToHome(): void {
+    this.router.navigate(['home']);
+  }
+
   debugForm() {
     console.log(this.richiestaForm.value);
   }
 }
+
+export default NuovaRichiesta;

@@ -38,7 +38,14 @@ export class ScegliProgetto {
       )
       .subscribe({
         next: (resp) => {
-          this.progetti = resp;
+          this.progetti = resp.map((p: any) => ({
+            idProgetto: p.id,
+            nome: p.name,
+            destinationLink: p.destinationLink,
+            description: p.description,
+            dataCreazione: p.createAt,
+            dataUltimaModifica: p.updateAt,
+          }));
           this.cdr.detectChanges();
         },
         error: (err) => {

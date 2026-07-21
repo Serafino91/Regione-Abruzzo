@@ -5,6 +5,9 @@ import java.util.List;
 
 import com.accenture.ra.dto.request.ProjectDetail;
 
+import com.accenture.ra.dto.request.ServiceDetail;
+import com.accenture.ra.dto.request.ServiceType;
+import com.accenture.ra.dto.request.StateDetail;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,15 +22,11 @@ public class RequestCreationRequest {
 	
 	@NotNull
 	private ProjectDetail project;
-	@NotNull
 	private String state;
 	@NotNull
-	private List<String> services;
-	@NotNull
-	private String category;
-	@NotNull
+	private List<ServiceDetail> services;
+	private ServiceType category;
 	private LocalDateTime sendFrom;
-	@NotNull
 	private LocalDateTime sendTo;
 	
 	// queste vengono gestite a codice

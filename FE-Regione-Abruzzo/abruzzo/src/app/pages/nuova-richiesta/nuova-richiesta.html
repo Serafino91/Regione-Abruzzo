@@ -24,6 +24,7 @@
   <app-controlla-invia
     [formGroupProgetto]="richiestaForm.controls['progettoForm']"
     [formGroupServizi]="richiestaForm.controls['servizioForm']"
+    [formGroupNote]="noteForm"
     [nuovaRichiesta]="nuovaRichiesta">
   </app-controlla-invia>
 }
@@ -32,9 +33,54 @@
   [currentStep]="currentStep"
   [canGoNext]="canGoNext()"
   (next)="nextStep()"
-  (previous)="previousStep()">
+  (previous)="previousStep()"
+  (invia)="showModal = true">
 </app-section-footer>
 
+@if (showModal) {
+  <div class="modal-overlay" (click)="showModal = false">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <svg class="icon me-2" aria-hidden="true">
+          <use href="assets/bootstrap-italia/sprites.svg#it-warning-circle"></use>
+        </svg>
+        <h6 class="mb-0">Invio Nuova Richiesta</h6>
+      </div>
+      <div class="modal-body">
+        <p class="mb-0">
+          Cliccando su Conferma, la richiesta verrà inviata.
+          <br>
+          <strong>Si conferma l'invio?</strong>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-annulla" (click)="showModal = false">Annulla</button>
+        <button class="btn btn-primary" (click)="inviaRichiesta()">Conferma</button>
+      </div>
+    </div>
+  </div>
+}
+
+@if (showModalSuccess) {
+  <div class="modal-overlay">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <svg class="icon me-2" aria-hidden="true">
+          <use href="assets/bootstrap-italia/sprites.svg#it-check-circle"></use>
+        </svg>
+        <h6 class="mb-0">Richiesta Inviata</h6>
+      </div>
+      <div class="modal-body">
+        <p class="mb-0">
+          La richiesta è stata inviata correttamente.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" (click)="goToHome()">Vai alla Home</button>
+      </div>
+    </div>
+  </div>
+}
 
 <!--
 <button class="btn btn-primary" (click)="debugForm()">DEBUG FORM</button> -->

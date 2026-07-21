@@ -13,4 +13,5 @@ export class SectionFooter {
   @Input() canGoNext: boolean = true;
   @Output() next = new EventEmitter<void>();
   @Output() previous = new EventEmitter<void>();
+  @Output() invia = new EventEmitter<void>();
 }

@@ -1,7 +1,6 @@
 import { ServizioModel } from './servizioModel';
-import { CategoriaModel } from './categoria.model';
 import { StatoModel } from './stato.model';
-import { ProgettoModel } from './progetto.model';
+import { CategoriaModel } from './categoria.model';
 
 export interface RichiestaProjectDto {
   id: number;
@@ -12,9 +11,9 @@ export interface RichiestaProjectDto {
   updateAt?: string;
 }
 
-export class RichiestaModel {
+export class RichiestaSafeModel {
   requestId!: string;
-  state!: StatoModel;
+  state?: string;
   project!: RichiestaProjectDto;
   service!: ServizioModel;
   services: ServizioModel[] = [];
@@ -25,5 +24,5 @@ export class RichiestaModel {
   updatedAt?: string;
 }
 export interface RichiestaDetailResponse {
-  requestDetail: RichiestaModel;
+  requestDetail: RichiestaSafeModel;
 }
