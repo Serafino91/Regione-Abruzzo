@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, FormArray, FormControl, Validators } from '@angular/forms';
 import { ScegliProgetto } from '../../sections/nuova-richiesta/scegli-progetto/scegli-progetto';
 import { SelezionaServizio } from '../../sections/nuova-richiesta/seleziona-servizio/seleziona-servizio';
@@ -36,6 +36,7 @@ class NuovaRichiesta {
   constructor(
     private richiesteService: RichiesteService,
     private router: Router,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   richiestaForm = new FormGroup({
@@ -91,12 +92,15 @@ class NuovaRichiesta {
   }
 
   nuovaRichiesta = false;
+  isInviando = false;
 
   onNuovaRichiesta(flag: boolean) {
     this.nuovaRichiesta = flag;
   }
 
   inviaRichiesta(): void {
+    if (this.isInviando) return;
+    this.isInviando = true;
     const progettoForm = this.richiestaForm.get('progettoForm')!.value as any;
     const servizi = (this.richiestaForm.get('servizioForm.servizi') as FormArray).value;
     const primoServizio = servizi[0];
@@ -151,12 +155,17 @@ class NuovaRichiesta {
     console.log('richiesta:', richiesta);
     this.richiesteService.createRichiesta(richiesta).subscribe({
       next: () => {
+        this.isInviando = false;
         this.showModal = false;
         this.showModalSuccess = true;
+        // this.cdr.detectChanges();
+        this.goToHome();
       },
       error: (err) => {
+        this.isInviando = false;
         console.error("Errore durante l'invio della richiesta:", err);
         this.showModal = false;
+        this.cdr.detectChanges();
       },
     });
   }

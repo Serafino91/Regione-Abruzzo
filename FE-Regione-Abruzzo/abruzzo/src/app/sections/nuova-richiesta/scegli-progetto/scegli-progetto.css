@@ -1,3 +1,25 @@
+
+.desc-cell {
+  max-width: 280px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+tr.row-selected {
+  background-color: #e8f0fe;
+}
+
+.sort-icon {
+  color: #999;
+  font-size: 0.8rem;
+  margin-left: 4px;
+}
+
+.sort-icon.active {
+  color: #0066cc;
+}
+
 .dati-progetto {
   display: flex;
   flex-direction: row;
