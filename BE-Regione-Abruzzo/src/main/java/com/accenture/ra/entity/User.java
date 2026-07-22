@@ -3,6 +3,9 @@ package com.accenture.ra.entity;
 import com.accenture.ra.enums.RoleType;
 import com.accenture.ra.enums.AccreditationStatus;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,12 +23,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     @Column(name = "codice_fiscale", unique = true, nullable = false, length = 16)
     private String fiscalCode;
 
+    @NotBlank
+    @Email
     @Column(name = "email", nullable = false)
     private String email;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "stato_accreditamento", nullable = false)
     private AccreditationStatus accreditationStatus;

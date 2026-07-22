@@ -1,6 +1,5 @@
 package com.accenture.ra.config;
 
-
 import com.accenture.ra.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -42,11 +40,17 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .authorizeHttpRequests(
-//                        auth -> auth
-//                        .requestMatchers("/api/auth/**").permitAll()
-//                        .anyRequest().authenticated())
+                .authorizeHttpRequests(auth -> auth
+                        // 1. Endpoint di Login / Auth pubblici
+                        .requestMatchers("/api/auth/**").permitAll()
 
+                        // 2. Homepage e risorse statiche correlate pubbliche
+                        .requestMatchers("/", "/index.html", "/home", "/api/home/**").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll() // Se hai asset statici
+
+                        // 3. Tutto il resto richiede il Login / Token JWT
+                        .anyRequest().authenticated()
+                )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

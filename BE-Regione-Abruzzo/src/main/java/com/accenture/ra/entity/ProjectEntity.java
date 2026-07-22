@@ -1,12 +1,16 @@
 package com.accenture.ra.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +23,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "project")
+@Table(name = "projects")
 public class ProjectEntity {
 
     @Id
@@ -27,6 +31,7 @@ public class ProjectEntity {
     @Column(name = "id")
     private Long id;
 
+    @NotBlank
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -36,12 +41,21 @@ public class ProjectEntity {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "created_at")
+    // Delegato interamente al DDL (DEFAULT CURRENT_TIMESTAMP)
+    @Column(name = "created_at", insertable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
+    // Delegato interamente al DDL (ON UPDATE CURRENT_TIMESTAMP)
+    @Column(name = "updated_at", insertable = false, updatable = false)
     private LocalDateTime updatedAt;
 
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by", nullable = false)
+    private User createdBy;
+
+    // Relazione N:M con ServiceEntity
+    @Builder.Default
     @ManyToMany
     @JoinTable(
             name = "project_service",
@@ -51,16 +65,8 @@ public class ProjectEntity {
     @JsonIgnoreProperties("projects")
     private Set<ServiceEntity> services = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by", nullable = false)
-    private User createdBy;
-
-//    public void updateFromModel(ProjectDetail model) {
-//        if (model == null) return;
-//
-//        this.name = model.getName();
-//        this.destinationLink = model.getDestinationLink();
-//        this.description = model.getDescription();
-//        this.updatedAt = model.getUpdateAt();
-//    }
+    // Relazione bidirezionale N:M con Delegates
+    @Builder.Default
+    @ManyToMany(mappedBy = "projects", fetch = FetchType.LAZY)
+    private List<Delegates> delegates = new ArrayList<>();
 }
