@@ -9,8 +9,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class AppModal {
   @Input() title = '';
-  @Input() message = '';
-  @Input() icon = '';
+  @Input() message? = '';
+  @Input() icon? = '';
   @Input() confirmText = 'Conferma';
   @Input() cancelText = 'Annulla';
   @Input() showCancel = true;

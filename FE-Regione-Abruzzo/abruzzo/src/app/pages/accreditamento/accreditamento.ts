@@ -42,4 +42,5 @@ export class Accreditamento implements OnInit {
   goToHome(): void {
     this.router.navigate(['home']);
   }
+
 }

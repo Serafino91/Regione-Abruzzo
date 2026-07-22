@@ -3,10 +3,12 @@ import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs';
 import { UserService } from '../../services/user.service';
 import { UserModel } from '../../model/user.model';
+import { AppModal } from '../app-modal/app-modal';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user',
-  imports: [],
+  imports: [AppModal, ReactiveFormsModule],
   standalone: true,
   templateUrl: './user.html',
   styleUrl: './user.css',
@@ -14,6 +16,7 @@ import { UserModel } from '../../model/user.model';
 export class User {
   currentUrl = '';
   user: UserModel | undefined;
+  showProfiliModal = false;
 
   constructor(
     private router: Router,
@@ -43,4 +46,9 @@ export class User {
   }
   name: string = 'admin';
   role: string = 'admin';
+  profiloForm: FormGroup = new FormGroup({
+    profilo: new FormControl('', Validators.required),
+  });
+
+  cambiaProfilo() {}
 }

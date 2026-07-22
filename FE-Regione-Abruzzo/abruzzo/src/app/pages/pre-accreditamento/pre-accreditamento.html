@@ -1,23 +1,33 @@
 <div class=" section-padding ">
   <div class="card-accedi border-1 color-bg-lightgrey">
 
-    <div class="testo">
-      <h4>Benvenuto, Mario Rossi</h4>
+    <div class="left-section">
+      <h4 class="fw-bold">Benvenuto, Mario Rossi</h4>
       <h5>Il tuo account non è ancora creditato.</h5>
       <p>Per accedere al Portale Unico Provisioning è necessario
         richiedere l'accreditamento.</p>
-      <button class="btn btn-primary" (click)="richiediAccreditamento()">
+      <button class="btn btn-primary mt-4" (click)="richiediAccreditamento()">
         Richiedi Accreditamento
       </button>
 
       <div class="mt-4 info color-bg-lightblue border-5 p-4 border-1">
+        @if(accreditato) {
         <div class="d-flex flex-row gap-2">
           <svg class="icon icon-sm icon-primary"><use href="assets/bootstrap-italia/sprites.svg#it-warning-circle"></use></svg>
           <h6>Perchè è necessario l'accreditamento?</h6>
-        </div>
+            </div>
         <p>L'accreditamento consente di verificareo i tuoi dati
           ed associare il tuo profilo ai servizi disponibili nel portale.
         </p>
+        } @else {
+          <div class="d-flex flex-row gap-2">
+            <svg class="icon icon-sm icon-primary"><use href="assets/bootstrap-italia/sprites.svg#it-check-circle"></use></svg>
+            <h6>Una richiesta è stata inviata</h6>
+          </div>
+          <p>Attendi la notifica per poter accedere.
+          </p>
+
+        }
       </div>
     </div>
   </div>
@@ -56,7 +66,7 @@
 <div class="row p-4 gap-2 justify-content-evenly">
 
   <div class="col-3 d-flex flex-column align-items-center gap-2">
-    <svg class="icon step-icon icon-primary" aria-hidden="true"  style="width: 3rem; height: 3rem;">
+    <svg class="icon step-icon icon-primary" aria-hidden="true"  style="width: 4rem; height: 4rem;">
       <use href="assets/bootstrap-italia/sprites.svg#it-user"></use>
     </svg>
     <h6>Richiedi l'accreditamento</h6>
@@ -66,7 +76,7 @@
   </div>
 
   <div class="col-3 d-flex flex-column align-items-center gap-2">
-    <svg class="icon step-icon icon-primary" aria-hidden="true"  style="width: 3rem; height: 3rem;">
+    <svg class="icon step-icon icon-primary" aria-hidden="true"  style="width: 4rem; height: 4rem;">
       <use href="assets/bootstrap-italia/sprites.svg#it-check-circle"></use>
     </svg>
     <h6>Verifica dei dati</h6>
@@ -76,7 +86,7 @@
   </div>
 
   <div class="col-3 d-flex flex-column align-items-center gap-2">
-    <svg class="icon step-icon icon-primary" aria-hidden="true"  style="width: 3rem; height: 3rem;">
+    <svg class="icon step-icon icon-primary" aria-hidden="true"  style="width: 4rem; height: 4rem;">
       <use href="assets/bootstrap-italia/sprites.svg#it-unlocked"></use>
     </svg>
     <h6>Accesso abilitato</h6>

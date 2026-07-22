@@ -1,7 +1,7 @@
 <div class="modal-overlay" (click)="onCancel()">
 
   <div
-    class="modal-box"
+    class="modal-box p-4"
     (click)="$event.stopPropagation()">
 
     <div class="modal-header">
@@ -12,19 +12,21 @@
         </svg>
       }
 
-      <h6 class="mb-0">
+      <h5 class="mb-0">
         {{ title }}
-      </h6>
+      </h5>
 
     </div>
 
     <div class="modal-body">
-      <p class="mb-0">
+      <p>
         {{ message }}
       </p>
+      <ng-content>
+      </ng-content>
     </div>
 
-    <div class="modal-footer">
+    <div class="modal-footer pt-3 justify-content-between">
 
       @if (showCancel) {
         <button

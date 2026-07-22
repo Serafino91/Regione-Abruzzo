@@ -8,9 +8,12 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
+
 }
 
 .modal-box {
+  display: flex;
+  flex-direction: column;
   background: #ffffff;
   border-radius: 8px;
   width: 100%;
@@ -22,23 +25,10 @@
 .modal-header {
   display: flex;
   align-items: center;
-  justify-content: left;
-  padding: 20px 20px;
+  color: black;
+
 }
 
-
-.modal-body {
-  padding: 20px 24px;
-  line-height: 1.6;
-}
-
-.modal-footer {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  padding: 16px 24px;
-  border-top: 1px solid #d0dbe6;
-}
 
 .btn-annulla {
   background: none;

@@ -1,39 +1,68 @@
-<div class="section-padding">
-<p>Individua l'utenza destinataria della delega oppure registrane una nuova compilando i dati richiesti</p>
-</div>
 
-<div class="section-padding color-bg-lightblue">
+@if(showDelegatoForm) {
+  <div class="section-padding d-flex flex-row justify-content-between">
+  <h5>Nuovo Delegato</h5>
+  <button
+    type="button"
+    class="col d-flex justify-content-end btn btn-link text-primary fw-semibold p-0 gap-1"
+    (click)="showDelegatoForm = false">
+    <svg class="icon icon-primary icon-sm">
+      <use href="assets/bootstrap-italia/sprites.svg#it-delete"></use>
+    </svg>
+   Annulla Inserimento
+  </button>
+  </div>
+  <app-accreditamento-form>
+  </app-accreditamento-form>
+} @else {
 
-  <div [formGroup]="utenteForm" class="row mb-4 align-items-end">
 
-    <div class="d-flex flex-row">
-      <h5 class="mb-4">Seleziona Delegato</h5>
+  <div class="section-padding">
+    <p>Individua l'utenza destinataria della delega oppure registrane una nuova compilando i dati richiesti</p>
+  </div>
 
-      <a class="col d-flex justify-content-end">
-        <p class="text-primary fw-semibold">Aggiungi nuovo delegato</p>
-      </a>
+  <div class="section-padding color-bg-lightblue">
 
+    <div [formGroup]="utenteForm" class="row mb-4 align-items-end">
+
+      <div class="d-flex flex-row">
+        <h5 class="mb-4">Seleziona Delegato</h5>
+
+
+        <button
+          type="button"
+          class="col d-flex justify-content-end btn btn-link text-primary fw-semibold p-0 gap-1"
+          (click)="showDelegatoForm = true">
+          <svg class="icon icon-primary icon-sm">
+            <use href="assets/bootstrap-italia/sprites.svg#it-plus-circle"></use>
+          </svg>
+          Aggiungi nuovo delegato
+        </button>
+
+      </div>
+
+      <div class="col-10">
+        <label for="utente">Cerca utente per Nome e Cognome o ID</label>
+        <input
+          id="utente"
+          type="text"
+          formControlName="utente"
+          placeholder="Cerca Utente"
+          class="form-control form-control-rounded">
+      </div>
+
+      <div class="col d-flex justify-content-end">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="cercaUtente()">
+          Cerca
+        </button>
+      </div>
     </div>
 
-    <div class="col-11">
-      <label for="utente">Cerca utente per Nome e Cognome o ID</label>
-      <input
-        id="utente"
-        type="text"
-        formControlName="utente"
-        placeholder="Cerca Utente"
-        class="form-control form-control-rounded">
-    </div>
-
-    <div class="col d-flex justify-content-end">
-      <button
-        type="button"
-        class="btn btn-primary"
-        (click)="cercaUtente()">
-        Cerca
-      </button>
-    </div>
   </div>
 
 
-</div>
+}
+

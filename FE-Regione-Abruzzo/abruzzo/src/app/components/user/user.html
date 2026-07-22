@@ -25,11 +25,11 @@
 
    <div class="color-bg-lightblue gap-2 p-2 d-flex flex-column">
      <strong>
-       <a href="/home">Cambia profilo</a>
+       <a (click)="showProfiliModal = true" class="text-primary">Cambia profilo</a>
      </strong>
 
      <strong>
-       <a href="/home/deleghe">Gestisci delegati</a>
+       <a href="/home/deleghe" class="text-primary">Gestisci delegati</a>
      </strong>
    </div>
 
@@ -41,3 +41,25 @@
  </div>
 
 
+@if (showProfiliModal) {
+  <app-app-modal
+    title="Cambia Profilo"
+    confirmText="Conferma"
+    [showCancel]="true"
+    (confirm)="cambiaProfilo()"
+    (cancel)="showProfiliModal = false">
+
+    <div class="p-3 color-bg-lightblue  rounded">
+      <form [formGroup]="profiloForm">
+        <label for="profilo">Profilo</label>
+        <select class="form-select form-select-rounded"
+               placeholder="Seleziona profilo"
+        type="text"
+        formControlName="profilo">
+          <option>Profilo 1</option>
+          <option>Profilo 2</option>
+          </select>
+      </form>
+    </div>
+  </app-app-modal>
+}

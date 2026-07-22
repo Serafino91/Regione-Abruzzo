@@ -1,0 +1,95 @@
+<form [formGroup]="accreditamentoForm">
+  <div class="section-padding color-bg-lightgrey">
+    <div class="row g-4 mb-4">
+
+      <div class="d-flex flex-row align-items-center">
+        <svg class="icon me-2" aria-hidden="true">
+          <use href="assets/bootstrap-italia/sprites.svg#it-file"></use>
+        </svg>
+        <h6>Identificazione utente</h6>
+      </div>
+
+
+      <div class="col-6">
+        <label for="nome">Nome</label>
+        <input
+          id="nome"
+          type="text"
+          formControlName="nome"
+          placeholder="Inserisci Nome"
+          class="form-control form-control-rounded">
+      </div>
+
+
+      <div class="col-6">
+        <label for="cognome">Cognome</label>
+        <input
+          id="cognome"
+          type="text"
+          formControlName="cognome"
+          placeholder="Inserisci Cognome"
+          class="form-control form-control-rounded">
+      </div>
+
+      <div class="col-6">
+        <label for="codiceFiscale" >Codice fiscale</label>
+        <input
+          id="codiceFiscale"
+          type="text"
+          formControlName="codiceFiscale"
+          placeholder="Inserisci Codice Fiscale"
+          class="form-control form-control-rounded">
+      </div>
+
+      <div class="col-6">
+        <label for="partitaIVA" >Partita IVA</label>
+        <input
+          id="partitaIVA"
+          type="text"
+          formControlName="partitaIVA"
+          placeholder="Inserisci Partita IVA"
+          class="form-control form-control-rounded">
+      </div>
+
+      <div class="col-6">
+        <label for="ruolo" >Ruolo aziendale</label>
+        <input
+          id="ruolo"
+          type="text"
+          formControlName="ruolo"
+          placeholder="Inserisci Ruolo Aziendale"
+          class="form-control form-control-rounded">
+      </div>
+
+
+      <div class="d-flex flex-row align-items-center">
+        <svg class="icon me-2" aria-hidden="true">
+          <use href="assets/bootstrap-italia/sprites.svg#it-file"></use>
+        </svg>
+        <h6>Contatti</h6>
+      </div>
+
+      <div class="col-6">
+        <label for="email" >Indirizzo e-mail</label>
+        <input
+          id="email"
+          type="text"
+          formControlName="email"
+          placeholder="Inserisci indirizzo e-mail"
+          class="form-control form-control-rounded">
+      </div>
+
+      <div class="col-6">
+        <label for="pec">Inserisci PEC</label>
+        <input
+          id="pec"
+          type="text"
+          formControlName="pec"
+          placeholder="Inserisci PEC"
+          class="form-control form-control-rounded">
+      </div>
+
+    </div>
+  </div>
+</form>
+

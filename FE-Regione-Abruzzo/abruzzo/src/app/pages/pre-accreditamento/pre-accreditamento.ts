@@ -15,4 +15,6 @@ export class PreAccreditamento {
   richiediAccreditamento() {
     this.router.navigate(['home/accreditamento'])
   };
+
+  accreditato = true;
 }
