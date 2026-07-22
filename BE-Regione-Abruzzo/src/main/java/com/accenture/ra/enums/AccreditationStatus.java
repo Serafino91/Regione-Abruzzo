@@ -1,5 +1,5 @@
 package com.accenture.ra.enums;
 
-public enum StatoAccreditamento {
+public enum AccreditationStatus {
         IN_ATTESA, APPROVATO, RIFIUTATO
 }

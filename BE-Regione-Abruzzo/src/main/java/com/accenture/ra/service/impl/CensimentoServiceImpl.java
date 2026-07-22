@@ -3,7 +3,7 @@ package com.accenture.ra.service.impl;
 import com.accenture.ra.entity.Delegates;
 import com.accenture.ra.entity.User;
 import com.accenture.ra.enums.RoleType;
-import com.accenture.ra.enums.StatoAccreditamento;
+import com.accenture.ra.enums.AccreditationStatus;
 import com.accenture.ra.repository.RoleRepository;
 import com.accenture.ra.repository.UserRepository;
 import com.accenture.ra.service.CensimentoService;
@@ -60,7 +60,7 @@ public class CensimentoServiceImpl implements CensimentoService {
                     nuovo.setFiscalCode(codiceFiscale);
                     nuovo.setEmail(email);
                     nuovo.setSignupDate(LocalDateTime.now()); // Data di creazione impostata qui
-                    nuovo.setStatoAccreditamento(StatoAccreditamento.IN_ATTESA);
+                    nuovo.setAccreditationStatus(AccreditationStatus.IN_ATTESA);
                     nuovo.setActive(true);
 
                     // Assegnazione diretta dell'enum di default
@@ -80,13 +80,13 @@ public class CensimentoServiceImpl implements CensimentoService {
         // Generazione Token JWT
         String jwtLocale = jwtService.generaTokenLocale(
                 utente.getFiscalCode(),
-                utente.getStatoAccreditamento().name(),
+                utente.getAccreditationStatus().name(),
                 rolesOrAuthorities
         );
 
         return Map.of(
                 "token", jwtLocale,
-                "statoAccreditamento", utente.getStatoAccreditamento().name(),
+                "statoAccreditamento", utente.getAccreditationStatus().name(),
                 "codiceFiscale", utente.getFiscalCode()
         );
     }

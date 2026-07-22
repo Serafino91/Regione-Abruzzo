@@ -1,7 +1,7 @@
 package com.accenture.ra.entity;
 
 import com.accenture.ra.enums.RoleType;
-import com.accenture.ra.enums.StatoAccreditamento;
+import com.accenture.ra.enums.AccreditationStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "users") // <--- Modificato da "utenti_censiti" a "users" per allinearsi al tuo DB
+@Table(name = "users")
 public class User {
 
     @Id
@@ -28,7 +28,7 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "stato_accreditamento", nullable = false)
-    private StatoAccreditamento statoAccreditamento;
+    private AccreditationStatus accreditationStatus;
 
     @Column(name = "signup_date")
     private LocalDateTime signupDate;

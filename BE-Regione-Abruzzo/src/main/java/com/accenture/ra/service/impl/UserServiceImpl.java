@@ -4,7 +4,7 @@ package com.accenture.ra.service.impl;
 import com.accenture.ra.dto.request.AccreditationRequestDto;
 import com.accenture.ra.dto.request.AuthRequest;
 import com.accenture.ra.entity.User;
-import com.accenture.ra.enums.StatoAccreditamento;
+import com.accenture.ra.enums.AccreditationStatus;
 import com.accenture.ra.repository.UserRepository;
 import com.accenture.ra.response.AuthResponse;
 import com.accenture.ra.security.JwtUtils;
@@ -45,17 +45,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<Void> userAccreditation(AccreditationRequestDto request) {
-        // 1. Cercamo l'utente ed estraiamo l'istanza con orElseThrow se assente
         User user = userRepository.findByFiscalCode(request.getFiscalCode())
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Utente non trovato con Codice Fiscale: " + request.getFiscalCode()
                 ));
 
-        // 2. Convertiamo la stringa nell'Enum (usa StatoAccreditamento invece di User.StatoAccreditamento se l'hai estratto)
-        StatoAccreditamento nuovoStato = StatoAccreditamento.valueOf(request.getAccreditationStatus().toUpperCase());
-        user.setStatoAccreditamento(nuovoStato);
+        AccreditationStatus nuovoStato = AccreditationStatus.valueOf(request.getAccreditationStatus().toUpperCase());
+        user.setAccreditationStatus(nuovoStato);
 
-        // 3. Salviamo l'entità User estratta dall'Optional
         userRepository.save(user);
 
         return ResponseEntity.ok().build(); // Sintassi pulita per 200 OK
@@ -64,7 +61,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String userAccreditationStatus(String CF) {
 
-        String userAccrStatus = String.valueOf(userRepository.findByFiscalCode(CF).get().getStatoAccreditamento());
+        String userAccrStatus = String.valueOf(userRepository.findByFiscalCode(CF).get().getAccreditationStatus());
 
         return userAccrStatus;
     }
