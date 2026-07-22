@@ -139,6 +139,15 @@
               id="link"
               name="link">
           </div>
+
+          @if (progettoEsistenteError) {
+            <div class="alert alert-danger d-flex align-items-center gap-2 mt-2" role="alert">
+              <svg class="icon icon-danger icon-sm flex-shrink-0">
+                <use href="assets/bootstrap-italia/sprites.svg#it-error"></use>
+              </svg>
+              <span>Esiste già un progetto con questo nome e link destinazione.</span>
+            </div>
+          }
         </div>
 
         <div class="">

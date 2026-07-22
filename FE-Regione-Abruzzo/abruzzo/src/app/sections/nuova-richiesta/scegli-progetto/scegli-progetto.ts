@@ -13,6 +13,7 @@ import { ProgettiService } from '../../../services/progetti.service';
 })
 export class ScegliProgetto implements OnInit {
   @Input({ required: true }) formGroup!: FormGroup;
+  @Input() progettoEsistenteError = false;
   @Output() nuovaRichiesta = new EventEmitter<boolean>();
   private destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef);

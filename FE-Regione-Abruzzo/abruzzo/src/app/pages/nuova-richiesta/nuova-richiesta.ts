@@ -7,6 +7,7 @@ import { SectionFooter } from '../../sections/nuova-richiesta/section-footer/sec
 import { WizardBar } from '../../components/wizard-bar/wizard-bar';
 import { WizardLabelItem } from '../../constants/WizardLabelItem';
 import { RichiesteService } from '../../services/richieste.service';
+import { ProgettiService } from '../../services/progetti.service';
 import { Router } from '@angular/router';
 import { ProgettoModel } from '../../model/progetto.model';
 import { RichiestaSafeModel, RichiestaProjectDto } from '../../model/richiestaSafeModel';
@@ -35,6 +36,7 @@ class NuovaRichiesta {
 
   constructor(
     private richiesteService: RichiesteService,
+    private progettiService: ProgettiService,
     private router: Router,
     private cdr: ChangeDetectorRef,
   ) {}
@@ -57,6 +59,28 @@ class NuovaRichiesta {
   ];
 
   nextStep() {
+    if (this.currentStep === 1 && this.nuovaRichiesta) {
+      const nome = this.richiestaForm.get('progettoForm.progetto.nome')?.value;
+      const link = this.richiestaForm.get('progettoForm.progetto.link')?.value;
+      if (nome && link) {
+        this.progettiService.checkProgettoEsiste(nome, link).subscribe({
+          next: (exists: boolean) => {
+            this.progettoEsistenteError = exists;
+            if (!exists) {
+              this.currentStep++;
+            }
+            this.cdr.detectChanges();
+          },
+          error: () => {
+            this.progettoEsistenteError = false;
+            this.currentStep++;
+            this.cdr.detectChanges();
+          },
+        });
+        return;
+      }
+    }
+    this.progettoEsistenteError = false;
     this.currentStep++;
   }
 
@@ -93,6 +117,7 @@ class NuovaRichiesta {
 
   nuovaRichiesta = false;
   isInviando = false;
+  progettoEsistenteError = false;
 
   onNuovaRichiesta(flag: boolean) {
     this.nuovaRichiesta = flag;

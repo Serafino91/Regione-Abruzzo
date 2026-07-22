@@ -15,6 +15,7 @@
 @if(currentStep === 1) {
   <app-scegli-progetto
     [formGroup]="richiestaForm.controls['progettoForm']"
+    [progettoEsistenteError]="progettoEsistenteError"
     (nuovaRichiesta)="onNuovaRichiesta($event)">
   </app-scegli-progetto>
 }

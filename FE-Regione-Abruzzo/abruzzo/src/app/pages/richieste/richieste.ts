@@ -13,7 +13,7 @@ import {Alert} from '../../components/alert/alert';
 
 @Component({
   selector: 'app-richieste',
-  imports: [TabellaRichieste, ReactiveFormsModule, Filtri, PageHeader, Alert],
+  imports: [TabellaRichieste, ReactiveFormsModule, Filtri, PageHeader],
   templateUrl: './richieste.html',
   styleUrl: './richieste.css',
   standalone: true,
