@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges, ContentChild, TemplateRef } from '@angular/core';
 import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Alert } from '../alert/alert';
 
 export interface TableColumn {
   key: string;
@@ -12,9 +13,9 @@ export interface TableColumn {
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [CommonModule, FormsModule, NgTemplateOutlet],
+  imports: [CommonModule, FormsModule, NgTemplateOutlet, Alert],
   templateUrl: './table.html',
-  styleUrl: './table.css'
+  styleUrl: './table.css',
 })
 export class TableComponent implements OnInit, OnChanges {
   @Input() data: any[] = [];
@@ -88,7 +89,7 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   sort(key: string) {
-    const column = this.columns.find(c => c.key === key);
+    const column = this.columns.find((c) => c.key === key);
     if (!column || column.sortable === false) return;
 
     if (this.sortColumn === key) {
@@ -107,5 +108,4 @@ export class TableComponent implements OnInit, OnChanges {
   toggleDropdown(row: any) {
     this.openedRow = this.openedRow === row ? null : row;
   }
-
 }

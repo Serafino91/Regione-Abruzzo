@@ -8,6 +8,7 @@
   --color-primary-light: #f0f6ff;
   --color-primary-bg-light: #F2F7FC;
   --color-grey-98: #FAFAFA;
+  --alert-border-radius: 8px;
 }
 
 *, *::before, *::after {
@@ -34,7 +35,6 @@ body {
 .color-bg-lightblue  {
   background: #F2F7FC;
 }
-
 .color-bg-lightgrey  {
   background: #FAFAFA;
 }

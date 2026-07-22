@@ -1,9 +1,11 @@
+
 <app-table
   [data]="listaRichieste"
   [columns]="colonneRichieste"
   defaultSortColumn="requestId"
-  defaultSortDir="asc"> <ng-template #cellTemplate let-row let-col="column">
+  defaultSortDir="asc">
 
+  <ng-template #cellTemplate let-row let-col="column">
     @if (col.key === 'requestId') { <span class="fw-bold text-dark">{{ row.requestId }}</span>
     }
 
@@ -35,3 +37,4 @@
 
   </ng-template>
 </app-table>
+

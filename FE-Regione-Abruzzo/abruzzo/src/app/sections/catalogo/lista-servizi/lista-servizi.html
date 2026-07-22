@@ -6,10 +6,10 @@
       <span>Visualizza</span>
 
       <select
-        class="form-select form-select-sm d-inline-block w-auto border-secondary-subtle"
+        class="form-select form-select-rounded form-select-sm d-inline-block w-auto border-secondary-subtle"
         [ngModel]="pageSize"
         (ngModelChange)="onPageSizeChange($event)"
-        style="color: #002b55; font-weight: 700;">
+        style="color: #002b55;">
         <option [ngValue]="3">3 per pagina</option>
         <option [ngValue]="6">6 per pagina</option>
         <option [ngValue]="9">9 per pagina</option>

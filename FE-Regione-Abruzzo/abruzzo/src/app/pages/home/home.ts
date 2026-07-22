@@ -12,6 +12,4 @@ import { Catalogo } from '../../sections/home/catalogo/catalogo';
   styleUrl: './home.css',
   standalone: true,
 })
-
-export class Home {
-}
+export class Home {}

@@ -6,7 +6,15 @@
 
   <div [formGroup]="utenteForm" class="row mb-4 align-items-end">
 
-    <h5 class="mb-4"> Seleziona Delegato</h5>
+    <div class="d-flex flex-row">
+      <h5 class="mb-4">Seleziona Delegato</h5>
+
+      <a class="col d-flex justify-content-end">
+        <p class="text-primary fw-semibold">Aggiungi nuovo delegato</p>
+      </a>
+
+    </div>
+
     <div class="col-11">
       <label for="utente">Cerca utente per Nome e Cognome o ID</label>
       <input
