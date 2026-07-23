@@ -20,11 +20,11 @@ public interface DelegationMapper {
 
     UserResponse toUserResponse(User entity);
 
-    // Maps the ProjectEntity object into the nested projectDetail field
     @Mapping(target = "projectDetail", source = ".")
     ProjectDetailResponse toProjectResponse(ProjectEntity entity);
 
-    // MapStruct uses this helper method to map ProjectEntity -> ProjectDetail
+    @Mapping(source = "createdAt", target = "createAt")
+    @Mapping(source = "updatedAt", target = "updateAt")
     ProjectDetail toProjectDetail(ProjectEntity entity);
 
     List<DelegationResponse> toResponseList(List<Delegates> entities);

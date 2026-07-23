@@ -1,5 +1,6 @@
 package com.accenture.ra.dto.request;
 
+import com.accenture.ra.enums.AccreditationStatus;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,8 +17,5 @@ public class AccreditationRequest {
     private String fiscalCode;
 
     @NotNull(message = "Accreditation status is required")
-    private String accreditationStatus;
-
-    // Default role assignment if creating/updating user system role (e.g., ROLE_USER)
-    private String role;
+    private AccreditationStatus accreditationStatus;
 }

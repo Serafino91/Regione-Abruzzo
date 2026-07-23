@@ -1,51 +1,31 @@
 package com.accenture.ra.controller;
 
-import com.accenture.ra.response.AuthResponse;
-import com.accenture.ra.service.UserService;
+import com.accenture.ra.dto.request.AccreditationRequest;
 import com.accenture.ra.dto.request.AuthRequest;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.accenture.ra.dto.response.UserResponse;
+import com.accenture.ra.response.AuthResponse;
+import com.accenture.ra.service.AuthService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import java.util.HashMap;
-import java.util.Map;
-
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user/auth")
+@RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private PasswordEncoder passwordEncoder; // Change the type from BCryptPasswordEncoder to PasswordEncoder
+    private final AuthService authService;
 
-    @PostMapping("/generate-hash")
-    public ResponseEntity<Map<String, String>> generateHash(@RequestBody Map<String, String> request) {
-        String rawPassword = request.get("password");
-
-        if (rawPassword == null || rawPassword.isEmpty()) {
-            Map<String, String> errorResponse = new HashMap<>();
-            errorResponse.put("error", "Password field cannot be empty");
-            return ResponseEntity.badRequest().body(errorResponse);
-        }
-
-        String hashedPassword = passwordEncoder.encode(rawPassword);
-
-        Map<String, String> response = new HashMap<>();
-        response.put("rawPassword", rawPassword);
-        response.put("bcryptHash", hashedPassword);
-
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody AuthRequest request) {
+        AuthResponse response = authService.login(request);
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
-        AuthResponse response = userService.login(request);
+    @PostMapping("/accreditation")
+    public ResponseEntity<UserResponse> processAccreditation(@Valid @RequestBody AccreditationRequest request) {
+        UserResponse response = authService.processAccreditation(request);
         return ResponseEntity.ok(response);
     }
 }
