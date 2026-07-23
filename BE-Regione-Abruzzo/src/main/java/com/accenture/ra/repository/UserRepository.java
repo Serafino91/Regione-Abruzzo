@@ -7,5 +7,12 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByFiscalCode(String codiceFiscale); // <--- Usa questo
+
+    Optional<User> findByFiscalCodeAndEmail(String fiscalCode, String email);
+
+    Optional<User> findByFiscalCode(String fiscalCode);
+
+    Optional<User> findByEmail(String email);
+
+    boolean existsByFiscalCode(String fiscalCode);
 }

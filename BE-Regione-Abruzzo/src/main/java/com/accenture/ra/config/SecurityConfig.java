@@ -42,7 +42,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         // 1. Endpoint di Login / Auth pubblici
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/user/auth/**").permitAll()
 
                         // 2. Homepage e risorse statiche correlate pubbliche
                         .requestMatchers("/", "/index.html", "/home", "/api/home/**").permitAll()

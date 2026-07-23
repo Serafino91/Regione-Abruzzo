@@ -127,32 +127,35 @@
 
     <build>
         <plugins>
-        <!-- INIZIO aggiunto per mapstruct come consigliato da copilot, ma ci serve tutto?  -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-				<annotationProcessorPaths>
-				<path>
-				<groupId>org.mapstruct</groupId>
-				<artifactId>mapstruct-processor</artifactId>
-				<version>${org.mapstruct.version}</version>
-				</path>
-				<path>
-				<groupId>org.projectlombok</groupId>
-				<artifactId>lombok</artifactId>
-				</path>
-				<path>
-				<groupId>org.projectlombok</groupId>
-				<artifactId>lombok-mapstruct-binding</artifactId>
-				<version>0.2.0</version>
-				</path>
-				</annotationProcessorPaths>
-				</configuration>
-				</plugin>
             <plugin>
-		<!-- FINE aggiunto per mapstruct come consigliato da copilot, ma ci serve tutto?  -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <!-- 1. Lombok MUST come first, with version specified -->
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <!-- 2. Binding library to bridge Lombok & MapStruct -->
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok-mapstruct-binding</artifactId>
+                            <version>0.2.0</version>
+                        </path>
+                        <!-- 3. MapStruct Processor -->
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${org.mapstruct.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
 
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>

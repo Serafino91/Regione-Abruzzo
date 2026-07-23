@@ -40,12 +40,18 @@ public class User {
     @Column(name = "signup_date")
     private LocalDateTime signupDate;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private RoleType role;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Delegates> delegates = new ArrayList<>();
 
     @Column(name = "is_active")
     private boolean active;
+
+    public void addDelegation(Delegates delegation) {
+        delegates.add(delegation);
+        delegation.setUser(this);
+    }
 }
