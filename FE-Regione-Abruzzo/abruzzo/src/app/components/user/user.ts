@@ -1,12 +1,14 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { Router, RouterLink, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs';
 import { UserService } from '../../services/user.service';
 import { UserModel } from '../../model/user.model';
+import { AppModal } from '../app-modal/app-modal';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user',
-  imports: [RouterLink],
+  imports: [AppModal, ReactiveFormsModule],
   standalone: true,
   templateUrl: './user.html',
   styleUrl: './user.css',
@@ -14,6 +16,7 @@ import { UserModel } from '../../model/user.model';
 export class User {
   currentUrl = '';
   user: UserModel | undefined;
+  showProfiliModal = false;
 
   constructor(
     private router: Router,
@@ -22,6 +25,7 @@ export class User {
   ) {
     this.currentUrl = this.router.url;
 
+    /*
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
       console.log('URL:', this.router.url);
       this.currentUrl = this.router.url;
@@ -38,4 +42,13 @@ export class User {
       this.user = user;
     });
   }
+  */
+  }
+  name: string = 'admin';
+  role: string = 'admin';
+  profiloForm: FormGroup = new FormGroup({
+    profilo: new FormControl('', Validators.required),
+  });
+
+  cambiaProfilo() {}
 }

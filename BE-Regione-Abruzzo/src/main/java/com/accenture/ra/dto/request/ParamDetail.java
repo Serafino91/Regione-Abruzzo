@@ -16,7 +16,7 @@ public class ParamDetail {
     private String paramType;
     private String minValue;
     private String maxValue;
-    private boolean isRequired;
+    private Boolean isRequired;
     private String serviceId;
 
 }

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormsModule, FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Url } from '../../components/url/url';
+import { PageHeader } from '../../components/page-header/page-header';
 
 
 @Component({
   selector: 'app-nuovo-incident',
-  imports: [FormsModule, ReactiveFormsModule, Url],
+  imports: [FormsModule, ReactiveFormsModule, PageHeader],
   templateUrl: './nuovo-incident.html',
   styleUrl: './nuovo-incident.css',
   standalone: true,

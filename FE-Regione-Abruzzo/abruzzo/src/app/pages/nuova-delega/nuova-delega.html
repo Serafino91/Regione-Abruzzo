@@ -1,0 +1,35 @@
+<div class="section-padding">
+  <app-page-header
+    [titolo]="'Nuova Delega'">
+  </app-page-header>
+  <app-wizard-bar
+    [currentStep]="currentStep"
+    [items]="wizardItems">
+  </app-wizard-bar>
+</div>
+
+
+@if(currentStep === 1) {
+  <app-scegli-utenza
+    [formGroup]="delegaForm.controls['utenzaForm']">
+  </app-scegli-utenza>
+}
+@if(currentStep === 2) {
+  <app-seleziona-progetti
+    [formGroup]="delegaForm.controls['progettiForm']">
+  </app-seleziona-progetti>
+}
+@if(currentStep === 3) {
+  <app-controlla-dati
+    [formGroup]="delegaForm">>
+  </app-controlla-dati>
+}
+
+
+<app-section-footer
+  [currentStep]="currentStep"
+  [canGoNext]="canGoNext()"
+  (next)="nextStep()"
+  (previous)="previousStep()">
+</app-section-footer>
+

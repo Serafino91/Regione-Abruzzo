@@ -8,7 +8,7 @@ export interface RichiestaProjectDto {
   name: string;
   destinationLink?: string;
   description?: string;
-  createAt: string;
+  createAt?: string;
   updateAt?: string;
 }
 
@@ -21,8 +21,8 @@ export class RichiestaModel {
   category?: CategoriaModel;
   sendFrom!: string;
   sendTo!: string;
-  createdAt!: string;
-  updatedAt!: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 export interface RichiestaDetailResponse {
   requestDetail: RichiestaModel;

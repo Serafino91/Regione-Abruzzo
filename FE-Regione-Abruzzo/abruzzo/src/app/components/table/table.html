@@ -5,10 +5,10 @@
     <div class="d-flex align-items-center gap-3">
       <div class="d-flex align-items-center gap-2">
         <span>Visualizza</span>
-        <select class="form-select form-select-sm d-inline-block w-auto border-secondary-subtle"
+        <select class="form-select form-select-rounded form-select-sm d-inline-block w-auto border-secondary-subtle"
                 [ngModel]="pageSize"
                 (ngModelChange)="onPageSizeChange($event)"
-                style="color: #002b55; font-weight: 700;">
+                style="color: #002b55;">
           <option [value]="5">5 per pagina</option>
           <option [value]="10">10 per pagina</option>
           <option [value]="20">20 per pagina</option>
@@ -74,8 +74,8 @@
           </tr>
         } @empty {
           <tr>
-            <td [attr.colspan]="columns.length" class="text-center text-muted py-4">
-              Nessun dato disponibile.
+            <td [attr.colspan]="columns.length">
+              <app-alert type="empty"></app-alert>
             </td>
           </tr>
         }

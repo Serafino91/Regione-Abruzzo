@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {ServiceCategory} from "../../../constants/service-category.constants";
 import {ServiceName} from "../../../constants/service-name.constants";
 import {LabelServizio} from '../../../components/label-servizio/label-servizio';
@@ -15,6 +15,7 @@ import {ProgettoDetailCard} from "../../../components/progetto-detail-card/proge
 export class ControllaInvia {
   @Input() formGroupProgetto!: FormGroup;
   @Input() formGroupServizi!: FormGroup;
+  @Input() formGroupNote!: FormGroup;
   @Input() nuovaRichiesta!: boolean;
   protected readonly ServiceName = ServiceName;
   protected readonly ServiceCategory = ServiceCategory;
@@ -25,9 +26,6 @@ export class ControllaInvia {
   }
 
   readonly maxNoteLength = 500;
-  formGroupNote = new FormGroup({
-    note: new FormControl('', [Validators.maxLength(this.maxNoteLength)]),
-  });
 
   get servizi(): FormArray {
     return this.formGroupServizi.get('servizi') as FormArray;

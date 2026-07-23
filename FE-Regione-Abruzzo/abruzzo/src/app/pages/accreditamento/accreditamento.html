@@ -1,21 +1,15 @@
-<div class="section-padding d-flex flex-column gap-2">
-  <app-url></app-url>
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="title-section"> <strong>Richiesta accreditamento</strong></h4>
-  </div>
-  <p>Compila tutti i campi obbligatori per poter inviare la richiesta.</p>
+<div class="section-padding">
+  <app-page-header
+    [titolo]="'Richiesta Accreditamento'"
+    [sottotitolo]="'Compila tutti i campi obbligatori per poter inviare la richiesta.'">
+  </app-page-header>
 </div>
 
-
-
 <form [formGroup]="accreditamentoForm">
-
   <div class="section-padding color-bg-lightgrey">
-
     <div class="row g-4 mb-4">
 
       <h5>Dati Utente</h5>
-
       <div class="d-flex flex-row align-items-center">
         <svg class="icon me-2" aria-hidden="true">
           <use href="assets/bootstrap-italia/sprites.svg#it-file"></use>
@@ -25,7 +19,7 @@
 
 
       <div class="col-6">
-        <label for="nome" class="form-label">Nome</label>
+        <label for="nome">Nome</label>
         <input
           id="nome"
           type="text"
@@ -36,7 +30,7 @@
 
 
       <div class="col-6">
-        <label for="cognome" class="form-label">Cognome</label>
+        <label for="cognome">Cognome</label>
         <input
           id="cognome"
           type="text"
@@ -46,7 +40,7 @@
       </div>
 
       <div class="col-6">
-        <label for="codiceFiscale" class="form-label">Codice fiscale</label>
+        <label for="codiceFiscale" >Codice fiscale</label>
         <input
           id="codiceFiscale"
           type="text"
@@ -56,7 +50,7 @@
       </div>
 
       <div class="col-6">
-        <label for="partitaIVA" class="form-label">Partita IVA</label>
+        <label for="partitaIVA" >Partita IVA</label>
         <input
           id="partitaIVA"
           type="text"
@@ -66,7 +60,7 @@
       </div>
 
       <div class="col-6">
-        <label for="ruolo" class="form-label">Ruolo aziendale</label>
+        <label for="ruolo" >Ruolo aziendale</label>
         <input
           id="ruolo"
           type="text"
@@ -84,7 +78,7 @@
       </div>
 
       <div class="col-6">
-        <label for="email" class="form-label">Indirizzo e-mail</label>
+        <label for="email" >Indirizzo e-mail</label>
         <input
           id="email"
           type="text"
@@ -94,7 +88,7 @@
       </div>
 
       <div class="col-6">
-        <label for="pec" class="form-label">Inserisci PEC</label>
+        <label for="pec">Inserisci PEC</label>
         <input
           id="pec"
           type="text"
@@ -102,10 +96,6 @@
           placeholder="Inserisci PEC"
           class="form-control form-control-rounded">
       </div>
-
-
-
-
 
     </div>
   </div>
@@ -134,51 +124,26 @@
 
 
 @if (showModal) {
-  <div class="modal-overlay" (click)="showModal = false">
-    <div class="modal-box" (click)="$event.stopPropagation()">
-      <div class="modal-header">
-        <svg class="icon me-2" aria-hidden="true">
-          <use href="assets/bootstrap-italia/sprites.svg#it-warning-circle"></use>
-        </svg>
-        <h6 class="mb-0">Invio Nuova Richiesta</h6>
-      </div>
-      <div class="modal-body">
-        <p class="mb-0">
-          Cliccando su Conferma, la richiesta verrà inviata.
-          <br>
-          <strong>Si conferma l'invio?</strong>
-          <br>
-        </p>
-      </div>
-      <div class="modal-footer">
-        <button class="btn-annulla " (click)="showModal = false">Annulla</button>
-        <button class="btn btn-primary" (click)="inviaRichiesta()">Conferma</button>
-      </div>
-    </div>
-  </div>
+  <app-app-modal
+    title="Invio Nuova Richiesta"
+    message="Cliccando su Conferma, la richiesta verrà inviata. Si conferma l'invio?"
+    icon="it-warning-circle"
+    confirmText="Conferma"
+    cancelText="Annulla"
+    (confirm)="inviaRichiesta()"
+    (cancel)="showModal = false">
+  </app-app-modal>
 }
 
 
 @if (showModalRichiesta) {
-  <div class="modal-overlay">
-    <div class="modal-box" (click)="$event.stopPropagation()">
-      <div class="modal-header">
-        <svg class="icon me-2" aria-hidden="true">
-          <use href="assets/bootstrap-italia/sprites.svg#it-check-circle"></use>
-        </svg>
-        <h6 class="mb-0">Richiesta Inviata </h6>
-      </div>
-      <div class="modal-body">
-        <p class="mb-0">
-          La richiesta è stata inviata correttamente.
-          <br>
-          Quando l'account verrà accreditato ti verrà inviata una notifica ed avrai accesso
-          a tutti i servizi disponibili sul portale.
-        </p>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary" (click)="goToHome()">Vai alla Home</button>
-      </div>
-    </div>
-  </div>
+  <app-app-modal
+    title="Richiesta Inviata"
+    message="La richiesta è stata inviata correttamente. Quando l'account verrà accreditato ti verrà inviata una notifica."
+    icon="it-check-circle"
+    confirmText="Vai alla Home"
+    [showCancel]="false"
+    (confirm)="goToHome()"
+    (cancel)="showModalRichiesta = false">
+  </app-app-modal>
 }

@@ -1,19 +1,19 @@
-import { ChangeDetectorRef, Component, DestroyRef, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { TabellaRichieste } from '../../sections/richieste/tabella-richieste/tabella-richieste';
 import { RichiestaModel } from '../../model/richiestaModel';
 import { CategoriaService } from '../../services/categoria.service';
 import { RichiesteService } from '../../services/richieste.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import {RouterLink} from '@angular/router';
-import {Url} from '../../components/url/url';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CategoriaModel} from '../../model/categoria.model';
 import {Filtri} from '../../sections/richieste/filtri/filtri';
 import { FiltroRichiestaCriteriaModel } from '../../model/filtro-richiesta-criteria.model';
+import {PageHeader} from '../../components/page-header/page-header';
+import {Alert} from '../../components/alert/alert';
 
 @Component({
   selector: 'app-richieste',
-  imports: [TabellaRichieste, ReactiveFormsModule, Filtri, RouterLink, Url],
+  imports: [TabellaRichieste, ReactiveFormsModule, Filtri, PageHeader],
   templateUrl: './richieste.html',
   styleUrl: './richieste.css',
   standalone: true,

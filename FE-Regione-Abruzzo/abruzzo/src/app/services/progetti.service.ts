@@ -30,6 +30,11 @@ export class ProgettiService {
     return this.http.post<ProgettoModel>(ChiamateApiUrl.BASE_URL_PROGETTI + '/filter', progetto);
   }
 
+  checkProgettoEsiste(nome: string, destinationLink: string) {
+    return this.http.get<boolean>(`${ChiamateApiUrl.BASE_URL_PROGETTI}/${nome}/${destinationLink}`, {
+    });
+  }
+
   updateServizio(progetto: ProgettoModel) {
     return this.http.patch<ProgettoModel>(
       `${ChiamateApiUrl.BASE_URL_SERVIZI}/${progetto.idProgetto}`,

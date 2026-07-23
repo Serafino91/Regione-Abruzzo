@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pre-accesso',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
   templateUrl: './pre-accesso.html',
   styleUrl: './pre-accesso.css',
 })
-export class PreAccesso {}
+export class PreAccesso {
+
+  constructor(private router: Router) {
+  }
+  accedi() {
+    this.router.navigate(['home']);
+  }
+}

@@ -48,6 +48,7 @@ public class RequestServiceImpl implements RequestService {
 	private final ServiceTypeMapper testServiceTypeMapper;
 	private final ServiceMapper testServiceMapper;
 	private final StateMapper testStateMapper;
+	private final StateMapper stateMapper;
 
 
 	@Override
@@ -73,17 +74,19 @@ public class RequestServiceImpl implements RequestService {
 		reqDetail.setRequestId(RequestIdGenerator.generateId());
 		// Cosa riceverò nel requestbody per project,cetegory,service,state? MODIFICARE se necessario
 		// TODO: flussi diversi per caso di PROGETTO NUOVO e caso PRE ESISTENTE
-		// arriva oggetto, controllo per id e poi nome se già esistente, poi continuo
-		//
+		// arriva oggetto, controllo per id e poi nome se già esistente, poi continuo 
+		// 
 		reqDetail.setProject(testProjectMapper.toModel(createOrFindProject(req)));
-		reqDetail.setCategory(testServiceTypeMapper.toModel(categoryRepository.getReferenceById(req.getCategory()))); // se cerco nelle repo verifico che ciò che mi arriva sia corretto o cerco direttamente?
-		// I SERVIZI SARANNO N
-		List<ServiceDetail> servicesList = new ArrayList<>();
-		for (String service : req.getServices()) {
-			servicesList.add(testServiceMapper.toModel(serviceRepository.getReferenceById(service))); // TODO: caso di service non trovato?
+		if (req.getCategory() != null) {
+			reqDetail.setCategory(req.getCategory());
 		}
-		reqDetail.setServices(servicesList); // sarà possibile selezionarne più di uno se si vuole
-		reqDetail.setState(testStateMapper.toModel(stateRepository.getReferenceById(Long.parseLong(req.getState()))));
+		// I SERVIZI SARANNO N
+
+		reqDetail.setServices(req.getServices()); // sarà possibile selezionarne più di uno se si vuole
+		reqDetail.setState(stateMapper.toModel(stateRepository.findByStateName(req.getState()).get())); //TODO da cambiare non mi piace
+//		stateRepository.findByStateName(req.getState().getStateName())
+//				.map(testStateMapper::toModel)
+//				.ifPresent(reqDetail::setState);
 		reqDetail.setSendFrom(req.getSendFrom());
 		reqDetail.setSendTo(req.getSendTo());
 		reqDetail.setCreatedAt(LocalDateTime.now());
@@ -101,19 +104,20 @@ public class RequestServiceImpl implements RequestService {
 	private ProjectEntity createOrFindProject(RequestCreationRequest req) {
 		if(projectRepository.existsById(req.getProject().getId())) {
 			return projectRepository.getReferenceById(req.getProject().getId());
-		}
-		else if(!projectRepository.existsByName(req.getProject().getName())) {
+		} 
+		else if(!projectRepository.existsByNameAndDestinationLink(req.getProject().getName(),req.getProject().getDestinationLink())) {
 			ProjectEntity newProject = new ProjectEntity();
 			newProject.setName(req.getProject().getName());
 			newProject.setDescription(req.getProject().getDescription());
-//			newProject.setDestinationLink(req.getProject().getDestinationLink());
+			newProject.setDestinationLink(req.getProject().getDestinationLink());
+			// TODO: settare le date qui o a db...? Decidiamo
 			return projectRepository.save(newProject);
-		}
+		} 
 		else {
-			throw new IllegalArgumentException("Project with name " + req.getProject().getName() + " already exists.");
+			throw new IllegalArgumentException("Project with name " + req.getProject().getName() + "and destination " + req.getProject().getDestinationLink() + " already exists.");
 		}
-
-
+			
+		
 	}
 
 	@Override

@@ -1,0 +1,90 @@
+.card-accedi {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.left-section {
+  max-width: 50%;
+  padding: 20px;
+}
+
+.left-section p {
+  font-size: 18px;
+}
+
+.info {
+  max-width: 90%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+
+.steps-container {
+  width: 64%;
+}
+
+.steps-row {
+  display: flex;
+  align-items: center;
+}
+
+.steps {
+  width: 3rem;
+  height: 3rem;
+  flex-shrink: 0;
+  color: var(--color-primary);
+}
+
+.step-line {
+  flex: 1;
+  height: 2px;
+  background-color: #b3b3b3;
+}
+
+.steps-info-row {
+  display: flex;
+  max-width: 80%;
+  padding: 2rem 2rem;
+  margin: auto;
+
+}
+
+.step-info {
+  text-align: center;
+  padding: 1rem;
+}
+
+.step-container {
+  position: relative;
+}
+
+.step-container::after {
+  content: '';
+  position: absolute;
+
+  top: 50%;
+  left: calc(50% + 3rem);
+  right: calc(-50% - 3.5rem);
+
+  height: 2px;
+  background-color: #b5b5b5;
+  z-index: 0;
+}
+
+.step-number {
+  position: relative;
+  z-index: 1;
+  width: 3rem;
+  height: 3rem;
+
+  border-radius: 50%;
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}

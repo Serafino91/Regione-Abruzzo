@@ -1,14 +1,12 @@
 <div class="section-padding">
-  <app-url></app-url>
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="title-section"> <strong>Gestione Richieste</strong></h4>
-    <buttons
-      type="button" class="btn btn-primary text-normal fw-semibold"
-      [routerLink]="['/home/richieste/nuova-richiesta']">
-      Nuova richiesta
-    </buttons>
-  </div>
+<app-page-header
+  [titolo]="'Gestione Richieste'"
+  [sottotitolo]="'Puoi consultare tutte le richieste inviate, sia in corso che concluse, utilizzando i filtri disponibili.'"
+  [link]="'/home/richieste/nuova-richiesta'"
+  [button]="'Nuova richiesta'">
+</app-page-header>
 </div>
+
 
 <div class="color-bg-lightblue section-padding">
   <app-filtri
@@ -18,7 +16,9 @@
 </div>
 
 <div class="section-padding mb-4 ">
-  <app-tabella-richieste [richieste]="listaRichieste">
-  </app-tabella-richieste>
+    <app-tabella-richieste
+      [richieste]="listaRichieste">
+    </app-tabella-richieste>
+
   <hr class="line-separator m-0">
 </div>

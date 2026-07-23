@@ -1,22 +1,65 @@
- <div class="user-logged">
-
-    @if (user?.isLoggedIn) {
+ <div class="user-logged dropdown-toggle d-flex align-items-center"
+      data-bs-toggle="dropdown"
+      aria-expanded="false">
 
       <svg class="icon icon-white user-icon">
         <use href="assets/bootstrap-italia/sprites.svg#it-user"></use>
       </svg>
 
       <div class="user-info">
-        <span class="user-name">{{ user?.name }}</span>
-        <span class="user-role">{{ user?.role }}</span>
+        <span class="user-name">{{ name  }}</span>
+        <span class="user-role">{{ role }}</span>
       </div>
 
-    } @else {
-      @if (!isLoginPage) {
-        <a routerLink="/login" class="btn">
-          Accedi
-        </a>
-      }
-
-    }
   </div>
+
+ <div class="user-dropdown dropdown-menu dropdown-menu-end rounded-2 mt-3 p-3">
+
+   <strong>
+     <p class="mb-1">{{ name }}</p>
+   </strong>
+
+   <p class="mb-1 text-secondary">{{ role }}</p>
+
+   <p class="mb-3 text-secondary">ID: 35435435</p>
+
+   <div class="color-bg-lightblue gap-2 p-2 d-flex flex-column">
+     <strong>
+       <a (click)="showProfiliModal = true" class="text-primary">Cambia profilo</a>
+     </strong>
+
+     <strong>
+       <a href="/home/deleghe" class="text-primary">Gestisci delegati</a>
+     </strong>
+   </div>
+
+   <hr>
+
+   <strong>
+     <a href="/home">Logout</a>
+   </strong>
+ </div>
+
+
+@if (showProfiliModal) {
+  <app-app-modal
+    title="Cambia Profilo"
+    confirmText="Conferma"
+    [showCancel]="true"
+    (confirm)="cambiaProfilo()"
+    (cancel)="showProfiliModal = false">
+
+    <div class="p-3 color-bg-lightblue  rounded">
+      <form [formGroup]="profiloForm">
+        <label for="profilo">Profilo</label>
+        <select class="form-select form-select-rounded"
+               placeholder="Seleziona profilo"
+        type="text"
+        formControlName="profilo">
+          <option>Profilo 1</option>
+          <option>Profilo 2</option>
+          </select>
+      </form>
+    </div>
+  </app-app-modal>
+}

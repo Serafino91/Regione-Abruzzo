@@ -1,11 +1,8 @@
 <div class="section-padding d-flex flex-column gap-2">
-  <app-url></app-url>
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="title-section"> <strong>Nuovo Incident</strong></h4>
-  </div>
-  <p>Compila tutti i dati per creare un nuovo incident</p>
-</div>
-
+  <app-page-header
+    [titolo]="'Nuovo Incident'"
+    [sottotitolo]="'Compila tutti i dati per creare un nuovo incident'">
+  </app-page-header>
 
   <form [formGroup]="incidentForm">
 
@@ -16,7 +13,7 @@
         <h5>Dati Incident</h5>
 
         <div class="col-6">
-          <label for="categoria" class="form-label">Categoria</label>
+          <label for="categoria" >Categoria</label>
           <select
             class="form-select form-select-rounded"
             formControlName="categoria">
@@ -25,7 +22,7 @@
         </div>
 
         <div class="col-6">
-          <label for="sottocategoria" class="form-label">Sottocategoria</label>
+          <label for="sottocategoria" >Sottocategoria</label>
           <select
             class="form-select form-select-rounded"
             formControlName="sottocategoria">
@@ -34,7 +31,7 @@
         </div>
 
         <div class="col-6">
-          <label for="idProgetto" class="form-label">ID Progetto</label>
+          <label for="idProgetto" >ID Progetto</label>
           <select
             class="form-select form-select-rounded"
             formControlName="idProgetto">
@@ -43,7 +40,7 @@
         </div>
 
         <div class="col-6">
-          <label for="idServizio" class="form-label">ID Servizio</label>
+          <label for="idServizio" >ID Servizio</label>
           <select
             class="form-select form-select-rounded"
             formControlName="idServizio">
@@ -53,7 +50,7 @@
 
 
         <div class="col-12">
-        <label for="descrizione" class="form-label">Descrizione problema</label>
+        <label for="descrizione" >Descrizione problema</label>
         <textarea
             id="descrizione"
             class="mt-0 form-control form-control-rounded "
@@ -89,7 +86,7 @@
 
         <h5>Dati Richiedente</h5>
         <div class="col-12">
-          <label for="sede" class="form-label">Sede</label>
+          <label for="sede" >Sede</label>
           <input
             id="sede"
             type="text"
@@ -98,7 +95,7 @@
         </div>
 
         <div class="col-6">
-          <label for="email" class="form-label">E-mail</label>
+          <label for="email" >E-mail</label>
           <input
             id="email"
             type="text"
@@ -108,7 +105,7 @@
 
 
         <div class="col-6">
-          <label for="telefono" class="form-label">Telefono</label>
+          <label for="telefono" >Telefono</label>
           <input
             id="telefono"
             type="text"
@@ -118,9 +115,6 @@
       </div>
     </div>
   </form>
-
-
-<div class="section-padding">
   <div class="line-separator"></div>
   <div class="section-footer">
       <div>
@@ -135,6 +129,7 @@
         Invia
       </button>
 
-  </div>
+
 </div>
 
+</div>

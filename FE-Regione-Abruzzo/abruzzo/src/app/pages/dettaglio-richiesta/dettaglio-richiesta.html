@@ -1,22 +1,15 @@
-<div class="page-padding">
-  <app-url></app-url>
-
-  <a class="back-link" routerLink="/home/richieste">
-    <svg class="icon icon-sm me-1" aria-hidden="true">
-      <use href="assets/bootstrap-italia/sprites.svg#it-arrow-left"></use>
-    </svg>
-    Torna alla lista
-  </a>
-
-  <div class="page-header">
-    <h5 class="fw-bold mb-0">Dettaglio richiesta</h5>
+<div class="section-padding">
+  <app-page-header
+    [titolo]="'Dettaglio Richiesta'"
+    [backspace]="'Torna alla lista'"
+    [linkBackspace]="'/home/richieste'">
     <button class="delete-btn" (click)="showDeleteModal = true">
       <svg class="icon icon-sm me-1" aria-hidden="true">
         <use href="assets/bootstrap-italia/sprites.svg#it-delete"></use>
       </svg>
       Elimina
     </button>
-  </div>
+  </app-page-header>
 </div>
 
 

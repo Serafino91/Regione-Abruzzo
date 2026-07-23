@@ -1,0 +1,26 @@
+<div class=" d-flex flex-column">
+  <app-url></app-url>
+  @if(backspace) {
+    <a class="back-link mb-4"  [routerLink]="[linkBackspace]">
+      <svg class="icon icon-sm me-1" aria-hidden="true">
+        <use href="assets/bootstrap-italia/sprites.svg#it-arrow-left"></use>
+      </svg>
+      {{backspace}}
+    </a>
+  }
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="title-section"> <strong>{{titolo}}</strong></h4>
+  @if(button) {
+    <button class="btn btn-primary text-normal fw-semibold "
+    [routerLink]="[link]">
+      {{button}}
+    </button>
+  }
+    <ng-content>
+    </ng-content>
+  </div>
+  @if (sottotitolo) {
+    <p class="mt-0"> {{sottotitolo}}</p>
+  }
+</div>
+

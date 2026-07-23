@@ -5,35 +5,32 @@
       selezionalo tramite i filtri disponibili. Selezionata la tipologia di richiesta, clicca su "Avanti".</p>
   </div>
 
-  <h5 class=" w-100 pb-5">Scegli il progetto a cui associare la nuova richiesta</h5>
+  <h5 class="w-100 pb-5">Scegli il progetto a cui associare la nuova richiesta</h5>
 
   <form [formGroup]="formGroup" class="pb-5">
 
     <div class="row w-100 align-items-end g-4">
 
       <div class="col-md-6">
-        <div class="select-wrapper">
-          <label for="progetto">Inserisci nome progetto</label>
-          <select
+        <label for="progetto">Cerca nome progetto</label>
+        <div class="position-relative">
+          <input
+            type="text"
             id="progetto"
-            formControlName="selezione"
-            class="form-control form-control-rounded"
-            name="progetto">
-            <option value="">Seleziona...</option>
-
-            @for (progetto of progetti; track progetto.idProgetto) {
-              <option  [ngValue]="progetto">
-                {{ progetto.description }}
-              </option>
-            }
-          </select>
+            formControlName="ricercaNome"
+            class="form-control form-control-rounded pe-5"
+            name="progetto"
+            placeholder="Cerca nome progetto"
+            autocomplete="off">
+          <span class="position-absolute top-50 end-0 translate-middle-y me-3" style="pointer-events: none;">
+            <svg class="icon icon-primary icon-sm">
+              <use href="assets/bootstrap-italia/sprites.svg#it-search"></use>
+            </svg>
+          </span>
         </div>
       </div>
 
-
-
       <div class="col-md-3">
-
         <label class="active" for="dataDa">Data invio - da</label>
         <input
           class="form-control form-control-rounded"
@@ -41,11 +38,9 @@
           type="date"
           id="dataDa"
           name="dataDa">
-
       </div>
 
       <div class="col-md-3">
-
         <label class="active" for="dataA">Data invio - a</label>
         <input
           class="form-control form-control-rounded"
@@ -55,29 +50,65 @@
           name="dataA">
       </div>
 
-
-
-      <div class="w-100 text-end mt-4">
-        <button type="submit" class="btn btn-primary"> Cerca Progetto </button>
-      </div>
-
-
-      <div class="">
-        @for (progetto of progetti; track progetto.idProgetto) {
-
-        }
-      </div>
-
+      @if (progetti.length > 0) {
+        <div class="col-12 mt-4">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th style="width: 48px;"></th>
+                  <th (click)="sort('idProgetto')" style="cursor: pointer;">
+                    ID Progetto <span class="sort-icon" [class.active]="sortColumn === 'idProgetto'">{{ sortIcon('idProgetto') }}</span>
+                  </th>
+                  <th (click)="sort('nome')" style="cursor: pointer;">
+                    Progetto <span class="sort-icon" [class.active]="sortColumn === 'nome'">{{ sortIcon('nome') }}</span>
+                  </th>
+                  <th (click)="sort('description')" style="cursor: pointer;">
+                    Descrizione <span class="sort-icon" [class.active]="sortColumn === 'description'">{{ sortIcon('description') }}</span>
+                  </th>
+                  <th (click)="sort('servizi')" style="cursor: pointer;">
+                    Totale servizi <span class="sort-icon" [class.active]="sortColumn === 'servizi'">{{ sortIcon('servizi') }}</span>
+                  </th>
+                  <th (click)="sort('dataCreazione')" style="cursor: pointer;">
+                    Data creazione <span class="sort-icon" [class.active]="sortColumn === 'dataCreazione'">{{ sortIcon('dataCreazione') }}</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (progetto of progetti; track progetto.idProgetto) {
+                  <tr
+                    (click)="selezionaProgetto(progetto)"
+                    [class.row-selected]="progettoSelezionato?.idProgetto === progetto.idProgetto"
+                    style="cursor: pointer;">
+                    <td>
+                      <input
+                        type="checkbox"
+                        [checked]="progettoSelezionato?.idProgetto === progetto.idProgetto"
+                        (click)="$event.stopPropagation(); selezionaProgetto(progetto)">
+                    </td>
+                    <td>{{ progetto.idProgetto }}</td>
+                    <td>{{ progetto.nome }}</td>
+                    <td class="desc-cell">{{ progetto.description }}</td>
+                    <td>{{ progetto.servizi?.length ?? 0 }}</td>
+                    <td>{{ formatDate(progetto.dataCreazione) }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      }
 
       <hr class="line-separator mt-5">
-      </div>
+    </div>
+
     <div>
       <div class="form-check-inline">
         <div class="toggles">
           <label for="toggleEsempio1a">
             Vuoi associare questa richiesta ad un nuovo progetto?
             <input type="checkbox" (click)="associaProgetto()" id="toggleEsempio1a">
-            <span  class="lever"></span>
+            <span class="lever"></span>
           </label>
         </div>
       </div>
@@ -89,8 +120,8 @@
       [class.show]="newProgetto">
 
       <h5 class="pt-3">Dati del progetto</h5>
-      <div  formGroupName="progetto" class=" mt-3 row gap-4">
-        <div class="d-flex col-md-6 flex-column  gap-4">
+      <div formGroupName="progetto" class="mt-3 row gap-4">
+        <div class="d-flex col-md-6 flex-column gap-4">
           <div class="">
             <label class="active" for="nome">Nome</label>
             <input
@@ -108,6 +139,15 @@
               id="link"
               name="link">
           </div>
+
+          @if (progettoEsistenteError) {
+            <div class="alert alert-danger d-flex align-items-center gap-2 mt-2" role="alert">
+              <svg class="icon icon-danger icon-sm flex-shrink-0">
+                <use href="assets/bootstrap-italia/sprites.svg#it-error"></use>
+              </svg>
+              <span>Esiste già un progetto con questo nome e link destinazione.</span>
+            </div>
+          }
         </div>
 
         <div class="">

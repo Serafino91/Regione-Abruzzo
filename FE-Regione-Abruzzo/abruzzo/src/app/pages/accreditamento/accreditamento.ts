@@ -1,28 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  FormBuilder,
   FormGroup,
   Validators,
   ReactiveFormsModule,
   FormControl,
 } from '@angular/forms';
-import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
-import {Url} from '../../components/url/url';
+import {AppModal} from '../../components/app-modal/app-modal';
+import { PageHeader } from '../../components/page-header/page-header';
 
 @Component({
   selector: 'app-accreditamento',
   standalone: true,
-  imports: [ReactiveFormsModule, Url],
+  imports: [ReactiveFormsModule, AppModal, PageHeader],
   templateUrl: './accreditamento.html',
   styleUrl: './accreditamento.css',
 })
 export class Accreditamento implements OnInit {
-  constructor(
-    private userService: UserService,
-    protected router: Router,
-    private fb: FormBuilder,
-  ) {}
+  constructor(protected router: Router) {}
+
   showModal = false;
   showModalRichiesta = false;
 
@@ -46,4 +42,5 @@ export class Accreditamento implements OnInit {
   goToHome(): void {
     this.router.navigate(['home']);
   }
+
 }

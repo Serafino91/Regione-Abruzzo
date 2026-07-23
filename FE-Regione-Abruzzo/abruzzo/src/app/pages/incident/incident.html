@@ -1,14 +1,10 @@
 <div class="section-padding">
-  <app-url></app-url>
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="title-section"> <strong>Gestione Incident</strong></h4>
-    <buttons
-      type="button" class="btn btn-primary text-normal fw-semibold"
-      [routerLink]="['/home/incident/nuovo-incident']">
-      Nuovo Incident
-    </buttons>
-  </div>
-  <p>Puoi consultare tutti gli incident inviati, sia in corso che chiusi, utilizzando i filtri disponibili.</p>
+  <app-page-header
+    [titolo]="'Gestione Incident'"
+    [sottotitolo]="'Puoi consultare tutti gli incident inviati, sia in corso che chiusi, utilizzando i filtri disponibili.'"
+    [button]="'Nuovo Incident'"
+    [link]="'/home/incident/nuovo-incident'">
+  </app-page-header>
 </div>
 
 

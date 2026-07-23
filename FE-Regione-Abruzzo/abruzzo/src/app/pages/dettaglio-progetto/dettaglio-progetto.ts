@@ -1,16 +1,16 @@
 import {ChangeDetectorRef, Component, DestroyRef, inject} from '@angular/core';
-import {Url} from '../../components/url/url';
-import { ActivatedRoute, RouterLink} from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import {ProgettoModel} from '../../model/progetto.model';
 import {ProgettiService} from '../../services/progetti.service';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {ProgettoDetailCard} from '../../components/progetto-detail-card/progetto-detail-card';
 import {ServizioAccordion} from '../../components/servizio-accordion/servizio-accordion';
 import {InfoBar} from '../../components/info-bar/info-bar';
+import { PageHeader } from '../../components/page-header/page-header';
 
 @Component({
   selector: 'app-dettaglio-progetto',
-  imports: [Url, RouterLink, ProgettoDetailCard, ServizioAccordion, InfoBar],
+  imports: [ProgettoDetailCard, ServizioAccordion, InfoBar, PageHeader],
   standalone: true,
   templateUrl: './dettaglio-progetto.html',
   styleUrl: './dettaglio-progetto.css',

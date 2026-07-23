@@ -1,23 +1,22 @@
 import { ChangeDetectorRef, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Url } from '../../components/url/url';
 import {Filtri} from '../../sections/progetti/filtri/filtri';
 import {TabellaProgetti} from '../../sections/progetti/tabella-progetti/tabella-progetti';
 import {map} from 'rxjs';
 import {ProgettoModel} from '../../model/progetto.model';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {ProgettiService} from '../../services/progetti.service';
+import { PageHeader } from '../../components/page-header/page-header';
 
 
 @Component({
   selector: 'app-progetti',
   standalone: true,
-  imports: [CommonModule,  Url, Filtri, TabellaProgetti],
+  imports: [CommonModule, Filtri, TabellaProgetti, PageHeader],
   templateUrl: './progetti.html',
   styleUrl: './progetti.css',
 })
 export class Progetti implements OnInit {
-
   progetti: ProgettoModel[] = [];
   private destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef);
@@ -27,7 +26,6 @@ export class Progetti implements OnInit {
   ngOnInit(): void {
     this.getProgetti();
   }
-
 
   private getProgetti(): void {
     this.progettiService
@@ -48,14 +46,10 @@ export class Progetti implements OnInit {
             dataUltimaModifica: p.updateAt,
           }));
           this.cdr.detectChanges();
-
         },
         error: (err) => {
           console.error('Errore nel recupero dei progetti:', err);
         },
       });
-
   }
-
-
 }
