@@ -1,9 +1,8 @@
-
-  <app-table
-    [data]="listaProgetti"
-    [columns]="colonneProgetti"
-    defaultSortColumn="idProgetto"
-    defaultSortDir="asc">
+<app-table
+  [data]="listaProgetti"
+  [columns]="colonneProgetti"
+  defaultSortColumn="idProgetto"
+  defaultSortDir="asc">
 
     <ng-template #cellTemplate let-row let-col="column">
 
@@ -23,14 +22,12 @@
             <li><a class="dropdown-item" href="#">Modifica</a></li>
           </ul>
         </div>
-      }
-
-      @else {
+      } @else {
         {{ getValue(row, col.key) }}
       }
 
     </ng-template>
-  </app-table>
+</app-table>
 
 
 

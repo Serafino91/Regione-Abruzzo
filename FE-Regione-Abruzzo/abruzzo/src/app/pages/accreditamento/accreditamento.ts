@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormGroup,
   Validators,
@@ -8,6 +8,7 @@ import {
 import { Router } from '@angular/router';
 import {AppModal} from '../../components/app-modal/app-modal';
 import { PageHeader } from '../../components/page-header/page-header';
+import {ProgettoModel} from "../../model/progetto.model";
 
 @Component({
   selector: 'app-accreditamento',
@@ -39,8 +40,9 @@ export class Accreditamento implements OnInit {
     this.showModalRichiesta = true;
   }
 
+
+
   goToHome(): void {
     this.router.navigate(['home']);
   }
-
 }

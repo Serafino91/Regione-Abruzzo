@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { WizardLabelItem } from '../../constants/WizardLabelItem';
 import { WizardBar } from '../../components/wizard-bar/wizard-bar';
 import { SectionFooter } from '../../sections/nuova-richiesta/section-footer/section-footer';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ScegliUtenza } from '../../sections/nuova-delega/scegli-utenza/scegli-utenza';
 import { SelezionaProgetti } from '../../sections/nuova-delega/seleziona-progetti/seleziona-progetti';
 import { ControllaDati } from '../../sections/nuova-delega/controlla-dati/controlla-dati';
@@ -23,6 +23,7 @@ import {PageHeader} from '../../components/page-header/page-header';
   templateUrl: './nuova-delega.html',
   styleUrl: './nuova-delega.css',
 })
+
 export class NuovaDelega {
   currentStep = 1;
   wizardItems: WizardLabelItem[] = [
@@ -36,6 +37,10 @@ export class NuovaDelega {
     progettiForm: new FormGroup({}),
   });
 
+  noteForm = new FormGroup({
+    note: new FormControl('', [Validators.maxLength(500)]),
+  });
+
   nextStep() {
     this.currentStep++;
   }
@@ -44,5 +49,9 @@ export class NuovaDelega {
   }
   canGoNext(): boolean {
     return true;
+  }
+
+  debugForm() {
+    console.log(this.delegaForm.value);
   }
 }

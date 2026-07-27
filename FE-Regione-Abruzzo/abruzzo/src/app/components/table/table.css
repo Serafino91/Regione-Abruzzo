@@ -72,32 +72,41 @@
 
 /* --- LE LARGHEZZE DELLE COLONNE PER SPINGERE LO SCROLL --- */
 .col-id {
-  min-width: 300px !important;
+  min-width: 200px !important;
   white-space: nowrap;
 }
+
 .col-nome {
-  min-width: 360px !important;
+  min-width: 200px !important;
+  white-space: nowrap;
 }
+
 .col-desc {
   min-width: 460px !important;
 }
+
 .col-data {
   min-width: 140px !important;
   white-space: nowrap;
 }
+
 .col-small {
   min-width: 85px !important;
-
+  white-space: nowrap;
 }
+
 .col-azioni {
   min-width: 95px !important;
 }
+
 .col-proj {
   min-width: 180px !important;
 }
+
 .col-reqid {
   min-width: 100px !important;
 }
+
 .col-serv {
   min-width: 100px !important;
 }
@@ -120,12 +129,6 @@
   height: 50%;
   width: 1px;
   background-color: #d1d7e3;
-}
-
-/* Rimuove l'effetto linea sull'ultimo elemento utile prima del blocco Azioni, evita artefatti grafici */
-.table tbody tr td:nth-last-child(2)::after,
-.table tbody tr td:last-child::after {
-  display: none !important;
 }
 
 /* Icona ordinamento freccette */

@@ -1,1 +1,116 @@
-<p>controlla-dati works!</p>
+<div class="section-padding">
+  <p>Verifica le informazioni inserite, configura i permessi del delegato e aggiungi eventuali note prima di inviare la richiesta.</p>
+</div>
+<div class="section-padding color-bg-lightgrey">
+
+  <div class="user-card d-flex flex-column shadow-sm color-bg-lightblue" >
+    <div class="row">
+      <div class="col-3">
+        <div class="d-flex flex-row">
+          <svg class="icon me-2 icon-primary" aria-hidden="true">
+            <use href="assets/bootstrap-italia/sprites.svg#it-user"></use>
+          </svg>
+          <div>
+          <p class="fw-semibold mb-1">ID delegato</p>
+          <p>34543543</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <p class="fw-semibold mb-1" >Nome</p>
+        <p>Gianni</p>
+      </div>
+      <div class="col-3">
+        <p class="fw-semibold mb-1">Cognome</p>
+        <p>Pippo</p>
+      </div>
+    </div>
+
+    <hr style="color: var(--color-primary)">
+
+    <div class="row">
+
+      <div class="col-3">
+        <p class="fw-semibold mb-1">Email</p>
+        <p>gianni.pippo.com</p>
+      </div>
+      <div class="col-3">
+        <p class="fw-semibold mb-1">PEC</p>
+        <p>gianni.pippo.com</p>
+      </div>
+      <div class="col-3">
+        <p class="fw-semibold mb-1">Telefono</p>
+        <p>324838294</p>
+      </div>
+
+    </div>
+  </div>
+
+  <h5 class="mt-5">Progetti da Associare</h5>
+
+  @if (progetti) {
+    @for (progetto of progetti.controls; track $index) {
+
+      <app-progetto-accordion [progetto]="progetto.value">
+        <h6>Descrizione </h6>
+        <p> {{progetto.value.description}}</p>
+      </app-progetto-accordion>
+    }
+  }
+
+  <div class=" d-flex flex-column border rounded-3 shadow-sm p-3 gap-2 mt-5">
+    <h5>Permessi</h5>
+    <p>Configura i permessi prima di inviare la richiesta di delega. Potrai aggiornarli in qualsiasi momento dalla pagina di dettaglio del delegato.</p>
+    <div class=" d-flex flex-row">
+      <div class="form-check-inline">
+        <div class="toggles">
+          <label for="toggle1" class="mb-0">
+            <input type="checkbox" id="toggle1">
+            <span class="lever"></span>
+          </label>
+        </div>
+      </div>
+      <p class="mb-0">Permetti al delegato di richiedere altri progetti</p>
+    </div>
+
+    <hr class="line-separator"/>
+
+
+    <div class=" d-flex flex-row">
+      <div class="form-check-inline">
+        <div class="toggles">
+          <label for="toggle2">
+            <input type="checkbox" id="toggle2">
+            <span class="lever"></span>
+          </label>
+        </div>
+      </div>
+      <p>Permetti al delegato di delegare a sua volta</p>
+    </div>
+
+  </div>
+
+
+  <hr class="line-separator my-4"/>
+
+
+
+  <form [formGroup]="noteForm" class="my-4">
+    <label for="note" >Note</label>
+
+    <textarea
+      id="note"
+      class="form-control form-control-rounded"
+      rows="5"
+      formControlName="note"
+      [attr.maxlength]="maxNoteLength">
+  </textarea>
+
+    <div class="d-flex justify-content-end mt-1">
+      <small class="text-muted">
+        {{ noteForm.get('note')?.value?.length || 0 }}/{{ maxNoteLength }}
+      </small>
+    </div>
+  </form>
+</div>
