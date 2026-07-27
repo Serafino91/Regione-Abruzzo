@@ -21,11 +21,7 @@ public class DelegateController {
 
 
     @PostMapping("/delegate")
-    @PreAuthorize("@securityService.hasAccess(" +
-            "authentication, " +
-            "T(com.accenture.ra.enums.AccreditationStatus).APPROVATO, " +
-            "T(com.accenture.ra.enums.DelegateType).ROLE_DELEGATE_MASTER, " +
-            "T(com.accenture.ra.enums.DelegateType).ROLE_DELEGATE_VIEWER)")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER')")
     public ResponseEntity<DelegationResponse> createDelegation(
             @Valid @RequestBody CreateDelegationRequest request) {
         DelegationResponse response = delegateService.createDelegation(request);

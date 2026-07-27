@@ -35,42 +35,41 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService, CustomU
 
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        // 1. Primary Role Authority
+        // 1. Add Primary Role (e.g. ROLE_USER, ROLE_ADMIN)
         RoleType role = user.getRole();
         if (role != null) {
             authorities.add(new SimpleGrantedAuthority(role.getAuthority()));
         }
 
-        // 2. Active DelegateType Authority
-        DelegateType delegateType = extractActiveDelegateType(user);
-        if (delegateType != null) {
+        // 2. Add ALL active delegation types into authorities pool
+        List<DelegateType> activeDelegateTypes = extractAllActiveDelegateTypes(user);
+        for (DelegateType delegateType : activeDelegateTypes) {
             authorities.add(new SimpleGrantedAuthority(delegateType.name()));
         }
 
-        // 3. Status attributes
         AccreditationStatus accreditationStatus = user.getAccreditationStatus();
         boolean isActive = user.isActive();
+        DelegateType defaultDelegateType = activeDelegateTypes.isEmpty() ? null : activeDelegateTypes.get(0);
 
         return new CustomUserDetails(
                 user.getFiscalCode(),
                 user.getEmail(),
-                authorities,
+                authorities, // Contains primary role AND all active delegates
                 accreditationStatus,
-                delegateType,
+                defaultDelegateType,
                 isActive
         );
     }
 
-    private DelegateType extractActiveDelegateType(User user) {
+    private List<DelegateType> extractAllActiveDelegateTypes(User user) {
         if (user.getDelegates() == null) {
-            return null;
+            return List.of();
         }
 
         return user.getDelegates().stream()
                 .filter(Delegates::isActive)
                 .map(Delegates::getDelegateType)
                 .filter(Objects::nonNull)
-                .findFirst()
-                .orElse(null);
+                .toList();
     }
 }
