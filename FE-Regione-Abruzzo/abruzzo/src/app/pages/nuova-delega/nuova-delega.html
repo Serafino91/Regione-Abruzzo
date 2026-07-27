@@ -21,7 +21,8 @@
 }
 @if(currentStep === 3) {
   <app-controlla-dati
-    [formGroup]="delegaForm">>
+    [formGroup]="delegaForm.controls['progettiForm']"
+    [noteForm]="noteForm">
   </app-controlla-dati>
 }
 
@@ -33,3 +34,5 @@
   (previous)="previousStep()">
 </app-section-footer>
 
+
+<button class="btn btn-primary" (click)="debugForm()">DEBUG FORM</button>

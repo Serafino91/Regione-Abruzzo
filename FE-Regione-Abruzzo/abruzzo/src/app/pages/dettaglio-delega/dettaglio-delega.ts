@@ -9,4 +9,21 @@ import { Component } from '@angular/core';
 })
 export class DettaglioDelega {
 
+  info = [
+    {
+      label: 'ID Delegato',
+      value: '9743905843',
+      icon: 'it-file',
+    },
+    {
+      label: 'Nome e Cognome',
+      value: 'Gianni Pippo',
+      icon: 'it-user',
+    },
+    {
+      label: 'Data avvio delega',
+      value: 'GG/MM/AAAA',
+      icon: 'it-calendar',
+    },
+  ];
 }

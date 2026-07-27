@@ -82,9 +82,9 @@
         class="d-block w-100 mb-2">
       </app-richieste-in-corso-card>
     } @empty {
-      <div class="alert alert-neutral border-light text-center py-4 rounded">
-        <p class="mb-0 text-muted small">Nessuna richiesta presente in questa categoria.</p>
-      </div>
+      <app-alert
+        type="empty">
+      </app-alert>
     }
   </div>
 

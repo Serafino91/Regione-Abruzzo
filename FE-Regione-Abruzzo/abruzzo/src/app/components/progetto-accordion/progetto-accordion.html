@@ -1,0 +1,32 @@
+<div class="accordion-item">
+
+  <div class="accordion-header">
+
+    <span class="type-badge">
+      {{ progetto.nome | uppercase }}
+    </span>
+
+
+
+    <button class="toggle-btn" (click)="toggle()">
+      @if (expanded) {
+        <svg aria-hidden="true">
+          <use href="assets/bootstrap-italia/sprites.svg#it-minus-circle"></use>
+        </svg>
+        Riduci sezione
+      } @else {
+        <svg aria-hidden="true">
+          <use href="assets/bootstrap-italia/sprites.svg#it-plus-circle"></use>
+        </svg>
+        Espandi sezione
+      }
+    </button>
+
+  </div>
+
+  @if (expanded) {
+    <div class="accordion-body">
+    </div>
+  }
+
+</div>

@@ -5,11 +5,12 @@ import { Router, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RichiesteService } from '../../../services/richieste.service';
 import { RichiestaModel } from '../../../model/richiestaModel';
+import {Alert} from '../../../components/alert/alert';
 
 @Component({
   selector: 'app-richieste-in-corso',
   standalone: true,
-  imports: [CommonModule, RichiesteInCorsoCard, RouterLink],
+  imports: [CommonModule, RichiesteInCorsoCard, RouterLink, Alert],
   templateUrl: './richieste-in-corso.html',
 })
 export class RichiesteInCorso implements OnInit {

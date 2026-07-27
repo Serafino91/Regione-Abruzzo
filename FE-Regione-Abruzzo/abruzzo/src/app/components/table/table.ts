@@ -1,4 +1,14 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges, ContentChild, TemplateRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  OnChanges,
+  SimpleChanges,
+  ContentChild,
+  TemplateRef,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Alert } from '../alert/alert';
@@ -22,6 +32,11 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() columns: TableColumn[] = [];
   @Input() defaultSortColumn: string = '';
   @Input() defaultSortDir: 'asc' | 'desc' = 'asc';
+  @Input() selectable?: boolean;
+  @Output() rowSelected = new EventEmitter<{
+    row: any;
+    selected: boolean;
+  }>();
   openedRow: any = null;
 
   @ContentChild('cellTemplate') cellTemplate!: TemplateRef<any>;
@@ -107,5 +122,38 @@ export class TableComponent implements OnInit, OnChanges {
   }
   toggleDropdown(row: any) {
     this.openedRow = this.openedRow === row ? null : row;
+  }
+
+  selectedRows: any[] = [];
+
+  toggleRow(row: any, event: Event): void {
+    const selected = (event.target as HTMLInputElement).checked;
+
+    this.rowSelected.emit({
+      row,
+      selected,
+    });
+  }
+
+  isSelected(row: any): boolean {
+    return this.selectedRows.includes(row);
+  }
+
+  get allSelected(): boolean {
+    return this.paginatedData.length > 0 && this.paginatedData.every((row) => this.isSelected(row));
+  }
+
+  toggleAll(event: Event): void {
+    const checked = (event.target as HTMLInputElement).checked;
+
+    if (checked) {
+      this.paginatedData.forEach((row) => {
+        if (!this.isSelected(row)) {
+          this.selectedRows.push(row);
+        }
+      });
+    } else {
+      this.selectedRows = this.selectedRows.filter((row) => !this.paginatedData.includes(row));
+    }
   }
 }
