@@ -1,4 +1,4 @@
-package com.accenture.ra.response;
+package com.accenture.ra.dto.response;
 
 
 import java.util.List;

@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,11 +19,13 @@ public class DelegateController {
 
     private final DelegateService delegateService;
 
-    /**
-     * Create a new delegation assigned to a target user.
-     * POST /api/v1/delegations
-     */
-    @PostMapping("delegate")
+
+    @PostMapping("/delegate")
+    @PreAuthorize("@securityService.hasAccess(" +
+            "authentication, " +
+            "T(com.accenture.ra.enums.AccreditationStatus).APPROVATO, " +
+            "T(com.accenture.ra.enums.DelegateType).ROLE_DELEGATE_MASTER, " +
+            "T(com.accenture.ra.enums.DelegateType).ROLE_DELEGATE_VIEWER)")
     public ResponseEntity<DelegationResponse> createDelegation(
             @Valid @RequestBody CreateDelegationRequest request) {
         DelegationResponse response = delegateService.createDelegation(request);
@@ -38,5 +41,6 @@ public class DelegateController {
             @PathVariable Long userId) {
         List<DelegationResponse> response = delegateService.getDelegationsByUserId(userId);
         return ResponseEntity.ok(response);
-    }
+
+        }
 }
