@@ -1,32 +1,50 @@
-<div class="accordion-item">
+<div class="accordion-item shadow-sm mt-4">
 
-  <div class="accordion-header">
+  <div class="accordion-header align-items-center d-flex flex-row gap-3 p-3">
 
     <span class="type-badge">
-      {{ progetto.nome | uppercase }}
+      {{ progetto.idProgetto.toString() | uppercase }}
     </span>
 
+    <h6>{{ progetto.nome }}</h6>
 
+    <button
+      class="btn btn-link text-primary ms-auto"
+      type="button"
+      (click)="toggle()"
+      data-bs-toggle="collapse"
+      [attr.data-bs-target]="'#collapse-progetto-' + progetto.idProgetto"
+      [attr.aria-expanded]="expanded"
+      [attr.aria-controls]="'collapse-progetto-' + progetto.idProgetto">
 
-    <button class="toggle-btn" (click)="toggle()">
       @if (expanded) {
-        <svg aria-hidden="true">
+        <svg class="icon icon-primary icon-sm me-1">
           <use href="assets/bootstrap-italia/sprites.svg#it-minus-circle"></use>
         </svg>
+
         Riduci sezione
       } @else {
-        <svg aria-hidden="true">
+        <svg class="icon icon-primary icon-sm me-1">
           <use href="assets/bootstrap-italia/sprites.svg#it-plus-circle"></use>
         </svg>
+
         Espandi sezione
       }
+
     </button>
 
   </div>
 
-  @if (expanded) {
+  <div
+    class="collapse"
+    [id]="'collapse-progetto-' + progetto.idProgetto">
+
     <div class="accordion-body">
+
+      <ng-content></ng-content>
+
     </div>
-  }
+
+  </div>
 
 </div>

@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 import {FormArray, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {ProgettoAccordion} from "../../../components/progetto-accordion/progetto-accordion";
 
 @Component({
   selector: 'app-controlla-dati',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ProgettoAccordion],
   standalone: true,
   templateUrl: './controlla-dati.html',
   styleUrl: './controlla-dati.css',
@@ -18,6 +19,7 @@ export class ControllaDati {
     console.log('progetti:', this.formGroup.get('progetti'));
   }
 
+  expanded: boolean[] = [];
   get progetti(): FormArray {
     return this.formGroup.get('progetti') as FormArray;
   }

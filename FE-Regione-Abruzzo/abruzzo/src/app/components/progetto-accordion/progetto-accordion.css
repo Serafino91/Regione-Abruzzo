@@ -6,16 +6,10 @@
   overflow: hidden;
 }
 
-.accordion-header {
-  display: flex;
-  align-items: center;
-  padding: 14px 20px;
-  cursor: default;
-}
-
 .type-badge {
   display: inline-flex;
-  align-items: center;
+  min-width: 10%;
+  justify-content: center;
   gap: 6px;
   border: 1px solid #0066cc;
   border-radius: 6px;
@@ -25,7 +19,6 @@
   font-weight: 600;
   white-space: nowrap;
   margin-right: 16px;
-  flex-shrink: 0;
 }
 
 .type-badge svg {
@@ -55,21 +48,6 @@
   flex-shrink: 0;
 }
 
-.toggle-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: none;
-  border: none;
-  color: #0066cc;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 0;
-  margin-left: 24px;
-  flex-shrink: 0;
-  text-decoration: underline;
-}
 
 .toggle-btn svg {
   width: 18px;
@@ -78,6 +56,6 @@
 }
 
 .accordion-body {
-  padding: 0 20px 16px;
+  padding: 20px 16px;
   border-top: 1px solid #d0dbe6;
 }
