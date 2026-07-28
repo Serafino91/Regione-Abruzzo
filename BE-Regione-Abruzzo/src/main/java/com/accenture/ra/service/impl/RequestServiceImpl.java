@@ -1,13 +1,11 @@
 package com.accenture.ra.service.impl;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.accenture.ra.dto.request.RequestDetail;
-import com.accenture.ra.dto.request.ServiceDetail;
 import com.accenture.ra.dto.response.RequestDetailResponse;
 import com.accenture.ra.entity.ProjectEntity;
 import com.accenture.ra.entity.RequestEntity;
@@ -38,11 +36,10 @@ public class RequestServiceImpl implements RequestService {
 	private final ServiceTypeRepository categoryRepository;
 	private final ServiceRepository serviceRepository;
 	private final StateRepository stateRepository;
-	private final RequestMapper testRequestMapper;
-	private final ProjectMapper testProjectMapper;
-	private final ServiceTypeMapper testServiceTypeMapper;
-	private final ServiceMapper testServiceMapper;
-	private final StateMapper testStateMapper;
+	private final RequestMapper requestMapper;
+	private final ProjectMapper projectMapper;
+	private final ServiceTypeMapper serviceTypeMapper;
+	private final ServiceMapper serviceMapper;
 	private final StateMapper stateMapper;
 
 
@@ -50,13 +47,13 @@ public class RequestServiceImpl implements RequestService {
 	public List<RequestDetail> getAllRequests() {
 		List<RequestEntity> entity = requestRepository.findAll();
 
-        return testRequestMapper.toModelList(entity);
+        return requestMapper.toModelList(entity);
 	}
 
 	@Override
 	public RequestDetail getRequestById(String requestId) {
 		RequestEntity requestEntity = requestRepository.findById(requestId).get();
-        return testRequestMapper.toModel(requestEntity);
+        return requestMapper.toModel(requestEntity);
 	}
 
 	@Override
@@ -71,7 +68,7 @@ public class RequestServiceImpl implements RequestService {
 		// TODO: flussi diversi per caso di PROGETTO NUOVO e caso PRE ESISTENTE
 		// arriva oggetto, controllo per id e poi nome se già esistente, poi continuo 
 		// 
-		reqDetail.setProject(testProjectMapper.toModel(createOrFindProject(req)));
+		reqDetail.setProject(projectMapper.toModel(createOrFindProject(req)));
 		if (req.getCategory() != null) {
 			reqDetail.setCategory(req.getCategory());
 		}
@@ -89,13 +86,14 @@ public class RequestServiceImpl implements RequestService {
 
 		requestResp.setRequestDetail(reqDetail);
 
-		// TODO: save a db - Save andata a buon fine + save non riuscita ... altri casi?
-		// ADD SAVE
-		requestRepository.save(testRequestMapper.toEntity(reqDetail));
+		// TODO: Save andata a buon fine + save non riuscita ... + altri casi:
+		// aggiungere try/catch per gestire eventuali errori di salvataggio (+altri)e restituire un messaggio appropriato
+		requestRepository.save(requestMapper.toEntity(reqDetail));
 
 		return requestResp;
 	}
 
+	// Alla creazione di una request, se il progetto non esiste lo creo, altrimenti lo recupero dal db
 	private ProjectEntity createOrFindProject(RequestCreationRequest req) {
 		if(projectRepository.existsById(req.getProject().getId())) {
 			return projectRepository.getReferenceById(req.getProject().getId());
@@ -119,7 +117,7 @@ public class RequestServiceImpl implements RequestService {
 	public List<RequestDetail> filterRequest(RequestFilterCriteria criteria) {
 		// Utilizzo la Specification per costruire la query dinamicamente
 		List<RequestEntity> entities = requestRepository.findAll(RequestSpecification.withFilters(criteria));
-		return testRequestMapper.toModelList(entities);
+		return requestMapper.toModelList(entities);
 	}
 
 }
