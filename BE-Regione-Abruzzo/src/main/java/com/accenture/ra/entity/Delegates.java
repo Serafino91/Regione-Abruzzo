@@ -30,7 +30,7 @@ public class Delegates {
     @Column(name = "is_active")
     private boolean active;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "delegate_projects",
             joinColumns = @JoinColumn(name = "delegates_id"),
@@ -39,12 +39,12 @@ public class Delegates {
     private List<ProjectEntity> projects;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "delegated_by", nullable = false)
     private User delegatedBy;
 }

@@ -38,6 +38,9 @@ public interface DelegationMapper {
     @Mapping(target = "projectDetail", source = ".")
     ProjectDetailResponse toProjectResponse(ProjectEntity entity);
 
+    // ADD THIS METHOD: Forces MapStruct to use toProjectResponse() when converting lists
+    List<ProjectDetailResponse> toProjectResponseList(List<ProjectEntity> entities);
+
     @Mapping(source = "createdAt", target = "createAt")
     @Mapping(source = "updatedAt", target = "updateAt")
     ProjectDetail toProjectDetail(ProjectEntity entity);
