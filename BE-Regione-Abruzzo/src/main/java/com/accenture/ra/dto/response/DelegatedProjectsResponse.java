@@ -11,13 +11,10 @@ import java.util.List;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DelegationResponse {
+public class DelegatedProjectsResponse {
 
-    private Long id;
+    private List<ProjectDetailResponse> projects;
     private LocalDateTime delegationDate;
     private DelegateType delegateType;
-    private boolean active;
-    private LightUserResponse delegatedUser;
-    private List<ProjectDetailResponse> projects;
     private LightUserResponse delegatedBy;
 }

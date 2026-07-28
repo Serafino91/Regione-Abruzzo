@@ -1,11 +1,13 @@
 package com.accenture.ra.service.impl;
 
 import com.accenture.ra.dto.request.CreateDelegationRequest;
+import com.accenture.ra.dto.response.DelegatedProjectsResponse;
 import com.accenture.ra.dto.response.DelegationResponse;
 import com.accenture.ra.entity.Delegates;
 import com.accenture.ra.entity.ProjectEntity;
 import com.accenture.ra.entity.User;
 import com.accenture.ra.enums.AccreditationStatus;
+import com.accenture.ra.enums.DelegateType;
 import com.accenture.ra.mapper.DelegationMapper;
 import com.accenture.ra.repository.DelegatesRepository;
 import com.accenture.ra.repository.ProjectRepository;
@@ -25,9 +27,9 @@ import java.util.List;
 public class DelegateServiceImpl implements DelegateService {
 
     private final DelegatesRepository delegatesRepository;
+    private final DelegationMapper delegationMapper;
     private final UserRepository userRepository;
     private final ProjectRepository projectRepository;
-    private final DelegationMapper delegationMapper;
 
     @Override
     @Transactional
@@ -68,5 +70,24 @@ public class DelegateServiceImpl implements DelegateService {
                 .orElseThrow(() -> new IllegalArgumentException("User not found ID: " + userId));
 
         return delegationMapper.toResponseList(user.getDelegates());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<DelegatedProjectsResponse> getDelegatedProjects(String fiscalCode, String activeRole) {
+
+        // Convert header role string (e.g., "DELEGATE_MASTER") to DelegateType enum
+        DelegateType delegateType;
+        try {
+            delegateType = DelegateType.valueOf(activeRole.toUpperCase());
+        } catch (IllegalArgumentException | NullPointerException e) {
+            throw new IllegalArgumentException("Invalid active role provided: " + activeRole);
+        }
+
+        // Retrieve active delegations matching userId and delegateType
+        List<Delegates> delegations = delegatesRepository.findActiveDelegationsByFiscalCodeAndRole(fiscalCode, delegateType);
+
+        // Map entities to DTO response
+        return delegationMapper.toDelegatedProjectsResponseList(delegations);
     }
 }

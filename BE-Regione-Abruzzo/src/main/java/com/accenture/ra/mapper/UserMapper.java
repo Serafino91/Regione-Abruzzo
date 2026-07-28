@@ -22,7 +22,7 @@ public interface UserMapper {
     List<UserResponse> toDtoList(List<User> users);
 
     // Map delegatedBy to the shallow summary DTO (no delegates list = no loop!)
-    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "delegatedUser", ignore = true)
     @Mapping(target = "delegatedBy", source = "delegatedBy")
     DelegationResponse toDelegationResponse(Delegates delegate);
 

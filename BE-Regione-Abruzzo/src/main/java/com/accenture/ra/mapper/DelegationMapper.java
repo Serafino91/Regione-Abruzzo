@@ -2,6 +2,7 @@ package com.accenture.ra.mapper;
 
 import com.accenture.ra.dto.request.CreateDelegationRequest;
 import com.accenture.ra.dto.request.ProjectDetail;
+import com.accenture.ra.dto.response.DelegatedProjectsResponse;
 import com.accenture.ra.dto.response.DelegationResponse;
 import com.accenture.ra.dto.response.ProjectDetailResponse;
 import com.accenture.ra.dto.response.UserResponse;
@@ -46,4 +47,14 @@ public interface DelegationMapper {
     ProjectDetail toProjectDetail(ProjectEntity entity);
 
     List<DelegationResponse> toResponseList(List<Delegates> entities);
+
+    // Inside DelegationMapper.java
+
+    @Mapping(source = "delegatedBy", target = "delegatedBy")
+    @Mapping(source = "delegationDate", target = "delegationDate")
+    @Mapping(source = "delegateType", target = "delegateType")
+    @Mapping(source = "projects", target = "projects")
+    DelegatedProjectsResponse toDelegatedProjectsResponse(Delegates entity);
+
+    List<DelegatedProjectsResponse> toDelegatedProjectsResponseList(List<Delegates> entities);
 }
