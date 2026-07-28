@@ -10,10 +10,6 @@ import java.util.List;
 @Getter
 @Setter
 public class CreateDelegationRequest {
-
-    @NotNull(message = "Delegator user ID is required")
-    private Long delegatorUserId;
-
     // Target user (Existing ID OR New User credentials)
     private Long targetUserId;
     private String fiscalCode;

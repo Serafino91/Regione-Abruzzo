@@ -1,5 +1,6 @@
 package com.accenture.ra.mapper;
 
+import com.accenture.ra.dto.request.CreateDelegationRequest;
 import com.accenture.ra.dto.request.ProjectDetail;
 import com.accenture.ra.dto.response.DelegationResponse;
 import com.accenture.ra.dto.response.ProjectDetailResponse;
@@ -7,14 +8,28 @@ import com.accenture.ra.dto.response.UserResponse;
 import com.accenture.ra.entity.Delegates;
 import com.accenture.ra.entity.ProjectEntity;
 import com.accenture.ra.entity.User;
+import com.accenture.ra.enums.AccreditationStatus;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(
+        componentModel = MappingConstants.ComponentModel.SPRING,
+        imports = {LocalDateTime.class, AccreditationStatus.class}
+)
 public interface DelegationMapper {
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "user", source = "targetUser")
+    @Mapping(target = "delegatedBy", source = "delegator")
+    @Mapping(target = "delegateType", source = "request.delegateType")
+    @Mapping(target = "projects", source = "projects")
+    @Mapping(target = "delegationDate", expression = "java(LocalDateTime.now())")
+    @Mapping(target = "active", expression = "java(targetUser.isActive() && targetUser.getAccreditationStatus() == AccreditationStatus.APPROVATO)")
+    Delegates toEntity(CreateDelegationRequest request, User targetUser, User delegator, List<ProjectEntity> projects);
 
     DelegationResponse toResponse(Delegates entity);
 

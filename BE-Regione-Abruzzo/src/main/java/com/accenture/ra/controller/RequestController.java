@@ -10,6 +10,7 @@ import com.accenture.ra.service.impl.RequestServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -179,6 +180,7 @@ public class RequestController {
 					)
 	})
 	@GetMapping
+	@PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
 	public ResponseEntity<RequestListResponse> getCatalogRequestsList() {
 
 		return ResponseEntity.ok(new RequestListResponse(requestService.getAllRequests()));
@@ -274,6 +276,7 @@ public class RequestController {
 					)
 	})
 	@PutMapping
+	@PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
 	public ResponseEntity<RequestDetailResponse> createRequest(@RequestBody @Valid RequestCreationRequest req) {
 
 		RequestDetailResponse result = requestService.createRequest(req);
@@ -374,6 +377,7 @@ public class RequestController {
 					)
 	})
 	@PostMapping(value = "/filter")
+	@PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
 	public ResponseEntity<RequestListResponse> getFilteredRequests(@RequestBody @Valid RequestFilterCriteria criteria) {
 		
 		List<RequestDetail> results = requestService.filterRequest(criteria);
@@ -476,6 +480,7 @@ public class RequestController {
 					)
 	})
 	@GetMapping("/{request-id}")
+	@PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
 	public ResponseEntity<RequestDetailResponse> getRequestDetail(
 			@Parameter(
 					description = "Identificativo univoco della richiesta",

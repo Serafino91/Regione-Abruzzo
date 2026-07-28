@@ -12,10 +12,11 @@ import com.accenture.ra.repository.ProjectRepository;
 import com.accenture.ra.repository.UserRepository;
 import com.accenture.ra.service.DelegateService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,33 +32,32 @@ public class DelegateServiceImpl implements DelegateService {
     @Override
     @Transactional
     public DelegationResponse createDelegation(CreateDelegationRequest request) {
-        // 1. Fetch Delegator
-        User delegator = userRepository.findById(request.getDelegatorUserId())
-                .orElseThrow(() -> new IllegalArgumentException("Delegator not found ID: " + request.getDelegatorUserId()));
+        // 1. Recupero del Codice Fiscale dell'utente loggato da Spring Security
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentFiscalCode = authentication.getName();
 
-        if (!delegator.isActive() && delegator.getAccreditationStatus() != AccreditationStatus.APPROVATO) {
-            throw new IllegalStateException("Delegator must be active and approved to issue delegations.");
+        // 2. Fetch dell'Utente Delegante (Logged User) tramite Codice Fiscale
+        User delegator = userRepository.findByFiscalCode(currentFiscalCode)
+                .orElseThrow(() -> new IllegalArgumentException("Utente loggato non trovato con CF: " + currentFiscalCode));
+
+        if (!delegator.isActive() || delegator.getAccreditationStatus() != AccreditationStatus.APPROVATO) {
+            throw new IllegalStateException("L'utente delegante deve essere attivo e approvato per delegare.");
         }
 
-        // 2. Fetch Target User
+        // 3. Fetch Target User
         User targetUser = userRepository.findById(request.getTargetUserId())
                 .orElseThrow(() -> new IllegalArgumentException("Target user not found ID: " + request.getTargetUserId()));
 
-        // 3. Fetch Projects
+        // 4. Fetch Projects
         List<ProjectEntity> projects = Collections.emptyList();
         if (request.getProjectIds() != null && !request.getProjectIds().isEmpty()) {
             projects = projectRepository.findAllById(request.getProjectIds());
         }
 
-        // 4. Create pure Delegation record
-        Delegates delegation = new Delegates();
-        delegation.setUser(targetUser);
-        delegation.setDelegateType(request.getDelegateType());
-        delegation.setDelegationDate(LocalDateTime.now());
-        delegation.setActive(targetUser.isActive() && targetUser.getAccreditationStatus() == AccreditationStatus.APPROVATO);
-        delegation.setProjects(projects);
-
+        // 5. Mappatura ed il salvataggio gestiti tramite MapStruct
+        Delegates delegation = delegationMapper.toEntity(request, targetUser, delegator, projects);
         Delegates saved = delegatesRepository.save(delegation);
+
         return delegationMapper.toResponse(saved);
     }
 

@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -103,6 +104,7 @@ public class CatalogServicesController {
             )
     })
     @GetMapping
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'ROLE_USER', 'DELEGATE_CREATOR', 'ROLE_ADMIN')")
     public ResponseEntity<CatalogServicesListResponse> getCatalogServicesList() {
 
         return ResponseEntity.ok(new CatalogServicesListResponse(catalogService.getServiceAll()));
@@ -162,6 +164,7 @@ public class CatalogServicesController {
             )
     })
     @PostMapping
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'ROLE_USER', 'ROLE_ADMIN', 'DELEGATE_CREATOR')")
     public ResponseEntity<CatalogServiceResponse> createCatalogService() {
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -221,6 +224,7 @@ public class CatalogServicesController {
             )
     })
     @PostMapping(value = "/filter")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'ROLE_USER', 'ROLE_ADMIN', 'DELEGATE_CREATOR')")
     public ResponseEntity<CatalogServicesListResponse> getFilteredServices() {
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -285,6 +289,7 @@ public class CatalogServicesController {
             )
     })
     @GetMapping("/{service-id}")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'ROLE_USER', 'ROLE_ADMIN', 'DELEGATE_CREATOR')")
     public ResponseEntity<ServiceDetailResponse> getServiceDetail(
             @Parameter(
                     description = "Identificativo univoco del servizio",
@@ -380,6 +385,7 @@ public class CatalogServicesController {
             )
     })
     @PatchMapping("/{service-id}")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'ROLE_USER', 'ROLE_ADMIN', 'DELEGATE_CREATOR')")
     public ResponseEntity<ServiceDetailResponse> patchServiceDetail(
             @Parameter(
                     description = "Identificativo univoco del servizio da modificare",
@@ -445,6 +451,7 @@ public class CatalogServicesController {
             )
     })
     @DeleteMapping("/{service-id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteServiceDetail(
             @Parameter(
                     description = "Identificativo univoco del servizio da eliminare",
@@ -521,6 +528,7 @@ public class CatalogServicesController {
             )
     })
     @GetMapping("getServices/{category-id}")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'ROLE_USER', 'ROLE_ADMIN', 'DELEGATE_CREATOR')")
     public ResponseEntity<CatalogServicesListResponse>getServiceDetail(
             @Parameter(
                     description = "Identificativo univoco del servizio",

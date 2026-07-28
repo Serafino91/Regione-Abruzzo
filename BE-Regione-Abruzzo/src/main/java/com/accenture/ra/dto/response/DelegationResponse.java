@@ -17,4 +17,5 @@ public class DelegationResponse {
     private boolean active;
     private UserResponse user;
     private List<ProjectDetailResponse> projects;
+    private UserResponse delegatedBy;
 }

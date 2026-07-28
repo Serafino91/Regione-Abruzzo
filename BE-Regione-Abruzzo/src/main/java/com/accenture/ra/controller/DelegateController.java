@@ -21,7 +21,7 @@ public class DelegateController {
 
 
     @PostMapping("/delegate")
-    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER')")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<DelegationResponse> createDelegation(
             @Valid @RequestBody CreateDelegationRequest request) {
         DelegationResponse response = delegateService.createDelegation(request);
@@ -33,6 +33,7 @@ public class DelegateController {
      * GET /api/v1/delegations/user/{userId}
      */
     @GetMapping("/user/{userId}")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'ROLE_USER','ROLE_ADMIN')")
     public ResponseEntity<List<DelegationResponse>> getDelegationsByUserId(
             @PathVariable Long userId) {
         List<DelegationResponse> response = delegateService.getDelegationsByUserId(userId);

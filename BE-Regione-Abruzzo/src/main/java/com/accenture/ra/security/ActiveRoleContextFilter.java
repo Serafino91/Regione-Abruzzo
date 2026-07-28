@@ -33,39 +33,40 @@ public class ActiveRoleContextFilter extends OncePerRequestFilter {
                 return;
             }
 
-            // Extract all authorities loaded into CustomUserDetails
+            // 1. Verifica presenza obbligatoria dell'header X-Active-Role
+            String requestedRoleHeader = request.getHeader("X-Active-Role");
+            if (requestedRoleHeader == null || requestedRoleHeader.isBlank()) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Header 'X-Active-Role' obbligatorio.");
+                return;
+            }
+
+            // 2. Estrazione delle autorità consentite per l'utente
             Set<String> allowedAuthorities = userDetails.getAuthorities().stream()
                     .map(GrantedAuthority::getAuthority)
                     .collect(Collectors.toSet());
 
-            String requestedRoleHeader = request.getHeader("X-Active-Role");
+            // 3. Normalizzazione e Validazione del ruolo richiesto (con o senza prefisso ROLE_)
             String activeAuthority;
+            String formattedWithPrefix = requestedRoleHeader.startsWith("ROLE_")
+                    ? requestedRoleHeader
+                    : "ROLE_" + requestedRoleHeader;
 
-            if (requestedRoleHeader != null && !requestedRoleHeader.isBlank()) {
-                // Validate that requested role is present in allowed authorities
-                if (allowedAuthorities.contains(requestedRoleHeader)) {
-                    activeAuthority = requestedRoleHeader;
-                } else {
-                    response.sendError(HttpServletResponse.SC_FORBIDDEN, "Ruolo attivo non autorizzato.");
-                    return;
-                }
+            if (allowedAuthorities.contains(requestedRoleHeader)) {
+                activeAuthority = requestedRoleHeader;
+            } else if (allowedAuthorities.contains(formattedWithPrefix)) {
+                activeAuthority = formattedWithPrefix;
             } else {
-                // Fallback if no header is sent: Pick primary role or first available authority
-                if (!allowedAuthorities.isEmpty()) {
-                    activeAuthority = allowedAuthorities.iterator().next();
-                } else {
-                    response.sendError(HttpServletResponse.SC_FORBIDDEN, "Nessun ruolo attivo associato.");
-                    return;
-                }
+                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Ruolo attivo non autorizzato per questo utente.");
+                return;
             }
 
-            // OVERWRITE SECURITY CONTEXT WITH EXACTLY ONE AUTHORITY
+            // 4. Aggiornamento del SecurityContext con l'unica autorità attiva selezionata
             List<GrantedAuthority> scopedAuthorities = List.of(new SimpleGrantedAuthority(activeAuthority));
 
             UsernamePasswordAuthenticationToken scopedAuth = new UsernamePasswordAuthenticationToken(
                     userDetails,
                     auth.getCredentials(),
-                    scopedAuthorities // <-- Scoped strictly to 1 authority
+                    scopedAuthorities
             );
             scopedAuth.setDetails(auth.getDetails());
 

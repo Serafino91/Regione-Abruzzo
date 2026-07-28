@@ -42,4 +42,9 @@ public class Delegates {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "delegated_by", nullable = false)
+    private User delegatedBy;
 }

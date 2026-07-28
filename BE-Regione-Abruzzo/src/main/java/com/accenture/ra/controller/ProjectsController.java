@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -95,6 +96,7 @@ public class ProjectsController {
             )
     })
     @GetMapping
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<ProjectListResponse> getProjectList() {
 
         return ResponseEntity.ok(new ProjectListResponse(projectService.getProjectAll()));
@@ -148,6 +150,7 @@ public class ProjectsController {
             )
     })
     @PostMapping
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<CatalogServiceResponse> createProject() {
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -207,6 +210,7 @@ public class ProjectsController {
             )
     })
     @PostMapping(value = "/filter")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<CatalogServicesListResponse> getFilteredProject() {
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -266,6 +270,7 @@ public class ProjectsController {
             )
     })
     @GetMapping("/{project-id}")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<ProjectDetailResponse> getProjectDetail(
             @Parameter(
                     description = "Identificativo univoco del servizio",
@@ -415,6 +420,7 @@ public class ProjectsController {
             )
     })
     @DeleteMapping("/{project-id}")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<Void> deleteServiceDetail(
             @Parameter(
                     description = "Identificativo univoco del progetto da eliminare",
@@ -441,6 +447,7 @@ public class ProjectsController {
             @ApiResponse(responseCode = "400", description = "Parametri non validi")
     })
     @GetMapping("/{name}/{destination-link}")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<Boolean> existsProject(
     		@PathVariable("name") String name,
     		@PathVariable("destination-link") String destinationLink) {

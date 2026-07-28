@@ -8,7 +8,7 @@ import com.accenture.ra.enums.AccreditationStatus;
 import com.accenture.ra.enums.RoleType;
 import com.accenture.ra.mapper.UserMapper;
 import com.accenture.ra.repository.UserRepository;
-import com.accenture.ra.response.AuthResponse;
+import com.accenture.ra.dto.response.AuthResponse;
 import com.accenture.ra.security.JwtUtils;
 import com.accenture.ra.service.AuthService;
 import jakarta.persistence.EntityNotFoundException;
