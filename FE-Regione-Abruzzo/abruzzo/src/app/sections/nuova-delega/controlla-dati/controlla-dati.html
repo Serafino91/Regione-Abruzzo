@@ -59,42 +59,11 @@
     }
   }
 
-  <div class=" d-flex flex-column border rounded-3 shadow-sm p-3 gap-2 mt-5">
-    <h5>Permessi</h5>
-    <p>Configura i permessi prima di inviare la richiesta di delega. Potrai aggiornarli in qualsiasi momento dalla pagina di dettaglio del delegato.</p>
-    <div class=" d-flex flex-row">
-      <div class="form-check-inline">
-        <div class="toggles">
-          <label for="toggle1" class="mb-0">
-            <input type="checkbox" id="toggle1">
-            <span class="lever"></span>
-          </label>
-        </div>
-      </div>
-      <p class="mb-0">Permetti al delegato di richiedere altri progetti</p>
-    </div>
-
-    <hr class="line-separator"/>
+  <app-permessi-card>
+  </app-permessi-card>
 
 
-    <div class=" d-flex flex-row">
-      <div class="form-check-inline">
-        <div class="toggles">
-          <label for="toggle2">
-            <input type="checkbox" id="toggle2">
-            <span class="lever"></span>
-          </label>
-        </div>
-      </div>
-      <p>Permetti al delegato di delegare a sua volta</p>
-    </div>
-
-  </div>
-
-
-  <hr class="line-separator my-4"/>
-
-
+  <hr class="my-5">
 
   <form [formGroup]="noteForm" class="my-4">
     <label for="note" >Note</label>

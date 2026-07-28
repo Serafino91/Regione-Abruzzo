@@ -16,6 +16,7 @@ import {NuovaDelega} from "./pages/nuova-delega/nuova-delega";
 import {Deleghe} from "./pages/deleghe/deleghe";
 import {PreAccreditamento} from "./pages/pre-accreditamento/pre-accreditamento";
 import { Alert } from './components/alert/alert';
+import { DettaglioDelega } from './pages/dettaglio-delega/dettaglio-delega';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -34,5 +35,6 @@ export const routes: Routes = [
   { path: 'home/richieste/dettaglio-richiesta/:id', component: DettaglioRichiesta },
   { path: 'home/catalogo/dettaglio-servizio/:id', component: DettaglioServizio },
   { path: 'home/progetti/dettaglio-progetto/:id', component: DettaglioProgetto },
+  { path: 'home/deleghe/dettaglio-delega', component: DettaglioDelega },
   { path: 'login', component: Login },
 ];

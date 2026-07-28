@@ -12,89 +12,65 @@
 
       <div class="mt-4 info color-bg-lightblue border-5 p-4 border-1">
         @if(accreditato) {
-        <div class="d-flex flex-row gap-2">
-          <svg class="icon icon-sm icon-primary"><use href="assets/bootstrap-italia/sprites.svg#it-warning-circle"></use></svg>
-          <h6>Perchè è necessario l'accreditamento?</h6>
-            </div>
-        <p>L'accreditamento consente di verificareo i tuoi dati
-          ed associare il tuo profilo ai servizi disponibili nel portale.
-        </p>
+          <div class="d-flex flex-row gap-2">
+            <svg class="icon icon-sm icon-primary"><use href="assets/bootstrap-italia/sprites.svg#it-warning-circle"></use></svg>
+            <h6>Perchè è necessario l'accreditamento?</h6>
+          </div>
+          <p>L'accreditamento consente di verificareo i tuoi dati
+            ed associare il tuo profilo ai servizi disponibili nel portale.
+          </p>
         } @else {
           <div class="d-flex flex-row gap-2">
             <svg class="icon icon-sm icon-primary"><use href="assets/bootstrap-italia/sprites.svg#it-check-circle"></use></svg>
             <h6>Una richiesta è stata inviata</h6>
           </div>
-          <p>Attendi la notifica per poter accedere.
-          </p>
-
+          <p>Attendi la notifica per poter accedere.</p>
         }
       </div>
     </div>
   </div>
-
-
 </div>
-
-
 
 <div class="text-center pt-4 mb-4">
-  <h4 >Come funziona</h4>
-</div>
-
-<div class="row p-4 gap-2 justify-content-evenly">
-
-  <div class="col-3 d-flex justify-content-center step-container">
-    <div class="step-number">
-      1
-    </div>
-  </div>
-
-  <div class="col-3 d-flex justify-content-center step-container">
-    <div class="step-number">
-      2
-    </div>
-  </div>
-
-  <div class="col-3 d-flex justify-content-center">
-    <div class="step-number">
-      3
-    </div>
-  </div>
-
-</div>
-
-<div class="row p-4 gap-2 justify-content-evenly">
-
-  <div class="col-3 d-flex flex-column align-items-center gap-2">
-    <svg class="icon step-icon icon-primary" aria-hidden="true"  style="width: 4rem; height: 4rem;">
-      <use href="assets/bootstrap-italia/sprites.svg#it-user"></use>
-    </svg>
-    <h6>Richiedi l'accreditamento</h6>
-    <p class="text-center">
-      Compila il modulo con i tuoi dati ed invia la richiesta
-    </p>
-  </div>
-
-  <div class="col-3 d-flex flex-column align-items-center gap-2">
-    <svg class="icon step-icon icon-primary" aria-hidden="true"  style="width: 4rem; height: 4rem;">
-      <use href="assets/bootstrap-italia/sprites.svg#it-check-circle"></use>
-    </svg>
-    <h6>Verifica dei dati</h6>
-    <p class="text-center">
-      Il sistema verificherà le informazioni inserite
-    </p>
-  </div>
-
-  <div class="col-3 d-flex flex-column align-items-center gap-2">
-    <svg class="icon step-icon icon-primary" aria-hidden="true"  style="width: 4rem; height: 4rem;">
-      <use href="assets/bootstrap-italia/sprites.svg#it-unlocked"></use>
-    </svg>
-    <h6>Accesso abilitato</h6>
-    <p class="text-center">
-      Dopo l'approvazione, potrai accedere ai servizi del portale
-    </p>
-  </div>
-
+  <h4>Come funziona</h4>
 </div>
 
 
+<div class="row p-4 justify-content-center">
+  <div class="col-12 col-lg-10">
+    <div class="step-flow" style="--step-gap: 0px;">
+
+      <div class="step-col">
+        <div class="step-number">1</div>
+        <svg class="icon step-icon icon-primary" aria-hidden="true" style="width: 4rem; height: 4rem;">
+          <use href="assets/bootstrap-italia/sprites.svg#it-user"></use>
+        </svg>
+        <h6>Richiedi l'accreditamento</h6>
+        <p class="text-center">Compila il modulo con i tuoi dati ed invia la richiesta</p>
+      </div>
+
+      <div class="step-line"></div>
+
+      <div class="step-col">
+        <div class="step-number">2</div>
+        <svg class="icon step-icon icon-primary" aria-hidden="true" style="width: 4rem; height: 4rem;">
+          <use href="assets/bootstrap-italia/sprites.svg#it-check-circle"></use>
+        </svg>
+        <h6>Verifica dei dati</h6>
+        <p class="text-center">Il sistema verificherà le informazioni inserite</p>
+      </div>
+
+      <div class="step-line"></div>
+
+      <div class="step-col">
+        <div class="step-number">3</div>
+        <svg class="icon step-icon icon-primary" aria-hidden="true" style="width: 4rem; height: 4rem;">
+          <use href="assets/bootstrap-italia/sprites.svg#it-unlocked"></use>
+        </svg>
+        <h6>Accesso abilitato</h6>
+        <p class="text-center">Dopo l'approvazione, potrai accedere ai servizi del portale</p>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,4 +1,8 @@
-.delete-btn {
+.update-permessi:hover {
+  text-decoration: underline;
+}
+
+.update-permessi {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -10,12 +14,4 @@
   cursor: pointer;
   padding: 0;
   text-decoration: none;
-}
-
-.delete-btn:hover {
-  text-decoration: underline;
-}
-
-.delete-btn .icon {
-  fill: #0066cc;
 }

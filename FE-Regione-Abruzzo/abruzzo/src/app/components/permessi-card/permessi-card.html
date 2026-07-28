@@ -1,0 +1,47 @@
+
+<div class="permessi-container d-flex flex-column rounded-4 shadow-sm p-3 gap-2 mt-5">
+  <div class="d-flex flex-row mb-3">
+    <h5 >Permessi</h5>
+
+    @if (updatePermessi) {
+      <button class="update-permessi ms-auto">
+        <svg class="icon icon-sm icon-primary" aria-hidden="true">
+          <use href="assets/bootstrap-italia/sprites.svg#it-pencil">
+          </use>
+        </svg>
+        Modifica Permessi
+      </button>
+    }
+
+  </div>
+
+  <p>Configura i permessi prima di inviare la richiesta di delega. Potrai aggiornarli in qualsiasi momento dalla pagina di dettaglio del delegato.</p>
+  <div class=" d-flex flex-row">
+    <div class="form-check-inline">
+      <div class="toggles">
+        <label for="toggle1" class="mb-0">
+          <input type="checkbox" id="toggle1">
+          <span class="lever"></span>
+        </label>
+      </div>
+    </div>
+    <p class="mb-0">Permetti al delegato di richiedere altri progetti</p>
+  </div>
+
+  <hr class="line-separator"/>
+
+
+  <div class=" d-flex flex-row">
+    <div class="form-check-inline">
+      <div class="toggles">
+        <label for="toggle2">
+          <input type="checkbox" id="toggle2">
+          <span class="lever"></span>
+        </label>
+      </div>
+    </div>
+    <p>Permetti al delegato di delegare a sua volta</p>
+  </div>
+
+</div>
+

@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, DestroyRef, inject } from '@angular/core';
-import { Url } from '../../components/url/url';
 import { FiltriServizi } from '../../sections/catalogo/filtri-servizi/filtri-servizi';
 import { ListaServizi } from '../../sections/catalogo/lista-servizi/lista-servizi';
 import {ServizioModel} from '../../model/servizioModel';
@@ -22,10 +21,7 @@ export class Catalogo {
 
   public servizi: ServizioModel[] = [];
 
-  constructor(
-    private servizioService: ServiziService,
-    private router: Router,
-  ) {}
+  constructor(private servizioService: ServiziService) {}
 
   ngOnInit(): void {
     this.getServizi();
