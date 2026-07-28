@@ -24,31 +24,34 @@ export class User {
     private userService: UserService,
   ) {
     this.currentUrl = this.router.url;
-
-    /*
-    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
-      console.log('URL:', this.router.url);
-      this.currentUrl = this.router.url;
-      this.cdr.detectChanges();
-    });
-  }
-
-  get isLoginPage(): boolean {
-    return this.currentUrl === '/login';
   }
 
   ngOnInit(): void {
     this.userService.user$.subscribe((user) => {
-      this.user = user;
+      this.name = user.name;
+      this.role = user.role;
     });
   }
-  */
-  }
-  name: string = 'admin';
-  role: string = 'admin';
+
+  name: string = 'user';
+  role: string = 'user';
   profiloForm: FormGroup = new FormGroup({
     profilo: new FormControl('', Validators.required),
   });
 
-  cambiaProfilo() {}
+  cambiaProfilo() {
+    const selected = this.profiloForm.value.profilo; // 'profilo1' | 'profilo2'
+
+
+    const nameMap: Record<string, string> = { profilo1: 'profilo 1', profilo2: 'profilo 2' };
+    const roleMap: Record<string, string> = { profilo1: 'delegato', profilo2: 'delegato2' };
+
+    this.userService.setUser({
+      ...this.userService.getUser(),
+      name: nameMap[selected] ?? 'user',
+      role: roleMap[selected] ?? 'user',
+    });
+
+    this.showProfiliModal = false;
+  }
 }
