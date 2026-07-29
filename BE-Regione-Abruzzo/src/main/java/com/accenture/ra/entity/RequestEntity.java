@@ -60,6 +60,6 @@ public class RequestEntity {
     private List<ServiceEntity> services;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id", nullable = true)
     private ServiceTypeEntity category;
 }

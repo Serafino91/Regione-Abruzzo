@@ -16,5 +16,5 @@ export class ServizioCard {
   apriDettaglio() {
     this.router.navigate(['/home/catalogo/dettaglio-servizio', this.servizio.id]);
   }
-  descrizione: String = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+  // descrizione: String =  this.servizio?.type.description ?? '';
 }

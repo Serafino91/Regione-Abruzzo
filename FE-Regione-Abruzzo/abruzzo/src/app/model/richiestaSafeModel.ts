@@ -1,5 +1,4 @@
 import { ServizioModel } from './servizioModel';
-import { StatoModel } from './stato.model';
 import { CategoriaModel } from './categoria.model';
 
 export interface RichiestaProjectDto {

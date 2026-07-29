@@ -155,12 +155,22 @@ class NuovaRichiesta {
       };
     }
 
+    const serviziRaggruppati = servizi.reduce((acc: any[], s: any) => {
+      const existing = acc.find((item: any) => item.servizioId === s.servizioId);
+      if (existing) {
+        existing.unit = Number(existing.unit) + Number(s.unit);
+      } else {
+        acc.push({ ...s, unit: Number(s.unit) });
+      }
+      return acc;
+    }, []);
+
     const richiesta: RichiestaSafeModel = {
       requestId: '',
       state: 'In elaborazione',
       project,
       service: null!,
-      services: servizi.map((s: any) => ({
+      services: serviziRaggruppati.map((s: any) => ({
         id: s.servizioId,
         type: s.type,
         item: s.item,

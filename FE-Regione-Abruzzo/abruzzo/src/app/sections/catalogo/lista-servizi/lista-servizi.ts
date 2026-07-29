@@ -10,9 +10,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './lista-servizi.html',
   styleUrl: './lista-servizi.css',
 })
-
 export class ListaServizi {
-
   @Input() servizi!: ServizioModel[];
 
   pageSize = 6;
@@ -43,5 +41,4 @@ export class ListaServizi {
     this.pageSize = Number(size);
     this.currentPage = 1;
   }
-
 }

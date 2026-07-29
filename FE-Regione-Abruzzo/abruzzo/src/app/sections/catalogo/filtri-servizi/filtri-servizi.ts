@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, DestroyRef, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, EventEmitter, inject, Output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CategoriaService } from '../../../services/categoria.service';
@@ -19,6 +19,8 @@ export class FiltriServizi {
   categorie: CategoriaModel[] = [];
   servizi: ServizioModel[] = [];
   servizio?: ServizioModel;
+
+  @Output() risultatiCerca = new EventEmitter<ServizioModel[]>();
 
   constructor(
     private categoriaService: CategoriaService,
@@ -53,6 +55,7 @@ export class FiltriServizi {
   }
 
   popolaServizi(idCategoria: number): void {
+    this.servizio = undefined;
     if (!idCategoria) {
       this.servizi = [];
       this.cdr.detectChanges();
@@ -88,11 +91,17 @@ export class FiltriServizi {
   }
 
   onServizioChange(id: string): void {
-    const servizio = this.servizi.find((s) => s.id === id);
+    const servizio = this.servizi.find((s) => String(s.id) === String(id));
     if (!servizio) return;
     this.servizio = servizio;
     this.cdr.detectChanges();
   }
 
-  cercaServizi() {}
+  cercaServizi(): void {
+    if (this.servizio) {
+      this.risultatiCerca.emit([this.servizio]);
+    } else {
+      this.risultatiCerca.emit([...this.servizi]);
+    }
+  }
 }

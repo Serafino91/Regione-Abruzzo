@@ -4,9 +4,9 @@
 
     <span class="type-badge">
       <svg aria-hidden="true">
-        <use [attr.href]="'assets/bootstrap-italia/sprites.svg#' + iconForType(servizio.type)"></use>
+        <use [attr.href]="'assets/bootstrap-italia/sprites.svg#' + iconForType(servizio.type.name)"></use>
       </svg>
-      {{ servizio.type | uppercase }}
+      {{ servizio.type.name | uppercase }}
     </span>
 
     <span class="service-name">
