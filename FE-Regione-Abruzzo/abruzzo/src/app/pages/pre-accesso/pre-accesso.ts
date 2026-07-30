@@ -13,6 +13,6 @@ export class PreAccesso {
   constructor(private router: Router) {
   }
   accedi() {
-    this.router.navigate(['home']);
+    this.router.navigate(['login']);
   }
 }

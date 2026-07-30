@@ -15,7 +15,7 @@ import {PreAccesso} from "./pages/pre-accesso/pre-accesso";
 import {NuovaDelega} from "./pages/nuova-delega/nuova-delega";
 import {Deleghe} from "./pages/deleghe/deleghe";
 import {PreAccreditamento} from "./pages/pre-accreditamento/pre-accreditamento";
-import { Alert } from './components/alert/alert';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },

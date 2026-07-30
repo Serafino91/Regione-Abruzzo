@@ -3,6 +3,7 @@ import { RichiesteInCorso } from '../../sections/home/richieste-in-corso/richies
 import { IncidentInCorso } from '../../sections/home/incident-in-corso/incident-in-corso';
 import { ProgettiFlexbox } from '../../sections/home/progetti-in-corso/progetti-flexbox';
 import { Catalogo } from '../../sections/home/catalogo/catalogo';
+import { AppModal } from '../../components/app-modal/app-modal';
 
 
 @Component({
@@ -12,4 +13,7 @@ import { Catalogo } from '../../sections/home/catalogo/catalogo';
   styleUrl: './home.css',
   standalone: true,
 })
-export class Home {}
+export class Home {
+
+
+}
