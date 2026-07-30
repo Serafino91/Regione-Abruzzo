@@ -29,6 +29,7 @@ import {PageHeader} from '../../components/page-header/page-header';
   standalone: true,
 })
 class NuovaRichiesta {
+
   currentStep = 1;
   url = '';
   showModal = false;

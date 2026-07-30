@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProgettiFlexbox } from './progetti-flexbox';
+import { ProgettiInCorso } from './progetti-in-corso';
 
-describe('ProgettiFlexbox', () => {
-  let component: ProgettiFlexbox;
-  let fixture: ComponentFixture<ProgettiFlexbox>;
+describe('ProgettiInCorso', () => {
+  let component: ProgettiInCorso;
+  let fixture: ComponentFixture<ProgettiInCorso>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProgettiFlexbox],
+      imports: [ProgettiInCorso],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ProgettiFlexbox);
+    fixture = TestBed.createComponent(ProgettiInCorso);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

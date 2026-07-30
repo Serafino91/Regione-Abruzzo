@@ -9,13 +9,13 @@ import { SectionHeader } from '../../../components/section-header/section-header
 import { map } from 'rxjs';
 
 @Component({
-  selector: 'app-progetti-flexbox',
+  selector: 'app-progetti-in-corso',
   imports: [ProjectCard, SectionHeader],
-  templateUrl: './progetti-flexbox.html',
-  styleUrl: './progetti-flexbox.css',
+  templateUrl: './progetti-in.corso.html',
+  styleUrl: './progetti-in-corso.css',
   standalone: true,
 })
-export class ProgettiFlexbox {
+export class ProgettiInCorso {
   progetti: ProgettoModel[] = [];
 
   private platformId = inject(PLATFORM_ID);

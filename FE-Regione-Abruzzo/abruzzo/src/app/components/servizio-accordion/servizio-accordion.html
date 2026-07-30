@@ -1,6 +1,6 @@
 <div class="accordion-item">
 
-  <div class="accordion-header">
+  <div class="accordion-header align-items-center d-flex flex-row gap-3 p-3">
 
     <span class="type-badge">
       <svg aria-hidden="true">
@@ -9,9 +9,9 @@
       {{ servizio.type.name | uppercase }}
     </span>
 
-    <span class="service-name">
+    <h6 class="service-name">
       {{ servizio.item }}
-    </span>
+    </h6>
 
     @if (servizio.quantity) {
       <span class="quantity-badge">
@@ -19,26 +19,79 @@
       </span>
     }
 
-    <button class="toggle-btn" (click)="toggle()">
+    <button
+      class="btn btn-link text-primary ms-auto"
+      type="button"
+      (click)="toggle()"
+      data-bs-toggle="collapse"
+      [attr.data-bs-target]="'#collapse-progetto-' + servizio.id"
+      [attr.aria-expanded]="expanded"
+      [attr.aria-controls]="'collapse-progetto-' +  servizio.id">
+
       @if (expanded) {
-        <svg aria-hidden="true">
+        <svg class="icon icon-primary icon-sm me-1">
           <use href="assets/bootstrap-italia/sprites.svg#it-minus-circle"></use>
         </svg>
+
         Riduci sezione
       } @else {
-        <svg aria-hidden="true">
+        <svg class="icon icon-primary icon-sm me-1">
           <use href="assets/bootstrap-italia/sprites.svg#it-plus-circle"></use>
         </svg>
+
         Espandi sezione
       }
+
     </button>
 
   </div>
 
-  @if (expanded) {
-    <div class="accordion-body">
-      <app-servizio-detail-card [servizio]="servizio"></app-servizio-detail-card>
+  <div
+    class="collapse"
+    [id]="'collapse-progetto-' + servizio.id">
+
+    <div class="accordion-body p-4">
+
+        <h5>Dati Servizio </h5>
+
+        <div class="d-flex flex-row mt-4" style="gap: 8rem;">
+
+          <div class="">
+            <p class="fw-bold mb-1">Id servizio</p>
+            <p class="mb-0">{{ servizio?.id }}</p>
+          </div>
+
+          <div class="">
+            <p class="fw-bold mb-1">Servizio</p>
+            <p class="mb-0">{{ servizio?.item }}</p>
+          </div>
+
+          <div class="">
+            <p class="fw-bold mb-1">Categoria</p>
+            <p class="mb-0">{{ servizio?.type }}</p>
+          </div>
+
+        </div>
+        <hr>
+
+
+
+        @if (servizio?.params?.length) {
+          <h5>Parametri </h5>
+          <div class="d-flex flex-row mt-4" style="gap: 8rem;">
+            @for (param of servizio?.params; track param.id) {
+              <div class="servizio-detail-card__param-col">
+                <p class="fw-bold mb-1">{{ param.name }}</p>
+                <p class="mb-0">{{ param.paramType }}</p>
+              </div>
+            }
+          </div>
+        }
+
+
     </div>
-  }
+
+  </div>
 
 </div>
+
