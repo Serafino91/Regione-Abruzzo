@@ -59,6 +59,14 @@ input[type="time"] {
   display: block !important;
 }
 
+.date-icon-custom::-webkit-calendar-picker-indicator {
+  color: transparent;
+  cursor: pointer;
+  background: transparent url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230066CC'><path d='M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z'/></svg>") no-repeat center;
+  width: 20px;
+  height: 20px;
+}
+
 label {
   font-weight: 600;
   color: #2F475E;
