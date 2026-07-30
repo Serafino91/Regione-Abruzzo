@@ -1,17 +1,14 @@
 import { ChangeDetectorRef, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { FiltriIncident } from '../../sections/incident/filtri-incident/filtri-incident';
 import { PageHeader } from '../../components/page-header/page-header';
-import { map } from 'rxjs';
-import { ProgettoModel } from '../../model/progetto.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ProgettiService } from '../../services/progetti.service';
 import { IncidentService } from '../../services/incident.service';
 import { TicketModel } from '../../model/ticket.model';
-import { TabellaRichieste } from '../../sections/richieste/tabella-richieste/tabella-richieste';
+import { TabellaIncident } from '../../sections/incident/tabella-incident/tabella-incident';
 
 @Component({
   selector: 'app-incident',
-  imports: [FiltriIncident, PageHeader, TabellaRichieste],
+  imports: [FiltriIncident, PageHeader, TabellaIncident],
   standalone: true,
   templateUrl: './incident.html',
   styleUrl: './incident.css',
