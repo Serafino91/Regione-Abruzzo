@@ -10,6 +10,5 @@ import { WizardLabelItem } from '../../constants/WizardLabelItem';
 })
 export class WizardBar {
   @Input({ required: true }) items: WizardLabelItem[] = [];
-
   @Input({ required: true }) currentStep = 1;
 }

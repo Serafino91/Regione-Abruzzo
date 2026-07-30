@@ -8,7 +8,7 @@
 .step-box {
   flex: 1;
   padding: 14px 16px;
-  border-radius: 5px;
+  border-radius: 4px;
   margin:0 10px 0 10px;
   color: var(--color-primary-dark);
   text-align: center;
@@ -23,25 +23,19 @@
   align-items: center;
   gap: 1px; /* Spacing between icon and text */
   padding: 4px 10px; /* Tight inner padding for the pill look */
-  background-color: #f0f6ff; /* Soft tint primary background */
-  border: 1.5px solid #004d99; /* Sharp primary blue border */
+  background-color: #F2F7FC; /* Soft tint primary background */
+  border: 2px solid #0066CC; /* Sharp primary blue border */
   border-radius: 6px; /* Smooth rounded corners matching the UI */
 }
 
 .step-box.completed {
   flex: 1;
   padding: 14px 16px;
-  border-radius: 5px;
+  border-radius: 4px;
   margin:0 10px 0 10px;
   color: var(--color-primary-dark);
   text-align: center;
   font-weight: 500;
   font-size: 0.95rem;
   transition: all 0.2s ease;
-}
-
-.custom-richieste-description{
-  width: 100%;
-  display: block;
-  padding-bottom: 150px;
 }

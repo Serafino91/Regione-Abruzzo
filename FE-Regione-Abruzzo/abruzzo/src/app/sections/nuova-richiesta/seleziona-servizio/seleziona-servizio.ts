@@ -21,6 +21,7 @@ export class SelezionaServizio implements OnInit {
   private cdr = inject(ChangeDetectorRef); // <-- 1. Iniettiamo il ChangeDetectorRef
   protected readonly ServiceName = ServiceName;
   protected readonly ServiceCategory = ServiceCategory;
+  private nextRigaId = 0;
 
   categorie: CategoriaModel[] = [];
   servizi: ServizioModel[] = [];
@@ -47,6 +48,7 @@ export class SelezionaServizio implements OnInit {
   }
   ngOnInit(): void {
     this.inizializzaForm();
+    this.sincronizzaContatoreConRigheEsistenti();
 
     this.aggiungiServizioForm
       .get('categoria')
@@ -64,6 +66,16 @@ export class SelezionaServizio implements OnInit {
       });
 
     this.getCategorie();
+  }
+
+  private sincronizzaContatoreConRigheEsistenti(): void {
+    const righeIdEsistenti = this.serviziArray.controls
+      .map((c) => Number(c.get('righeId')?.value))
+      .filter((v) => !isNaN(v));
+
+    this.nextRigaId = righeIdEsistenti.length > 0
+      ? Math.max(...righeIdEsistenti) + 1
+      : 0;
   }
 
   private inizializzaForm(): void {
@@ -136,6 +148,7 @@ export class SelezionaServizio implements OnInit {
 
       servizi.push(
         new FormGroup({
+          righeId: new FormControl(this.nextRigaId++),
           servizioId: new FormControl(servizio.id),
           categoriaId: new FormControl(categoriaId),
           unit: new FormControl(unit),
