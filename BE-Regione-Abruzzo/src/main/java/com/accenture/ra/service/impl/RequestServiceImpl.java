@@ -1,16 +1,15 @@
 package com.accenture.ra.service.impl;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.accenture.ra.dto.request.RequestDetail;
-import com.accenture.ra.dto.request.ServiceDetail;
 import com.accenture.ra.dto.response.RequestDetailResponse;
 import com.accenture.ra.entity.ProjectEntity;
 import com.accenture.ra.entity.RequestEntity;
+import com.accenture.ra.entity.ServiceEntity;
 import com.accenture.ra.mapper.ProjectMapper;
 import com.accenture.ra.mapper.RequestMapper;
 import com.accenture.ra.mapper.ServiceMapper;
@@ -43,11 +42,10 @@ public class RequestServiceImpl implements RequestService {
 	private final ServiceTypeRepository categoryRepository;
 	private final ServiceRepository serviceRepository;
 	private final StateRepository stateRepository;
-	private final RequestMapper testRequestMapper;
-	private final ProjectMapper testProjectMapper;
-	private final ServiceTypeMapper testServiceTypeMapper;
-	private final ServiceMapper testServiceMapper;
-	private final StateMapper testStateMapper;
+	private final RequestMapper requestMapper;
+	private final ProjectMapper projectMapper;
+	private final ServiceTypeMapper serviceTypeMapper;
+	private final ServiceMapper serviceMapper;
 	private final StateMapper stateMapper;
 
 
@@ -55,52 +53,52 @@ public class RequestServiceImpl implements RequestService {
 	public List<RequestDetail> getAllRequests() {
 		List<RequestEntity> entity = requestRepository.findAll();
 
-        return testRequestMapper.toModelList(entity);
+        return requestMapper.toModelList(entity);
 	}
 
 	@Override
 	public RequestDetail getRequestById(String requestId) {
 		RequestEntity requestEntity = requestRepository.findById(requestId).get();
-        return testRequestMapper.toModel(requestEntity);
+        return requestMapper.toModel(requestEntity);
 	}
 
 	@Override
 	public RequestDetailResponse createRequest(RequestCreationRequest req) {
 
-		// Flusso creazione request in completamento
-		// TODO: Sistemare controlli/eccezioni
-		RequestDetailResponse requestResp = new RequestDetailResponse();
-		RequestDetail reqDetail = new RequestDetail();
-		reqDetail.setRequestId(RequestIdGenerator.generateId());
-		// Cosa riceverò nel requestbody per project,cetegory,service,state? MODIFICARE se necessario
-		// TODO: flussi diversi per caso di PROGETTO NUOVO e caso PRE ESISTENTE
-		// arriva oggetto, controllo per id e poi nome se già esistente, poi continuo 
-		// 
-		reqDetail.setProject(testProjectMapper.toModel(createOrFindProject(req)));
-		if (req.getCategory() != null) {
-			reqDetail.setCategory(req.getCategory());
+		// Costruiamo RequestEntity direttamente con riferimenti JPA gestiti,
+		// evitando il mapper entity->entity che crea oggetti transient non gestiti da Hibernate
+		RequestEntity requestEntity = new RequestEntity();
+		requestEntity.setRequestId(RequestIdGenerator.generateId());
+		requestEntity.setProject(createOrFindProject(req));
+
+		stateRepository.findByStateName(req.getState())
+				.ifPresent(requestEntity::setState);
+
+		if (req.getServices() != null && !req.getServices().isEmpty()) {
+			List<ServiceEntity> services = req.getServices().stream()
+					.flatMap(s -> serviceRepository.findById(s.getId().toString()).stream())
+					.collect(java.util.stream.Collectors.toList());
+			requestEntity.setServices(services);
+
+			// Deriva la category dal tipo del primo servizio
+			if (!services.isEmpty() && services.get(0).getServiceType() != null) {
+				requestEntity.setCategory(services.get(0).getServiceType());
+			}
 		}
-		// I SERVIZI SARANNO N
 
-		reqDetail.setServices(req.getServices()); // sarà possibile selezionarne più di uno se si vuole
-		reqDetail.setState(stateMapper.toModel(stateRepository.findByStateName(req.getState()).get())); //TODO da cambiare non mi piace
-//		stateRepository.findByStateName(req.getState().getStateName())
-//				.map(testStateMapper::toModel)
-//				.ifPresent(reqDetail::setState);
-		reqDetail.setSendFrom(req.getSendFrom());
-		reqDetail.setSendTo(req.getSendTo());
-		reqDetail.setCreatedAt(LocalDateTime.now());
-		reqDetail.setUpdatedAt(LocalDateTime.now());
+		requestEntity.setSendFrom(req.getSendFrom());
+		requestEntity.setSendTo(req.getSendTo());
+		requestEntity.setCreatedAt(LocalDateTime.now());
+		requestEntity.setUpdatedAt(LocalDateTime.now());
 
-		requestResp.setRequestDetail(reqDetail);
+		RequestEntity saved = requestRepository.save(requestEntity);
 
-		// TODO: save a db - Save andata a buon fine + save non riuscita ... altri casi?
-		// ADD SAVE
-		requestRepository.save(testRequestMapper.toEntity(reqDetail));
-
-		return requestResp;
+		RequestDetailResponse response = new RequestDetailResponse();
+		response.setRequestDetail(requestMapper.toModel(saved));
+		return response;
 	}
 
+	// Alla creazione di una request, se il progetto non esiste lo creo, altrimenti lo recupero dal db
 	private ProjectEntity createOrFindProject(RequestCreationRequest req) {
 		if(projectRepository.existsById(req.getProject().getId())) {
 			return projectRepository.getReferenceById(req.getProject().getId());
@@ -124,7 +122,7 @@ public class RequestServiceImpl implements RequestService {
 	public List<RequestDetail> filterRequest(RequestFilterCriteria criteria) {
 		// Utilizzo la Specification per costruire la query dinamicamente
 		List<RequestEntity> entities = requestRepository.findAll(RequestSpecification.withFilters(criteria));
-		return testRequestMapper.toModelList(entities);
+		return requestMapper.toModelList(entities);
 	}
 
 }

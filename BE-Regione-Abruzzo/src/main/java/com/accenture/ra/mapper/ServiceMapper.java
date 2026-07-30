@@ -13,7 +13,7 @@ public interface ServiceMapper {
 
 	@Mapping(source = "isBase", target = "base")
 	@Mapping(source = "isOptional", target = "optional")
-	@Mapping(source = "serviceType.name", target = "type")
+	@Mapping(source = "serviceType", target = "type")
 	@Mapping(source = "paramList", target = "paramsList")
 	@Mapping(source = "params", target = "params")
 	@Mapping(source = "name", target = "item")
@@ -25,7 +25,7 @@ public interface ServiceMapper {
 
     @Mapping(source = "base", target = "isBase")
 	@Mapping(source = "optional", target = "isOptional")
-//    @Mapping(source = "type", target = "serviceType.name")
+    @Mapping(source = "type", target = "serviceType")
 	@Mapping(source = "paramsList", target = "paramList")
 	@Mapping(source = "params", target = "params")
 //    @Mapping(source = "item", target = "name")

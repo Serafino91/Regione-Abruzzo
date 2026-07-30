@@ -1,6 +1,7 @@
 export class ChiamateApiUrl {
   /* url base */
   public static readonly BASE_URL_PROGETTI = 'projects';
+  public static readonly BASE_URL_INCIDENT = 'incident';
   public static readonly BASE_URL_SERVIZI = 'catalog/services';
   public static readonly BASE_URL_CATEGORIA = 'serviceType';
   public static readonly BASE_URL_RICHIESTA = '/request';

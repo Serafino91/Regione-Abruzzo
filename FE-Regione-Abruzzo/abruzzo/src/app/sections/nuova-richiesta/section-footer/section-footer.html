@@ -5,6 +5,7 @@
         <button
           class="btn btn-outline-primary"
           (click)="previous.emit()">
+          <svg class="icon icon-sm icon-primary"><use href="assets/bootstrap-italia/sprites.svg#it-arrow-left"></use></svg>
           Indietro
         </button>
       } @else {
@@ -22,6 +23,7 @@
           (click)="next.emit()"
           [disabled]="!canGoNext">
           Avanti
+        <svg class="icon icon-sm icon-primary"><use href="assets/bootstrap-italia/sprites.svg#it-arrow-right"></use></svg>
         </button>
       } @else {
         <button

@@ -1,1 +1,32 @@
-<p>tabella-incident works!</p>
+<app-table
+  [data]="listaTicket"
+  [columns]="colonneTicket"
+  defaultSortColumn="code"
+  defaultSortDir="asc">
+
+  <ng-template #cellTemplate let-row let-col="column">
+    @if (col.key === 'state.config.label') {
+      <span class="badge-stato"
+            [style.border-color]="row.state?.config?.colorBorder"
+            [style.background-color]="row.state?.config?.colorBg"
+            [style.color]="row.state?.config?.colorText">
+          {{ row.state?.config?.label }}
+        </span>
+    }
+
+    @else if (col.key === 'code') {
+      <span class="fw-bold text-dark">{{ row.code }}</span>
+    }
+
+    @else if (col.key === 'azioni') {
+      <a class="btn btn-link p-0 text-decoration-none" [routerLink]="['/home/incident/dettaglio-incident', row.code]" aria-label="Visualizza dettaglio ticket">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="#0066CC">
+          <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+        </svg>
+      </a>
+    }
+    @else {
+      {{ getValue(row, col.key) }}
+    }
+  </ng-template>
+</app-table>

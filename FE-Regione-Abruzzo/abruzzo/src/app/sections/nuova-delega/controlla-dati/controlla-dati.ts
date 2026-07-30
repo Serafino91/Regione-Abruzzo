@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
-import {FormArray, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {ProgettoAccordion} from "../../../components/progetto-accordion/progetto-accordion";
+import {PermessiCard} from "../../../components/permessi-card/permessi-card";
 
 @Component({
   selector: 'app-controlla-dati',
-  imports: [ReactiveFormsModule, ProgettoAccordion],
+  imports: [ReactiveFormsModule, ProgettoAccordion, PermessiCard],
   standalone: true,
   templateUrl: './controlla-dati.html',
   styleUrl: './controlla-dati.css',

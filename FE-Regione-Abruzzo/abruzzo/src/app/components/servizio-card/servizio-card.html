@@ -1,4 +1,4 @@
-<article class="servizio-card">
+<article class="servizio-card shadow-card">
   <div class="servizio-card__badge">
 <svg xmlns="http://www.w3.org/2000/svg"
      viewBox="0 0 16 16"
@@ -20,11 +20,11 @@
 </svg>
 
 
-   <span class="storage-badge__text">{{ servizio.type}}</span>
+   <span class="storage-badge__text">{{ servizio.type.name}}</span>
   </div>
 
   <h6 class="servizio-card__title">{{ servizio.item }}</h6>
-  <p> {{ descrizione}}</p>
+  <p> {{ servizio.type.description}}</p>
   <a class="servizio-card__link"
   (click)="apriDettaglio()">
     Dettaglio servizio

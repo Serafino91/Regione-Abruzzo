@@ -60,7 +60,7 @@ public class RequestEntity {
     private List<ServiceEntity> services;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id", nullable = true)
     private ServiceTypeEntity category;
 
     // Direct requester (can be the project owner OR a delegate acting on their behalf)

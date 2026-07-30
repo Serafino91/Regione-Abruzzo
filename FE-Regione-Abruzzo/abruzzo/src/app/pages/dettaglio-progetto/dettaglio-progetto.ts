@@ -7,10 +7,11 @@ import {ProgettoDetailCard} from '../../components/progetto-detail-card/progetto
 import {ServizioAccordion} from '../../components/servizio-accordion/servizio-accordion';
 import {InfoBar} from '../../components/info-bar/info-bar';
 import { PageHeader } from '../../components/page-header/page-header';
+import {DelegatoCard} from '../../components/delegato-card/delegato-card';
 
 @Component({
   selector: 'app-dettaglio-progetto',
-  imports: [ProgettoDetailCard, ServizioAccordion, InfoBar, PageHeader],
+  imports: [ProgettoDetailCard, ServizioAccordion, InfoBar, PageHeader, DelegatoCard],
   standalone: true,
   templateUrl: './dettaglio-progetto.html',
   styleUrl: './dettaglio-progetto.css',

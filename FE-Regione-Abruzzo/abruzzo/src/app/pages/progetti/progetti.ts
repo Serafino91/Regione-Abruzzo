@@ -2,12 +2,17 @@ import { ChangeDetectorRef, Component, DestroyRef, inject, OnInit } from '@angul
 import { CommonModule } from '@angular/common';
 import {Filtri} from '../../sections/progetti/filtri/filtri';
 import {TabellaProgetti} from '../../sections/progetti/tabella-progetti/tabella-progetti';
-import {map} from 'rxjs';
+import { combineLatest, map } from 'rxjs';
 import {ProgettoModel} from '../../model/progetto.model';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {ProgettiService} from '../../services/progetti.service';
 import { PageHeader } from '../../components/page-header/page-header';
+import {UserService} from '../../services/user.service';
 
+const INDICI_PER_PROFILO: Record<string, number[]> = {
+  delegato: [0, 1],
+  delegato2: [2, 3],
+};
 
 @Component({
   selector: 'app-progetti',
@@ -21,23 +26,21 @@ export class Progetti implements OnInit {
   private destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef);
 
-  constructor(private progettiService: ProgettiService) {}
+  constructor(
+    private progettiService: ProgettiService,
+    private userService: UserService,
+  ) {}
 
   ngOnInit(): void {
     this.getProgetti();
   }
 
   private getProgetti(): void {
-    this.progettiService
-      .getProgetti()
+    combineLatest([this.progettiService.getProgetti(), this.userService.user$])
       .pipe(
-        map((resp: ProgettoModel[]) => resp.slice(0, 3)), //prende massimo 3 progetti per la sezione in home
-        takeUntilDestroyed(this.destroyRef),
-      )
-      .subscribe({
-        next: (resp: any[]) => {
-          // mapping repsonse dal backend
-          this.progetti = resp.map((p) => ({
+        map(([resp, user]: [any[], any]) => {
+          // mapping response dal backend
+          const progetti: ProgettoModel[] = resp.map((p) => ({
             idProgetto: p.id,
             nome: p.name,
             destinationLink: p.destinationLink,
@@ -45,6 +48,14 @@ export class Progetti implements OnInit {
             dataCreazione: p.createAt,
             dataUltimaModifica: p.updateAt,
           }));
+
+          return this.filterByProfile(progetti, user.role);
+        }),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe({
+        next: (filtered) => {
+          this.progetti = filtered;
           this.cdr.detectChanges();
         },
         error: (err) => {
@@ -52,4 +63,13 @@ export class Progetti implements OnInit {
         },
       });
   }
+
+  private filterByProfile(progetti: ProgettoModel[], role: string): ProgettoModel[] {
+    const indici = INDICI_PER_PROFILO[role];
+    if (!indici) {
+      return progetti;
+    }
+    return indici.map((i) => progetti[i]).filter((p): p is ProgettoModel => !!p);
+  }
 }
+

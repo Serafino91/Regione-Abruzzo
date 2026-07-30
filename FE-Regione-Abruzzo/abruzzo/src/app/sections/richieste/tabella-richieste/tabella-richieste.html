@@ -1,40 +1,76 @@
+@if (mode === 'tickets') {
+  <app-table
+    [data]="listaTicket"
+    [columns]="colonneTicket"
+    defaultSortColumn="code"
+    defaultSortDir="asc">
 
-<app-table
-  [data]="listaRichieste"
-  [columns]="colonneRichieste"
-  defaultSortColumn="requestId"
-  defaultSortDir="asc">
+    <ng-template #cellTemplate let-row let-col="column">
+      @if (col.key === 'state.config.label') {
+        <span class="badge-stato"
+          [style.border-color]="row.state?.config?.colorBorder"
+          [style.background-color]="row.state?.config?.colorBg"
+          [style.color]="row.state?.config?.colorText">
+          {{ row.state?.config?.label }}
+        </span>
+      }
 
-  <ng-template #cellTemplate let-row let-col="column">
-    @if (col.key === 'requestId') { <span class="fw-bold text-dark">{{ row.requestId }}</span>
-    }
+      @else if (col.key === 'code') {
+        <span class="fw-bold text-dark">{{ row.code }}</span>
+      }
 
-    @else if (col.key === 'state.config.label') {
-      <span class="badge-stato"
-        [style.border-color]="row.state?.config?.colorBorder"
-        [style.background-color]="row.state?.config?.colorBg"
-        [style.color]="row.state?.config?.colorText"> {{ row.state?.config?.label }}
-      </span>
-    }
-
-    @else if (col.key === 'azioni') {
-      <div class="dropdown text-center">
-        <button class="btn btn-link p-0 text-decoration-none" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Azioni progetto">
+      @else if (col.key === 'azioni') {
+        <a class="btn btn-link p-0 text-decoration-none" [routerLink]="['/home/ticket/dettaglio-ticket', row.id]" aria-label="Visualizza dettaglio ticket">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="#0066CC">
-            <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
           </svg>
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end">
-          <li><a class="dropdown-item"  [routerLink]="['/home/richieste/dettaglio-richiesta', row.requestId]">Visualizza dettagli</a></li>
-          <li><a class="dropdown-item" href="#">Modifica</a></li>
-        </ul>
-      </div>
-    }
+        </a>
+      }
 
-    @else {
-      {{ getValue(row, col.key) }}
-    }
+      @else {
+        {{ getValue(row, col.key) }}
+      }
+    </ng-template>
+  </app-table>
 
-  </ng-template>
-</app-table>
+} @else {
+  <app-table
+    [data]="listaRichieste"
+    [columns]="colonneRichieste"
+    defaultSortColumn="requestId"
+    defaultSortDir="asc">
 
+    <ng-template #cellTemplate let-row let-col="column">
+      @if (col.key === 'requestId') {
+        <span class="fw-bold text-dark">{{ row.requestId }}</span>
+      }
+
+      @else if (col.key === 'state.config.label') {
+        <span class="badge-stato"
+          [style.border-color]="row.state?.config?.colorBorder"
+          [style.background-color]="row.state?.config?.colorBg"
+          [style.color]="row.state?.config?.colorText">
+          {{ row.state?.config?.label }}
+        </span>
+      }
+
+      @else if (col.key === 'azioni') {
+        <div class="dropdown text-center">
+          <button class="btn btn-link p-0 text-decoration-none" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Azioni progetto">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="#0066CC">
+              <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+            </svg>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" [routerLink]="['/home/richieste/dettaglio-richiesta', row.requestId]">Visualizza dettagli</a></li>
+            <li><a class="dropdown-item" href="#">Modifica</a></li>
+          </ul>
+        </div>
+      }
+
+      @else {
+        {{ getValue(row, col.key) }}
+      }
+    </ng-template>
+  </app-table>
+}

@@ -1,11 +1,12 @@
-<form [formGroup]="filtersForm" class="row mx-4 g-4">
+<form [formGroup]="filtersForm" class="row g-4">
 
   <div class="col-4">
-    <label for="categoria">Stato</label>
+    <label for="stato">Stato</label>
     <select
+      id="stato"
       class="form-select form-select-rounded"
       formControlName="stato">
-      <option value="">Seleziona...</option>
+      <option value="">Tutti...</option>
       @for (item of requestStates; track item.key) {
         <option [value]="item.key">
           {{ item.value }}
@@ -20,7 +21,7 @@
     <select id="categoria"
             class="form-select form-select-rounded"
             formControlName="categoria">
-      <option value="">Seleziona...</option>
+      <option value="">Seleziona una categoria</option>
       @for (categoria of categorie; track categoria.id) {
         <option [value]="categoria.id">
           {{ categoria.name + " - " + categoria.description }}
@@ -49,7 +50,7 @@
   <div class="col-4">
     <label class="active" for="dataDa">Data invio - da</label>
     <input
-      class="form-control form-control-rounded"
+      class="form-control form-control-rounded  date-icon-custom"
       formControlName="dataDa"
       type="date"
       id="dataDa"
@@ -59,7 +60,7 @@
   <div class="col-4">
     <label class="active" for="dataA">Data invio - a</label>
     <input
-      class="form-control form-control-rounded"
+      class="form-control form-control-rounded  date-icon-custom"
       formControlName="dataA"
       type="date"
       id="dataA"

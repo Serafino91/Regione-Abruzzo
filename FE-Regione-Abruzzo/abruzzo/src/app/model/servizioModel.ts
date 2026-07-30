@@ -1,8 +1,9 @@
 import { ParamentroModel } from './parametro.model';
+import { CategoriaModel } from './categoria.model';
 
 export class ServizioModel {
   id!: string;
-  type!: string;
+  type!: CategoriaModel;
   item!: string;
   base!: boolean;
   optional!: boolean;

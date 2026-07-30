@@ -7,7 +7,6 @@ import { Incident } from './pages/incident/incident';
 import { Progetti } from './pages/progetti/progetti';
 import { NuovoIncident } from './pages/nuovo-incident/nuovo-incident';
 import { Accreditamento } from './pages/accreditamento/accreditamento';
-import { Login } from './pages/login/login';
 import {DettaglioRichiesta} from './pages/dettaglio-richiesta/dettaglio-richiesta';
 import { DettaglioServizio } from './pages/dettaglio-servizio/dettaglio-servizio';
 import { DettaglioProgetto } from './pages/dettaglio-progetto/dettaglio-progetto';
@@ -15,7 +14,9 @@ import {PreAccesso} from "./pages/pre-accesso/pre-accesso";
 import {NuovaDelega} from "./pages/nuova-delega/nuova-delega";
 import {Deleghe} from "./pages/deleghe/deleghe";
 import {PreAccreditamento} from "./pages/pre-accreditamento/pre-accreditamento";
-
+import { DettaglioDelega } from './pages/dettaglio-delega/dettaglio-delega';
+import {DettaglioIncident} from './pages/dettaglio-incident/dettaglio-incident';
+import { Login } from './pages/login/login';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -35,4 +36,6 @@ export const routes: Routes = [
   { path: 'home/catalogo/dettaglio-servizio/:id', component: DettaglioServizio },
   { path: 'home/progetti/dettaglio-progetto/:id', component: DettaglioProgetto },
   { path: 'login', component: Login },
+  { path: 'home/incident/dettaglio-incident/:id', component: DettaglioIncident },
+  { path: 'home/deleghe/dettaglio-delega', component: DettaglioDelega },
 ];
