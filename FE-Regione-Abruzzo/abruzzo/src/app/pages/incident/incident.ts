@@ -29,6 +29,7 @@ export class Incident implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (resp) => {
+          console.log(resp);
           this.tickets = resp;
           console.log('resp tickets: ', this.tickets);
           this.cdr.detectChanges();
