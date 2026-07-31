@@ -51,4 +51,20 @@
         }
     </div>
 
+    <div class="section-padding">
+
+        @if (tipologiaTicketSelezionata === 'Richieste') {
+            <app-tabella-richieste-ticket></app-tabella-richieste-ticket>
+        }
+
+        @if (tipologiaTicketSelezionata === 'Incident') {
+            <app-tabella-incident-ticket></app-tabella-incident-ticket>
+        }
+
+        @if (tipologiaTicketSelezionata === 'Accreditamenti') {
+            <app-tabella-accreditamenti-ticket></app-tabella-accreditamenti-ticket>
+        }
+
+    </div>
+
 </div>

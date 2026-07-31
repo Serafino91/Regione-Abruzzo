@@ -1,0 +1,12 @@
+.col-small {
+    width: 15%;
+}
+
+.col-large {
+    width: 30%;
+}
+
+.col-actions {
+    width: 10%;
+    text-align: center;
+}

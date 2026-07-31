@@ -5,13 +5,20 @@ import { FiltriRichiesteTicket } from '../../sections/ticket/filtri-richieste-ti
 import { FiltriIncidentTicket } from '../../sections/ticket/filtri-incident-ticket/filtri-incident-ticket';
 import { FiltriAccreditamentiTicket } from '../../sections/ticket/filtri-accreditamenti-ticket/filtri-accreditamenti-ticket';
 
+import { TabellaRichiesteTicket } from '../../sections/ticket/tabella-richieste-ticket/tabella-richieste-ticket';
+import { TabellaIncidentTicket } from '../../sections/ticket/tabella-incident-ticket/tabella-incident-ticket';
+import { TabellaAccreditamentiTicket } from '../../sections/ticket/tabella-accreditamenti-ticket/tabella-accreditamenti-ticket';
+
 @Component({
 	selector: 'app-ticket',
 	imports: [
 		PageHeader,
 		FiltriRichiesteTicket,
 		FiltriIncidentTicket,
-		FiltriAccreditamentiTicket
+		FiltriAccreditamentiTicket,
+		TabellaRichiesteTicket,
+		TabellaIncidentTicket,
+		TabellaAccreditamentiTicket
 	],
 	templateUrl: './ticket.html',
 	styleUrl: './ticket.css',
