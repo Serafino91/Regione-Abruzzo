@@ -60,6 +60,10 @@ class NuovaRichiesta {
   ];
 
   nextStep() {
+    if (!this.canGoNext()) {
+      return;
+    }
+
     if (this.currentStep === 1 && this.nuovaRichiesta) {
       const nome = this.richiestaForm.get('progettoForm.progetto.nome')?.value;
       const link = this.richiestaForm.get('progettoForm.progetto.link')?.value;

@@ -13,7 +13,8 @@
         <a routerLink="home/progetti" routerLinkActive="active">Progetti</a>
         <a routerLink="home/richieste" routerLinkActive="active">Richieste</a>
         <a routerLink="home/incident" routerLinkActive="active">Incident</a>
-        <a routerLink="home/ticket" routerLinkActive="active">Ticket</a>
+      @if (isAdmin) {
+        <a routerLink="home/ticket" routerLinkActive="active">Ticket</a> }
         <a routerLink="home/catalogo" routerLinkActive="active">Catalogo</a>
     </nav>
 </div>

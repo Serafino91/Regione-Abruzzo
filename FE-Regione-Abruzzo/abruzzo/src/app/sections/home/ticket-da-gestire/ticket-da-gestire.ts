@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { SectionHeader } from "../../../components/section-header/section-header";
 
 @Component({
-    selector: 'app-ticket-da-gestire',
-    imports: [SectionHeader],
-    templateUrl: './ticket-da-gestire.html',
-    styleUrl: './ticket-da-gestire.css',
+  selector: 'app-ticket-da-gestire',
+  imports: [SectionHeader],
+  standalone: true,
+  templateUrl: './ticket-da-gestire.html',
+  styleUrl: './ticket-da-gestire.css',
 })
 
 export class TicketDaGestire {

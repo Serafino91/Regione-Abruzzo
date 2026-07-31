@@ -10,4 +10,6 @@ import { RouterModule } from '@angular/router';
   styleUrl: './header.css',
   standalone: true,
 })
-export class Header {}
+export class Header {
+  isAdmin = false;
+}

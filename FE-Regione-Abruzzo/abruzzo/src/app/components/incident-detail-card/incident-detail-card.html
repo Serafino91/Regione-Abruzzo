@@ -1,0 +1,72 @@
+<div class="section-padding">
+<div class="delegato-card  d-flex flex-column shadow-card p-4 rounded-4" >
+
+  <h5>Dati incident</h5>
+
+  <div class="d-flex flex-row my-3">
+    <svg class="icon me-2" aria-hidden="true">
+      <use href="assets/bootstrap-italia/sprites.svg#it-file"></use>
+    </svg>
+    <h6>Identificazione Incident</h6>
+  </div>
+
+  <div class="row">
+    <div class="col-4">
+      <div class="d-flex flex-row">
+        <div>
+          <p class="fw-semibold mb-1">Codice Incident</p>
+          <p>{{ incidentDetail.code }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4">
+      <p class="fw-semibold mb-1">Stato</p>
+      <p>{{ incidentDetail.state.name }}</p>
+    </div>
+
+    <div class="col-4">
+      <p class="fw-semibold mb-1">Data apertura</p>
+      <p>{{ incidentDetail.openingDate }}</p>
+    </div>
+
+
+
+    <div class="col-4">
+      <p class="fw-semibold mb-1">Categoria</p>
+      <p>{{ incidentDetail.category }}</p>
+    </div>
+    <div class="col-4">
+      <p class="fw-semibold mb-1">Sottocategoria</p>
+      <p>{{ incidentDetail.subcategory }}</p>
+    </div>
+
+
+    <!-- Mock -->
+    <div class="col-4">
+      <p class="fw-semibold mb-1">Id Progetto</p>
+      <p>{{ incidentDetail.id }}</p>
+    </div>
+
+    <div class="col-4">
+      <p class="fw-semibold mb-1">Id Progetto</p>
+      <p>{{ incidentDetail.id }}</p>
+    </div>
+  </div>
+
+
+  <div>
+  <h6> Descrizione del problema </h6>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum consequat mi quis pretium semper. Proin luctus orci ac neque venenatis, quis commodo dolor posuere. Curabitur dignissim sapien quis cursus egestas. Donec blandit auctor arcu, nec pellentesque eros molestie eget. In consectetur aliquam hendrerit. Sed cursus mauris vitae ligula pellentesque, non pellentesque urna aliquet. Fusce placerat mauris enim, nec rutrum purus semper vel. Praesent tincidunt neque eu pellentesque pharetra. Fusce pellentesque est orci.</p>
+  </div>
+
+  <div class="mt-2">
+  <h6> Allegati Caricati </h6>
+  </div>
+
+</div>
+
+  <app-richiedente-card>
+
+  </app-richiedente-card>
+</div>

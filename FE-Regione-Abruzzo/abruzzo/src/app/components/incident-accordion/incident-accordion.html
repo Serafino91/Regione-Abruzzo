@@ -1,0 +1,83 @@
+<div class="accordion-item shadow-card">
+
+  <div class="accordion-header align-content-center d-flex flex-row gap-3 px-4 py-2">
+
+
+    <div class=" d-flex flex-row align-content-center gap-2">
+      <svg aria-hidden="true" class="icon icon-sm">
+        <use [attr.href]="'assets/bootstrap-italia/sprites.svg#' + iconForType(incident.state.name)"></use>
+      </svg>
+
+      <h6 class="service-name">
+        {{ incident.code }}
+      </h6>
+
+    </div>
+
+    <button
+      class="btn btn-link text-primary ms-auto"
+      type="button"
+      (click)="toggle()"
+      data-bs-toggle="collapse"
+      [attr.data-bs-target]="'#collapse-progetto-' + incident.id"
+      [attr.aria-expanded]="expanded"
+      [attr.aria-controls]="'collapse-progetto-' +  incident.id">
+
+      @if (expanded) {
+        <svg class="icon icon-primary icon-sm">
+          <use href="assets/bootstrap-italia/sprites.svg#it-collapse"></use>
+        </svg>
+      } @else {
+        <svg class="icon icon-primary icon-sm">
+          <use href="assets/bootstrap-italia/sprites.svg#it-collapse"></use>
+        </svg>
+
+      }
+
+    </button>
+
+  </div>
+
+
+  <div
+    class="collapse"
+    [id]="'collapse-progetto-' + incident.id">
+
+    <div class="accordion-body px-4">
+
+      <div class="d-flex flex-row" style="gap: 8rem;">
+
+        <div class="">
+          <p class="fw-bold mb-0  text-secondary">Data apertura</p>
+          <p class="mb-0">{{ incident?.openingDate }}</p>
+        </div>
+
+        <div class="">
+          <p class="fw-bold mb-0  text-secondary">Categoria</p>
+          <p class="mb-0">{{incident.category  }}</p>
+        </div>
+
+        <div class="">
+          <p class="fw-bold mb-0  text-secondary">Sottocategoria</p>
+          <p class="mb-0">{{ incident.subcategory  }}</p>
+        </div>
+
+      </div>
+
+      <hr>
+
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum consequat mi quis pretium semper. Proin luctus orci ac neque venenatis, quis commodo dolor posuere. Curabitur dignissim sapien quis cursus egestas. Donec blandit auctor arcu, nec pellentesque eros molestie eget. In consectetur aliquam hendrerit. Sed cursus mauris vitae ligula pellentesque, non pellentesque urna aliquet. Fusce placerat mauris enim, nec rutrum purus semper vel. Praesent tincidunt neque eu pellentesque pharetra. Fusce pellentesque est orci.</p>
+
+      <a class="back-link"  (click)="apriDettaglio()">
+        Dettaglio incident
+        <svg class="icon icon-sm icon-primary " aria-hidden="true">
+          <use href="assets/bootstrap-italia/sprites.svg#it-arrow-right"></use>
+        </svg>
+      </a>
+    </div>
+
+  </div>
+
+
+</div>
+

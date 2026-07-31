@@ -12,8 +12,6 @@ import { TableColumn, TableComponent } from '../../../components/table/table';
   styleUrl: './scegli-progetto.css',
   standalone: true,
 })
-
-
 export class ScegliProgetto implements OnInit {
   @Input({ required: true }) formGroup!: FormGroup;
   @Input() progettoEsistenteError = false;
@@ -29,7 +27,6 @@ export class ScegliProgetto implements OnInit {
   constructor(private progettiService: ProgettiService) {}
   readonly maxNoteLength = 500;
 
-  // key allineate al modello reale (nome / description / servizi)
   colonneProgetti: TableColumn[] = [
     { key: 'select', label: '', sortable: false, class: 'col-checkbox' },
     { key: 'idProgetto', label: 'ID progetto', sortable: true, class: 'col-id' },
@@ -40,10 +37,28 @@ export class ScegliProgetto implements OnInit {
   ];
 
   ngOnInit() {
-    this.formGroup.addControl('ricercaNome', new FormControl(''));
-    this.formGroup.addControl('selezione', new FormControl<ProgettoModel | null>(null, Validators.required),);
-    this.formGroup.addControl('dataDa', new FormControl(''));
-    this.formGroup.addControl('dataA', new FormControl(''));
+    if (!this.formGroup.contains('ricercaNome')) {
+      this.formGroup.addControl('ricercaNome', new FormControl(''));
+    }
+    if (!this.formGroup.contains('selezione')) {
+      this.formGroup.addControl(
+        'selezione',
+        new FormControl<ProgettoModel | null>(null, Validators.required),
+      );
+    }
+    if (!this.formGroup.contains('dataDa')) {
+      this.formGroup.addControl('dataDa', new FormControl(''));
+    }
+    if (!this.formGroup.contains('dataA')) {
+      this.formGroup.addControl('dataA', new FormControl(''));
+    }
+
+    // ripristina lo stato locale dal form (che invece sopravvive tra i cambi di step)
+    this.progettoSelezionato = this.formGroup.get('selezione')?.value ?? null;
+    const testoRicerca = this.formGroup.get('ricercaNome')?.value;
+    if (testoRicerca) {
+      this.filtra(testoRicerca);
+    }
 
     this.loadProgetti();
 
@@ -121,7 +136,8 @@ export class ScegliProgetto implements OnInit {
       this.formGroup.addControl('ricercaNome', new FormControl(''));
       this.formGroup.addControl(
         'selezione',
-        new FormControl<ProgettoModel | null>(null, Validators.required),);
+        new FormControl<ProgettoModel | null>(null, Validators.required),
+      );
       this.formGroup.addControl('dataDa', new FormControl(''));
       this.formGroup.addControl('dataA', new FormControl(''));
     }
