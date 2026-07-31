@@ -33,6 +33,7 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() defaultSortColumn: string = '';
   @Input() defaultSortDir: 'asc' | 'desc' = 'asc';
   @Input() selectable?: boolean;
+  @Input() selectedRow: any = null;
   @Output() rowSelected = new EventEmitter<{
     row: any;
     selected: boolean;
