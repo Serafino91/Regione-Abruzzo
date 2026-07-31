@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.accenture.ra.dto.response.ServiceTypeListResponse;
 import com.accenture.ra.dto.response.TicketModel;
-import com.accenture.ra.dto.response.TicketStateModel;
 import com.accenture.ra.service.impl.IncidentServiceImpl;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,7 +39,7 @@ public class IncidentController {
                     description = "incident recuperati correttamente",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = TicketStateModel.class),
+                            schema = @Schema(implementation = TicketModel.class),
                             examples = @ExampleObject(
                                     name = "Esempio risposta servizio",
                                     value = """
@@ -97,7 +95,7 @@ public class IncidentController {
             )
     })
 	@GetMapping("/list")
-	public ResponseEntity<List<TicketStateModel>> getIncidentList() {
+	public ResponseEntity<List<TicketModel>> getIncidentList() {
 		
         return ResponseEntity.ok(incidentServiceImpl.getAllIncident());
 
