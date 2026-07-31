@@ -1,0 +1,54 @@
+<div class="section-padding">
+
+    <app-page-header [titolo]="'Gestione Ticket'"
+        [sottotitolo]="'Gestisci le richieste degli utenti relative ai servizi e agli accessi al portale, monitorando le attività in sospeso e accedendo al dettaglio di ogni pratica.'">
+    </app-page-header>
+
+    <ul class="nav nav-tabs m-0 p-0 mt-3" role="tablist" style="min-height: auto !important; height: auto !important;">
+        <li class="nav-item" style="cursor: pointer;">
+            <a class="nav-link py-2 px-3 d-flex align-items-center"
+                [class.active]="tipologiaTicketSelezionata === 'Richieste'" (click)="setTipoTicket('Richieste')"
+                role="tab">
+                <span class="text-nowrap">Richieste servizi</span>
+            </a>
+        </li>
+
+        <li class="nav-item" style="cursor: pointer;">
+            <a class="nav-link py-2 px-3 d-flex align-items-center"
+                [class.active]="tipologiaTicketSelezionata === 'Incident'" (click)="setTipoTicket('Incident')"
+                role="tab">
+                <span class="text-nowrap">Incident</span>
+            </a>
+        </li>
+
+        <li class="nav-item" style="cursor: pointer;">
+            <a class="nav-link py-2 px-3 d-flex align-items-center"
+                [class.active]="tipologiaTicketSelezionata === 'Accreditamenti'"
+                (click)="setTipoTicket('Accreditamenti')" role="tab">
+                <span class="text-nowrap">Accreditamenti</span>
+            </a>
+        </li>
+    </ul>
+
+    <div class="color-bg-lightblue">
+        @if (tipologiaTicketSelezionata === 'Richieste') {
+        <div class="section-padding">
+            <app-filtri-richieste-ticket></app-filtri-richieste-ticket>
+        </div>
+        }
+
+
+        @if (tipologiaTicketSelezionata === 'Incident') {
+        <div class="section-padding">
+            <app-filtri-incident-ticket></app-filtri-incident-ticket>
+        </div>
+        }
+
+        @if (tipologiaTicketSelezionata === 'Accreditamenti') {
+        <div class="section-padding">
+            <app-filtri-accreditamenti-ticket></app-filtri-accreditamenti-ticket>
+        </div>
+        }
+    </div>
+
+</div>
