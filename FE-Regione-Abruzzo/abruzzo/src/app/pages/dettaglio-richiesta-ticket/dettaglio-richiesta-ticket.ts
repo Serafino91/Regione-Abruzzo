@@ -32,4 +32,16 @@ export class DettaglioRichiestaTicket {
         },
     ];
 
+    isCollapsedDiscoVirtualeSection = false;
+    isCollapsedBackupSection = false;
+    showDeleteModal = false;
+
+    toggleDiscoVirtualeSection(): void {
+        this.isCollapsedDiscoVirtualeSection = !this.isCollapsedDiscoVirtualeSection;
+    }
+
+    toggleBackupSection(): void {
+        this.isCollapsedBackupSection = !this.isCollapsedBackupSection;
+    }
+
 }
