@@ -161,6 +161,7 @@ class NuovaRichiesta {
     }
 
     const serviziRaggruppati = servizi.reduce((acc: any[], s: any) => {
+      console.log('SINGOLO SERVIZIO NEL REDUCE:', JSON.stringify(s, null, 2));
       const existing = acc.find((item: any) => item.servizioId === s.servizioId);
       if (existing) {
         existing.unit = Number(existing.unit) + Number(s.unit);
@@ -169,7 +170,6 @@ class NuovaRichiesta {
       }
       return acc;
     }, []);
-
     const richiesta: RichiestaSafeModel = {
       requestId: '',
       state: 'In elaborazione',
@@ -190,9 +190,9 @@ class NuovaRichiesta {
       sendTo: progettoForm['dataA'] ? new Date(progettoForm['dataA']).toISOString() : '',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
+      note: this.noteForm.controls.note.value ?? ''
     };
 
-    console.log('richiesta:', richiesta);
     this.richiesteService.createRichiesta(richiesta).subscribe({
       next: () => {
         this.isInviando = false;

@@ -22,12 +22,14 @@ public class RequestCreationRequest {
 	@NotNull
 	private ProjectDetail project;
 	private String state;
+	private String note;
+	private String requestPayload;
 	@NotNull
 	private List<ServiceDetail> services;
-	private ServiceType category;
 	private LocalDateTime sendFrom;
 	private LocalDateTime sendTo;
-	
+
+//	private ServiceType category;
 	// queste vengono gestite a codice
 	//	private LocalDateTime createdAt;
 	//	private LocalDateTime updatedAt;

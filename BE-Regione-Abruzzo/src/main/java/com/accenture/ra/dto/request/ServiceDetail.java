@@ -23,5 +23,5 @@ public class ServiceDetail {
 //    private Integer quantity;
 //    private Integer durationMonths;
     private List<ParamDetail> params;
-    private List<ParamList> paramsList;
+//    private List<ParamList> paramsList;
 }

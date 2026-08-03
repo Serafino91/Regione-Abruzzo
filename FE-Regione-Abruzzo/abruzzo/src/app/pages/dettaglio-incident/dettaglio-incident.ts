@@ -11,7 +11,7 @@ import { IncidentAccordion } from '../../components/incident-accordion/incident-
 
 @Component({
   selector: 'app-dettaglio-incident',
-  imports: [PageHeader, InfoBar, IncidentDetailCard, IncidentAccordion],
+  imports: [PageHeader, InfoBar, IncidentDetailCard],
   standalone: true,
   templateUrl: './dettaglio-incident.html',
   styleUrl: './dettaglio-incident.css',

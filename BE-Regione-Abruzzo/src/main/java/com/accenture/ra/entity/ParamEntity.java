@@ -13,7 +13,7 @@ import lombok.*;
 public class ParamEntity {
 
 	@Id
-	private String id;
+	private Long id;
 
 	@Column(name = "name")
 	private String name;
@@ -28,7 +28,7 @@ public class ParamEntity {
 	private String maxValue;
 
 	@Column(name = "is_required")
-	private boolean isRequired;
+	private Boolean isRequired;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "service_id", nullable = false)

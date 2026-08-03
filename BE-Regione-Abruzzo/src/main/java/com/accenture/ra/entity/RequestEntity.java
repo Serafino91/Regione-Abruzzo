@@ -3,14 +3,14 @@ package com.accenture.ra.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,19 +28,19 @@ import lombok.Setter;
 public class RequestEntity {
 
     @Id
-    @Column(name = "request_id")
+    @Column(name = "request_id", length = 55)
     private String requestId;
 
-    @Column(name = "send_from")
+    @Column(name = "send_from", nullable = false)
     private LocalDateTime sendFrom;
 
-    @Column(name = "send_to")
+    @Column(name = "send_to", nullable = false)
     private LocalDateTime sendTo;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -51,15 +51,17 @@ public class RequestEntity {
     @JoinColumn(name = "request_state_id", nullable = false)
     private StateEntity state;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "request_service",
-            joinColumns = @JoinColumn(name = "request_id"),
-            inverseJoinColumns = @JoinColumn(name = "service_id")
-    )
-    private List<ServiceEntity> services;
+    @Column(name = "note", columnDefinition = "TEXT")
+    private String note;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = true)
-    private ServiceTypeEntity category;
+    @Column(name = "request_payload", columnDefinition = "JSON")
+    private String requestPayload;
+
+    @OneToMany(
+            mappedBy = "request",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<RequestServiceEntity> requestServices;
 }

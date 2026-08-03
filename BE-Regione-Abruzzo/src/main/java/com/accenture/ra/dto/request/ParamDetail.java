@@ -11,9 +11,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ParamDetail {
 
-    private String id;
+    private Long id;
     private String name;
     private String paramType;
+    private String paramValue;
     private String minValue;
     private String maxValue;
     private Boolean isRequired;
