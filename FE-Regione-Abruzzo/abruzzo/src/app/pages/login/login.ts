@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from '../../services/user.service';
-import {Router} from '@angular/router';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,27 +11,41 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
   standalone: true,
 })
 export class Login implements OnInit {
+  loginForm!: FormGroup;
 
   constructor(
-    private userService: UserService,
+    private authService: AuthService,
     private router: Router,
     private fb: FormBuilder,
   ) {}
 
-  loginForm!: FormGroup;
   ngOnInit() {
     this.loginForm = this.fb.group({
-      codiceFiscale: ['', Validators.required],
+      fiscalCode: ['', Validators.required],
       email: ['', Validators.required],
     });
   }
 
-  login() {
-    this.userService.setUser({
-      name: this.loginForm.get('nome')?.value,
-      role: 'Utente',
-      isLoggedIn: true,
-    });
-    this.router.navigate(['/home']);
-  }
+  login(): void {
+  if (this.loginForm.invalid) return;
+
+  const credentials = {
+    fiscalCode: this.loginForm.value.fiscalCode.toUpperCase(),
+    email: this.loginForm.value.email,
+    password: ''
+  };
+
+  // 1. Chiami l'authenticate (che internamente salva già token e ruoli in sessionStorage)
+  this.authService.authenticate(credentials).subscribe({
+    next: (response) => {
+      console.log('Login effettuato con successo:', response);
+      
+      // 2. Navighi direttamente a /home senza chiamare saveToken
+      this.router.navigate(['/home']);
+    },
+    error: (err) => {
+      console.error('Errore durante il login:', err);
+    }
+  });
+}
 }

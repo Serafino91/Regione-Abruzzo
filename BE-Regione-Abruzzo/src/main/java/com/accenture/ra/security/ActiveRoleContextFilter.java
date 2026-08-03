@@ -28,49 +28,52 @@ public class ActiveRoleContextFilter extends OncePerRequestFilter {
 
         if (auth != null && auth.isAuthenticated() && auth.getPrincipal() instanceof CustomUserDetails userDetails) {
 
+            // 1. Check if user is active
             if (!userDetails.isActive()) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Utente non attivo.");
                 return;
             }
 
-            // 1. Verifica presenza obbligatoria dell'header X-Active-Role
-            String requestedRoleHeader = request.getHeader("X-Active-Role");
-            if (requestedRoleHeader == null || requestedRoleHeader.isBlank()) {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Header 'X-Active-Role' obbligatorio.");
-                return;
-            }
-
-            // 2. Estrazione delle autorità consentite per l'utente
+            // 2. Extract allowed authorities for the user
             Set<String> allowedAuthorities = userDetails.getAuthorities().stream()
                     .map(GrantedAuthority::getAuthority)
                     .collect(Collectors.toSet());
 
-            // 3. Normalizzazione e Validazione del ruolo richiesto (con o senza prefisso ROLE_)
-            String activeAuthority;
-            String formattedWithPrefix = requestedRoleHeader.startsWith("ROLE_")
-                    ? requestedRoleHeader
-                    : "ROLE_" + requestedRoleHeader;
+            String requestedRoleHeader = request.getHeader("X-Active-Role");
+            String activeAuthority = null;
 
-            if (allowedAuthorities.contains(requestedRoleHeader)) {
-                activeAuthority = requestedRoleHeader;
-            } else if (allowedAuthorities.contains(formattedWithPrefix)) {
-                activeAuthority = formattedWithPrefix;
+            // 3. Fallback logic: if header is missing, default to the user's first authority
+            if (requestedRoleHeader == null || requestedRoleHeader.isBlank()) {
+                activeAuthority = allowedAuthorities.stream().findFirst().orElse(null);
             } else {
-                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Ruolo attivo non autorizzato per questo utente.");
-                return;
+                // Validate requested role with or without "ROLE_" prefix
+                String formattedWithPrefix = requestedRoleHeader.startsWith("ROLE_")
+                        ? requestedRoleHeader
+                        : "ROLE_" + requestedRoleHeader;
+
+                if (allowedAuthorities.contains(requestedRoleHeader)) {
+                    activeAuthority = requestedRoleHeader;
+                } else if (allowedAuthorities.contains(formattedWithPrefix)) {
+                    activeAuthority = formattedWithPrefix;
+                } else {
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN, "Ruolo attivo non autorizzato per questo utente.");
+                    return;
+                }
             }
 
-            // 4. Aggiornamento del SecurityContext con l'unica autorità attiva selezionata
-            List<GrantedAuthority> scopedAuthorities = List.of(new SimpleGrantedAuthority(activeAuthority));
+            // 4. Update SecurityContext with the active scoped authority
+            if (activeAuthority != null) {
+                List<GrantedAuthority> scopedAuthorities = List.of(new SimpleGrantedAuthority(activeAuthority));
 
-            UsernamePasswordAuthenticationToken scopedAuth = new UsernamePasswordAuthenticationToken(
-                    userDetails,
-                    auth.getCredentials(),
-                    scopedAuthorities
-            );
-            scopedAuth.setDetails(auth.getDetails());
+                UsernamePasswordAuthenticationToken scopedAuth = new UsernamePasswordAuthenticationToken(
+                        userDetails,
+                        auth.getCredentials(),
+                        scopedAuthorities
+                );
+                scopedAuth.setDetails(auth.getDetails());
 
-            SecurityContextHolder.getContext().setAuthentication(scopedAuth);
+                SecurityContextHolder.getContext().setAuthentication(scopedAuth);
+            }
         }
 
         filterChain.doFilter(request, response);

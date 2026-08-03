@@ -4,6 +4,7 @@ import com.accenture.ra.security.ActiveRoleContextFilter;
 import com.accenture.ra.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -47,14 +48,19 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // Enable CORS with custom configuration below
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        // 1. ALWAYS permit CORS preflight OPTIONS requests
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                        // 2. Public endpoints
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/", "/index.html", "/home", "/api/home/**").permitAll()
                         .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
+
+                        // 3. Authenticated endpoints
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
@@ -63,19 +69,20 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // CORS Configuration Bean
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // Match your Angular development URL (e.g., http://localhost:4200)
+        // Allow Angular Dev Server
         configuration.setAllowedOrigins(List.of("http://localhost:4200"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
 
-        // CRITICAL: Allow X-Active-Role in incoming request headers
-        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Active-Role"));
+        // Allow ALL headers sent by the browser (Authorization, X-Active-Role, Accept, Content-Type, etc.)
+        configuration.setAllowedHeaders(List.of("*"));
 
-        // Allow credentials if using cookies or authorization headers
+        // Expose response headers to Angular if needed
+        configuration.setExposedHeaders(List.of("Authorization", "X-Active-Role"));
+
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
