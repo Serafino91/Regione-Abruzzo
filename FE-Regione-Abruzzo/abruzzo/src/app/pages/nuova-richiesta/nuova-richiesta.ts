@@ -11,7 +11,7 @@ import { ProgettiService } from '../../services/progetti.service';
 import { Router } from '@angular/router';
 import { ProgettoModel } from '../../model/progetto.model';
 import { RichiestaSafeModel, RichiestaProjectDto } from '../../model/richiestaSafeModel';
-import {PageHeader} from '../../components/page-header/page-header';
+import { PageHeader } from '../../components/page-header/page-header';
 
 @Component({
   selector: 'app-nuova-richiesta',
@@ -40,7 +40,7 @@ class NuovaRichiesta {
     private progettiService: ProgettiService,
     private router: Router,
     private cdr: ChangeDetectorRef,
-  ) {}
+  ) { }
 
   richiestaForm = new FormGroup({
     progettoForm: new FormGroup({}),
@@ -170,6 +170,9 @@ class NuovaRichiesta {
       }
       return acc;
     }, []);
+
+    const servizioId = serviziRaggruppati[0].servizioId;
+
     const richiesta: RichiestaSafeModel = {
       requestId: '',
       state: 'In elaborazione',
@@ -183,7 +186,12 @@ class NuovaRichiesta {
         optional: false,
         quantity: String(s.unit),
         durationMonths: null,
-        params: Object.entries(s.params ?? {}).map(([name, value]) => ({ name, value })),
+        params: Object.entries(s.params ?? {}).map(([name, value]: [string, any]) => ({
+          id: servizioId,
+          name,
+          value
+        }))
+        // params: Object.entries(s.params ?? {}).map(([name, value]) => ({ name, value })),
       })),
       category: categoria,
       sendFrom: progettoForm['dataDa'] ? new Date(progettoForm['dataDa']).toISOString() : '',
