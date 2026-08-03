@@ -1,0 +1,53 @@
+.richiesta-detail-card {
+
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    padding: 20px 24px;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.richiesta-detail-card hr {
+    border-color: #d0dbe6;
+    opacity: 1;
+}
+
+.servizio-detail-card {
+    background: #f2f7fc;
+    border: 1px solid #d0dbe6;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.servizio-detail-card__descrizione {
+    padding: 16px 24px;
+    border-bottom: 1px solid #d0dbe6;
+}
+
+.servizio-detail-card__params {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 16px 24px;
+    gap: 0;
+}
+
+.servizio-detail-card__param-col {
+    min-width: 200px;
+    flex: 1;
+    padding-right: 24px;
+}
+
+.stato-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border: 1.5px solid;
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    white-space: nowrap;
+    font-family: "Titillium Web", Geneva, Tahoma, sans-serif;
+}

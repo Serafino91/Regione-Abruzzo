@@ -11,5 +11,5 @@ import { RouterModule } from '@angular/router';
   standalone: true,
 })
 export class Header {
-  isAdmin = false;
+  isAdmin = true;
 }

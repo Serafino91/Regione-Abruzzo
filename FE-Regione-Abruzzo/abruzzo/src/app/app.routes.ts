@@ -17,6 +17,9 @@ import {PreAccreditamento} from "./pages/pre-accreditamento/pre-accreditamento";
 import { DettaglioDelega } from './pages/dettaglio-delega/dettaglio-delega';
 import {DettaglioIncident} from './pages/dettaglio-incident/dettaglio-incident';
 import { Ticket } from './pages/ticket/ticket';
+import { DettaglioRichiestaTicket } from './pages/dettaglio-richiesta-ticket/dettaglio-richiesta-ticket';
+import { DettaglioIncidentTicket } from './pages/dettaglio-incident-ticket/dettaglio-incident-ticket';
+import { DettaglioAccreditamentoTicket } from './pages/dettaglio-accreditamento-ticket/dettaglio-accreditamento-ticket';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -38,4 +41,7 @@ export const routes: Routes = [
   { path: 'home/progetti/dettaglio-progetto/:id', component: DettaglioProgetto },
   { path: 'home/incident/dettaglio-incident/:id', component: DettaglioIncident },
   { path: 'home/deleghe/dettaglio-delega', component: DettaglioDelega },
+  { path: 'home/ticket/dettaglio-richiesta', component: DettaglioRichiestaTicket },
+  { path: 'home/ticket/dettaglio-incident-ticket', component: DettaglioIncidentTicket },
+  { path: 'home/ticket/dettaglio-accreditamento-ticket', component: DettaglioAccreditamentoTicket }
 ];

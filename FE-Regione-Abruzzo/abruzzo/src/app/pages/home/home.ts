@@ -21,6 +21,6 @@ import { Catalogo } from '../../sections/home/catalogo/catalogo';
 
 export class Home {
 
-    isAdmin = false;
+    isAdmin = true;
 
 }
