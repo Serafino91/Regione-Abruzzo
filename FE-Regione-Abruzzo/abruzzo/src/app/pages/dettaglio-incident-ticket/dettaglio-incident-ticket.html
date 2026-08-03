@@ -1,1 +1,238 @@
-<p>dettaglio-incident-ticket works!</p>
+<div class="section-padding">
+    <app-page-header [titolo]="'Dettaglio incident'" [backspace]="'Torna alla lista'" [linkBackspace]="'/home/ticket'">
+
+        <div class="text-center">
+            <a (click)="showDeleteModal = true">
+                <svg class="icon icon-sm icon-secondary">
+                    <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-check-circle'"></use>
+                </svg>
+                Chiudi
+            </a>
+        </div>
+
+    </app-page-header>
+
+    <app-info-bar [items]="infoIncidentTicket">
+    </app-info-bar>
+</div>
+
+<div class="section-padding">
+
+    <div class="richiesta-detail-card">
+
+        <div class="row mb-3">
+            <div class="col-12">
+                <h5 class="fw-bold">Richiedente</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+
+                <h6 class="fw-bold">
+                    <svg class="icon icon-sm">
+                        <use href="assets/bootstrap-italia/sprites.svg#it-user"></use>
+                    </svg>
+                    Dati Richiedente
+                </h6>
+
+            </div>
+        </div>
+
+        <div class="row my-4">
+            <div class="col-4">
+                <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
+                    ID utente
+                </div>
+                <div>test</div>
+            </div>
+
+            <div class="col-4">
+                <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
+                    Nome
+                </div>
+                <div>test</div>
+            </div>
+
+            <div class="col-4">
+                <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
+                    Cognome
+                </div>
+                <div>test</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-4">
+                <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
+                    Sede
+                </div>
+                <div>test</div>
+            </div>
+
+            <div class="col-4">
+                <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
+                    Email
+                </div>
+                <div>test</div>
+            </div>
+
+            <div class="col-4">
+                <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
+                    Telefono
+                </div>
+                <div>test</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="section-padding">
+
+    <div class="richiesta-detail-card">
+
+        <div class="row mb-3">
+            <div class="col-12">
+                <h5 class="fw-bold">Dati incident</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+
+                <h6 class="fw-bold">
+                    <svg class="icon icon-sm">
+                        <use href="assets/bootstrap-italia/sprites.svg#it-file"></use>
+                    </svg>
+                    Identificazione incident
+                </h6>
+
+            </div>
+        </div>
+
+        <div class="row my-4">
+            <div class="col-4">
+                <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
+                    ID progetto
+                </div>
+                <div>test</div>
+            </div>
+
+            <div class="col-4">
+                <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
+                    Stato
+                </div>
+                <div>test</div>
+            </div>
+
+            <div class="col-4">
+                <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
+                    Data apertura
+                </div>
+                <div>test</div>
+            </div>
+        </div>
+
+        <div class="row my-4">
+            <div class="col-4">
+                <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
+                    Categoria
+                </div>
+                <div>test</div>
+            </div>
+
+            <div class="col-4">
+                <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
+                    Sottocategoria
+                </div>
+                <div>test</div>
+            </div>
+
+            <div class="col-4">
+                <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
+                    ID progetto
+                </div>
+                <div>test</div>
+            </div>
+        </div>
+
+        <div class="row my-4">
+            <div class="col-12">
+                <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
+                    ID servizio
+                </div>
+                <div>test</div>
+            </div>
+        </div>
+
+        <div class="row my-4">
+            <div class="col-12">
+                <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
+                    Descrizione del problema
+                </div>
+                <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur autem officiis vero nulla
+                    voluptates veritatis quibusdam fugiat incidunt aperiam quo veniam architecto omnis qui non, vitae et
+                    explicabo ullam dolores commodi. Ad obcaecati sint hic velit repudiandae maiores ducimus cupiditate.
+                </div>
+            </div>
+        </div>
+
+        <div class="row my-4">
+            <div class="col-12">
+                <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
+                    Allegati caricati
+                </div>
+                <div>
+                    <input type="file" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@if (showDeleteModal) {
+<div class="modal-overlay" (click)="showDeleteModal = false">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <strong class="mb-0 fw-bold">Chiusura incident</strong>
+
+            <svg class="icon me-2" aria-hidden="true">
+                <use href="assets/bootstrap-italia/sprites.svg#it-close-big"></use>
+            </svg>
+        </div>
+
+        <div class="modal-body">
+            <p>
+                Fornisci informazioni relative alla chiusura dell'incident ed allega eventuale documentazione.
+            </p>
+
+            <div class="section-padding color-bg-lightblue">
+
+                <div class="row">
+                    <div class="col-12">
+                        <label for="note">Note</label>
+                        <textarea type="text" id="note" placeholder="Inserisci Note" class="form-control"></textarea>
+                    </div>
+                </div>
+
+                <div class="row my-4">
+                    <div class="col-12">
+                        <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
+                            Allegati caricati
+                        </div>
+                        <div>
+                            <input type="file" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-annulla" (click)="showDeleteModal = false">Annulla</button>
+            <button class="btn-elimina" (click)="showDeleteModal = false">Invia richiesta</button>
+        </div>
+    </div>
+</div>
+}
