@@ -29,7 +29,8 @@ public interface DelegationMapper {
     @Mapping(target = "delegateType", source = "request.delegateType")
     @Mapping(target = "projects", source = "projects")
     @Mapping(target = "delegationDate", expression = "java(LocalDateTime.now())")
-    @Mapping(target = "active", expression = "java(targetUser.isActive() && targetUser.getAccreditationStatus() == AccreditationStatus.APPROVATO)")
+    // Explicitly set active to false: delegation activates only upon RA Ticket resolution
+    @Mapping(target = "active", constant = "false")
     Delegates toEntity(CreateDelegationRequest request, User targetUser, User delegator, List<ProjectEntity> projects);
 
     DelegationResponse toResponse(Delegates entity);
@@ -39,7 +40,7 @@ public interface DelegationMapper {
     @Mapping(target = "projectDetail", source = ".")
     ProjectDetailResponse toProjectResponse(ProjectEntity entity);
 
-    // ADD THIS METHOD: Forces MapStruct to use toProjectResponse() when converting lists
+    // Forces MapStruct to use toProjectResponse() when converting lists
     List<ProjectDetailResponse> toProjectResponseList(List<ProjectEntity> entities);
 
     @Mapping(source = "createdAt", target = "createAt")
@@ -47,8 +48,6 @@ public interface DelegationMapper {
     ProjectDetail toProjectDetail(ProjectEntity entity);
 
     List<DelegationResponse> toResponseList(List<Delegates> entities);
-
-    // Inside DelegationMapper.java
 
     @Mapping(source = "delegatedBy", target = "delegatedBy")
     @Mapping(source = "delegationDate", target = "delegationDate")

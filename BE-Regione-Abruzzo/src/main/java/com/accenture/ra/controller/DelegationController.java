@@ -3,7 +3,6 @@ package com.accenture.ra.controller;
 import com.accenture.ra.dto.request.CreateDelegationRequest;
 import com.accenture.ra.dto.response.DelegatedProjectsResponse;
 import com.accenture.ra.dto.response.DelegationResponse;
-import com.accenture.ra.entity.User;
 import com.accenture.ra.security.CustomUserDetails;
 import com.accenture.ra.service.DelegateService;
 import jakarta.validation.Valid;
@@ -19,15 +18,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/delegations")
 @RequiredArgsConstructor
-public class DelegateController {
+public class DelegationController {
 
     private final DelegateService delegateService;
 
 
     @PostMapping("/delegate")
     @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'USER', 'ADMIN')")
-    public ResponseEntity<DelegationResponse> createDelegation(
-            @Valid @RequestBody CreateDelegationRequest request) {
+    public ResponseEntity<DelegationResponse> createDelegation(@Valid @RequestBody CreateDelegationRequest request) {
         DelegationResponse response = delegateService.createDelegation(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -59,6 +57,13 @@ public class DelegateController {
         String fiscalCode = userDetails.getUsername();
 
         List<DelegatedProjectsResponse> response = delegateService.getDelegatedProjects(fiscalCode, activeRole);
+        return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/{id}/approve")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<DelegationResponse> approveDelegation(@PathVariable("id") Long id) {
+        DelegationResponse response = delegateService.approveAndActivateDelegation(id);
         return ResponseEntity.ok(response);
     }
 }

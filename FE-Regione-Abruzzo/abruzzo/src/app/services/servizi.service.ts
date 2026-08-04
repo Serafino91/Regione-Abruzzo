@@ -16,14 +16,15 @@ export class ServiziService {
       .pipe(map((resp) => resp.serviceDetail));
   }
 
-  getServiziDaCategoria(idCategoria:number) {
+  getServiziDaCategoria(idCategoria: number) {
     return this.http
       .get<{ serviceDetail: ServizioModel[] }>(`${ChiamateApiUrl.BASE_URL_SERVIZI}/getServices/${idCategoria}`)
-      .pipe(map((resp) =>
-      {
-        console.log("respCategoria:",resp);
-       return resp.serviceDetail;
-      }));
+      .pipe(
+        map((resp) => {
+          console.log("respCategoria:", resp);
+          return resp.serviceDetail;
+        })
+      );
   }
 
   getServizio(id: string) {
@@ -35,7 +36,7 @@ export class ServiziService {
   }
 
   filterServizio(servizio: ServizioModel) {
-    return this.http.post<ServizioModel>(ChiamateApiUrl.BASE_URL_SERVIZI+'/filter', servizio);
+    return this.http.post<ServizioModel>(ChiamateApiUrl.BASE_URL_SERVIZI + '/filter', servizio);
   }
 
   updateServizio(servizio: ServizioModel) {
@@ -49,4 +50,3 @@ export class ServiziService {
     return this.http.delete<void>(`${ChiamateApiUrl.BASE_URL_SERVIZI}/${id}`);
   }
 }
-
