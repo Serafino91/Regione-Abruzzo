@@ -7,11 +7,10 @@ import {PageHeader} from '../../components/page-header/page-header';
 import { InfoBar } from '../../components/info-bar/info-bar';
 import { STATI_RICHIESTA, getStatoRichiesta } from '../../constants/incident-state-icon.constants';
 import { IncidentDetailCard } from '../../components/incident-detail-card/incident-detail-card';
-import { IncidentAccordion } from '../../components/incident-accordion/incident-accordion'; // aggiusta il path
 
 @Component({
   selector: 'app-dettaglio-incident',
-  imports: [PageHeader, InfoBar, IncidentDetailCard, IncidentAccordion],
+  imports: [PageHeader, InfoBar, IncidentDetailCard],
   standalone: true,
   templateUrl: './dettaglio-incident.html',
   styleUrl: './dettaglio-incident.css',

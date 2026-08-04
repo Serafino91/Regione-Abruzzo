@@ -4,22 +4,33 @@
     class="modal-box p-4"
     (click)="$event.stopPropagation()">
 
-    <div class="modal-header">
 
-      @if (icon) {
-        <svg class="icon me-2" aria-hidden="true">
-          <use [attr.href]="'assets/bootstrap-italia/sprites.svg#' + icon"></use>
-        </svg>
-      }
+      <div class="d-flex flex-row align-items-center">
 
-      <h5 class="mb-0">
-        {{ title }}
-      </h5>
+        @if (icon) {
+          <svg class="icon me-2" aria-hidden="true">
+            <use [attr.href]="'assets/bootstrap-italia/sprites.svg#' + icon"></use>
+          </svg>
+        }
 
-    </div>
+          <h5 class="mb-0">
+            {{ title }}
+          </h5>
 
-    <div class="modal-body p-2">
-      <p>
+        <button
+          type="button"
+          class="btn btn-link p-0 ms-auto border-0 bg-transparent"
+          (click)="closeModal()">
+
+          <svg class="icon icon-primary" aria-hidden="true">
+            <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-close'"></use>
+          </svg>
+
+        </button>
+      </div>
+
+    <div class="modal-body mt-2  py-2">
+      <p class="mb-1">
         {{ message }}
       </p>
       <ng-content>

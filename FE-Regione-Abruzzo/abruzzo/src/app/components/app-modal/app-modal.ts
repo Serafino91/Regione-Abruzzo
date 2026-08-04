@@ -17,6 +17,11 @@ export class AppModal {
 
   @Output() confirm = new EventEmitter<void>();
   @Output() cancel = new EventEmitter<void>();
+  @Output() close = new EventEmitter<void>();
+
+  closeModal(): void {
+    this.close.emit();
+  }
 
   onConfirm(): void {
     this.confirm.emit();

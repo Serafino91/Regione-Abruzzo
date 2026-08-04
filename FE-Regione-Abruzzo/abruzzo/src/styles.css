@@ -35,6 +35,10 @@ body {
 .color-bg-lightblue  {
   background: #F2F7FC;
 }
+
+.color-white {
+  background: #ffffff;
+}
 .color-bg-lightgrey  {
   background: #FAFAFA;
 }

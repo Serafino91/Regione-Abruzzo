@@ -45,9 +45,8 @@ export class TabellaProgetti {
         nomeProgetto: progetto.nome,
         descrizione: progetto.description,
         dataCreazione: progetto.dataCreazione,
-
+        totaleServizi: progetto.servizi?.length,
         // campi mock
-        totaleServizi: i % 2 === 0 ? 2 : 15,
         richiesteAttive: i % 2 === 0 ? 1 : 15,
         incidentAperti: i % 2 === 0 ? '1' : '-',
       }));
