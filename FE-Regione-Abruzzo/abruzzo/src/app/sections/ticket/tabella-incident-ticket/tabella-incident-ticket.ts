@@ -15,7 +15,7 @@ import { RouterLink } from '@angular/router';
 export class TabellaIncidentTicket { 
 
     colonneIncidentTicket: TableColumn[] = [
-        { key: 'statoIncident', label: 'Stato', sortable: true, class: 'col-small' },
+        { key: 'state.config.label', label: 'Stato', sortable: true, class: 'col-small' },
         { key: 'codice', label: 'Codice', sortable: true, class: 'col-small' },
         { key: 'categoria', label: 'Categoria', sortable: true, class: 'col-small' },
         { key: 'sottoCategoria', label: 'Sottocategoria', sortable: true, class: 'col-small' },
@@ -26,7 +26,7 @@ export class TabellaIncidentTicket {
 
     listaIncidentTicket = [
         {
-            statoIncident: "stato 1",
+            statoIncident: "Aperto",
             codice: "Codice 1",
             categoria: "categoria 1",
             sottoCategoria: "Sottocategoria 1",
@@ -34,7 +34,7 @@ export class TabellaIncidentTicket {
             richiedente: "progetto 1"
         },
         {
-            statoIncident: "stato 1",
+            statoIncident: "Aperto",
             codice: "Codice 2",
             categoria: "categoria 1",
             sottoCategoria: "Sottocategoria 1",
@@ -42,7 +42,7 @@ export class TabellaIncidentTicket {
             richiedente: "progetto 1"
         },
         {
-            statoIncident: "stato 1",
+            statoIncident: "Chiuso",
             codice: "Codice 3",
             categoria: "categoria 1",
             sottoCategoria: "Sottocategoria 1",

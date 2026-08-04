@@ -15,7 +15,7 @@ import { RouterLink } from '@angular/router';
 export class TabellaRichiesteTicket {
 
     colonneRichiesteTicket: TableColumn[] = [
-        { key: 'statoRichiesta', label: 'Stato richiesta', sortable: true, class: 'col-small' },
+        { key: 'state.config.label', label: 'Stato richiesta', sortable: true, class: 'col-small' },
         { key: 'idRichiesta', label: 'ID richiesta', sortable: true, class: 'col-small' },
         { key: 'progetto', label: 'Progetto', sortable: true, class: 'col-large' },
         { key: 'servizio', label: 'Servizio', sortable: true, class: 'col-small' },
@@ -24,9 +24,9 @@ export class TabellaRichiesteTicket {
         { key: 'azioni', label: 'Azioni', sortable: false, class: 'text-center col-actions' },
     ];
 
-    listaRichiesteTicket = [
+    listaRichiesteTicket = [ 
         {
-            statoRichiesta: "stato 1",
+            statoRichiesta: "Inviata",
             idRichiesta: "ID 1",
             progetto: "progetto 1",
             servizio: "servizio 1",
@@ -34,7 +34,7 @@ export class TabellaRichiesteTicket {
             dataInvio: "31/07/2026"
         },
         {
-            statoRichiesta: "stato 1",
+            statoRichiesta: "In approvazione",
             idRichiesta: "ID 2",
             progetto: "progetto 1",
             servizio: "servizio 1",
@@ -42,7 +42,7 @@ export class TabellaRichiesteTicket {
             dataInvio: "31/07/2026"
         },
         {
-            statoRichiesta: "stato 1",
+            statoRichiesta: "Approvata",
             idRichiesta: "ID 3",
             progetto: "progetto 1",
             servizio: "servizio 1",

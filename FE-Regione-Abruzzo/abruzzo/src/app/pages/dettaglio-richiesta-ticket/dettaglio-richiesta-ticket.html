@@ -1,4 +1,4 @@
-<div class="section-padding">
+<div class="section">
     <app-page-header [titolo]="'Dettaglio richiesta'" [backspace]="'Torna alla lista'" [linkBackspace]="'/home/ticket'">
 
         <div class="dropdown text-center">
@@ -15,7 +15,7 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
                 <li>
-                    <a class="dropdown-item">
+                    <a class="dropdown-item" style="cursor: pointer;">
                         <svg class="icon icon-sm icon-secondary">
                             <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-check-circle'"></use>
                         </svg>
@@ -23,17 +23,17 @@
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" (click)="showDeleteModal = true">
+                    <a class="dropdown-item" style="cursor: pointer;" (click)="isShowRichiestaIntegrazioniModal = true">
                         <svg class="icon icon-sm icon-secondary">
-                            <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-check-circle'"></use>
+                            <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-pencil'"></use>
                         </svg>
                         Richiedi integrazioni
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item">
+                    <a class="dropdown-item" style="cursor: pointer;">
                         <svg class="icon icon-sm icon-secondary">
-                            <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-check-circle'"></use>
+                            <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-ban'"></use>
                         </svg>
                         Rifiuta
                     </a>
@@ -45,10 +45,9 @@
 
     <app-info-bar [items]="infoRichiestaTicket">
     </app-info-bar>
-
 </div>
 
-<div class="section-padding">
+<div class="section">
 
     <div class="richiesta-detail-card">
 
@@ -65,10 +64,9 @@
                     <svg class="icon icon-sm">
                         <use href="assets/bootstrap-italia/sprites.svg#it-user"></use>
                     </svg>
-
                     Dati Richiedente
                     &nbsp;&nbsp;
-                    <label class="text-primary border border-primary p-1">
+                    <label class="text-primary border border-primary py-1 px-2">
                         Delegato
                     </label>
                 </h6>
@@ -125,7 +123,7 @@
 
 </div>
 
-<div class="section-padding">
+<div class="section">
 
     <div class="richiesta-detail-card color-bg-lightblue border border-primary">
 
@@ -137,12 +135,14 @@
             </div>
 
             <div class="col-6 text-end">
-                ID 435464767453FDS
+                <strong>
+                    ID 435464767453FDS
+                </strong>
             </div>
         </div>
 
         <hr
-            style="color: var(--color-primary); height: 2px; background-color: var(--color-primary); border-radius: 2px;" />
+            style="color: var(--color-primary); height: 1px; background-color: var(--color-primary); border-radius: 2px;" />
 
         <div class="row">
             <div class="col-12">
@@ -156,7 +156,7 @@
             <div>
                 <div class="text-primary fw-semibold small mb-1 d-flex align-items-center gap-1">
                     <svg class="icon icon-sm">
-                        <use href="assets/bootstrap-italia/sprites.svg#it-pa"></use>
+                        <use href="assets/bootstrap-italia/sprites.svg#it-folder"></use>
                     </svg>
                     Servizi
                 </div>
@@ -177,7 +177,7 @@
 
 </div>
 
-<div class="section-padding">
+<div class="section">
 
     <div class="row mb-3">
         <div class="col-6">
@@ -223,17 +223,19 @@
                 data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse-disco-virtuale'"
                 [attr.aria-expanded]="isCollapsedDiscoVirtualeSection" [attr.aria-controls]="'collapse-disco-virtuale'">
 
-                @if (isCollapsedDiscoVirtualeSection) {
-                <svg class="icon icon-primary icon-sm">
-                    <use href="assets/bootstrap-italia/sprites.svg#it-collapse"></use>
-                </svg>
-                riduci sezione
-                } @else {
-                <svg class="icon icon-primary icon-sm">
-                    <use href="assets/bootstrap-italia/sprites.svg#it-collapse"></use>
-                </svg>
-                espandi sezione
-                }
+                <strong>
+                    @if (isCollapsedDiscoVirtualeSection) {
+                    <svg class="icon icon-primary icon-sm">
+                        <use href="assets/bootstrap-italia/sprites.svg#it-minus-circle"></use>
+                    </svg>
+                    Riduci sezione
+                    } @else {
+                    <svg class="icon icon-primary icon-sm">
+                        <use href="assets/bootstrap-italia/sprites.svg#it-plus-circle"></use>
+                    </svg>
+                    Espandi sezione
+                    }
+                </strong>
 
             </button>
 
@@ -287,17 +289,19 @@
                 data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse-progetto-backup'"
                 [attr.aria-expanded]="isCollapsedBackupSection" [attr.aria-controls]="'collapse-progetto-backup'">
 
-                @if (isCollapsedBackupSection) {
-                <svg class="icon icon-primary icon-sm">
-                    <use href="assets/bootstrap-italia/sprites.svg#it-collapse"></use>
-                </svg>
-                riduci sezione
-                } @else {
-                <svg class="icon icon-primary icon-sm">
-                    <use href="assets/bootstrap-italia/sprites.svg#it-collapse"></use>
-                </svg>
-                espandi sezione
-                }
+                <strong>
+                    @if (isCollapsedBackupSection) {
+                    <svg class="icon icon-primary icon-sm">
+                        <use href="assets/bootstrap-italia/sprites.svg#it-minus-circle"></use>
+                    </svg>
+                    Riduci sezione
+                    } @else {
+                    <svg class="icon icon-primary icon-sm">
+                        <use href="assets/bootstrap-italia/sprites.svg#it-plus-circle"></use>
+                    </svg>
+                    Espandi sezione
+                    }
+                </strong>
 
             </button>
 
@@ -305,7 +309,10 @@
 
         <div class="collapse" [id]="'collapse-progetto-backup'">
 
-            <div class="section-padding">
+            <div class="section-collapse">
+
+                <hr style="height: 2px; border-radius: 2px; margin-top: 0;" />
+
                 <div class="richiesta-detail-card color-bg-lightblue">
 
                     <div class="row mb-4">
@@ -367,7 +374,7 @@
 
                             <h6 class="fw-bold">
                                 <svg class="icon icon-sm">
-                                    <use href="assets/bootstrap-italia/sprites.svg#it-user"></use>
+                                    <use href="assets/bootstrap-italia/sprites.svg#it-note"></use>
                                 </svg>
                                 Lorem ipsum
                             </h6>
@@ -402,12 +409,12 @@
 
                     <hr style="height: 2px; border-radius: 2px;" />
 
-                    <div class="row my-4">
+                    <div class="row mb-4">
                         <div class="col-12">
 
                             <h6 class="fw-bold">
                                 <svg class="icon icon-sm">
-                                    <use href="assets/bootstrap-italia/sprites.svg#it-user"></use>
+                                    <use href="assets/bootstrap-italia/sprites.svg#it-note"></use>
                                 </svg>
                                 Lorem ipsum
                             </h6>
@@ -447,7 +454,7 @@
 
 </div>
 
-<div class="section-padding">
+<div class="section">
     <hr style="height: 2px; border-radius: 2px;" />
 
     <div class="row my-4">
@@ -463,37 +470,39 @@
     </div>
 </div>
 
-@if (showDeleteModal) {
-<div class="modal-overlay" (click)="showDeleteModal = false">
+@if (isShowRichiestaIntegrazioniModal) {
+<div class="modal-overlay" (click)="isShowRichiestaIntegrazioniModal = false">
     <div class="modal-box" (click)="$event.stopPropagation()">
         <div class="modal-header">
-            <strong class="mb-0 fw-bold">Richiesta integrazioni</strong>
+            <h5 class="mb-0 fw-bold">Richiesta integrazioni</h5>
 
-            <svg class="icon me-2" aria-hidden="true">
-                <use href="assets/bootstrap-italia/sprites.svg#it-close-big"></use>
+            <svg class="icon me-2" style="cursor: pointer;" aria-hidden="true"
+                (click)="isShowRichiestaIntegrazioniModal = false;">
+                <use href="assets/bootstrap-italia/sprites.svg#it-close"></use>
             </svg>
         </div>
 
         <div class="modal-body">
-            <p>
-                Compila il messaggio con le informazioni da richiedere all'utente.
+            <p class="mb-4">
+                <em>
+                    <small>Compila il messaggio con le informazioni da richiedere all'utente.</small>
+                </em>
             </p>
 
-            <div class="section-padding color-bg-lightblue">
+            <div class="section-modal color-bg-lightblue">
 
                 <div class="row">
                     <div class="col-12">
                         <label for="note">Note</label>
-                        <textarea type="text" id="note" placeholder="Inserisci Note"
-                            class="form-control"></textarea>
+                        <textarea type="text" id="note" placeholder="Inserisci Note" rows="4" class="form-control"></textarea>
                     </div>
                 </div>
 
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn-annulla" (click)="showDeleteModal = false">Annulla</button>
-            <button class="btn-elimina" (click)="showDeleteModal = false">Invia richiesta</button>
+            <button class="btn-annulla me-auto" (click)="isShowRichiestaIntegrazioniModal = false">ANNULLA</button>
+            <button class="btn-elimina" (click)="isShowRichiestaIntegrazioniModal = false">INVIA RICHIESTA</button>
         </div>
     </div>
 </div>

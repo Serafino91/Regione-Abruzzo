@@ -1,4 +1,4 @@
-<div class="section-padding">
+<div class="section">
     <app-page-header [titolo]="'Dettaglio accreditamento'" [backspace]="'Torna alla lista'"
         [linkBackspace]="'/home/ticket'">
 
@@ -16,7 +16,7 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
                 <li>
-                    <a class="dropdown-item">
+                    <a class="dropdown-item" style="cursor: pointer">
                         <svg class="icon icon-sm icon-secondary">
                             <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-check-circle'"></use>
                         </svg>
@@ -24,9 +24,9 @@
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" (click)="showDeleteModal = true">
+                    <a class="dropdown-item" style="cursor: pointer" (click)="isShowRifiutoAccreditamento = true">
                         <svg class="icon icon-sm icon-secondary">
-                            <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-check-circle'"></use>
+                            <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-ban'"></use>
                         </svg>
                         Rifiuta
                     </a>
@@ -40,7 +40,7 @@
     </app-info-bar>
 </div>
 
-<div class="section-padding">
+<div class="section">
 
     <div class="richiesta-detail-card">
 
@@ -55,7 +55,7 @@
 
                 <h6 class="fw-bold">
                     <svg class="icon icon-sm">
-                        <use href="assets/bootstrap-italia/sprites.svg#it-user"></use>
+                        <use href="assets/bootstrap-italia/sprites.svg#it-file"></use>
                     </svg>
                     Identificazione utente
                 </h6>
@@ -118,7 +118,7 @@
 
                 <h6 class="fw-bold">
                     <svg class="icon icon-sm">
-                        <use href="assets/bootstrap-italia/sprites.svg#it-user"></use>
+                        <use href="assets/bootstrap-italia/sprites.svg#it-file"></use>
                     </svg>
                     Contatti
                 </h6>
@@ -145,35 +145,37 @@
 
 </div>
 
-@if (showDeleteModal) {
-<div class="modal-overlay" (click)="showDeleteModal = false">
+@if (isShowRifiutoAccreditamento) {
+<div class="modal-overlay" (click)="isShowRifiutoAccreditamento = false">
     <div class="modal-box" (click)="$event.stopPropagation()">
         <div class="modal-header">
-            <strong class="mb-0 fw-bold">Rifiuto accreditamento</strong>
+            <h5 class="mb-0 fw-bold">Rifiuto accreditamento</h5>
 
-            <svg class="icon me-2" aria-hidden="true">
-                <use href="assets/bootstrap-italia/sprites.svg#it-close-big"></use>
+            <svg class="icon me-2" style="cursor: pointer;" aria-hidden="true" (click)="isShowRifiutoAccreditamento = false">
+                <use href="assets/bootstrap-italia/sprites.svg#it-close"></use>
             </svg>
         </div>
 
         <div class="modal-body">
-            <p>
-                Specifica la motivazione del rifiuto della richiesta di accreditamento.
+            <p class="mb-4">
+                <em>
+                    <small>Specifica la motivazione del rifiuto della richiesta di accreditamento.</small>
+                </em>
             </p>
 
-            <div class="section-padding color-bg-lightblue">
+            <div class="section-modal color-bg-lightblue">
 
                 <div class="row">
                     <div class="col-12">
                         <label for="note">Note</label>
-                        <textarea type="text" id="note" placeholder="Inserisci Note" class="form-control"></textarea>
+                        <textarea type="text" id="note" placeholder="Inserisci Note" rows="4" class="form-control"></textarea>
                     </div>
                 </div>
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn-annulla" (click)="showDeleteModal = false">Annulla</button>
-            <button class="btn-elimina" (click)="showDeleteModal = false">Invia richiesta</button>
+            <button class="btn-annulla me-auto" (click)="isShowRifiutoAccreditamento = false">ANNULLA</button>
+            <button class="btn-elimina" (click)="isShowRifiutoAccreditamento = false">INVIA RICHIESTA</button>
         </div>
     </div>
 </div>

@@ -18,12 +18,12 @@ export class DettaglioAccreditamentoTicket {
         {
             label: 'Nome',
             value: "Mario",
-            icon: 'it-file',
+            icon: 'it-user',
         },
         {
             label: 'Cognome',
             value: "Rossi",
-            icon: 'it-arrow-up',
+            icon: 'it-user',
         },
         {
             label: 'Data richiesta',
@@ -32,6 +32,6 @@ export class DettaglioAccreditamentoTicket {
         },
     ];
 
-    showDeleteModal = false;
+    isShowRifiutoAccreditamento = false;
 
 }

@@ -15,7 +15,7 @@ import { RouterLink } from '@angular/router';
 export class TabellaAccreditamentiTicket {
 
     colonneAccreditamentiTicket: TableColumn[] = [
-        { key: 'statoAccreditamento', label: 'Stato', sortable: true, class: 'col-small' },
+        { key: 'state.config.label', label: 'Stato', sortable: true, class: 'col-small' },
         { key: 'idUtente', label: 'ID utente', sortable: true, class: 'col-small' },
         { key: 'nome', label: 'Codice', sortable: true, class: 'col-small' },
         { key: 'cognome', label: 'Categoria', sortable: true, class: 'col-small' },
@@ -26,7 +26,7 @@ export class TabellaAccreditamentiTicket {
 
     listaAccreditamentiTicket = [
         {
-            statoAccreditamento: "stato 1",
+            statoAccreditamento: "Da accreditare",
             idUtente: "ID Utente 1",
             nome: "Nome 1",
             cognome: "Cognome 1",
@@ -34,7 +34,7 @@ export class TabellaAccreditamentiTicket {
             dataApertura: "31/07/2026"
         },
         {
-            statoAccreditamento: "stato 1",
+            statoAccreditamento: "Accreditato",
             idUtente: "ID Utente 2",
             nome: "Nome 1",
             cognome: "Cognome 1",
@@ -42,7 +42,7 @@ export class TabellaAccreditamentiTicket {
             dataApertura: "31/07/2026"
         },
         {
-            statoAccreditamento: "stato 1",
+            statoAccreditamento: "Accreditato",
             idUtente: "ID Utente 3",
             nome: "Nome 1",
             cognome: "Cognome 1",

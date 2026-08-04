@@ -1,8 +1,8 @@
-<div class="section-padding">
+<div class="section"> 
     <app-page-header [titolo]="'Dettaglio incident'" [backspace]="'Torna alla lista'" [linkBackspace]="'/home/ticket'">
 
         <div class="text-center">
-            <a (click)="showDeleteModal = true">
+            <a style="cursor: pointer;" (click)="isShowChiusuraIncident = true">
                 <svg class="icon icon-sm icon-secondary">
                     <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-check-circle'"></use>
                 </svg>
@@ -16,7 +16,7 @@
     </app-info-bar>
 </div>
 
-<div class="section-padding">
+<div class="section">
 
     <div class="richiesta-detail-card">
 
@@ -88,7 +88,7 @@
 
 </div>
 
-<div class="section-padding">
+<div class="section">
 
     <div class="richiesta-detail-card">
 
@@ -180,11 +180,11 @@
 
         <div class="row my-4">
             <div class="col-12">
-                <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
+                <div class="fw-semibold small mb-2 d-flex align-items-center gap-1">
                     Allegati caricati
                 </div>
                 <div>
-                    <input type="file" />
+                    <input type="file" class="custom-file-input" />
                 </div>
             </div>
         </div>
@@ -192,46 +192,48 @@
 
 </div>
 
-@if (showDeleteModal) {
-<div class="modal-overlay" (click)="showDeleteModal = false">
+@if (isShowChiusuraIncident) {
+<div class="modal-overlay" (click)="isShowChiusuraIncident = false">
     <div class="modal-box" (click)="$event.stopPropagation()">
         <div class="modal-header">
-            <strong class="mb-0 fw-bold">Chiusura incident</strong>
+            <h5 class="mb-0 fw-bold">Chiusura incident</h5>
 
-            <svg class="icon me-2" aria-hidden="true">
-                <use href="assets/bootstrap-italia/sprites.svg#it-close-big"></use>
+            <svg class="icon me-2" style="cursor: pointer;" aria-hidden="true" (click)="isShowChiusuraIncident = false;">
+                <use href="assets/bootstrap-italia/sprites.svg#it-close"></use>
             </svg>
         </div>
 
         <div class="modal-body">
-            <p>
-                Fornisci informazioni relative alla chiusura dell'incident ed allega eventuale documentazione.
+            <p class="mb-4">
+                <em>
+                    <small>Fornisci informazioni relative alla chiusura dell'incident ed allega eventuale documentazione.</small>
+                </em>
             </p>
 
-            <div class="section-padding color-bg-lightblue">
+            <div class="section-modal color-bg-lightblue">
 
                 <div class="row">
                     <div class="col-12">
                         <label for="note">Note</label>
-                        <textarea type="text" id="note" placeholder="Inserisci Note" class="form-control"></textarea>
+                        <textarea type="text" id="note" placeholder="Inserisci Note" rows="4" class="form-control"></textarea>
                     </div>
                 </div>
 
-                <div class="row my-4">
+                <div class="row my-2">
                     <div class="col-12">
                         <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
                             Allegati caricati
                         </div>
                         <div>
-                            <input type="file" />
+                            <input type="file" class="custom-file-input" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn-annulla" (click)="showDeleteModal = false">Annulla</button>
-            <button class="btn-elimina" (click)="showDeleteModal = false">Invia richiesta</button>
+            <button class="btn-annulla me-auto" (click)="isShowChiusuraIncident = false">ANNULLA</button>
+            <button class="btn-elimina" (click)="isShowChiusuraIncident = false">INVIA RICHIESTA</button>
         </div>
     </div>
 </div>

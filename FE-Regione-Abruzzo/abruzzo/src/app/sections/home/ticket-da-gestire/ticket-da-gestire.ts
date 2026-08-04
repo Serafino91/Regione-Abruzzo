@@ -1,32 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { SectionHeader } from "../../../components/section-header/section-header";
 
 @Component({
-  selector: 'app-ticket-da-gestire',
-  imports: [SectionHeader],
-  standalone: true,
-  templateUrl: './ticket-da-gestire.html',
-  styleUrl: './ticket-da-gestire.css',
+    selector: 'app-ticket-da-gestire',
+    imports: [SectionHeader],
+    standalone: true,
+    templateUrl: './ticket-da-gestire.html',
+    styleUrl: './ticket-da-gestire.css',
 })
 
 export class TicketDaGestire {
+
+    private router: Router = inject(Router);
 
     ticketItems = [
         {
             label: 'Richieste servizi',
             value: '12',
-            icon: 'it-settings',
+            icon: 'it-folder',
         },
         {
             label: 'Incident',
             value: '5',
-            icon: 'it-warning-circle',
+            icon: 'it-error',
         },
         {
             label: 'Accreditamenti',
             value: '2',
-            icon: 'it-user',
+            icon: 'it-check',
         },
     ];
+
+    goToDetail(): void {
+        this.router.navigateByUrl("home/ticket");
+    }
 
 }

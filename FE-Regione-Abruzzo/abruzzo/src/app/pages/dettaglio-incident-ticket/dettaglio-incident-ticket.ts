@@ -23,7 +23,7 @@ export class DettaglioIncidentTicket {
         {
             label: 'Stato',
             value: "Aperto",
-            icon: 'it-arrow-up',
+            icon: 'it-unlocked',
         },
         {
             label: 'Data apertura',
@@ -32,6 +32,6 @@ export class DettaglioIncidentTicket {
         },
     ];
 
-    showDeleteModal = false;
+    isShowChiusuraIncident = false;
 
 }

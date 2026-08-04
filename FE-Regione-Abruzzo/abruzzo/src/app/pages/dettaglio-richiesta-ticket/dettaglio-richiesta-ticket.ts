@@ -23,7 +23,7 @@ export class DettaglioRichiestaTicket {
         {
             label: 'Stato',
             value: "Inviata",
-            icon: 'it-arrow-up',
+            icon: 'it-external-link',
         },
         {
             label: 'Data apertura',
@@ -34,7 +34,7 @@ export class DettaglioRichiestaTicket {
 
     isCollapsedDiscoVirtualeSection = false;
     isCollapsedBackupSection = false;
-    showDeleteModal = false;
+    isShowRichiestaIntegrazioniModal = false;
 
     toggleDiscoVirtualeSection(): void {
         this.isCollapsedDiscoVirtualeSection = !this.isCollapsedDiscoVirtualeSection;

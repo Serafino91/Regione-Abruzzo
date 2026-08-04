@@ -3,6 +3,22 @@
 
     <ng-template #cellTemplate let-row let-col="column">
 
+        @if (col.key === 'state.config.label') {
+
+        @if (row.statoAccreditamento === 'Da accreditare') {
+        <span class="badge-stato badge-da-accreditare">
+            {{ row.statoAccreditamento }}
+        </span>
+        }
+
+        @if (row.statoAccreditamento === 'Accreditato') {
+        <span class="badge-stato badge-accreditato">
+            {{ row.statoAccreditamento }}
+        </span>
+        }
+
+        }
+
         @if (col.key === 'idUtente') {
         <span class="fw-bold text-dark">{{ row.idUtente }}</span>
         }
@@ -11,16 +27,16 @@
         <div class="dropdown text-center">
             <button class="btn btn-link p-0 text-decoration-none" type="button" data-bs-toggle="dropdown"
                 aria-expanded="false" aria-label="Azioni progetto">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="#0066CC">
-                    <path
-                        d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                <svg class="icon" aria-hidden="true">
+                    <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-chevron-right'"></use>
                 </svg>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item"
-                        [routerLink]="['/home/ticket/dettaglio-accreditamento-ticket']">Visualizza dettagli</a>
+                <li>
+                    <a class="dropdown-item" [routerLink]="['/home/ticket/dettaglio-accreditamento-ticket']">
+                        Vai a dettaglio
+                    </a>
                 </li>
-                <li><a class="dropdown-item" href="#">Modifica</a></li>
             </ul>
         </div>
         } @else {
