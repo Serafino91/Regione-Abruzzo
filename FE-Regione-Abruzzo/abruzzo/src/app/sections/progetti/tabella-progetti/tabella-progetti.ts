@@ -21,18 +21,8 @@ export class TabellaProgetti {
     { key: 'descrizione', label: 'Descrizione progetto', sortable: true, class: 'col-desc' },
     { key: 'dataCreazione', label: 'Data creazione', sortable: true, class: 'col-data' },
     { key: 'totaleServizi', label: 'Totale servizi', sortable: true, class: 'text-end col-small' },
-    {
-      key: 'richiesteAttive',
-      label: 'Richieste attive',
-      sortable: true,
-      class: 'text-end col-small',
-    },
-    {
-      key: 'incidentAperti',
-      label: 'Incidenti aperti',
-      sortable: true,
-      class: 'text-end col-small',
-    },
+    { key: 'richiesteAttive', label: 'Richieste attive', sortable: true, class: 'text-end col-small'},
+    { key: 'incidentAperti', label: 'Incidenti aperti', sortable: true, class: 'text-end col-small',},
     { key: 'azioni', label: 'Azioni', sortable: false, class: 'text-center col-azioni' },
   ];
 

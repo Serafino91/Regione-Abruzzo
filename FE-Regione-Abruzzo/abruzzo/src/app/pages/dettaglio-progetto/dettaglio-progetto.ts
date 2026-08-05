@@ -38,20 +38,19 @@ export class DettaglioProgetto {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (resp: any) => {
-
           const progetto = resp.serviceDetail ?? resp;
           this.progettoDetail = {
             ...progetto,
-            servizi: resp.serviceDetail.services
-          };
+            nome: resp.serviceDetail.name,
+            servizi: resp.serviceDetail.services,
 
-          console.log(this.progettoDetail);
+          };
           this.infoProgetto = [
-            {
+              {
               label: 'ID Progetto',
               value: progetto.id,
               icon: 'it-file',
-            },
+              },
             {
               label: 'Nome',
               value: progetto.name,
@@ -63,8 +62,6 @@ export class DettaglioProgetto {
               icon: 'it-calendar',
             },
           ];
-
-          console.log(this.infoProgetto);
 
           this.cdr.detectChanges();
         },

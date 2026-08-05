@@ -1,7 +1,6 @@
 .richiesta-detail-card {
-
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #004D99;
   padding: 20px 24px;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
@@ -14,7 +13,6 @@
 
 .servizio-detail-card {
   background: #f2f7fc;
-  border: 1px solid #d0dbe6;
   border-radius: 10px;
   overflow: hidden;
   margin-top: 1.5rem;

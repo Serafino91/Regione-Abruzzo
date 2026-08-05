@@ -1,8 +1,8 @@
 @if (!nuovaRichiesta) {
-  <div class="richiesta-detail-card">
+  <div class="richiesta-detail-card color-bg-lightblue shadow-card">
 
     <div class="d-flex justify-content-between align-items-center">
-      <h5 class="fw-bold mb-0"> Nome Progetto {{ nome }}</h5>
+      <h5 class="fw-bold mb-0">{{ nome }}</h5>
       <span ><strong>ID {{ idProgetto }}</strong></span>
     </div>
     <hr class="my-3">
@@ -10,14 +10,14 @@
     <div class="d-flex gap-5">
       <div>
         <div class="text-primary fw-semibold small mb-1 d-flex align-items-center gap-1">
-          <svg class="icon icon-sm"><use href="assets/bootstrap-italia/sprites.svg#it-pa"></use></svg>
+          <svg class="icon icon-primary icon-sm"><use href="assets/bootstrap-italia/sprites.svg#it-pa"></use></svg>
           Servizi
         </div>
         <div>{{ numeroServizi ?? 0 }}</div>
       </div>
       <div>
         <div class="text-primary fw-semibold small mb-1 d-flex align-items-center gap-1">
-          <svg class="icon icon-sm"><use href="assets/bootstrap-italia/sprites.svg#it-calendar"></use></svg>
+          <svg class="icon icon-primary icon-sm"><use href="assets/bootstrap-italia/sprites.svg#it-calendar"></use></svg>
           Data creazione
         </div>
         <div>{{ createdAt | date:'dd/MM/yyyy' }}</div>
@@ -25,7 +25,7 @@
     </div>
   </div>
 } @else {
-  <div class="richiesta-detail-card">
+  <div class="richiesta-detail-card color-bg-lightblue shadow-card">
     <div class="d-flex flex-column gap-4 ">
       <h5 class="card-title">Dati progetto</h5>
       <div class="d-flex flex-column gap-3">
