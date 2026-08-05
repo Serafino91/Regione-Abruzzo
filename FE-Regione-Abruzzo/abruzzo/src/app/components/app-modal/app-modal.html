@@ -2,6 +2,7 @@
 
   <div
     class="modal-box p-4"
+    [class]="'modal-' + size"
     (click)="$event.stopPropagation()">
 
 
@@ -13,7 +14,7 @@
           </svg>
         }
 
-          <h5 class="mb-0">
+          <h5 class="mb-0" style="color: black">
             {{ title }}
           </h5>
 

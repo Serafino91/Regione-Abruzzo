@@ -47,6 +47,7 @@
     confirmText="Conferma"
     [showCancel]="true"
     (confirm)="cambiaProfilo()"
+    (close)="showProfiliModal = false"
     (cancel)="showProfiliModal = false">
 
     <div class="p-3 color-bg-lightblue  rounded">
@@ -54,6 +55,7 @@
         <label for="profilo">Profilo</label>
         <select class="form-select form-select-rounded"
         formControlName="profilo">
+
           <option value="profilo1">Delegato 1</option>
           <option value="profilo2">Delegato 2</option>
           </select>
@@ -61,3 +63,6 @@
     </div>
   </app-app-modal>
 }
+
+
+

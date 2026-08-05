@@ -8,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './richiedente-card.css',
 })
 export class RichiedenteCard {
-
+  email: string = 'gianni.pippo@gmail.com';
+  pec: string = 'gianni.pippo@gmail.com';
+  telefono: string = '335763856';
 }

@@ -1,6 +1,7 @@
 .card-accedi {
   z-index: 10;
   position: relative;
+  background-color: white;
   overflow: hidden;
   width: 100%;
   border-radius: 8px;
@@ -8,8 +9,6 @@
   margin-bottom: 200px;
   margin-top: 80px;
 }
-
-
 
 .logo-icon {
   position: absolute;
@@ -20,7 +19,6 @@
   z-index: 3;
   width: 6rem;
   height: 6rem;
-
   background-image: url("http://www.regione.abruzzo.it/themes/custom/italiagov/stemma-abruzzo.svg#logo");
   background-repeat: no-repeat;
   background-size: contain;
@@ -32,14 +30,13 @@
 }
 
 .banda { position: absolute; inset: 0; }
-
 .banda-verde {
   background: #1a9e8f;
   clip-path: polygon(82% 0, 106% 0, 62% 100%, 38% 100%);
 }
-
 .banda-blu {
   background: #0d4f9e;
   clip-path: polygon(100% 0, 129% 0, 91% 100%, 62% 100%);
 }
+
 
