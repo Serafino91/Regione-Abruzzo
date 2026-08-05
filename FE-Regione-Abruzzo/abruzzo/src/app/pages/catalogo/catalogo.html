@@ -1,19 +1,18 @@
 <div class="section-padding">
-  <app-page-header
-    [titolo]="'Catalogo'"
-    [sottotitolo]="'Puoi consultare i servizi proposti in catalogo, selezionandoli tramite i filtri.'">
-  </app-page-header>
+    <app-page-header [titolo]="'Catalogo'"
+        [sottotitolo]="'Puoi consultare i servizi proposti in catalogo, selezionandoli tramite i filtri.'"
+        [link]="'/home/catalogo/nuovo-servizio'" [button]="'Nuovo servizio'">
+    </app-page-header>
 </div>
 
 <div class="color-bg-lightblue">
-  <div class="section-padding">
-    <app-filtri-servizi (risultatiCerca)="onCerca($event)"></app-filtri-servizi>
-  </div>
+    <div class="section-padding">
+        <app-filtri-servizi (risultatiCerca)="onCerca($event)"></app-filtri-servizi>
+    </div>
 </div>
 
 
 <div class="section-padding">
-  <app-lista-servizi
-    [servizi]="servizi">
-  </app-lista-servizi>
+    <app-lista-servizi [servizi]="servizi">
+    </app-lista-servizi>
 </div>

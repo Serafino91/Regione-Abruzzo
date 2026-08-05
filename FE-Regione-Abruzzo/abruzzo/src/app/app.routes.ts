@@ -9,6 +9,7 @@ import { NuovoIncident } from './pages/nuovo-incident/nuovo-incident';
 import { Accreditamento } from './pages/accreditamento/accreditamento';
 import {DettaglioRichiesta} from './pages/dettaglio-richiesta/dettaglio-richiesta';
 import { DettaglioServizio } from './pages/dettaglio-servizio/dettaglio-servizio';
+import { NuovoServizio } from './pages/nuovo-servizio/nuovo-servizio';
 import { DettaglioProgetto } from './pages/dettaglio-progetto/dettaglio-progetto';
 import {PreAccesso} from "./pages/pre-accesso/pre-accesso";
 import {NuovaDelega} from "./pages/nuova-delega/nuova-delega";
@@ -38,6 +39,7 @@ export const routes: Routes = [
   { path: 'home/incident/nuovo-incident', component: NuovoIncident },
   { path: 'home/richieste/dettaglio-richiesta/:id', component: DettaglioRichiesta },
   { path: 'home/catalogo/dettaglio-servizio/:id', component: DettaglioServizio },
+  { path: 'home/catalogo/nuovo-servizio', component: NuovoServizio },
   { path: 'home/progetti/dettaglio-progetto/:id', component: DettaglioProgetto },
   { path: 'home/incident/dettaglio-incident/:id', component: DettaglioIncident },
   { path: 'home/deleghe/dettaglio-delega', component: DettaglioDelega },
