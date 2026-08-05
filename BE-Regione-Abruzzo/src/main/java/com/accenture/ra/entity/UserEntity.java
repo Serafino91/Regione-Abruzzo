@@ -20,7 +20,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "users")
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,13 +73,13 @@ public class User {
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Delegates> delegates = new ArrayList<>();
+    private List<DelegationEntity> delegates = new ArrayList<>();
 
     @Column(name = "is_active", nullable = false)
     private boolean active;
 
-    public void addDelegation(Delegates delegation) {
+    public void addDelegation(DelegationEntity delegation) {
         delegates.add(delegation);
-        delegation.setUser(this);
+        delegation.setUserEntity(this);
     }
 }

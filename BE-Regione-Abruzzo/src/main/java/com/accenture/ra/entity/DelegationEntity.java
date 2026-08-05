@@ -1,6 +1,7 @@
 package com.accenture.ra.entity;
 
 import com.accenture.ra.enums.DelegateType;
+import com.accenture.ra.enums.DelegationStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -12,8 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "delegates")
-public class Delegates {
+@Table(name = "delegations")
+public class DelegationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,8 +28,8 @@ public class Delegates {
     @Column(name = "delegation_type")
     private DelegateType delegateType;
 
-    @Column(name = "is_active")
-    private boolean active;
+    @Column(name = "status")
+    private DelegationStatus status;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -41,10 +42,10 @@ public class Delegates {
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private UserEntity userEntity;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "delegated_by", nullable = false)
-    private User delegatedBy;
+    private UserEntity delegatedBy;
 }

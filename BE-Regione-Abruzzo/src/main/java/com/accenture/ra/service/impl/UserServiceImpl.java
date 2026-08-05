@@ -1,7 +1,7 @@
 package com.accenture.ra.service.impl;
 
 import com.accenture.ra.dto.response.UserResponse;
-import com.accenture.ra.entity.User;
+import com.accenture.ra.entity.UserEntity;
 import com.accenture.ra.mapper.UserMapper;
 import com.accenture.ra.repository.UserRepository;
 import com.accenture.ra.service.UserService;
@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserResponse> getUsers() {
-        List<User> users = userRepository.findAll();
-        return userMapper.toDtoList(users);
+        List<UserEntity> userEntities = userRepository.findAll();
+        return userMapper.toDtoList(userEntities);
     }
 }

@@ -3,9 +3,7 @@ package com.accenture.ra.service.impl;
 import com.accenture.ra.dto.request.AccreditationRequest;
 import com.accenture.ra.dto.request.AuthRequest;
 import com.accenture.ra.dto.response.UserResponse;
-import com.accenture.ra.entity.User;
-import com.accenture.ra.enums.AccreditationStatus;
-import com.accenture.ra.enums.RoleType;
+import com.accenture.ra.entity.UserEntity;
 import com.accenture.ra.mapper.UserMapper;
 import com.accenture.ra.repository.UserRepository;
 import com.accenture.ra.dto.response.AuthResponse;
@@ -32,36 +30,36 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthResponse login(AuthRequest request) {
-        User user = userRepository.findByFiscalCodeAndEmail(request.getFiscalCode(), request.getEmail())
+        UserEntity userEntity = userRepository.findByFiscalCodeAndEmail(request.getFiscalCode(), request.getEmail())
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Utente non trovato con Codice Fiscale: " + request.getFiscalCode() + " ed email: " + request.getEmail()
                 ));
 
-        String roleName = user.getRole() != null ? user.getRole().name() : "ROLE_USER";
+        String roleName = userEntity.getRole() != null ? userEntity.getRole().name() : "ROLE_USER";
         List<String> roles = List.of(roleName);
 
         List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(roleName));
         Authentication authentication = new UsernamePasswordAuthenticationToken(
-                user.getFiscalCode(),
+                userEntity.getFiscalCode(),
                 null,
                 authorities
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String token = jwtUtils.generateToken(user.getFiscalCode(), roles);
+        String token = jwtUtils.generateToken(userEntity.getFiscalCode(), roles);
 
-        return new AuthResponse(token, user.getFiscalCode(), roles);
+        return new AuthResponse(token, userEntity.getFiscalCode(), roles);
     }
 
     @Override
     @Transactional
     public UserResponse processAccreditation(AccreditationRequest request) {
-        User user = userRepository.findByFiscalCode(request.getFiscalCode())
+        UserEntity userEntity = userRepository.findByFiscalCode(request.getFiscalCode())
                 .orElseThrow(() -> new IllegalArgumentException("User not found with Fiscal Code: " + request.getFiscalCode()));
 
-        user.setAccreditationStatus(request.getAccreditationStatus());
+        userEntity.setAccreditationStatus(request.getAccreditationStatus());
 
-        User updatedUser = userRepository.save(user);
-        return userMapper.toUserResponse(updatedUser);
+        UserEntity updatedUserEntity = userRepository.save(userEntity);
+        return userMapper.toUserResponse(updatedUserEntity);
     }
 }

@@ -52,7 +52,7 @@ public class ProjectEntity {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by", nullable = false)
-    private User createdBy;
+    private UserEntity createdBy;
 
     // Relazione N:M con ServiceEntity
     @Builder.Default
@@ -68,5 +68,5 @@ public class ProjectEntity {
     // Relazione bidirezionale N:M con Delegates
     @Builder.Default
     @ManyToMany(mappedBy = "projects", fetch = FetchType.LAZY)
-    private List<Delegates> delegates = new ArrayList<>();
+    private List<DelegationEntity> delegates = new ArrayList<>();
 }

@@ -1,9 +1,10 @@
 package com.accenture.ra.service.impl;
 
-import com.accenture.ra.entity.Delegates;
-import com.accenture.ra.entity.User;
+import com.accenture.ra.entity.DelegationEntity;
+import com.accenture.ra.entity.UserEntity;
 import com.accenture.ra.enums.RoleType;
 import com.accenture.ra.enums.AccreditationStatus;
+import com.accenture.ra.enums.DelegationStatus;
 import com.accenture.ra.repository.RoleRepository;
 import com.accenture.ra.repository.UserRepository;
 import com.accenture.ra.service.CensimentoService;
@@ -50,13 +51,13 @@ public class CensimentoServiceImpl implements CensimentoService {
         String codiceFiscale = cfGrezzo.toUpperCase().startsWith("TINIT-") ? cfGrezzo.substring(6) : cfGrezzo;
 
         // Logica di Censimento
-        User utente = userRepository.findByFiscalCode(codiceFiscale)
+        UserEntity utente = userRepository.findByFiscalCode(codiceFiscale)
                 .map(esistente -> {
                     esistente.setEmail(email); // Aggiorna l'email se modificata su SPID
                     return userRepository.save(esistente);
                 })
                 .orElseGet(() -> {
-                    User nuovo = new User();
+                    UserEntity nuovo = new UserEntity();
                     nuovo.setFiscalCode(codiceFiscale);
                     nuovo.setEmail(email);
                     nuovo.setSignupDate(LocalDateTime.now()); // Data di creazione impostata qui
@@ -66,7 +67,7 @@ public class CensimentoServiceImpl implements CensimentoService {
                     // Assegnazione diretta dell'enum di default
                     nuovo.setRole(RoleType.ROLE_USER);
 
-                    User salvato = userRepository.save(nuovo);
+                    UserEntity salvato = userRepository.save(nuovo);
 
                     // Richiesta asincrona verso il Mock di RaTicheT Regione Abruzzo
                     raTichetService.richiediAccreditamentoUtenza(codiceFiscale, email);
@@ -94,24 +95,23 @@ public class CensimentoServiceImpl implements CensimentoService {
     /**
      * Helper per estrarre sia il ruolo base sia le deleghe attive come stringhe
      */
-    private List<String> estraiAuthoritiesString(User user) {
+    private List<String> estraiAuthoritiesString(UserEntity userEntity) {
         List<String> authorities = new ArrayList<>();
 
         // 1. Ruolo primario
-        if (user.getRole() != null) {
-            authorities.add(user.getRole().name());
+        if (userEntity.getRole() != null) {
+            authorities.add(userEntity.getRole().name());
         }
 
         // 2. Ruoli/Tipi da deleghe attive
-        if (user.getDelegates() != null) {
-            user.getDelegates().stream()
-                    .filter(Delegates::isActive)
-                    .map(Delegates::getDelegateType)
+        if (userEntity.getDelegates() != null) {
+            userEntity.getDelegates().stream()
+                    .filter(d -> DelegationStatus.ATTIVA.equals(d.getStatus()))
+                    .map(DelegationEntity::getDelegateType)
                     .filter(Objects::nonNull)
                     .map(Enum::name)
                     .forEach(authorities::add);
         }
-
         return authorities;
     }
 }

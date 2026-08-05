@@ -66,5 +66,5 @@ public class RequestEntity {
     // Direct requester (can be the project owner OR a delegate acting on their behalf)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "requested_by_id", nullable = false)
-    private User requestedBy;
+    private UserEntity requestedBy;
 }

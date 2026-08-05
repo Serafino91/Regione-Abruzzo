@@ -6,9 +6,9 @@ import com.accenture.ra.dto.response.DelegatedProjectsResponse;
 import com.accenture.ra.dto.response.DelegationResponse;
 import com.accenture.ra.dto.response.ProjectDetailResponse;
 import com.accenture.ra.dto.response.UserResponse;
-import com.accenture.ra.entity.Delegates;
+import com.accenture.ra.entity.DelegationEntity;
 import com.accenture.ra.entity.ProjectEntity;
-import com.accenture.ra.entity.User;
+import com.accenture.ra.entity.UserEntity;
 import com.accenture.ra.enums.AccreditationStatus;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -31,11 +31,11 @@ public interface DelegationMapper {
     @Mapping(target = "delegationDate", expression = "java(LocalDateTime.now())")
     // Explicitly set active to false: delegation activates only upon RA Ticket resolution
     @Mapping(target = "active", constant = "false")
-    Delegates toEntity(CreateDelegationRequest request, User targetUser, User delegator, List<ProjectEntity> projects);
+    DelegationEntity toEntity(CreateDelegationRequest request, UserEntity targetUserEntity, UserEntity delegator, List<ProjectEntity> projects);
 
-    DelegationResponse toResponse(Delegates entity);
+    DelegationResponse toResponse(DelegationEntity entity);
 
-    UserResponse toUserResponse(User entity);
+    UserResponse toUserResponse(UserEntity entity);
 
     @Mapping(target = "projectDetail", source = ".")
     ProjectDetailResponse toProjectResponse(ProjectEntity entity);
@@ -47,13 +47,13 @@ public interface DelegationMapper {
     @Mapping(source = "updatedAt", target = "updateAt")
     ProjectDetail toProjectDetail(ProjectEntity entity);
 
-    List<DelegationResponse> toResponseList(List<Delegates> entities);
+    List<DelegationResponse> toResponseList(List<DelegationEntity> entities);
 
     @Mapping(source = "delegatedBy", target = "delegatedBy")
     @Mapping(source = "delegationDate", target = "delegationDate")
     @Mapping(source = "delegateType", target = "delegateType")
     @Mapping(source = "projects", target = "projects")
-    DelegatedProjectsResponse toDelegatedProjectsResponse(Delegates entity);
+    DelegatedProjectsResponse toDelegatedProjectsResponse(DelegationEntity entity);
 
-    List<DelegatedProjectsResponse> toDelegatedProjectsResponseList(List<Delegates> entities);
+    List<DelegatedProjectsResponse> toDelegatedProjectsResponseList(List<DelegationEntity> entities);
 }

@@ -1,18 +1,18 @@
 package com.accenture.ra.repository;
 
-import com.accenture.ra.entity.User;
+import com.accenture.ra.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-    Optional<User> findByFiscalCodeAndEmail(String fiscalCode, String email);
+    Optional<UserEntity> findByFiscalCodeAndEmail(String fiscalCode, String email);
 
-    Optional<User> findByFiscalCode(String fiscalCode);
+    Optional<UserEntity> findByFiscalCode(String fiscalCode);
 
-    Optional<User> findByEmail(String email);
+    Optional<UserEntity> findByEmail(String email);
 
     boolean existsByFiscalCode(String fiscalCode);
 }

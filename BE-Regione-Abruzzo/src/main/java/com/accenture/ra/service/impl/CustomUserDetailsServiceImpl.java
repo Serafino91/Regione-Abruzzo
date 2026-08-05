@@ -1,9 +1,10 @@
 package com.accenture.ra.service.impl;
 
-import com.accenture.ra.entity.Delegates;
-import com.accenture.ra.entity.User;
+import com.accenture.ra.entity.DelegationEntity;
+import com.accenture.ra.entity.UserEntity;
 import com.accenture.ra.enums.AccreditationStatus;
 import com.accenture.ra.enums.DelegateType;
+import com.accenture.ra.enums.DelegationStatus;
 import com.accenture.ra.enums.RoleType;
 import com.accenture.ra.repository.UserRepository;
 import com.accenture.ra.security.CustomUserDetails;
@@ -30,30 +31,30 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService, CustomU
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String codiceFiscale) throws UsernameNotFoundException {
-        User user = userRepository.findByFiscalCode(codiceFiscale)
+        UserEntity userEntity = userRepository.findByFiscalCode(codiceFiscale)
                 .orElseThrow(() -> new UsernameNotFoundException("Utente non trovato con Codice Fiscale: " + codiceFiscale));
 
         List<GrantedAuthority> authorities = new ArrayList<>();
 
         // 1. Add Primary Role (e.g. ROLE_USER, ROLE_ADMIN)
-        RoleType role = user.getRole();
+        RoleType role = userEntity.getRole();
         if (role != null) {
             authorities.add(new SimpleGrantedAuthority(role.getAuthority()));
         }
 
         // 2. Add ALL active delegation types into authorities pool
-        List<DelegateType> activeDelegateTypes = extractAllActiveDelegateTypes(user);
+        List<DelegateType> activeDelegateTypes = extractAllActiveDelegateTypes(userEntity);
         for (DelegateType delegateType : activeDelegateTypes) {
             authorities.add(new SimpleGrantedAuthority(delegateType.name()));
         }
 
-        AccreditationStatus accreditationStatus = user.getAccreditationStatus();
-        boolean isActive = user.isActive();
+        AccreditationStatus accreditationStatus = userEntity.getAccreditationStatus();
+        boolean isActive = userEntity.isActive();
         DelegateType defaultDelegateType = activeDelegateTypes.isEmpty() ? null : activeDelegateTypes.get(0);
 
         return new CustomUserDetails(
-                user.getFiscalCode(),
-                user.getEmail(),
+                userEntity.getFiscalCode(),
+                userEntity.getEmail(),
                 authorities, // Contains primary role AND all active delegates
                 accreditationStatus,
                 defaultDelegateType,
@@ -61,14 +62,14 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService, CustomU
         );
     }
 
-    private List<DelegateType> extractAllActiveDelegateTypes(User user) {
-        if (user.getDelegates() == null) {
+    private List<DelegateType> extractAllActiveDelegateTypes(UserEntity userEntity) {
+        if (userEntity.getDelegates() == null) {
             return List.of();
         }
 
-        return user.getDelegates().stream()
-                .filter(Delegates::isActive)
-                .map(Delegates::getDelegateType)
+        return userEntity.getDelegates().stream()
+                .filter(d -> DelegationStatus.ATTIVA.equals(d.getStatus()))
+                .map(DelegationEntity::getDelegateType)
                 .filter(Objects::nonNull)
                 .toList();
     }

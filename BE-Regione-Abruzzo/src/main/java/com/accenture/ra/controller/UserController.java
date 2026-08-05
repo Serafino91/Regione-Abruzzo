@@ -1,11 +1,7 @@
 package com.accenture.ra.controller;
 
-import com.accenture.ra.dto.request.AuthRequest;
-import com.accenture.ra.dto.response.AuthResponse;
 import com.accenture.ra.dto.response.UserResponse;
-import com.accenture.ra.entity.User;
 import com.accenture.ra.service.UserService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

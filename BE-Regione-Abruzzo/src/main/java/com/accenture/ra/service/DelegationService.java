@@ -7,7 +7,7 @@ import jakarta.validation.Valid;
 
 import java.util.List;
 
-public interface DelegateService {
+public interface DelegationService {
 
     DelegationResponse createDelegation(@Valid CreateDelegationRequest request);
 

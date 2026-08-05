@@ -4,7 +4,7 @@ import com.accenture.ra.dto.request.CreateDelegationRequest;
 import com.accenture.ra.dto.response.DelegatedProjectsResponse;
 import com.accenture.ra.dto.response.DelegationResponse;
 import com.accenture.ra.security.CustomUserDetails;
-import com.accenture.ra.service.DelegateService;
+import com.accenture.ra.service.DelegationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,13 +20,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DelegationController {
 
-    private final DelegateService delegateService;
+    private final DelegationService delegationService;
 
 
     @PostMapping("/delegate")
     @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'USER', 'ADMIN')")
     public ResponseEntity<DelegationResponse> createDelegation(@Valid @RequestBody CreateDelegationRequest request) {
-        DelegationResponse response = delegateService.createDelegation(request);
+        DelegationResponse response = delegationService.createDelegation(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
@@ -38,7 +38,7 @@ public class DelegationController {
     @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'USER','ADMIN')")
     public ResponseEntity<List<DelegationResponse>> getDelegationsByUserId(
             @PathVariable Long userId) {
-        List<DelegationResponse> response = delegateService.getDelegationsByUserId(userId);
+        List<DelegationResponse> response = delegationService.getDelegationsByUserId(userId);
         return ResponseEntity.ok(response);
 
     }
@@ -56,14 +56,14 @@ public class DelegationController {
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         String fiscalCode = userDetails.getUsername();
 
-        List<DelegatedProjectsResponse> response = delegateService.getDelegatedProjects(fiscalCode, activeRole);
+        List<DelegatedProjectsResponse> response = delegationService.getDelegatedProjects(fiscalCode, activeRole);
         return ResponseEntity.ok(response);
     }
 
     @PatchMapping("/{id}/approve")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<DelegationResponse> approveDelegation(@PathVariable("id") Long id) {
-        DelegationResponse response = delegateService.approveAndActivateDelegation(id);
+        DelegationResponse response = delegationService.approveAndActivateDelegation(id);
         return ResponseEntity.ok(response);
     }
 }

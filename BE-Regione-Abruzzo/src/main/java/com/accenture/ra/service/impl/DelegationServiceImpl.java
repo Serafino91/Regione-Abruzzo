@@ -3,17 +3,18 @@ package com.accenture.ra.service.impl;
 import com.accenture.ra.dto.request.CreateDelegationRequest;
 import com.accenture.ra.dto.response.DelegatedProjectsResponse;
 import com.accenture.ra.dto.response.DelegationResponse;
-import com.accenture.ra.entity.Delegates;
+import com.accenture.ra.entity.DelegationEntity;
 import com.accenture.ra.entity.ProjectEntity;
-import com.accenture.ra.entity.User;
+import com.accenture.ra.entity.UserEntity;
 import com.accenture.ra.enums.AccreditationStatus;
 import com.accenture.ra.enums.DelegateType;
+import com.accenture.ra.enums.DelegationStatus;
 import com.accenture.ra.enums.RoleType;
 import com.accenture.ra.mapper.DelegationMapper;
 import com.accenture.ra.repository.DelegatesRepository;
 import com.accenture.ra.repository.ProjectRepository;
 import com.accenture.ra.repository.UserRepository;
-import com.accenture.ra.service.DelegateService;
+import com.accenture.ra.service.DelegationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,7 +27,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class DelegateServiceImpl implements DelegateService {
+public class DelegationServiceImpl implements DelegationService {
 
     private final DelegatesRepository delegatesRepository;
     private final DelegationMapper delegationMapper;
@@ -40,7 +41,7 @@ public class DelegateServiceImpl implements DelegateService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentFiscalCode = authentication.getName();
 
-        User delegator = userRepository.findByFiscalCode(currentFiscalCode)
+        UserEntity delegator = userRepository.findByFiscalCode(currentFiscalCode)
                 .orElseThrow(() -> new IllegalArgumentException("Utente loggato non trovato con CF: " + currentFiscalCode));
 
         if (!delegator.isActive() || delegator.getAccreditationStatus() != AccreditationStatus.APPROVATO) {
@@ -48,9 +49,9 @@ public class DelegateServiceImpl implements DelegateService {
         }
 
         // 2. Resolve Target User (Existing ID / CF lookup OR create pending user)
-        User targetUser = resolveOrCreateTargetUser(request);
+        UserEntity targetUserEntity = resolveOrCreateTargetUser(request);
 
-        if (delegator.getId().equals(targetUser.getId())) {
+        if (delegator.getId().equals(targetUserEntity.getId())) {
             throw new IllegalArgumentException("Non puoi delegare permessi a te stesso.");
         }
 
@@ -68,8 +69,8 @@ public class DelegateServiceImpl implements DelegateService {
         }
 
         // 4. Map & Save Entity (Active flag set to false by Mapper)
-        Delegates delegation = delegationMapper.toEntity(request, targetUser, delegator, projects);
-        Delegates saved = delegatesRepository.save(delegation);
+        DelegationEntity delegation = delegationMapper.toEntity(request, targetUserEntity, delegator, projects);
+        DelegationEntity saved = delegatesRepository.save(delegation);
 
         return delegationMapper.toResponse(saved);
     }
@@ -79,29 +80,29 @@ public class DelegateServiceImpl implements DelegateService {
      */
     @Transactional
     public DelegationResponse approveAndActivateDelegation(Long delegationId) {
-        Delegates delegation = delegatesRepository.findById(delegationId)
+        DelegationEntity delegation = delegatesRepository.findById(delegationId)
                 .orElseThrow(() -> new IllegalArgumentException("Delega non trovata con ID: " + delegationId));
 
-        if (delegation.isActive()) {
+        if (delegation.getStatus().equals(DelegationStatus.ATTIVA)) {
             throw new IllegalStateException("La delega è già attiva.");
         }
 
         // 1. Activate Target User if they were pending
-        User targetUser = delegation.getUser();
-        if (!targetUser.isActive()) {
-            targetUser.setActive(true);
-            targetUser.setAccreditationStatus(AccreditationStatus.APPROVATO);
-            userRepository.save(targetUser);
+        UserEntity targetUserEntity = delegation.getUserEntity();
+        if (!targetUserEntity.isActive()) {
+            targetUserEntity.setActive(true);
+            targetUserEntity.setAccreditationStatus(AccreditationStatus.APPROVATO);
+            userRepository.save(targetUserEntity);
         }
 
         // 2. Activate Delegation
-        delegation.setActive(true);
-        Delegates updated = delegatesRepository.save(delegation);
+        delegation.setStatus(DelegationStatus.ATTIVA);
+        DelegationEntity updated = delegatesRepository.save(delegation);
 
         return delegationMapper.toResponse(updated);
     }
 
-    private User resolveOrCreateTargetUser(CreateDelegationRequest request) {
+    private UserEntity resolveOrCreateTargetUser(CreateDelegationRequest request) {
         if (request.getTargetUserId() != null) {
             return userRepository.findById(request.getTargetUserId())
                     .orElseThrow(() -> new IllegalArgumentException("Target user non trovato con ID: " + request.getTargetUserId()));
@@ -116,31 +117,31 @@ public class DelegateServiceImpl implements DelegateService {
         throw new IllegalArgumentException("È necessario fornire targetUserId oppure fiscalCode.");
     }
 
-    private User createInactiveUser(String fiscalCode, String email) {
+    private UserEntity createInactiveUser(String fiscalCode, String email) {
         if (email == null || email.isBlank()) {
             throw new IllegalArgumentException("L'email è obbligatoria per registrare un nuovo utente non presente a sistema.");
         }
 
-        User newUser = new User();
-        newUser.setFiscalCode(fiscalCode);
-        newUser.setEmail(email);
-        newUser.setFirstName("PENDING");
-        newUser.setLastName("PENDING");
-        newUser.setActive(false);
-        newUser.setAccreditationStatus(AccreditationStatus.IN_ATTESA);
-        newUser.setRole(RoleType.ROLE_USER);
-        newUser.setSignupDate(LocalDateTime.now());
+        UserEntity newUserEntity = new UserEntity();
+        newUserEntity.setFiscalCode(fiscalCode);
+        newUserEntity.setEmail(email);
+        newUserEntity.setFirstName("PENDING");
+        newUserEntity.setLastName("PENDING");
+        newUserEntity.setActive(false);
+        newUserEntity.setAccreditationStatus(AccreditationStatus.IN_ATTESA);
+        newUserEntity.setRole(RoleType.ROLE_USER);
+        newUserEntity.setSignupDate(LocalDateTime.now());
 
-        return userRepository.save(newUser);
+        return userRepository.save(newUserEntity);
     }
 
-    private void validateDelegationAuthority(User delegator, ProjectEntity project, DelegateType requestedDelegateType) {
+    private void validateDelegationAuthority(UserEntity delegator, ProjectEntity project, DelegateType requestedDelegateType) {
         boolean isOwner = project.getCreatedBy().getId().equals(delegator.getId());
         if (isOwner) {
             return; // Project owner has full delegation power
         }
 
-        Delegates activeDelegation = delegatesRepository
+        DelegationEntity activeDelegation = delegatesRepository
                 .findActiveDelegationByUserIdAndProjectId(delegator.getId(), project.getId())
                 .orElseThrow(() -> new SecurityException(
                         "Non hai i permessi sul progetto ID: " + project.getId() + " per creare deleghe."
@@ -160,10 +161,10 @@ public class DelegateServiceImpl implements DelegateService {
     @Override
     @Transactional(readOnly = true)
     public List<DelegationResponse> getDelegationsByUserId(Long userId) {
-        User user = userRepository.findById(userId)
+        UserEntity userEntity = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Utente non trovato ID: " + userId));
 
-        return delegationMapper.toResponseList(user.getDelegates());
+        return delegationMapper.toResponseList(userEntity.getDelegates());
     }
 
     @Override
@@ -177,7 +178,7 @@ public class DelegateServiceImpl implements DelegateService {
             throw new IllegalArgumentException("Ruolo attivo fornito non valido: " + activeRole);
         }
 
-        List<Delegates> delegations = delegatesRepository.findActiveDelegationsByFiscalCodeAndRole(fiscalCode, delegateType);
+        List<DelegationEntity> delegations = delegatesRepository.findActiveDelegationsByFiscalCodeAndRole(fiscalCode, delegateType);
 
         return delegationMapper.toDelegatedProjectsResponseList(delegations);
     }
