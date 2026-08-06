@@ -13,6 +13,7 @@ public class ParamDetail {
 
     private Long id;
     private String name;
+    private String value;
     private String paramType;
     private String paramValue;
     private String minValue;
