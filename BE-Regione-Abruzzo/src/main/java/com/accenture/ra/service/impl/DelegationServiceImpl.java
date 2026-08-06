@@ -1,7 +1,6 @@
 package com.accenture.ra.service.impl;
 
 import com.accenture.ra.dto.request.CreateDelegationRequest;
-import com.accenture.ra.dto.response.DelegatedProjectsResponse;
 import com.accenture.ra.dto.response.DelegationResponse;
 import com.accenture.ra.entity.DelegationEntity;
 import com.accenture.ra.entity.ProjectEntity;

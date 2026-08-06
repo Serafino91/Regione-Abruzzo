@@ -1,16 +1,13 @@
 package com.accenture.ra.controller;
 
 import com.accenture.ra.dto.request.CreateDelegationRequest;
-import com.accenture.ra.dto.response.DelegatedProjectsResponse;
 import com.accenture.ra.dto.response.DelegationResponse;
-import com.accenture.ra.security.CustomUserDetails;
 import com.accenture.ra.service.DelegationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
