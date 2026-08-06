@@ -34,4 +34,10 @@ export class DettaglioIncidentTicket {
 
     isShowChiusuraIncident = false;
 
+    onFileSelected(event: Event): void {
+        const input = event.target as HTMLInputElement;
+
+        console.log("file inserito: ", input.files);
+    }
+
 }

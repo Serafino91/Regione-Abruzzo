@@ -7,7 +7,7 @@
     <ul class="nav nav-tabs m-0 p-0 mt-3" role="tablist" style="min-height: auto !important; height: auto !important;">
         <li class="nav-item" style="cursor: pointer;">
             <a class="nav-link py-2 px-3 d-flex align-items-center"
-                [class.active]="tipologiaTicketSelezionata === 'Richieste'" (click)="setTipoTicket('Richieste')"
+                [class.active]="tipologiaTicketSelezionata === 'Richieste servizi'" (click)="setTabTicket('home/ticket/richieste-servizi')"
                 role="tab">
                 <span class="text-nowrap">Richieste servizi</span>
             </a>
@@ -15,7 +15,7 @@
 
         <li class="nav-item" style="cursor: pointer;">
             <a class="nav-link py-2 px-3 d-flex align-items-center"
-                [class.active]="tipologiaTicketSelezionata === 'Incident'" (click)="setTipoTicket('Incident')"
+                [class.active]="tipologiaTicketSelezionata === 'Incident'" (click)="setTabTicket('home/ticket/incident')"
                 role="tab">
                 <span class="text-nowrap">Incident</span>
             </a>
@@ -24,14 +24,14 @@
         <li class="nav-item" style="cursor: pointer;">
             <a class="nav-link py-2 px-3 d-flex align-items-center"
                 [class.active]="tipologiaTicketSelezionata === 'Accreditamenti'"
-                (click)="setTipoTicket('Accreditamenti')" role="tab">
+                (click)="setTabTicket('/home/ticket/accreditamenti')" role="tab">
                 <span class="text-nowrap">Accreditamenti</span>
             </a>
         </li>
     </ul>
 
     <div class="color-bg-lightblue">
-        @if (tipologiaTicketSelezionata === 'Richieste') {
+        @if (tipologiaTicketSelezionata === 'Richieste servizi') {
         <div class="section-padding">
             <app-filtri-richieste-ticket></app-filtri-richieste-ticket>
         </div>
@@ -53,7 +53,7 @@
 
     <div class="section-padding">
 
-        @if (tipologiaTicketSelezionata === 'Richieste') {
+        @if (tipologiaTicketSelezionata === 'Richieste servizi') {
             <app-tabella-richieste-ticket></app-tabella-richieste-ticket>
         }
 

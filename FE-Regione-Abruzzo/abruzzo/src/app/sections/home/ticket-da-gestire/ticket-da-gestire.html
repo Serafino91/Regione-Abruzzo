@@ -1,4 +1,4 @@
-<app-section-header titolo="Ticket da gestire" link="/home/ticket" testoLink="Vedi lista">
+<app-section-header titolo="Ticket da gestire" link="/home/ticket/richieste-servizi" testoLink="Vedi lista">
 </app-section-header>
 
 <div class="ticket-cards">
@@ -17,7 +17,7 @@
             </div>
 
             <div class="col-12 mt-2">
-                <a class="text-primary" (click)="goToDetail()" title="vai alla sezione dedicata.">
+                <a class="text-primary" (click)="goToTicket(item.label)" title="vai alla sezione dedicata.">
                     <strong style="cursor: pointer;">
                         Vedi tutti
                         <svg class="icon icon-sm icon-primary">

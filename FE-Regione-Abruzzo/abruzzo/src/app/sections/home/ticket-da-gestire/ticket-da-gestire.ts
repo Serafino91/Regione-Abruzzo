@@ -32,8 +32,20 @@ export class TicketDaGestire {
         },
     ];
 
-    goToDetail(): void {
-        this.router.navigateByUrl("home/ticket");
+    goToTicket(section: string): void {
+        switch (section) {
+            case "Richieste servizi":
+                this.router.navigateByUrl("home/ticket/richieste-servizi");
+                break;
+
+            case "Incident":
+                this.router.navigateByUrl("home/ticket/incident");
+                break;
+
+            case "Accreditamenti":
+                this.router.navigateByUrl("home/ticket/accreditamenti");
+                break;
+        }
     }
 
 }

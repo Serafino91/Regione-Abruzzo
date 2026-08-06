@@ -31,7 +31,9 @@ export const routes: Routes = [
   { path: 'home/deleghe', component: Deleghe },
   { path: 'home/richieste', component: Richieste },
   { path: 'home/incident', component: Incident },
-  { path: 'home/ticket', component: Ticket },
+  { path: 'home/ticket/richieste-servizi', component: Ticket },
+  { path: 'home/ticket/incident', component: Ticket },
+  { path: 'home/ticket/accreditamenti', component: Ticket },
   { path: 'home/catalogo', component: Catalogo },
   { path: 'home/accreditamento', component: Accreditamento },
   { path: 'home/deleghe/nuova-delega', component: NuovaDelega },
@@ -43,7 +45,7 @@ export const routes: Routes = [
   { path: 'home/progetti/dettaglio-progetto/:id', component: DettaglioProgetto },
   { path: 'home/incident/dettaglio-incident/:id', component: DettaglioIncident },
   { path: 'home/deleghe/dettaglio-delega', component: DettaglioDelega },
-  { path: 'home/ticket/dettaglio-richiesta', component: DettaglioRichiestaTicket },
-  { path: 'home/ticket/dettaglio-incident-ticket', component: DettaglioIncidentTicket },
-  { path: 'home/ticket/dettaglio-accreditamento-ticket', component: DettaglioAccreditamentoTicket }
+  { path: 'home/ticket/richieste-servizi/dettaglio-richiesta-ticket', component: DettaglioRichiestaTicket },
+  { path: 'home/ticket/incident/dettaglio-incident-ticket', component: DettaglioIncidentTicket },
+  { path: 'home/ticket/accreditamenti/dettaglio-accreditamento-ticket', component: DettaglioAccreditamentoTicket }
 ];
