@@ -15,7 +15,7 @@ public interface DelegatesRepository extends JpaRepository<DelegationEntity, Lon
 
     @Query("""
         SELECT d FROM DelegationEntity d 
-        JOIN d.userEntity u 
+        JOIN d.delegatedUser u 
         WHERE u.fiscalCode = :fiscalCode 
           AND d.delegateType = :delegateType 
           AND d.status = 'ATTIVA'
@@ -28,7 +28,7 @@ public interface DelegatesRepository extends JpaRepository<DelegationEntity, Lon
     @Query("""
         SELECT d FROM DelegationEntity d 
         JOIN d.projects p 
-        WHERE d.userEntity.id = :userId 
+        WHERE d.delegatedUser.id = :userId 
           AND p.id = :projectId 
           AND d.status = 'ATTIVA'
     """)
@@ -36,4 +36,7 @@ public interface DelegatesRepository extends JpaRepository<DelegationEntity, Lon
             @Param("userId") Long userId,
             @Param("projectId") Long projectId
     );
+
+
+    List<DelegationEntity> findByDelegatedBy(Long id);
 }

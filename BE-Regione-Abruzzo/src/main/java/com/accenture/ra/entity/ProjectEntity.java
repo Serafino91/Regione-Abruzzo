@@ -23,7 +23,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "projects")
+@Table(name = "project")
 public class ProjectEntity {
 
     @Id

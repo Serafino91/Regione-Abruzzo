@@ -80,6 +80,6 @@ public class UserEntity {
 
     public void addDelegation(DelegationEntity delegation) {
         delegates.add(delegation);
-        delegation.setUserEntity(this);
+        delegation.setDelegatedUser(this);
     }
 }

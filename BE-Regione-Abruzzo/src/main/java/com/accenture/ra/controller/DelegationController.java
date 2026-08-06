@@ -25,41 +25,30 @@ public class DelegationController {
 
     @PostMapping("/delegate")
     @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'USER', 'ADMIN')")
-    public ResponseEntity<DelegationResponse> createDelegation(@Valid @RequestBody CreateDelegationRequest request) {
+    public ResponseEntity<DelegationResponse> createDelegation(
+            @Valid @RequestBody CreateDelegationRequest request,
+            @RequestHeader("x-active-role") String activeRole) {
         DelegationResponse response = delegationService.createDelegation(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     /**
-     * Retrieve all delegations assigned to a specific user by User ID.
-     * GET /api/v1/delegations/user/{userId}
+     * Retrieve all delegations where the user is the delegator.
+     * GET /delegations/user/getDelegationsByDelegator
      */
     @GetMapping("/user/{userId}")
     @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'USER','ADMIN')")
-    public ResponseEntity<List<DelegationResponse>> getDelegationsByUserId(
-            @PathVariable Long userId) {
-        List<DelegationResponse> response = delegationService.getDelegationsByUserId(userId);
+    public ResponseEntity<List<DelegationResponse>> getDelegationsByDelegator(
+            @RequestHeader("x-active-role") String activeRole) {
+
+        List<DelegationResponse> response = delegationService.getDelegationsByDelegator();
         return ResponseEntity.ok(response);
 
     }
-
     /**
-     * Retrieve all project where the user is a delegate.
-     * GET /delegations/user/getDelegatedProjects
+     * Approve delegations applying delegationStatus ATTIVO.
+     * PATCH /delegations/approveDelegation
      */
-    @GetMapping("/user/getDelegatedProjects")
-    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'USER', 'ROLE_ADMIN', 'DELEGATE_CREATOR', 'DELEGATE_VIEWER')")
-    public ResponseEntity<List<DelegatedProjectsResponse>> getDelegatedProjects(
-            @RequestHeader("x-active-role") String activeRole,
-            Authentication authentication) {
-
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-        String fiscalCode = userDetails.getUsername();
-
-        List<DelegatedProjectsResponse> response = delegationService.getDelegatedProjects(fiscalCode, activeRole);
-        return ResponseEntity.ok(response);
-    }
-
     @PatchMapping("/{id}/approve")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<DelegationResponse> approveDelegation(@PathVariable("id") Long id) {

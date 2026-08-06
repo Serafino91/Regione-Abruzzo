@@ -24,14 +24,12 @@ import java.util.List;
 public interface DelegationMapper {
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "user", source = "targetUser")
-    @Mapping(target = "delegatedBy", source = "delegator")
+    @Mapping(target = "delegatedUser", source = "delegatedUser")
+    @Mapping(target = "delegatedBy", source = "delegatedBy")
     @Mapping(target = "delegateType", source = "request.delegateType")
     @Mapping(target = "projects", source = "projects")
     @Mapping(target = "delegationDate", expression = "java(LocalDateTime.now())")
-    // Explicitly set active to false: delegation activates only upon RA Ticket resolution
-    @Mapping(target = "active", constant = "false")
-    DelegationEntity toEntity(CreateDelegationRequest request, UserEntity targetUserEntity, UserEntity delegator, List<ProjectEntity> projects);
+    DelegationEntity toEntity(CreateDelegationRequest request, UserEntity delegatedUser, UserEntity delegatedBy, List<ProjectEntity> projects);
 
     DelegationResponse toResponse(DelegationEntity entity);
 

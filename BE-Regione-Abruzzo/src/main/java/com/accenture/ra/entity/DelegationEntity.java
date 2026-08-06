@@ -42,7 +42,7 @@ public class DelegationEntity {
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity userEntity;
+    private UserEntity delegatedUser;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)

@@ -11,9 +11,7 @@ public interface DelegationService {
 
     DelegationResponse createDelegation(@Valid CreateDelegationRequest request);
 
-    List<DelegationResponse> getDelegationsByUserId(Long userId);
-
-    List<DelegatedProjectsResponse> getDelegatedProjects(String fiscalCode, String activeRole);
-
     DelegationResponse approveAndActivateDelegation(Long id);
+
+    List<DelegationResponse> getDelegationsByDelegator();
 }

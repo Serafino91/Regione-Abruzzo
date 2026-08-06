@@ -12,8 +12,8 @@ import java.util.List;
 @Getter
 @Setter
 public class CreateDelegationRequest {
-
-    private Long targetUserId;
+    @NotNull(message = "Id delegato obbligatorio e valido")
+    private Long delegatedUser;
 
     @Pattern(regexp = "^[A-Za-z]{6}[0-9]{2}[A-Za-z]{1}[0-9]{2}[A-Za-z]{1}[0-9]{3}[A-Za-z]{1}$", message = "Formato Codice Fiscale non valido")
     private String fiscalCode;
@@ -25,4 +25,6 @@ public class CreateDelegationRequest {
     private DelegateType delegateType;
 
     private List<Long> projectIds;
+    @NotNull(message = "Id delegante obbligatorio e valido")
+    private Long delegatedBy;
 }

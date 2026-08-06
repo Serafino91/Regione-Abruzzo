@@ -88,7 +88,7 @@ public class DelegationServiceImpl implements DelegationService {
         }
 
         // 1. Activate Target User if they were pending
-        UserEntity targetUserEntity = delegation.getUserEntity();
+        UserEntity targetUserEntity = delegation.getDelegatedUser();
         if (!targetUserEntity.isActive()) {
             targetUserEntity.setActive(true);
             targetUserEntity.setAccreditationStatus(AccreditationStatus.APPROVATO);
@@ -103,9 +103,9 @@ public class DelegationServiceImpl implements DelegationService {
     }
 
     private UserEntity resolveOrCreateTargetUser(CreateDelegationRequest request) {
-        if (request.getTargetUserId() != null) {
-            return userRepository.findById(request.getTargetUserId())
-                    .orElseThrow(() -> new IllegalArgumentException("Target user non trovato con ID: " + request.getTargetUserId()));
+        if (request.getDelegatedUser() != null) {
+            return userRepository.findById(request.getDelegatedUser())
+                    .orElseThrow(() -> new IllegalArgumentException("Target user non trovato con ID: " + request.getDelegatedUser()));
         }
 
         if (request.getFiscalCode() != null && !request.getFiscalCode().isBlank()) {
@@ -158,28 +158,14 @@ public class DelegationServiceImpl implements DelegationService {
         }
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<DelegationResponse> getDelegationsByUserId(Long userId) {
-        UserEntity userEntity = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("Utente non trovato ID: " + userId));
+    public List<DelegationResponse> getDelegationsByDelegator() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String fiscalCode = authentication.getName();
+        UserEntity delegator = userRepository.findByFiscalCode(fiscalCode)
+                .orElseThrow(() -> new IllegalArgumentException("Utente non trovato con CF: " + fiscalCode));
 
-        return delegationMapper.toResponseList(userEntity.getDelegates());
-    }
+        List<DelegationEntity> delegations = delegatesRepository.findByDelegatedBy(delegator.getId());
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<DelegatedProjectsResponse> getDelegatedProjects(String fiscalCode, String activeRole) {
-        DelegateType delegateType;
-        try {
-            String formattedRole = activeRole.startsWith("ROLE_") ? activeRole.toUpperCase() : "ROLE_" + activeRole.toUpperCase();
-            delegateType = DelegateType.valueOf(formattedRole);
-        } catch (IllegalArgumentException | NullPointerException e) {
-            throw new IllegalArgumentException("Ruolo attivo fornito non valido: " + activeRole);
-        }
-
-        List<DelegationEntity> delegations = delegatesRepository.findActiveDelegationsByFiscalCodeAndRole(fiscalCode, delegateType);
-
-        return delegationMapper.toDelegatedProjectsResponseList(delegations);
+        return delegationMapper.toResponseList(delegations);
     }
 }
