@@ -7,12 +7,12 @@
   @if (!nuovaRichiesta) {
 
     <app-progetto-detail-card
-      [nome]="formGroupProgetto.get('selezione')?.value.name"
+      [nome]="formGroupProgetto.get('selezione')?.value.nome"
       [link]="formGroupProgetto.get('selezione')?.value.destinationLink"
       [descrizione]="formGroupProgetto.get('selezione')?.value.description"
-      [createdAt]="formGroupProgetto.get('selezione')?.value.createAt"
+      [createdAt]="formGroupProgetto.get('selezione')?.value.dataCreazione"
       [numeroServizi]="servizi.controls.length"
-      [idProgetto]="formGroupProgetto.get('selezione')?.value.id"
+      [idProgetto]="formGroupProgetto.get('selezione')?.value.idProgetto"
       [nuovaRichiesta]="nuovaRichiesta">
     </app-progetto-detail-card>
   } @else {

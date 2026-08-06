@@ -11,7 +11,7 @@ import { PageHeader } from '../../components/page-header/page-header';
 
 @Component({
   selector: 'app-dettaglio-richiesta',
-  imports: [ ProgettoDetailCard, ServizioAccordion, InfoBar, PageHeader],
+  imports: [ProgettoDetailCard, ServizioAccordion, InfoBar, PageHeader],
   templateUrl: './dettaglio-richiesta.html',
   styleUrl: './dettaglio-richiesta.css',
   standalone: true,

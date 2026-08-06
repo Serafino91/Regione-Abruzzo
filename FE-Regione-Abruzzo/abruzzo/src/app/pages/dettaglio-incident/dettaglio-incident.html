@@ -6,14 +6,24 @@
   </app-page-header>
 </div>
 
-
 <app-info-bar
-[items]="infoIncident">
+  [items]="infoIncident">
 </app-info-bar>
 
 <app-incident-detail-card
-[incidentDetail]="incidentDetail">
-
+  [incidentDetail]="incidentDetail">
 </app-incident-detail-card>
 
 
+<div class="section-padding">
+  <app-richiedente-card>
+  </app-richiedente-card>
+</div>
+
+<div class="section-padding">
+  <div class="note-card section-padding color-bg-lightblue shadow-card p-3 border-2">
+    <h5 class="pb-3">Chiusura incident</h5>
+    <h6>Note</h6>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam dui tellus, aliquam quis ipsum id, tempor feugiat sem. Donec porttitor arcu at tincidunt condimentum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras consequat, nibh vel malesuada vestibulum, ex dolor euismod erat, quis lacinia erat sem nec eros. Etiam sodales felis quis auctor convallis. Donec molestie ultricies enim, nec sodales nibh lacinia sed. </p>
+  </div>
+</div>

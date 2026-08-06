@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
+export type ModalSize = 'sm' | 'md' | 'lg' | 'xl';
+
 @Component({
   selector: 'app-app-modal',
   imports: [],
@@ -14,9 +16,15 @@ export class AppModal {
   @Input() confirmText = 'Conferma';
   @Input() cancelText = 'Annulla';
   @Input() showCancel = true;
+  @Input() size: ModalSize = 'md';
 
   @Output() confirm = new EventEmitter<void>();
   @Output() cancel = new EventEmitter<void>();
+  @Output() close = new EventEmitter<void>();
+
+  closeModal(): void {
+    this.close.emit();
+  }
 
   onConfirm(): void {
     this.confirm.emit();

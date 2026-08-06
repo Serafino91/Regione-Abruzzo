@@ -1,17 +1,17 @@
 import { ChangeDetectorRef, Component, DestroyRef, inject } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { TicketModel } from '../../model/ticket.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import {IncidentService} from '../../services/incident.service';
-import {PageHeader} from '../../components/page-header/page-header';
+import { IncidentService } from '../../services/incident.service';
+import { PageHeader } from '../../components/page-header/page-header';
 import { InfoBar } from '../../components/info-bar/info-bar';
-import { STATI_RICHIESTA, getStatoRichiesta } from '../../constants/incident-state-icon.constants';
+import { getStatoRichiesta } from '../../constants/incident-state-icon.constants';
 import { IncidentDetailCard } from '../../components/incident-detail-card/incident-detail-card';
-import { IncidentAccordion } from '../../components/incident-accordion/incident-accordion'; // aggiusta il path
+import { RichiedenteCard } from '../../components/richiedente-card/richiedente-card';
 
 @Component({
   selector: 'app-dettaglio-incident',
-  imports: [PageHeader, InfoBar, IncidentDetailCard],
+  imports: [PageHeader, InfoBar, IncidentDetailCard, RichiedenteCard],
   standalone: true,
   templateUrl: './dettaglio-incident.html',
   styleUrl: './dettaglio-incident.css',

@@ -40,6 +40,7 @@ export class Progetti implements OnInit {
       .pipe(
         map(([resp, user]: [any[], any]) => {
           // mapping response dal backend
+          console.log(resp);
           const progetti: ProgettoModel[] = resp.map((p) => ({
             idProgetto: p.id,
             nome: p.name,
@@ -47,6 +48,7 @@ export class Progetti implements OnInit {
             description: p.description,
             dataCreazione: p.createAt,
             dataUltimaModifica: p.updateAt,
+            servizi: p.services
           }));
 
           return this.filterByProfile(progetti, user.role);
