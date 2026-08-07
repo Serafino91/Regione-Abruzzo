@@ -34,7 +34,7 @@ public class DelegationController {
      * GET /delegations/user/getDelegationsByDelegator
      */
     @GetMapping("/getDelegations")
-    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'USER','ADMIN')")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<List<DelegationResponse>> getDelegationsByDelegator(
             @RequestHeader("x-active-role") String activeRole) {
 
@@ -48,7 +48,7 @@ public class DelegationController {
      */
     @PatchMapping("/{id}/approve")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<DelegationResponse> approveDelegation(@PathVariable("id") Long id) {
+    public ResponseEntity<DelegationResponse> approveDelegation(@PathVariable("id") Long id, @RequestHeader("x-active-role") String activeRole) {
         DelegationResponse response = delegationService.approveAndActivateDelegation(id);
         return ResponseEntity.ok(response);
     }

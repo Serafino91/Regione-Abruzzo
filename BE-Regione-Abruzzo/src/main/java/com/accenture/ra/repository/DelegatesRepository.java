@@ -13,17 +13,6 @@ import java.util.Optional;
 @Repository
 public interface DelegatesRepository extends JpaRepository<DelegationEntity, Long> {
 
-    @Query("""
-        SELECT d FROM DelegationEntity d 
-        JOIN d.delegatedUser u 
-        WHERE u.fiscalCode = :fiscalCode 
-          AND d.delegateType = :delegateType 
-          AND d.status = com.accenture.ra.enums.DelegationStatus.ATTIVA
-    """)
-    List<DelegationEntity> findActiveDelegationsByFiscalCodeAndRole(
-            @Param("fiscalCode") String fiscalCode,
-            @Param("delegateType") DelegateType delegateType
-    );
 
     @Query("""
         SELECT d FROM DelegationEntity d 
@@ -37,6 +26,9 @@ public interface DelegatesRepository extends JpaRepository<DelegationEntity, Lon
             @Param("projectId") Long projectId
     );
 
-
-    List<DelegationEntity> findByDelegatedBy(Long id);
+    @Query("""
+        SELECT d FROM DelegationEntity d 
+        WHERE d.delegatedBy.id = :userId
+    """)
+    List<DelegationEntity> findByDelegatedBy(@Param("userId") Long id);
 }

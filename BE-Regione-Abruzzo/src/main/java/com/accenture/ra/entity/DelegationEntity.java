@@ -28,13 +28,14 @@ public class DelegationEntity {
     @Column(name = "delegation_type")
     private DelegateType delegateType;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private DelegationStatus status;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "delegate_projects",
-            joinColumns = @JoinColumn(name = "delegates_id"),
+            name = "project_delegations",
+            joinColumns = @JoinColumn(name = "delegation_id"),
             inverseJoinColumns = @JoinColumn(name = "project_id")
     )
     private List<ProjectEntity> projects;
