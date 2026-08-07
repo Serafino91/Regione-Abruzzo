@@ -72,7 +72,7 @@ public class UserEntity {
     private RoleType role;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "delegatedBy", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<DelegationEntity> delegates = new ArrayList<>();
 
     @Column(name = "is_active", nullable = false)

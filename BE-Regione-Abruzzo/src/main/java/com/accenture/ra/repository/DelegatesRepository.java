@@ -18,7 +18,7 @@ public interface DelegatesRepository extends JpaRepository<DelegationEntity, Lon
         JOIN d.delegatedUser u 
         WHERE u.fiscalCode = :fiscalCode 
           AND d.delegateType = :delegateType 
-          AND d.status = 'ATTIVA'
+          AND d.status = com.accenture.ra.enums.DelegationStatus.ATTIVA
     """)
     List<DelegationEntity> findActiveDelegationsByFiscalCodeAndRole(
             @Param("fiscalCode") String fiscalCode,
@@ -30,7 +30,7 @@ public interface DelegatesRepository extends JpaRepository<DelegationEntity, Lon
         JOIN d.projects p 
         WHERE d.delegatedUser.id = :userId 
           AND p.id = :projectId 
-          AND d.status = 'ATTIVA'
+          AND d.status = com.accenture.ra.enums.DelegationStatus.ATTIVA
     """)
     Optional<DelegationEntity> findActiveDelegationByUserIdAndProjectId(
             @Param("userId") Long userId,

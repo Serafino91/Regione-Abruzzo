@@ -33,7 +33,7 @@ public class DelegationController {
      * Retrieve all delegations where the user is the delegator.
      * GET /delegations/user/getDelegationsByDelegator
      */
-    @GetMapping("/user/{userId}")
+    @GetMapping("/getDelegations")
     @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'USER','ADMIN')")
     public ResponseEntity<List<DelegationResponse>> getDelegationsByDelegator(
             @RequestHeader("x-active-role") String activeRole) {
