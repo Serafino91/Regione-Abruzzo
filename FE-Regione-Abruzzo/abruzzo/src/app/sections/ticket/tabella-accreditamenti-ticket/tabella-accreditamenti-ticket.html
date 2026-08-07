@@ -1,0 +1,47 @@
+<app-table [data]="listaAccreditamentiTicket" [columns]="colonneAccreditamentiTicket" defaultSortColumn="idUtente"
+    defaultSortDir="asc">
+
+    <ng-template #cellTemplate let-row let-col="column">
+
+        @if (col.key === 'state.config.label') {
+
+        @if (row.statoAccreditamento === 'Da accreditare') {
+        <span class="badge-stato badge-da-accreditare">
+            {{ row.statoAccreditamento }}
+        </span>
+        }
+
+        @if (row.statoAccreditamento === 'Accreditato') {
+        <span class="badge-stato badge-accreditato">
+            {{ row.statoAccreditamento }}
+        </span>
+        }
+
+        }
+
+        @if (col.key === 'idUtente') {
+        <span class="fw-bold text-dark">{{ row.idUtente }}</span>
+        }
+
+        @else if (col.key === 'azioni') {
+        <div class="dropdown text-center">
+            <button class="btn btn-link p-0 text-decoration-none" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false" aria-label="Azioni progetto">
+                <svg class="icon icon-primary" aria-hidden="true">
+                    <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-chevron-right'"></use>
+                </svg>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <a class="dropdown-item" [routerLink]="['/home/ticket/accreditamenti/dettaglio-accreditamento-ticket']">
+                        Vai a dettaglio
+                    </a>
+                </li>
+            </ul>
+        </div>
+        } @else {
+        {{ getValue(row, col.key) }}
+        }
+
+    </ng-template>
+</app-table>

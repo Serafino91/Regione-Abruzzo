@@ -36,11 +36,11 @@
 }
 
 /* 2. Blocca la colonna Azioni a destra */
-.table th:last-child
-.table tbody tr td:first-child{
+.table th:last-child,
+.table tbody tr td:last-child{
   position: sticky !important;
   right: 0;
-  z-index: 3;
+  z-index: 2;
 }
 
 /* Impedisce al testo di sfarfallare sopra le intestazioni fisse */

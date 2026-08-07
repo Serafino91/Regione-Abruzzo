@@ -3,13 +3,14 @@ package com.accenture.ra.service.impl;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.accenture.ra.entity.*;
+import com.accenture.ra.repository.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
 import com.accenture.ra.dto.request.RequestDetail;
 import com.accenture.ra.dto.response.RequestDetailResponse;
-import com.accenture.ra.entity.ProjectEntity;
-import com.accenture.ra.entity.RequestEntity;
-import com.accenture.ra.entity.ServiceEntity;
 import com.accenture.ra.mapper.ProjectMapper;
 import com.accenture.ra.mapper.RequestMapper;
 import com.accenture.ra.mapper.ServiceMapper;
@@ -27,11 +28,6 @@ import com.accenture.ra.utils.RequestIdGenerator;
 import com.accenture.ra.utils.RequestSpecification;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -39,6 +35,7 @@ public class RequestServiceImpl implements RequestService {
 
 	private final RequestRepository requestRepository;
 	private final ProjectRepository projectRepository;
+	private final ParamRepository paramRepository;
 	private final ServiceTypeRepository categoryRepository;
 	private final ServiceRepository serviceRepository;
 	private final StateRepository stateRepository;
@@ -47,7 +44,7 @@ public class RequestServiceImpl implements RequestService {
 	private final ServiceTypeMapper serviceTypeMapper;
 	private final ServiceMapper serviceMapper;
 	private final StateMapper stateMapper;
-
+	private final ObjectMapper objectMapper;
 
 	@Override
 	public List<RequestDetail> getAllRequests() {
@@ -65,31 +62,74 @@ public class RequestServiceImpl implements RequestService {
 	@Override
 	public RequestDetailResponse createRequest(RequestCreationRequest req) {
 
-		// Costruiamo RequestEntity direttamente con riferimenti JPA gestiti,
-		// evitando il mapper entity->entity che crea oggetti transient non gestiti da Hibernate
+		LocalDateTime now = LocalDateTime.now();
+
 		RequestEntity requestEntity = new RequestEntity();
 		requestEntity.setRequestId(RequestIdGenerator.generateId());
 		requestEntity.setProject(createOrFindProject(req));
 
-		stateRepository.findByStateName(req.getState())
-				.ifPresent(requestEntity::setState);
+		StateEntity state = stateRepository.findByStateName(req.getState())
+				.orElseThrow(() -> new RuntimeException("Stato non trovato: " + req.getState()));
 
-		if (req.getServices() != null && !req.getServices().isEmpty()) {
-			List<ServiceEntity> services = req.getServices().stream()
-					.flatMap(s -> serviceRepository.findById(s.getId().toString()).stream())
-					.collect(java.util.stream.Collectors.toList());
-			requestEntity.setServices(services);
-
-			// Deriva la category dal tipo del primo servizio
-			if (!services.isEmpty() && services.get(0).getServiceType() != null) {
-				requestEntity.setCategory(services.get(0).getServiceType());
-			}
-		}
+		requestEntity.setState(state);
 
 		requestEntity.setSendFrom(req.getSendFrom());
 		requestEntity.setSendTo(req.getSendTo());
-		requestEntity.setCreatedAt(LocalDateTime.now());
-		requestEntity.setUpdatedAt(LocalDateTime.now());
+		requestEntity.setCreatedAt(now);
+		requestEntity.setUpdatedAt(now);
+
+		requestEntity.setNote(req.getNote());
+
+		//qui creo il payload della richiesta
+		requestEntity.setRequestPayload(createPayload(req));
+
+		if (req.getServices() != null && !req.getServices().isEmpty()) {
+
+			List<RequestServiceEntity> requestServices = req.getServices()
+					.stream()
+					.map(serviceReq -> {
+
+						ServiceEntity serviceEntity = serviceRepository.findById(serviceReq.getId().toString())
+								.orElseThrow(() -> new RuntimeException(
+										"Service non trovato con id: " + serviceReq.getId()
+								));
+
+						RequestServiceEntity requestServiceEntity = new RequestServiceEntity();
+						requestServiceEntity.setRequest(requestEntity);
+						requestServiceEntity.setService(serviceEntity);
+
+						if (serviceReq.getParams() != null && !serviceReq.getParams().isEmpty()) {
+
+							List<RequestServiceParamEntity> params = serviceReq.getParams()
+									.stream()
+									.map(paramReq -> {
+
+										ParamEntity paramEntity = paramRepository.findById(paramReq.getId())
+												.orElseThrow(() -> new RuntimeException(
+														"Parametro non trovato con id: " + paramReq.getId()
+												));
+
+										RequestServiceParamEntity requestServiceParamEntity =
+												new RequestServiceParamEntity();
+
+										requestServiceParamEntity.setRequestService(requestServiceEntity);
+										requestServiceParamEntity.setParam(paramEntity);
+										requestServiceParamEntity.setCreatedAt(now);
+										requestServiceParamEntity.setUpdatedAt(now);
+
+										return requestServiceParamEntity;
+									})
+									.toList();
+
+							requestServiceEntity.setParams(params);
+						}
+
+						return requestServiceEntity;
+					})
+					.toList();
+
+			requestEntity.setRequestServices(requestServices);
+		}
 
 		RequestEntity saved = requestRepository.save(requestEntity);
 
@@ -98,12 +138,20 @@ public class RequestServiceImpl implements RequestService {
 		return response;
 	}
 
+	private String createPayload(RequestCreationRequest req) {
+		try {
+			return objectMapper.writeValueAsString(req);
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException("Errore nella serializzazione del payload richiesta", e);
+		}
+    }
+
 	// Alla creazione di una request, se il progetto non esiste lo creo, altrimenti lo recupero dal db
 	private ProjectEntity createOrFindProject(RequestCreationRequest req) {
 		if(projectRepository.existsById(req.getProject().getId())) {
 			return projectRepository.getReferenceById(req.getProject().getId());
 		} 
-		else if(!projectRepository.existsByNameAndDestinationLink(req.getProject().getName(),req.getProject().getDestinationLink())) {
+		else if(!projectRepository.existsByNameAndDestinationLink(req.getProject().getName(),req.getProject().getDestinationLink())) { 
 			ProjectEntity newProject = new ProjectEntity();
 			newProject.setName(req.getProject().getName());
 			newProject.setDescription(req.getProject().getDescription());

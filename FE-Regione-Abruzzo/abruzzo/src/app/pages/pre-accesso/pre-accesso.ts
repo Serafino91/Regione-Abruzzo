@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 })
 export class PreAccesso {
 
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) {}
+
   accedi() {
     this.router.navigate(['login']);
   }

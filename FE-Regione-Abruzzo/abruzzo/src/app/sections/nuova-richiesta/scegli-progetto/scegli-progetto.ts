@@ -3,10 +3,11 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ProgettoModel } from '../../../model/progetto.model';
 import { ProgettiService } from '../../../services/progetti.service';
+import { TableColumn, TableComponent } from '../../../components/table/table';
 
 @Component({
   selector: 'app-scegli-progetto',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, TableComponent],
   templateUrl: './scegli-progetto.html',
   styleUrl: './scegli-progetto.css',
   standalone: true,
@@ -22,43 +23,70 @@ export class ScegliProgetto implements OnInit {
   private allProgetti: ProgettoModel[] = [];
   public progetti: ProgettoModel[] = [];
   public progettoSelezionato: ProgettoModel | null = null;
-  public sortColumn = '';
-  public sortDir: 'asc' | 'desc' = 'asc';
 
   constructor(private progettiService: ProgettiService) {}
   readonly maxNoteLength = 500;
 
+  colonneProgetti: TableColumn[] = [
+    { key: 'select', label: '', sortable: false, class: 'col-checkbox' },
+    { key: 'idProgetto', label: 'ID progetto', sortable: true, class: 'col-id' },
+    { key: 'nome', label: 'Nome progetto', sortable: true, class: 'col-nome' },
+    { key: 'description', label: 'Descrizione progetto', sortable: true, class: 'col-desc' },
+    { key: 'dataCreazione', label: 'Data creazione', sortable: true, class: 'col-data' },
+    { key: 'servizi', label: 'Totale servizi', sortable: true, class: 'text-end col-small' },
+  ];
+
   ngOnInit() {
-    this.formGroup.addControl('ricercaNome', new FormControl(''));
-    this.formGroup.addControl('selezione', new FormControl<ProgettoModel | null>(null, Validators.required));
-    this.formGroup.addControl('dataDa', new FormControl('', Validators.required));
-    this.formGroup.addControl('dataA', new FormControl('', Validators.required));
+    if (!this.formGroup.contains('ricercaNome')) {
+      this.formGroup.addControl('ricercaNome', new FormControl(''));
+    }
+    if (!this.formGroup.contains('selezione')) {
+      this.formGroup.addControl(
+        'selezione',
+        new FormControl<ProgettoModel | null>(null, Validators.required),
+      );
+    }
+    if (!this.formGroup.contains('dataDa')) {
+      this.formGroup.addControl('dataDa', new FormControl(''));
+    }
+    if (!this.formGroup.contains('dataA')) {
+      this.formGroup.addControl('dataA', new FormControl(''));
+    }
+
+    // ripristina lo stato locale dal form (che invece sopravvive tra i cambi di step)
+    this.progettoSelezionato = this.formGroup.get('selezione')?.value ?? null;
+    const testoRicerca = this.formGroup.get('ricercaNome')?.value;
+    if (testoRicerca) {
+      this.filtra(testoRicerca);
+    }
 
     this.loadProgetti();
 
-    this.formGroup.get('ricercaNome')!.valueChanges.pipe(
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe(value => this.filtra(value ?? ''));
+    this.formGroup
+      .get('ricercaNome')!
+      .valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((value) => this.filtra(value ?? ''));
   }
 
   private loadProgetti(): void {
-    this.progettiService.getProgetti().pipe(
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe({
-      next: (resp: any[]) => {
-        this.allProgetti = resp.map((p: any) => ({
-          idProgetto: p.id,
-          nome: p.name,
-          destinationLink: p.destinationLink,
-          description: p.description,
-          dataCreazione: p.createAt,
-          dataUltimaModifica: p.updateAt,
-          servizi: p.servizi,
-        }));
-        this.cdr.detectChanges();
-      },
-      error: (err) => console.error('Errore nel recupero dei progetti:', err),
-    });
+    this.progettiService
+      .getProgetti()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (resp: any[]) => {
+          this.allProgetti = resp.map((p: any) => ({
+            idProgetto: p.id,
+            nome: p.name,
+            destinationLink: p.destinationLink,
+            description: p.description,
+            dataCreazione: p.createAt,
+            dataUltimaModifica: p.updateAt,
+            servizi: p.servizi,
+          }));
+          this.cdr.detectChanges();
+        },
+        error: (err) => console.error('Errore nel recupero dei progetti:', err),
+      });
   }
 
   private filtra(testo: string): void {
@@ -67,35 +95,14 @@ export class ScegliProgetto implements OnInit {
       this.progetti = [];
       return;
     }
-    this.progetti = this.allProgetti.filter(p =>
-      p.nome?.toLowerCase().includes(q) ||
-      p.description?.toLowerCase().includes(q)
+    this.progetti = this.allProgetti.filter(
+      (p) => p.nome?.toLowerCase().includes(q) || p.description?.toLowerCase().includes(q),
     );
   }
 
   selezionaProgetto(progetto: ProgettoModel): void {
     this.progettoSelezionato = progetto;
     this.formGroup.get('selezione')?.setValue(progetto);
-  }
-
-  sort(col: string): void {
-    if (this.sortColumn === col) {
-      this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
-    } else {
-      this.sortColumn = col;
-      this.sortDir = 'asc';
-    }
-    this.progetti = [...this.progetti].sort((a, b) => {
-      const va = col === 'servizi' ? ((a as any).servizi?.length ?? 0) : ((a as any)[col] ?? '');
-      const vb = col === 'servizi' ? ((b as any).servizi?.length ?? 0) : ((b as any)[col] ?? '');
-      const cmp = String(va).localeCompare(String(vb), 'it', { numeric: true });
-      return this.sortDir === 'asc' ? cmp : -cmp;
-    });
-  }
-
-  sortIcon(col: string): string {
-    if (this.sortColumn !== col) return '↕';
-    return this.sortDir === 'asc' ? '▲' : '▼';
   }
 
   formatDate(dateStr?: string): string {
@@ -127,9 +134,12 @@ export class ScegliProgetto implements OnInit {
     } else {
       this.formGroup.removeControl('progetto');
       this.formGroup.addControl('ricercaNome', new FormControl(''));
-      this.formGroup.addControl('selezione', new FormControl<ProgettoModel | null>(null, Validators.required));
-      this.formGroup.addControl('dataDa', new FormControl('', Validators.required));
-      this.formGroup.addControl('dataA', new FormControl('', Validators.required));
+      this.formGroup.addControl(
+        'selezione',
+        new FormControl<ProgettoModel | null>(null, Validators.required),
+      );
+      this.formGroup.addControl('dataDa', new FormControl(''));
+      this.formGroup.addControl('dataA', new FormControl(''));
     }
     this.nuovaRichiesta.emit(this.newProgetto);
   }

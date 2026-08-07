@@ -1,0 +1,123 @@
+<form [formGroup]="formIncidentTicket" #incidentTicket="ngForm" class="row p-2 mb-4 gap-3 align-items-end">
+
+    <div class="row">
+
+        <div class="col-4">
+            <label for="codiceId">Cerca codice</label>
+
+            <div class="position-relative">
+                <input type="text" id="codiceId" formControlName="cercaCodice"
+                    class="form-control form-control-rounded pe-5" name="codiceName" placeholder="Cerca codice"
+                    autocomplete="off">
+
+                <span class="position-absolute top-50 end-0 translate-middle-y me-3" style="pointer-events: none;">
+                    <svg class="icon icon-primary icon-sm">
+                        <use href="assets/bootstrap-italia/sprites.svg#it-search"></use>
+                    </svg>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <label for="categoriaId">Categoria</label>
+
+            <div class="position-relative">
+                <select id="categoriaId" formControlName="categoria" class="form-select form-select-rounded">
+                    <option value="0">Seleziona Categoria</option>
+
+                    @for (categoria of categorie; track categoria.id) {
+                    <option [value]="categoria.id">
+                        {{ categoria.content }}
+                    </option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <label for="sottoCategoriaId">Sottocategoria</label>
+
+            <div class="position-relative">
+                <select id="sottoCategoriaId" formControlName="sottoCategoria" class="form-select form-select-rounded">
+                    <option value="0">Seleziona Sottocategoria</option>
+
+                    @for (sottoCategoria of sottoCategorie; track sottoCategoria.id) {
+                    <option [value]="sottoCategoria.id">
+                        {{ sottoCategoria.content }}
+                    </option>
+                    }
+                </select>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mt-3">
+
+        <div class="col-4">
+            <label for="statoId">Stato</label>
+
+            <div class="position-relative">
+                <select id="statoId" formControlName="stato" class="form-select form-select-rounded">
+                    <option value="0">Seleziona Stato</option>
+
+                    @for (stato of stati; track stato.id) {
+                    <option [value]="stato.id">
+                        {{ stato.content }}
+                    </option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <label for="DataAperturaDaId">Data apertura - da</label>
+
+            <div class="position-relative">
+                <input type="date" id="DataAperturaDaId" name="DataAperturaDaName"
+                    class="form-control form-control-rounded" formControlName="dataAperturaDa">
+            </div>
+        </div>
+
+        <div class="col-4">
+            <label for="DataAperturaAId">Data apertura - a</label>
+
+            <div class="position-relative">
+                <input type="date" id="DataAperturaAId" name="DataAperturaAName"
+                    class="form-control form-control-rounded" formControlName="dataAperturaA">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mt-3">
+
+        <div class="col-12">
+            <label for="codiceUtenteId">Cerca utente per ID o Nome e Cognome</label>
+
+            <div class="position-relative">
+                <input type="text" id="codiceUtenteId" formControlName="codiceUtente"
+                    class="form-control form-control-rounded pe-5" name="codiceUtenteName" placeholder="Inserisci codice"
+                    autocomplete="off">
+
+                <span class="position-absolute top-50 end-0 translate-middle-y me-3" style="pointer-events: none;">
+                    <svg class="icon icon-primary icon-sm">
+                        <use href="assets/bootstrap-italia/sprites.svg#it-search"></use>
+                    </svg>
+                </span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="pt-4 row gap-2 justify-content-end ">
+        <button type="button" class="btn btn-primary col-2 w-auto" (click)="eliminaFiltri()">
+            Elimina filtri
+        </button>
+
+        <button type="button" class="btn btn-primary col-2  w-auto" (click)="applicaFiltri()">
+            Applica filtri
+        </button>
+    </div>
+
+</form>

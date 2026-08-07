@@ -1,35 +1,39 @@
 <div class="section-padding">
-<app-page-header
-  [titolo]="'Dettaglio Progetto'"
-  [backspace]="'Torna alla lista'"
-  [linkBackspace]="'/home/progetti'">
-</app-page-header>
+  @if(progettoDetail) {
+    <app-page-header
+      [titolo]="'Dettaglio Progetto'"
+      [backspace]="'Torna alla lista'"
+      [linkBackspace]="'/home/progetti'">
+    </app-page-header>
+  }
 </div>
 
 
-<app-info-bar
-  [items]="infoProgetto">
-</app-info-bar>
+@if (infoProgetto) {
+  <app-info-bar
+    [items]="infoProgetto">
+  </app-info-bar>
+}
 
 <div class="section-padding">
+  @if (progettoDetail) {
+    <app-progetto-detail-card
+      [nome]="progettoDetail.nome"
+      [link]="progettoDetail.destinationLink"
+      [descrizione]="progettoDetail.description"
+      [nuovaRichiesta]="nuovaRichiesta">
+    </app-progetto-detail-card>
+  }
 
-  <app-progetto-detail-card
-    [nome]="progettoDetail.nome"
-    [link]="progettoDetail.destinationLink"
-    [descrizione]="progettoDetail.description"
-    [nuovaRichiesta]="nuovaRichiesta"
-  >
-  </app-progetto-detail-card>
-
-
-  @for (servizio of progettoDetail.servizi; track servizio.id) {
-    <app-servizio-accordion
-      [servizio]="servizio">
-    </app-servizio-accordion>
+  @if(progettoDetail.servizi) {
+    @for (servizio of progettoDetail.servizi; track servizio.id) {
+      <app-servizio-accordion
+        [servizio]="servizio">
+      </app-servizio-accordion>
+    }
   }
 
   <h5>Delegati</h5>
-
   <!-- mock -->
   <app-delegato-card>
   </app-delegato-card>

@@ -52,50 +52,31 @@
 
       @if (progetti.length > 0) {
         <div class="col-12 mt-4">
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th style="width: 48px;"></th>
-                  <th (click)="sort('idProgetto')" style="cursor: pointer;">
-                    ID Progetto <span class="sort-icon" [class.active]="sortColumn === 'idProgetto'">{{ sortIcon('idProgetto') }}</span>
-                  </th>
-                  <th (click)="sort('nome')" style="cursor: pointer;">
-                    Progetto <span class="sort-icon" [class.active]="sortColumn === 'nome'">{{ sortIcon('nome') }}</span>
-                  </th>
-                  <th (click)="sort('description')" style="cursor: pointer;">
-                    Descrizione <span class="sort-icon" [class.active]="sortColumn === 'description'">{{ sortIcon('description') }}</span>
-                  </th>
-                  <th (click)="sort('servizi')" style="cursor: pointer;">
-                    Totale servizi <span class="sort-icon" [class.active]="sortColumn === 'servizi'">{{ sortIcon('servizi') }}</span>
-                  </th>
-                  <th (click)="sort('dataCreazione')" style="cursor: pointer;">
-                    Data creazione <span class="sort-icon" [class.active]="sortColumn === 'dataCreazione'">{{ sortIcon('dataCreazione') }}</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                @for (progetto of progetti; track progetto.idProgetto) {
-                  <tr
-                    (click)="selezionaProgetto(progetto)"
-                    [class.row-selected]="progettoSelezionato?.idProgetto === progetto.idProgetto"
-                    style="cursor: pointer;">
-                    <td>
-                      <input
-                        type="checkbox"
-                        [checked]="progettoSelezionato?.idProgetto === progetto.idProgetto"
-                        (click)="$event.stopPropagation(); selezionaProgetto(progetto)">
-                    </td>
-                    <td>{{ progetto.idProgetto }}</td>
-                    <td>{{ progetto.nome }}</td>
-                    <td class="desc-cell">{{ progetto.description }}</td>
-                    <td>{{ progetto.servizi?.length ?? 0 }}</td>
-                    <td>{{ formatDate(progetto.dataCreazione) }}</td>
-                  </tr>
+          <app-table
+            [data]="progetti"
+            [columns]="colonneProgetti"
+            [selectedRow]="progettoSelezionato"
+            defaultSortColumn="idProgetto">
+            <ng-template #cellTemplate let-row let-column="column">
+              @switch (column.key) {
+                @case ('select') {
+                  <input
+                    type="checkbox"
+                    [checked]="progettoSelezionato?.idProgetto === row.idProgetto"
+                    (click)="$event.stopPropagation(); selezionaProgetto(row)">
                 }
-              </tbody>
-            </table>
-          </div>
+                @case ('dataCreazione') {
+                  <span (click)="selezionaProgetto(row)">{{ formatDate(row.dataCreazione) }}</span>
+                }
+                @case ('servizi') {
+                  <span (click)="selezionaProgetto(row)">{{ row.servizi?.length ?? 0 }}</span>
+                }
+                @default {
+                  <span (click)="selezionaProgetto(row)">{{ row[column.key] }}</span>
+                }
+              }
+            </ng-template>
+          </app-table>
         </div>
       }
 

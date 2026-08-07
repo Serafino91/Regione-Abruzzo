@@ -5,5 +5,11 @@
 </app-section-header>
 
 
-<app-incident-card></app-incident-card>
-
+<div class="d-flex flex-column gap-2">
+  @for (incident of incidents; track incident.id; let i = $index) {
+    <div class="">
+      <app-incident-accordion
+      [incident]="incident"></app-incident-accordion>
+    </div>
+  }
+</div>

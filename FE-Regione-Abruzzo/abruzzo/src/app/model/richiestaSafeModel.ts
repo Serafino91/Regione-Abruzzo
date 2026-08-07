@@ -21,6 +21,7 @@ export class RichiestaSafeModel {
   sendTo!: string;
   createdAt?: string;
   updatedAt?: string;
+  note?: string;
 }
 export interface RichiestaDetailResponse {
   requestDetail: RichiestaSafeModel;

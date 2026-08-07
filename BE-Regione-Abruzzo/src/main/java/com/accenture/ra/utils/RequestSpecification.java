@@ -1,6 +1,7 @@
 package com.accenture.ra.utils;
 
 import com.accenture.ra.entity.RequestEntity;
+import com.accenture.ra.entity.RequestServiceEntity;
 import com.accenture.ra.entity.ServiceEntity;
 import com.accenture.ra.dto.request.RequestFilterCriteria;
 import jakarta.persistence.criteria.Join;
@@ -32,15 +33,16 @@ public class RequestSpecification {
                 predicates.add(criteriaBuilder.equal(root.get("state").get("id"), criteria.getStateId()));
             }
 
-            // Filtro per categoria
-            if (criteria.getCategoryId() != null) {
-                predicates.add(criteriaBuilder.equal(root.get("category").get("id"), criteria.getCategoryId()));
-            }
-
             // Filtro per servizi
             if (criteria.getServiceIds() != null && !criteria.getServiceIds().isEmpty()) {
-                Join<RequestEntity, ServiceEntity> serviceJoin = root.join("services", JoinType.INNER);
+                Join<RequestEntity, RequestServiceEntity> requestServiceJoin =
+                        root.join("requestServices", JoinType.INNER);
+
+                Join<RequestServiceEntity, ServiceEntity> serviceJoin =
+                        requestServiceJoin.join("service", JoinType.INNER);
+
                 predicates.add(serviceJoin.get("id").in(criteria.getServiceIds()));
+
                 query.distinct(true);
             }
 

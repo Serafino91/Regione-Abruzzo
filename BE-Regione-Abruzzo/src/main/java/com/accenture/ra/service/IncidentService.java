@@ -1,12 +1,12 @@
 package com.accenture.ra.service;
 
-import com.accenture.ra.dto.request.ServiceType;
-import com.accenture.ra.dto.response.TicketModel;
-
 import java.util.List;
+
+import com.accenture.ra.dto.response.TicketModel;
 
 public interface IncidentService {
 
 	public List<TicketModel> getAllIncident();
 
+	public TicketModel getIncidentDetail(String ticketCode);
 }

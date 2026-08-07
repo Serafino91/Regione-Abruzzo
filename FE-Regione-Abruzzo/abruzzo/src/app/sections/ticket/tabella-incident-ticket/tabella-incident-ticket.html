@@ -1,0 +1,47 @@
+<app-table [data]="listaIncidentTicket" [columns]="colonneIncidentTicket" defaultSortColumn="idIncident"
+    defaultSortDir="asc">
+
+    <ng-template #cellTemplate let-row let-col="column">
+
+        @if (col.key === 'state.config.label') {
+
+        @if (row.statoIncident === 'Aperto') {
+        <span class="badge-stato badge-open">
+            {{ row.statoIncident }}
+        </span>
+        }
+
+        @if (row.statoIncident === 'Chiuso') {
+        <span class="badge-stato badge-close">
+            {{ row.statoIncident }}
+        </span>
+        }
+
+        }
+
+        @if (col.key === 'idIncident') {
+        <span class="fw-bold text-dark">{{ row.idIncident }}</span>
+        }
+
+        @else if (col.key === 'azioni') {
+        <div class="dropdown text-center">
+            <button class="btn btn-link p-0 text-decoration-none" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false" aria-label="Azioni progetto">
+                <svg class="icon icon-primary" aria-hidden="true">
+                    <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-chevron-right'"></use>
+                </svg>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <a class="dropdown-item" [routerLink]="['/home/ticket/incident/dettaglio-incident-ticket']">
+                        Vai a dettaglio
+                    </a>
+                </li>
+            </ul>
+        </div>
+        } @else {
+        {{ getValue(row, col.key) }}
+        }
+
+    </ng-template>
+</app-table>

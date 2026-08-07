@@ -24,8 +24,8 @@ export class ProgettiInCorso {
 
   constructor(private progettiService: ProgettiService) {}
 
-  servizi: number[] = [1, 3, 5];
   richieste: number[] = [1, 2, 1];
+
   ngOnInit(): void {
     this.getProgetti();
   }
@@ -48,6 +48,7 @@ export class ProgettiInCorso {
             description: p.description,
             dataCreazione: p.createAt,
             dataUltimaModifica: p.updateAt,
+            servizi: p.services
           }));
           this.cdr.detectChanges();
         },

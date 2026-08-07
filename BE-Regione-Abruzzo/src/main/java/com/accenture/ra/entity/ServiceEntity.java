@@ -30,18 +30,6 @@ public class ServiceEntity {
     @Column(name = "is_optional")
     private Boolean isOptional;
 
-    @Column(name = "param_list_id")
-    private Long paramListId;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(
-            name = "id",
-            referencedColumnName = "param_list_id",
-            insertable = false,
-            updatable = false
-    )
-    private List<ParamListEntity> paramList;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "service_type_id", nullable = false)
     private ServiceTypeEntity serviceType;

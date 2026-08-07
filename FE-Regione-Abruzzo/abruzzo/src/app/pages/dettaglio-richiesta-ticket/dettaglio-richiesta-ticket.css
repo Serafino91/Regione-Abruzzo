@@ -1,0 +1,189 @@
+.section {
+    padding: 12px 48px;
+}
+
+.section-collapse {
+    padding: 12px 24px;
+}
+
+.section-modal {
+    padding: 12px 24px;
+}
+
+.richiesta-detail-card {
+
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    padding: 20px 24px;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.richiesta-detail-card hr {
+    border-color: #d0dbe6;
+    opacity: 1;
+}
+
+.servizio-detail-card {
+    background: #f2f7fc;
+    border: 1px solid #d0dbe6;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.servizio-detail-card__descrizione {
+    padding: 16px 24px;
+    border-bottom: 1px solid #d0dbe6;
+}
+
+.servizio-detail-card__params {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 16px 24px;
+    gap: 0;
+}
+
+.servizio-detail-card__param-col {
+    min-width: 200px;
+    flex: 1;
+    padding-right: 24px;
+}
+
+.stato-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border: 1.5px solid;
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    white-space: nowrap;
+    font-family: "Titillium Web", Geneva, Tahoma, sans-serif;
+}
+
+.accordion-item {
+    background: #ffffff;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    overflow: hidden;
+}
+
+.accordion-header {
+    display: flex;
+    align-items: center;
+    padding: 14px 20px;
+    cursor: default;
+}
+
+.servizio-card__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #eef2f7;
+    border: 2px solid #0066CC;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #37474f;
+    width: fit-content;
+}
+
+.servizio-card__badge svg {
+    flex-shrink: 0;
+    color: #546e7a;
+}
+
+.storage-badge__text {
+    color: #0056d6;
+    /* Text color matching the primary branding */
+    font-family: 'Titillium Web', Geneva, sans-serif;
+    /* Bootstrap Italia standard font */
+    font-size: 11px;
+    /* Small, clear utility font sizing */
+    font-weight: 700;
+    /* Bold uppercase stance */
+    letter-spacing: 0.5px;
+    /* Clean readability layout tracking */
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-box {
+    background: #ffffff;
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+    overflow: hidden;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid #d0dbe6;
+}
+
+.modal-header .icon-danger {
+    /*fill: #d9364f;*/
+    fill: #0066cc;
+    width: 22px;
+    height: 22px;
+}
+
+.modal-body {
+    padding: 20px 24px;
+    line-height: 1.6;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 24px;
+    border-top: 1px solid #d0dbe6;
+}
+
+.btn-annulla {
+    background: none;
+    border: 1px solid #d0dbe6;
+    border-radius: 6px;
+    padding: 8px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #17324d;
+}
+
+.btn-annulla:hover {
+    background: #f2f7fc;
+}
+
+.btn-elimina {
+    background: #0066cc;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+.btn-elimina:hover {
+    background: #0066cc;
+}

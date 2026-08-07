@@ -52,7 +52,7 @@ export class DettaglioServizio {
             },
             {
               label: 'Categoria',
-              value: this.servizioDetail.type,
+              value: this.servizioDetail.type.name,
               icon: 'it-calendar',
             },
           ];

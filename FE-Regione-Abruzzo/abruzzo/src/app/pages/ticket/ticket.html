@@ -1,0 +1,70 @@
+<div class="section-padding">
+
+    <app-page-header [titolo]="'Gestione Ticket'"
+        [sottotitolo]="'Gestisci le richieste degli utenti relative ai servizi e agli accessi al portale, monitorando le attività in sospeso e accedendo al dettaglio di ogni pratica.'">
+    </app-page-header>
+
+    <ul class="nav nav-tabs m-0 p-0 mt-3" role="tablist" style="min-height: auto !important; height: auto !important;">
+        <li class="nav-item" style="cursor: pointer;">
+            <a class="nav-link py-2 px-3 d-flex align-items-center"
+                [class.active]="tipologiaTicketSelezionata === 'Richieste servizi'" (click)="setTabTicket('home/ticket/richieste-servizi')"
+                role="tab">
+                <span class="text-nowrap">Richieste servizi</span>
+            </a>
+        </li>
+
+        <li class="nav-item" style="cursor: pointer;">
+            <a class="nav-link py-2 px-3 d-flex align-items-center"
+                [class.active]="tipologiaTicketSelezionata === 'Incident'" (click)="setTabTicket('home/ticket/incident')"
+                role="tab">
+                <span class="text-nowrap">Incident</span>
+            </a>
+        </li>
+
+        <li class="nav-item" style="cursor: pointer;">
+            <a class="nav-link py-2 px-3 d-flex align-items-center"
+                [class.active]="tipologiaTicketSelezionata === 'Accreditamenti'"
+                (click)="setTabTicket('/home/ticket/accreditamenti')" role="tab">
+                <span class="text-nowrap">Accreditamenti</span>
+            </a>
+        </li>
+    </ul>
+
+    <div class="color-bg-lightblue">
+        @if (tipologiaTicketSelezionata === 'Richieste servizi') {
+        <div class="section-padding shadow-card">
+            <app-filtri-richieste-ticket></app-filtri-richieste-ticket>
+        </div>
+        }
+
+
+        @if (tipologiaTicketSelezionata === 'Incident') {
+        <div class="section-padding shadow-card">
+            <app-filtri-incident-ticket></app-filtri-incident-ticket>
+        </div>
+        }
+
+        @if (tipologiaTicketSelezionata === 'Accreditamenti') {
+        <div class="section-padding shadow-card">
+            <app-filtri-accreditamenti-ticket></app-filtri-accreditamenti-ticket>
+        </div>
+        }
+    </div>
+
+    <div class="mt-3">
+
+        @if (tipologiaTicketSelezionata === 'Richieste servizi') {
+            <app-tabella-richieste-ticket></app-tabella-richieste-ticket>
+        }
+
+        @if (tipologiaTicketSelezionata === 'Incident') {
+            <app-tabella-incident-ticket></app-tabella-incident-ticket>
+        }
+
+        @if (tipologiaTicketSelezionata === 'Accreditamenti') {
+            <app-tabella-accreditamenti-ticket></app-tabella-accreditamenti-ticket>
+        }
+
+    </div>
+
+</div>

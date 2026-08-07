@@ -1,39 +1,64 @@
 <div class="row">
-  <!--
+
+    @if (isAdmin) {
+    <app-ticket-da-gestire class="color-bg-lightblue section-padding"></app-ticket-da-gestire>
+    }
+
+
+    <app-richieste-in-corso class="section-padding"></app-richieste-in-corso>
+    <app-incident-in-corso class="section-padding"></app-incident-in-corso>
+    <app-progetti-in-corso class="section-padding"></app-progetti-in-corso>
+
+    <div class="color-bg-lightblue section-padding">
+        <app-catalogo></app-catalogo>
+    </div>
+
+
+</div>
+
+
+
+@if (showSelezionaProfiliModal) {
   <app-app-modal
-  [title]="'Seleziona Profilo'"
-  [message]="'Seleziona tra i seguenti profili, quello con cui vuoi accedere. Sarà sempre possibile cambiare profilo, accedendo al pannello utente e cliccando su Cambio profilo.'"
-  [showCancel]="false">
-    <div class="color-bg-lightblue rounded-2">
-      <div class="m-3">
-        <label class="form-label p-2">Scegli un'opzione:</label>
+    title="Seleziona Profilo"
+    confirmText="Conferma"
+    message="Seleziona tra i seguenti profili, quello con cui vuoi accedere. Sarà sempre possibile cambiare profilo, accedendo al pannello utente e cliccando su Cambio profilo."
+    [showCancel]="false"
+    (confirm)="showSelezionaProfiliModal = false"
+    (close)="showSelezionaProfiliModal = false"
+    (cancel)="showSelezionaProfiliModal = false"
+    size="lg">
 
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="opzioni" id="opzione1" value="opzione1" checked>
-          <label class="form-check-label" for="opzione1">
-            Opzione 1
+    <div class="p-3 color-bg-lightblue rounded">
+      <form [formGroup]="profiloForm">
+        <label class="form-label fw-bold mb-2 d-block">Profilo</label>
+
+        <div class="form-check ps-0 mb-2">
+          <input class="form-check-input" type="radio" formControlName="profilo" id="profiloPersonale" value="profiloPersonale">
+          <label class="form-check-label" for="profiloPersonale">
+            Profilo Personale
           </label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="opzioni" id="opzione2" value="opzione2">
-          <label class="form-check-label" for="opzione2">
-            Opzione 2
+
+        <hr>
+        <label class="form-label fw-bold mb-2 d-block">Da Delegato</label>
+
+
+        <div class="form-check ps-0 mb-2">
+          <input class="form-check-input" type="radio" formControlName="profilo" id="profilo1" value="profilo1">
+          <label class="form-check-label" for="profilo1">
+            Delegato 1
           </label>
         </div>
 
-      </div>
-
+        <div class="form-check ps-0 mb-2">
+          <input class="form-check-input" type="radio" formControlName="profilo" id="profilo2" value="profilo2">
+          <label class="form-check-label" for="profilo2">
+            Delegato 2
+          </label>
+        </div>
+      </form>
     </div>
   </app-app-modal>
-  -->
-
-  <app-richieste-in-corso class="section-padding"></app-richieste-in-corso>
-  <app-incident-in-corso class="section-padding"></app-incident-in-corso>
-  <app-progetti-in-corso class="section-padding"></app-progetti-in-corso>
-<div class="mt-3 color-bg-lightblue section-padding">
-  <app-catalogo></app-catalogo>
-</div>
-
-
-</div>
+}
 

@@ -25,10 +25,7 @@ export class DettaglioProgetto {
   private destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef);
 
-  constructor(
-    private route: ActivatedRoute,
-    private progettiService: ProgettiService,
-  ) {}
+  constructor(private route: ActivatedRoute, private progettiService: ProgettiService) {}
 
   ngOnInit() {
     this.progettoId = this.route.snapshot.paramMap.get('id')!;
@@ -42,19 +39,19 @@ export class DettaglioProgetto {
       .subscribe({
         next: (resp: any) => {
           const progetto = resp.serviceDetail ?? resp;
-
-          console.log(progetto);
           this.progettoDetail = {
             ...progetto,
             nome: resp.serviceDetail.name,
-          };
+            servizi: resp.serviceDetail.services,
 
+          };
+          console.log(this.progettoDetail);
           this.infoProgetto = [
-            {
+              {
               label: 'ID Progetto',
               value: progetto.id,
               icon: 'it-file',
-            },
+              },
             {
               label: 'Nome',
               value: progetto.name,

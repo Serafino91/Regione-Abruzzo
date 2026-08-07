@@ -11,7 +11,7 @@ import { ProgettiService } from '../../services/progetti.service';
 import { Router } from '@angular/router';
 import { ProgettoModel } from '../../model/progetto.model';
 import { RichiestaSafeModel, RichiestaProjectDto } from '../../model/richiestaSafeModel';
-import {PageHeader} from '../../components/page-header/page-header';
+import { PageHeader } from '../../components/page-header/page-header';
 
 @Component({
   selector: 'app-nuova-richiesta',
@@ -40,7 +40,7 @@ class NuovaRichiesta {
     private progettiService: ProgettiService,
     private router: Router,
     private cdr: ChangeDetectorRef,
-  ) {}
+  ) { }
 
   richiestaForm = new FormGroup({
     progettoForm: new FormGroup({}),
@@ -60,6 +60,10 @@ class NuovaRichiesta {
   ];
 
   nextStep() {
+    if (!this.canGoNext()) {
+      return;
+    }
+
     if (this.currentStep === 1 && this.nuovaRichiesta) {
       const nome = this.richiestaForm.get('progettoForm.progetto.nome')?.value;
       const link = this.richiestaForm.get('progettoForm.progetto.link')?.value;
@@ -157,6 +161,7 @@ class NuovaRichiesta {
     }
 
     const serviziRaggruppati = servizi.reduce((acc: any[], s: any) => {
+      console.log('SINGOLO SERVIZIO NEL REDUCE:', JSON.stringify(s, null, 2));
       const existing = acc.find((item: any) => item.servizioId === s.servizioId);
       if (existing) {
         existing.unit = Number(existing.unit) + Number(s.unit);
@@ -165,6 +170,8 @@ class NuovaRichiesta {
       }
       return acc;
     }, []);
+
+    const servizioId = serviziRaggruppati[0].servizioId;
 
     const richiesta: RichiestaSafeModel = {
       requestId: '',
@@ -179,16 +186,21 @@ class NuovaRichiesta {
         optional: false,
         quantity: String(s.unit),
         durationMonths: null,
-        params: Object.entries(s.params ?? {}).map(([name, value]) => ({ name, value })),
+        params: Object.entries(s.params ?? {}).map(([name, value]: [string, any]) => ({
+          id: servizioId,
+          name,
+          value
+        }))
+        // params: Object.entries(s.params ?? {}).map(([name, value]) => ({ name, value })),
       })),
       category: categoria,
       sendFrom: progettoForm['dataDa'] ? new Date(progettoForm['dataDa']).toISOString() : '',
       sendTo: progettoForm['dataA'] ? new Date(progettoForm['dataA']).toISOString() : '',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
+      note: this.noteForm.controls.note.value ?? ''
     };
 
-    console.log('richiesta:', richiesta);
     this.richiesteService.createRichiesta(richiesta).subscribe({
       next: () => {
         this.isInviando = false;

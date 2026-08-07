@@ -1,0 +1,36 @@
+<app-section-header
+  titolo="Ticket da gestire"
+  link="/home/ticket/richieste-servizi"
+  testoLink="Vedi lista">
+</app-section-header>
+
+<div class="ticket-cards">
+    @for (item of ticketItems; track item.label) {
+    <div class="ticket-card shadow-card">
+        <div class="row justify-content-between">
+            <div class="col-6">
+                <svg class="icon icon-sm icon-secondary">
+                    <use [attr.href]="'assets/bootstrap-italia/sprites.svg#' + item.icon"></use>
+                </svg>
+                {{ item.label }}
+            </div>
+
+            <div class="col-6 text-end">
+                <strong class="fs-4">{{ item.value }}</strong>
+            </div>
+
+            <div class="col-12 mt-2">
+                <a class="text-primary" (click)="goToTicket(item.label)" title="vai alla sezione dedicata.">
+                    <strong style="cursor: pointer;">
+                        Vedi tutti
+                        <svg class="icon icon-sm icon-primary">
+                            <use href="assets/bootstrap-italia/sprites.svg#it-arrow-right"></use>
+                        </svg>
+                    </strong>
+                </a>
+            </div>
+
+        </div>
+    </div>
+    }
+</div>
