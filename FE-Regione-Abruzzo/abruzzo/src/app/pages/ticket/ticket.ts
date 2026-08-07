@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { PageHeader } from '../../components/page-header/page-header';
@@ -26,7 +26,7 @@ import { TabellaAccreditamentiTicket } from '../../sections/ticket/tabella-accre
 	styleUrl: './ticket.css',
 })
 
-export class Ticket implements OnInit, OnDestroy {
+export class Ticket {
 
 	private router: Router = inject(Router);
 
@@ -50,16 +50,8 @@ export class Ticket implements OnInit, OnDestroy {
 		return returnValue;
 	}
 
-	ngOnInit(): void {
-		console.log("tipologiaTicketSelezionata: ", this.tipologiaTicketSelezionata);
-	}
-
 	setTabTicket(section: string) {
 		this.router.navigateByUrl(section);
-	}
-
-	ngOnDestroy(): void {
-		console.log("componente distrutto.");
 	}
 
 }
