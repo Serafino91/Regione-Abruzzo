@@ -2,8 +2,8 @@
     <app-page-header [titolo]="'Dettaglio incident'" [backspace]="'Torna alla lista'" [linkBackspace]="'/home/ticket/incident'">
 
         <div class="text-center">
-            <a style="cursor: pointer;" (click)="isShowChiusuraIncident = true">
-                <svg class="icon icon-sm icon-secondary">
+            <a class="text-primary" style="cursor: pointer;" (click)="isShowChiusuraIncident = true">
+                <svg class="icon icon-sm icon-primary">
                     <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-check-circle'"></use>
                 </svg>
                 Chiudi
@@ -18,7 +18,7 @@
 
 <div class="section">
 
-    <div class="richiesta-detail-card">
+    <div class="richiesta-detail-card shadow-card">
 
         <div class="row mb-3">
             <div class="col-12">
@@ -90,7 +90,7 @@
 
 <div class="section">
 
-    <div class="richiesta-detail-card">
+    <div class="richiesta-detail-card shadow-card">
 
         <div class="row mb-3">
             <div class="col-12">

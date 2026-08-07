@@ -8,11 +8,12 @@ import { RouterLink } from '@angular/router';
         TableComponent,
         RouterLink
     ],
+  standalone: true,
     templateUrl: './tabella-incident-ticket.html',
     styleUrl: './tabella-incident-ticket.css',
 })
 
-export class TabellaIncidentTicket { 
+export class TabellaIncidentTicket {
 
     colonneIncidentTicket: TableColumn[] = [
         { key: 'state.config.label', label: 'Stato', sortable: true, class: 'col-small' },

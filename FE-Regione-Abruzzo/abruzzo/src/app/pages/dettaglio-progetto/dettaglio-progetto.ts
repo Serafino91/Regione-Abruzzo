@@ -45,6 +45,7 @@ export class DettaglioProgetto {
             servizi: resp.serviceDetail.services,
 
           };
+          console.log(this.progettoDetail);
           this.infoProgetto = [
               {
               label: 'ID Progetto',

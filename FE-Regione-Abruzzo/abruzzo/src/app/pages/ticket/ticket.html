@@ -32,26 +32,26 @@
 
     <div class="color-bg-lightblue">
         @if (tipologiaTicketSelezionata === 'Richieste servizi') {
-        <div class="section-padding">
+        <div class="section-padding shadow-card">
             <app-filtri-richieste-ticket></app-filtri-richieste-ticket>
         </div>
         }
 
 
         @if (tipologiaTicketSelezionata === 'Incident') {
-        <div class="section-padding">
+        <div class="section-padding shadow-card">
             <app-filtri-incident-ticket></app-filtri-incident-ticket>
         </div>
         }
 
         @if (tipologiaTicketSelezionata === 'Accreditamenti') {
-        <div class="section-padding">
+        <div class="section-padding shadow-card">
             <app-filtri-accreditamenti-ticket></app-filtri-accreditamenti-ticket>
         </div>
         }
     </div>
 
-    <div class="section-padding">
+    <div class="mt-3">
 
         @if (tipologiaTicketSelezionata === 'Richieste servizi') {
             <app-tabella-richieste-ticket></app-tabella-richieste-ticket>

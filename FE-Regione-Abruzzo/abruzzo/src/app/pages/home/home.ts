@@ -25,7 +25,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 })
 export class Home {
   isAdmin = true;
-  showSelezionaProfiliModal = true;
+  showSelezionaProfiliModal = false;
 
   profiloForm: FormGroup = new FormGroup({
     profilo: new FormControl('', Validators.required),

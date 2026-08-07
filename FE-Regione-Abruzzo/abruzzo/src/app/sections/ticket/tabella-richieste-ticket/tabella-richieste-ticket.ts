@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
         TableComponent,
         RouterLink
     ],
+    standalone: true,
     templateUrl: './tabella-richieste-ticket.html',
     styleUrl: './tabella-richieste-ticket.css',
 })
@@ -24,7 +25,7 @@ export class TabellaRichiesteTicket {
         { key: 'azioni', label: 'Azioni', sortable: false, class: 'text-center col-actions' },
     ];
 
-    listaRichiesteTicket = [ 
+    listaRichiesteTicket = [
         {
             statoRichiesta: "Inviata",
             idRichiesta: "ID 1",

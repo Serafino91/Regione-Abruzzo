@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
         TableComponent,
         RouterLink
     ],
+  standalone: true,
     templateUrl: './tabella-accreditamenti-ticket.html',
     styleUrl: './tabella-accreditamenti-ticket.css',
 })

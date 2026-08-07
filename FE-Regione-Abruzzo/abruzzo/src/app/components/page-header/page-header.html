@@ -8,16 +8,18 @@
       {{backspace}}
     </a>
   }
-  <div class="d-flex justify-content-between align-items-center mb-3">
+  <div class="d-flex flex-row justify-content-between align-items-center mb-3">
     <h4 class="title-section"> <strong>{{titolo}}</strong></h4>
+
+    <ng-content>
+    </ng-content>
+
   @if(button) {
     <button class="btn btn-primary text-normal fw-semibold "
     [routerLink]="[link]">
       {{button}}
     </button>
   }
-    <ng-content>
-    </ng-content>
   </div>
   @if (sottotitolo) {
     <p class="mt-0"> {{sottotitolo}}</p>
