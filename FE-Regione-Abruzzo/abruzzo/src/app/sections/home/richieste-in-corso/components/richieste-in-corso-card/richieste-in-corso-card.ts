@@ -17,6 +17,7 @@ export interface Richieste {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './richieste-in-corso-card.html',
+  styleUrl: './richieste-in-corso-card.css',
 })
 export class RichiesteInCorsoCard {
   @Input() dati!: RichiestaModel;
@@ -25,5 +26,10 @@ export class RichiesteInCorsoCard {
 
   apriDettaglio() {
     this.router.navigate(['/home/richieste/dettaglio-richiesta', this.dati.requestId]);
+  }
+
+  apriElencoServizi(event: Event): void {
+    event.preventDefault();
+
   }
 }

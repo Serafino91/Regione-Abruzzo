@@ -1,11 +1,29 @@
 /* Sovrascriviamo l'altezza minima nativa delle card di Bootstrap Italia per renderle sottili */
-.richieste-in-corso-card, 
+.richieste-in-corso-card,
 .card-bg {
   min-height: auto !important;
   height: auto !important;
 }
 
-/* Rende i separatori verticali nativi di Bootstrap leggermente più discreti */
-.border-end.border-light {
-  border-color: #f1f5f9 !important;
+
+.request-row {
+  display: grid;
+  position: relative;
+  z-index: 1;
+  grid-template-columns: 20% 20%  20% 20%  20% ;
+  align-items: center;
+  column-gap: 0;
+}
+
+
+.servizi-link:hover {
+  color: #004c99;
+}
+
+
+.request-row:has(.dropdown-menu.show) {
+  z-index: 10;
+}
+.servizi-dropdown {
+  min-width: 280px; /* la dimensione minima che vuoi tu */
 }
