@@ -3,19 +3,37 @@
   <div class="accordion-header align-content-center d-flex flex-row gap-3 px-4 py-2">
 
 
+
     <div class=" d-flex flex-row align-content-center gap-2">
-      <svg aria-hidden="true" class="icon icon-sm">
-        <use [attr.href]="'assets/bootstrap-italia/sprites.svg#' + iconForType(incident.state.name)"></use>
+      <svg aria-hidden="true" class="icon icon-sm"
+           [style.fill]="getStateConfig(incident.state.name).colorBorder">
+        <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-error'"></use>
       </svg>
 
       <h6 class="service-name">
         {{ incident.code }}
       </h6>
 
+
+
+
     </div>
 
+
+    <div class="d-flex flex-row ms-auto">
+      <span class="badge-stato"
+            [style.border-color]="getStateConfig(incident.state.name).colorBorder"
+            [style.background-color]="getStateConfig(incident.state.name).colorBg"
+            [style.color]="getStateConfig(incident.state.name).colorText">
+        {{ getStateConfig(incident.state.name).label }}
+      </span>
+    </div>
+
+
+
+
     <button
-      class="btn btn-link text-primary ms-auto"
+      class="btn btn-link text-primary"
       type="button"
       (click)="toggle()"
       data-bs-toggle="collapse"

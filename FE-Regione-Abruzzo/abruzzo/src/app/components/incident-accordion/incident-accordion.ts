@@ -12,6 +12,28 @@ import { StatoTicket } from '../../constants/request-state-badge.constants';
   styleUrl: './incident-accordion.css',
 })
 export class IncidentAccordion {
+  stateConfigMap: Record<
+    string,
+    { colorBorder: string; colorBg: string; colorText: string; label: string }
+  > = {
+    APERTO: { colorBorder: '#004D99', colorBg: '#BFDFFF', colorText: '#000000', label: 'Aperto' },
+    CHIUSO: { colorBorder: '#5cb85c', colorBg: '#e8f5e9', colorText: '#000000', label: 'Chiuso' },
+    IN_LAVORAZIONE: { colorBorder: '#CC7A00', colorBg: '#FBF1E3', colorText: '#000000', label: 'In lavorazione'},
+  };
+
+  getStateConfig(stateName: string) {
+    const key = (stateName ?? '').trim().toUpperCase().replace(/\s+/g, '_'); // sostituisce uno o più spazi con underscore
+
+    return (
+      this.stateConfigMap[key] ?? {
+        colorBorder: '#ccc',
+        colorBg: '#f5f5f5',
+        colorText: '#666',
+        label: stateName,
+      }
+    );
+  }
+
   @Input({ required: true }) incident!: TicketModel;
   expanded = false;
 
@@ -19,19 +41,6 @@ export class IncidentAccordion {
 
   toggle(): void {
     this.expanded = !this.expanded;
-  }
-
-
-
-  iconForType(type: string): string {
-    const t = type?.toLowerCase() ?? '';
-    if (t.includes('storage') || t.includes('disco') || t.includes('backup')) {
-      return 'it-database';
-    }
-    if (t.includes('rete') || t.includes('vlan') || t.includes('network')) {
-      return 'it-share';
-    }
-    return 'it-box';
   }
 
 
