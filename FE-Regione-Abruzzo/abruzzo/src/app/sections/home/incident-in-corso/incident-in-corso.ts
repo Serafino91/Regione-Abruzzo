@@ -1,13 +1,11 @@
 import { ChangeDetectorRef, Component, DestroyRef, inject, Input } from '@angular/core';
-import { IncidentCard } from './components/incident-card/incident-card';
 import {SectionHeader} from '../../../components/section-header/section-header';
-import { ProjectCard } from '../progetti-in-corso/components/project-card/project-card';
 import { TicketModel } from '../../../model/ticket.model';
 import { IncidentService } from '../../../services/incident.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IncidentAccordion } from '../../../components/incident-accordion/incident-accordion';
 import { map } from 'rxjs';
-import { ProgettoModel } from '../../../model/progetto.model';
+
 
 @Component({
   selector: 'app-incident-in-corso',

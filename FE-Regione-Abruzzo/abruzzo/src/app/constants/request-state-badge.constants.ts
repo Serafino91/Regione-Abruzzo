@@ -62,3 +62,25 @@ export const STATO_TICKET_CONFIG: Record<StatoTicket, StatoConfigElement> = {
     colorText: '#4a5056',
   },
 };
+
+export const STATO_INCIDENT_CONFIG: Record<string, StatoConfigElement> = {
+  APERTO: {
+    colorBorder: '#004D99',
+    colorBg: '#BFDFFF',
+    colorText: '#000000',
+    label: 'Aperto'
+  },
+  CHIUSO: {
+    colorBorder: '#5cb85c',
+    colorBg: '#e8f5e9',
+    colorText: '#000000',
+    label: 'Chiuso'
+  },
+  IN_LAVORAZIONE: {
+    colorBorder: '#CC7A00',
+    colorBg: '#FBF1E3',
+    colorText: '#000000',
+    label: 'In lavorazione',
+  },
+};
+
