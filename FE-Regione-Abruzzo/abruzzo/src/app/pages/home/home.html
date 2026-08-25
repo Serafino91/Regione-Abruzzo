@@ -1,64 +1,61 @@
-<div class="row">
+<div class="container-fluid">
+    <div class="row">
 
-    @if (isAdmin) {
-    <app-ticket-da-gestire class="color-bg-lightblue section-padding"></app-ticket-da-gestire>
-    }
+        @if (isAdmin) {
+        <app-ticket-da-gestire class="color-bg-lightblue section-padding"></app-ticket-da-gestire>
+        }
 
 
-    <app-richieste-in-corso class="section-padding"></app-richieste-in-corso>
-    <app-incident-in-corso class="section-padding"></app-incident-in-corso>
-    <app-progetti-in-corso class="section-padding"></app-progetti-in-corso>
+        <app-richieste-in-corso class="section-padding"></app-richieste-in-corso>
+        <app-incident-in-corso class="section-padding"></app-incident-in-corso>
+        <app-progetti-in-corso class="section-padding"></app-progetti-in-corso>
 
-    <div class="color-bg-lightblue section-padding">
-        <app-catalogo></app-catalogo>
+        <div class="color-bg-lightblue section-padding">
+            <app-catalogo></app-catalogo>
+        </div>
+
+
     </div>
-
-
 </div>
 
 
 
 @if (showSelezionaProfiliModal) {
-  <app-app-modal
-    title="Seleziona Profilo"
-    confirmText="Conferma"
+<app-app-modal title="Seleziona Profilo" confirmText="Conferma"
     message="Seleziona tra i seguenti profili, quello con cui vuoi accedere. Sarà sempre possibile cambiare profilo, accedendo al pannello utente e cliccando su Cambio profilo."
-    [showCancel]="false"
-    (confirm)="showSelezionaProfiliModal = false"
-    (close)="showSelezionaProfiliModal = false"
-    (cancel)="showSelezionaProfiliModal = false"
-    size="lg">
+    [showCancel]="false" (confirm)="showSelezionaProfiliModal = false" (close)="showSelezionaProfiliModal = false"
+    (cancel)="showSelezionaProfiliModal = false" size="lg">
 
     <div class="p-3 color-bg-lightblue rounded">
-      <form [formGroup]="profiloForm">
-        <label class="form-label fw-bold mb-2 d-block">Profilo</label>
+        <form [formGroup]="profiloForm">
+            <label class="form-label fw-bold mb-2 d-block">Profilo</label>
 
-        <div class="form-check ps-0 mb-2">
-          <input class="form-check-input" type="radio" formControlName="profilo" id="profiloPersonale" value="profiloPersonale">
-          <label class="form-check-label" for="profiloPersonale">
-            Profilo Personale
-          </label>
-        </div>
+            <div class="form-check ps-0 mb-2">
+                <input class="form-check-input" type="radio" formControlName="profilo" id="profiloPersonale"
+                    value="profiloPersonale">
+                <label class="form-check-label" for="profiloPersonale">
+                    Profilo Personale
+                </label>
+            </div>
 
-        <hr>
-        <label class="form-label fw-bold mb-2 d-block">Da Delegato</label>
+            <hr>
+            <label class="form-label fw-bold mb-2 d-block">Da Delegato</label>
 
 
-        <div class="form-check ps-0 mb-2">
-          <input class="form-check-input" type="radio" formControlName="profilo" id="profilo1" value="profilo1">
-          <label class="form-check-label" for="profilo1">
-            Delegato 1
-          </label>
-        </div>
+            <div class="form-check ps-0 mb-2">
+                <input class="form-check-input" type="radio" formControlName="profilo" id="profilo1" value="profilo1">
+                <label class="form-check-label" for="profilo1">
+                    Delegato 1
+                </label>
+            </div>
 
-        <div class="form-check ps-0 mb-2">
-          <input class="form-check-input" type="radio" formControlName="profilo" id="profilo2" value="profilo2">
-          <label class="form-check-label" for="profilo2">
-            Delegato 2
-          </label>
-        </div>
-      </form>
+            <div class="form-check ps-0 mb-2">
+                <input class="form-check-input" type="radio" formControlName="profilo" id="profilo2" value="profilo2">
+                <label class="form-check-label" for="profilo2">
+                    Delegato 2
+                </label>
+            </div>
+        </form>
     </div>
-  </app-app-modal>
+</app-app-modal>
 }
-
