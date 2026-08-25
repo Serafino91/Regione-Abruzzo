@@ -15,7 +15,7 @@
 
               <div class="dropdown">
                 <button
-                  class="btn btn-link p-0 text-decoration-none servizi-link"
+                  class="btn btn-link p-0 text-decoration-underline servizi-link"
                   type="button"
                   data-bs-toggle="dropdown"
                   data-bs-display="static"
@@ -23,11 +23,10 @@
                   {{ dati.services.length }} servizi richiesti
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end servizi-dropdown">
-                  <div class="dropdown-header d-flex flex-row justify-content-between " >
+                  <div class="dropdown-header d-flex flex-row align-items-center justify-content-between " >
                     <h6>Servizi Richiesti</h6>
                     <svg class="icon icon-primary" aria-hidden="true">
                       <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-close'"></use>
-
                     </svg>
                   </div>
                   @for (s of dati.services; track s.item) {

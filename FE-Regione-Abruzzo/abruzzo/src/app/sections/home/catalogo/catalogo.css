@@ -9,7 +9,6 @@
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   width: auto;
   min-height: 220px;
   padding: 20px;
@@ -64,4 +63,30 @@
 :host ::ng-deep  .splide__pagination__page.is-active {
   background-color: var(--color-primary);
   transform: scale(1.2);
+}
+
+:host ::ng-deep .splide__arrow {
+  border-radius: 4px;
+  background-color: var(--color-primary);
+  opacity: 1;
+}
+
+:host ::ng-deep .splide__arrow:hover {
+  background-color: var(--color-primary-dark);
+opacity: 1;
+}
+
+
+:host ::ng-deep .splide__arrow--prev {
+  left: 0.5rem;
+}
+
+:host ::ng-deep .splide__arrow svg {
+  width: 10px;
+  fill: #ffffff;
+}
+
+:host ::ng-deep .splide__arrow:disabled {
+  background-color: #cbd5e0;
+  cursor: not-allowed;
 }
