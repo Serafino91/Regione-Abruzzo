@@ -7,7 +7,22 @@ import {ProgettoDetailCard} from '../../components/progetto-detail-card/progetto
 import {ServizioAccordion} from '../../components/servizio-accordion/servizio-accordion';
 import {InfoBar} from '../../components/info-bar/info-bar';
 import { PageHeader } from '../../components/page-header/page-header';
-import {DelegatoCard} from '../../components/delegato-card/delegato-card';
+import { DelegatoCard } from '../../components/delegato-card/delegato-card';
+import {ServizioModel} from '../../model/servizioModel';
+
+export interface ServizioDto {
+  id: number;
+  name: string;
+  type: string | null;
+  item: string | null;
+  base: boolean | null;
+  optional?: boolean | null;
+  quantity?: string | null;
+  durationMonths?: string | null;
+  params?: any[];
+}
+
+
 
 @Component({
   selector: 'app-dettaglio-progetto',
@@ -32,6 +47,19 @@ export class DettaglioProgetto {
     this.getProgetto(this.progettoId);
   }
 
+  private mapServizio(dto: ServizioDto): ServizioModel {
+    return {
+      id: String(dto.id),
+      type: dto.type as any, // oppure una mappatura verso CategoriaModel se serve
+      item: dto.name,        // <-- qui il fix: il backend chiama "name" quello che tu vuoi in "item"
+      base: !!dto.base,
+      optional: !!dto.optional,
+      quantity: dto.quantity ?? null,
+      durationMonths: dto.durationMonths ?? null,
+      params: dto.params ?? [],
+    };
+  }
+
   private getProgetto(id: string): void {
     this.progettiService
       .getProgetto(id)
@@ -42,10 +70,8 @@ export class DettaglioProgetto {
           this.progettoDetail = {
             ...progetto,
             nome: resp.serviceDetail.name,
-            servizi: resp.serviceDetail.services,
-
+            servizi: (resp.serviceDetail.services ?? []).map((s: ServizioDto) => this.mapServizio(s),),
           };
-          console.log(this.progettoDetail);
           this.infoProgetto = [
               {
               label: 'ID Progetto',

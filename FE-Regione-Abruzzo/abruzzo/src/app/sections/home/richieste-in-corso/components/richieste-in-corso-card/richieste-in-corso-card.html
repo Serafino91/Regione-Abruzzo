@@ -27,10 +27,11 @@
                     <h6>Servizi Richiesti</h6>
                     <svg class="icon icon-primary" aria-hidden="true">
                       <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-close'"></use>
+
                     </svg>
                   </div>
                   @for (s of dati.services; track s.item) {
-                    <li><span class="dropdown-item-text">{{ s.item }}</span></li>
+                    <li><span class=" p-4">{{ s.item }}</span></li>
                   }
                 </ul>
               </div>

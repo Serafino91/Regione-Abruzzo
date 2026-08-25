@@ -4,9 +4,9 @@
 
     <span class="type-badge">
       <svg aria-hidden="true">
-        <use [attr.href]="'assets/bootstrap-italia/sprites.svg#' + iconForType(servizio.type.name)"></use>
+        <use [attr.href]="'assets/bootstrap-italia/sprites.svg#' + iconForType(servizio?.type?.name)"></use>
       </svg>
-      {{ servizio.type.name | uppercase }}
+      {{ servizio?.type?.name | uppercase }}
     </span>
 
     <h6 class="service-name">
@@ -52,46 +52,42 @@
 
     <div class="accordion-body p-4">
 
-        <h5>Dati Servizio </h5>
+      <h5>Dati Servizio </h5>
 
-        <div class="d-flex flex-row mt-4" style="gap: 8rem;">
+      <div class="d-flex flex-row mt-4" style="gap: 8rem;">
 
-          <div class="">
-            <p class="fw-bold mb-1">Id servizio</p>
-            <p class="mb-0">{{ servizio?.id }}</p>
-          </div>
-
-          <div class="">
-            <p class="fw-bold mb-1">Servizio</p>
-            <p class="mb-0">{{ servizio?.item }}</p>
-          </div>
-
-          <div class="">
-            <p class="fw-bold mb-1">Categoria</p>
-            <p class="mb-0">{{ servizio?.type?.name }}</p>
-          </div>
-
+        <div class="">
+          <p class="fw-bold mb-1">Id servizio</p>
+          <p class="mb-0">{{ servizio?.id }}</p>
         </div>
-        <hr>
 
+        <div class="">
+          <p class="fw-bold mb-1">Servizio</p>
+          <p class="mb-0">{{ servizio?.item }}</p>
+        </div>
 
+        <div class="">
+          <p class="fw-bold mb-1">Categoria</p>
+          <p class="mb-0">{{ servizio?.type?.name }}</p>
+        </div>
 
-        @if (servizio?.params?.length) {
-          <h5>Parametri </h5>
-          <div class="d-flex flex-row mt-4" style="gap: 8rem;">
-            @for (param of servizio?.params; track param.id) {
-              <div class="servizio-detail-card__param-col">
-                <p class="fw-bold mb-1">{{ param.name }}</p>
-                <p class="mb-0">{{ param.paramType }}</p>
-              </div>
-            }
-          </div>
-        }
+      </div>
+      <hr>
 
+      @if (servizio?.params?.length) {
+        <h5>Parametri </h5>
+        <div class="d-flex flex-row mt-4" style="gap: 8rem;">
+          @for (param of servizio?.params; track param.id) {
+            <div class="servizio-detail-card__param-col">
+              <p class="fw-bold mb-1">{{ param.name }}</p>
+              <p class="mb-0">{{ param.paramType }}</p>
+            </div>
+          }
+        </div>
+      }
 
     </div>
 
   </div>
 
 </div>
-

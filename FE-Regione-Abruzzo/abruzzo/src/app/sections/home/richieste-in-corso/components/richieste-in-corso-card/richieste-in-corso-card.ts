@@ -28,8 +28,4 @@ export class RichiesteInCorsoCard {
     this.router.navigate(['/home/richieste/dettaglio-richiesta', this.dati.requestId]);
   }
 
-  apriElencoServizi(event: Event): void {
-    event.preventDefault();
-
-  }
 }

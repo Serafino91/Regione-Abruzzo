@@ -25,13 +25,13 @@
     </app-progetto-detail-card>
   }
 
+
   @if(progettoDetail.servizi) {
-    @for (servizio of progettoDetail.servizi; track servizio.id) {
-      <app-servizio-accordion
-        [servizio]="servizio">
-      </app-servizio-accordion>
+    @for (servizio of progettoDetail?.servizi; track servizio.id) {
+      <app-servizio-accordion [servizio]="servizio"></app-servizio-accordion>
     }
   }
+
 
   <h5>Delegati</h5>
   <!-- mock -->

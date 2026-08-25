@@ -18,7 +18,7 @@ export class ServizioAccordion {
     this.expanded = !this.expanded;
   }
 
-  iconForType(type: string): string {
+  iconForType(type: string | undefined): string {
     const t = type?.toLowerCase() ?? '';
     if (t.includes('storage') || t.includes('disco') || t.includes('backup')) {
       return 'it-database';
