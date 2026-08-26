@@ -26,9 +26,11 @@
   }
 
 
-  @if(progettoDetail.servizi) {
+  @if(progettoDetail?.servizi) {
     @for (servizio of progettoDetail?.servizi; track servizio.id) {
-      <app-servizio-accordion [servizio]="servizio"></app-servizio-accordion>
+      <app-servizio-accordion
+        [servizio]="servizio">
+      </app-servizio-accordion>
     }
   }
 

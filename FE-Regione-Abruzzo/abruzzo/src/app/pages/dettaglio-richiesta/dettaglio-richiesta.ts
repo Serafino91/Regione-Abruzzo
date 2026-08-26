@@ -8,6 +8,7 @@ import { RichiestaModel } from "../../model/richiestaModel";
 import { ServizioAccordion } from '../../components/servizio-accordion/servizio-accordion';
 import {InfoBar} from '../../components/info-bar/info-bar';
 import { PageHeader } from '../../components/page-header/page-header';
+import { getStatoRichiesta } from '../../constants/incident-state-icon.constants';
 
 @Component({
   selector: 'app-dettaglio-richiesta',
@@ -60,6 +61,7 @@ export class DettaglioRichiesta {
       .subscribe({
         next: (resp: any) => {
           this.richiestaDetail = resp.requestDetail ?? resp;
+          console.log(resp);
           this.infoRichiesta = [
             {
               label: 'ID Richiesta',
@@ -69,7 +71,7 @@ export class DettaglioRichiesta {
             {
               label: 'Stato',
               value: this.richiestaDetail.state.stateName,
-              icon: 'it-file',
+              icon: getStatoRichiesta(this.richiestaDetail.state.id)?.icon,
             },
             {
               label: 'Data apertura',

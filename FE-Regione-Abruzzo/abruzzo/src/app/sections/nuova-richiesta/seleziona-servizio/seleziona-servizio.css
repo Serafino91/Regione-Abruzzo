@@ -1,3 +1,4 @@
 :host ::ng-deep .card.rounded-4::after {
   content: none;
 }
+

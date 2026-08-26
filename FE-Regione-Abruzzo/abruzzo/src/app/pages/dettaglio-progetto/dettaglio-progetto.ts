@@ -9,6 +9,11 @@ import {InfoBar} from '../../components/info-bar/info-bar';
 import { PageHeader } from '../../components/page-header/page-header';
 import { DelegatoCard } from '../../components/delegato-card/delegato-card';
 import {ServizioModel} from '../../model/servizioModel';
+import { ServiziService } from '../../services/servizi.service';
+import { CategoriaModel } from '../../model/categoria.model';
+import { ChiamateApiUrl } from '../../constants/chiamate-api-url.constants';
+import { map } from 'rxjs';
+import { CategoriaService } from '../../services/categoria.service';
 
 export interface ServizioDto {
   id: number;
@@ -36,11 +41,16 @@ export class DettaglioProgetto {
   progettoDetail!: ProgettoModel;
   nuovaRichiesta: boolean = true;
   infoProgetto: any;
+  categorie: CategoriaModel[] = [];
 
   private destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef);
 
-  constructor(private route: ActivatedRoute, private progettiService: ProgettiService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private progettiService: ProgettiService,
+    private categoriaService: CategoriaService,
+  ) {}
 
   ngOnInit() {
     this.progettoId = this.route.snapshot.paramMap.get('id')!;
@@ -51,7 +61,7 @@ export class DettaglioProgetto {
     return {
       id: String(dto.id),
       type: dto.type as any, // oppure una mappatura verso CategoriaModel se serve
-      item: dto.name,        // <-- qui il fix: il backend chiama "name" quello che tu vuoi in "item"
+      item: dto.name, // <-- qui il fix: il backend chiama "name" quello che tu vuoi in "item"
       base: !!dto.base,
       optional: !!dto.optional,
       quantity: dto.quantity ?? null,
@@ -67,21 +77,24 @@ export class DettaglioProgetto {
       .subscribe({
         next: (resp: any) => {
           const progetto = resp.serviceDetail ?? resp;
+          console.log(resp);
           this.progettoDetail = {
             ...progetto,
             nome: resp.serviceDetail.name,
-            servizi: (resp.serviceDetail.services ?? []).map((s: ServizioDto) => this.mapServizio(s),),
+            servizi: (resp.serviceDetail.services ?? []).map((s: ServizioDto) =>
+              this.mapServizio(s),
+            ),
           };
           this.infoProgetto = [
-              {
+            {
               label: 'ID Progetto',
               value: progetto.id,
               icon: 'it-file',
-              },
+            },
             {
               label: 'Nome',
               value: progetto.name,
-              icon: 'it-arrow-up-right',
+              icon: 'it-note',
             },
             {
               label: 'Data Creazione',
@@ -94,6 +107,21 @@ export class DettaglioProgetto {
         },
         error: (err) => {
           console.error('Errore nel recupero richieste:', err);
+        },
+      });
+  }
+
+  getCategorie() {
+    this.categoriaService
+      .getCategorie()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (resp) => {
+          this.categorie = resp;
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Errore categorie:', err);
         },
       });
   }
