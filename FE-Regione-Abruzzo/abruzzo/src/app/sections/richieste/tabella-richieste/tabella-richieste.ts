@@ -5,10 +5,12 @@ import { ServizioModel } from '../../../model/servizioModel';
 import { STATO_CONFIG, STATO_TICKET_CONFIG, StatoRichiesta, StatoTicket } from '../../../constants/request-state-badge.constants';
 import { RouterLink } from '@angular/router';
 import { TicketModel } from '../../../model/ticket.model';
+import { RowAction } from '../../../components/row-actions-menu/row-actions-menu';
+import { DropdownTriggerDirective } from '../../../components/dropdown-trigger/dropdown-trigger';
 
 @Component({
   selector: 'app-tabella-richieste',
-  imports: [TableComponent, RouterLink],
+  imports: [TableComponent, DropdownTriggerDirective, RouterLink],
   standalone: true,
   templateUrl: './tabella-richieste.html',
   styleUrl: './tabella-richieste.css',
@@ -66,14 +68,16 @@ export class TabellaRichieste {
         const stateData = { ...richiesta.state, key: statoKey, config };
 
         if (!richiesta.services || richiesta.services.length === 0) {
-          return [{
-            state: stateData,
-            requestId: richiesta.requestId,
-            project: richiesta.project?.name,
-            service: 'Nessun servizio',
-            category: richiesta.category?.name,
-            createdAt: richiesta.createdAt,
-          }];
+          return [
+            {
+              state: stateData,
+              requestId: richiesta.requestId,
+              project: richiesta.project?.name,
+              service: 'Nessun servizio',
+              category: richiesta.category?.name,
+              createdAt: richiesta.createdAt,
+            },
+          ];
         }
 
         return richiesta.services.map((servizio: ServizioModel) => ({
