@@ -77,7 +77,7 @@ export class DettaglioProgetto {
       .subscribe({
         next: (resp: any) => {
           const progetto = resp.serviceDetail ?? resp;
-          console.log(resp);
+          console.log(resp.serviceDetail);
           this.progettoDetail = {
             ...progetto,
             nome: resp.serviceDetail.name,

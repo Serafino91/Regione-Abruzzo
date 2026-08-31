@@ -61,7 +61,7 @@ export class DettaglioRichiesta {
       .subscribe({
         next: (resp: any) => {
           this.richiestaDetail = resp.requestDetail ?? resp;
-          console.log(resp);
+          console.log(this.richiestaDetail);
           this.infoRichiesta = [
             {
               label: 'ID Richiesta',
