@@ -10,6 +10,7 @@ export interface RichiestaProjectDto {
   description?: string;
   createAt?: string;
   updateAt?: string;
+  services?: ServizioModel[];
 }
 
 export class RichiestaModel {

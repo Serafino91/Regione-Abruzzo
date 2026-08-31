@@ -21,10 +21,10 @@ export class ServizioAccordion {
   iconForType(type: string | undefined): string {
     const t = type?.toLowerCase() ?? '';
     if (t.includes('storage') || t.includes('disco') || t.includes('backup')) {
-      return 'it-database';
+      return 'it-box';
     }
     if (t.includes('rete') || t.includes('vlan') || t.includes('network')) {
-      return 'it-share';
+      return 'it-box';
     }
     return 'it-box';
   }

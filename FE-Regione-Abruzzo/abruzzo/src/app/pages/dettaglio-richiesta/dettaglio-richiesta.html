@@ -31,7 +31,7 @@
       [nuovaRichiesta]="nuovaRichiesta">
     </app-progetto-detail-card>
 
-    @for (servizio of richiestaDetail.services; track servizio.id) {
+    @for (servizio of richiestaDetail.project.services; track servizio.id) {
       <app-servizio-accordion
         [servizio]="servizio">
       </app-servizio-accordion>
