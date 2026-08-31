@@ -9,10 +9,7 @@ import {InfoBar} from '../../components/info-bar/info-bar';
 import { PageHeader } from '../../components/page-header/page-header';
 import { DelegatoCard } from '../../components/delegato-card/delegato-card';
 import {ServizioModel} from '../../model/servizioModel';
-import { ServiziService } from '../../services/servizi.service';
 import { CategoriaModel } from '../../model/categoria.model';
-import { ChiamateApiUrl } from '../../constants/chiamate-api-url.constants';
-import { map } from 'rxjs';
 import { CategoriaService } from '../../services/categoria.service';
 
 export interface ServizioDto {

@@ -7,10 +7,8 @@ import {
   Output,
 } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { RichiestaModel } from '../../../model/richiestaModel';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CategoriaModel } from '../../../model/categoria.model';
-import { RichiesteService } from '../../../services/richieste.service';
 import { CategoriaService } from '../../../services/categoria.service';
 import { ServizioModel } from '../../../model/servizioModel';
 import { ServiziService } from '../../../services/servizi.service';

@@ -1,8 +1,6 @@
 import { ChangeDetectorRef, Component, DestroyRef, PLATFORM_ID, inject } from '@angular/core';
-import { Input } from '@angular/core';
 import { ProjectCard } from './components/project-card/project-card';
 import { ProgettoModel } from '../../../model/progetto.model';
-import { ServiziService } from '../../../services/servizi.service';
 import { ProgettiService } from '../../../services/progetti.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SectionHeader } from '../../../components/section-header/section-header';
@@ -18,7 +16,6 @@ import { map } from 'rxjs';
 export class ProgettiInCorso {
   progetti: ProgettoModel[] = [];
 
-  private platformId = inject(PLATFORM_ID);
   private destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef);
 

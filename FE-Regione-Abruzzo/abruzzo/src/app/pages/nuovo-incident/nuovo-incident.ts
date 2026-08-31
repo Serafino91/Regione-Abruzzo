@@ -4,8 +4,7 @@ import {
   FormGroup,
   FormControl,
   Validators,
-  ReactiveFormsModule,
-  FormBuilder,
+  ReactiveFormsModule
 } from '@angular/forms';
 import { PageHeader } from '../../components/page-header/page-header';
 import {AppModal} from '../../components/app-modal/app-modal';

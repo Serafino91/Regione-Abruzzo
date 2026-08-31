@@ -9,7 +9,6 @@ import {CategoriaModel} from '../../model/categoria.model';
 import {Filtri} from '../../sections/richieste/filtri/filtri';
 import { FiltroRichiestaCriteriaModel } from '../../model/filtro-richiesta-criteria.model';
 import {PageHeader} from '../../components/page-header/page-header';
-import {Alert} from '../../components/alert/alert';
 
 @Component({
   selector: 'app-richieste',

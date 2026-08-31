@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, DestroyRef, inject, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, inject } from '@angular/core';
 import {SectionHeader} from '../../../components/section-header/section-header';
 import { TicketModel } from '../../../model/ticket.model';
 import { IncidentService } from '../../../services/incident.service';

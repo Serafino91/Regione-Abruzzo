@@ -5,7 +5,6 @@ import { ServizioModel } from '../../../model/servizioModel';
 import { STATO_CONFIG, STATO_TICKET_CONFIG, StatoRichiesta, StatoTicket } from '../../../constants/request-state-badge.constants';
 import { RouterLink } from '@angular/router';
 import { TicketModel } from '../../../model/ticket.model';
-import { RowAction } from '../../../components/row-actions-menu/row-actions-menu';
 import { DropdownTriggerDirective } from '../../../components/dropdown-trigger/dropdown-trigger';
 
 @Component({

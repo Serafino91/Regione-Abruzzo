@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RichiesteInCorsoCard, Richieste } from './components/richieste-in-corso-card/richieste-in-corso-card';
+import { RichiesteInCorsoCard } from './components/richieste-in-corso-card/richieste-in-corso-card';
 import { Router, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RichiesteService } from '../../../services/richieste.service';

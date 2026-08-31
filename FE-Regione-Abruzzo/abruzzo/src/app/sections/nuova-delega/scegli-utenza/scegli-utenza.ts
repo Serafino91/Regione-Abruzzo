@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AccreditamentoForm } from '../../../components/accreditamento-form/accreditamento-form';
 
 @Component({
