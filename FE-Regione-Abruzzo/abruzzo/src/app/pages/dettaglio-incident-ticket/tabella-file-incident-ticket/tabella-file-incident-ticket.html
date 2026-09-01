@@ -1,0 +1,19 @@
+<app-table [data]="files" [columns]="colonneFileIncidentTicket" defaultSortColumn="fileId"
+    defaultSortDir="asc">
+
+    <ng-template #cellTemplate let-row let-col="column">
+
+        @if (col.key === 'azioni') {
+        <div class="dropdown text-center">
+            <button class="btn btn-link p-0 text-decoration-none">
+                <svg class="icon icon-primary" aria-hidden="true">
+                    <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-more-items'"></use>
+                </svg>
+            </button>
+        </div>
+        } @else {
+        {{ getValue(row, col.key) }}
+        }
+
+    </ng-template>
+</app-table>
