@@ -36,7 +36,7 @@ export class DettaglioIncidentTicket {
     ];
 
     files: File[] = [];
-    filesModal: File[] = [];
+    filesChiusuraIncident: File[] = [];
 
     isShowChiusuraIncident = false;
 
@@ -56,20 +56,40 @@ export class DettaglioIncidentTicket {
         }
     }
 
-    onFileSelectedModal(event: Event): void {
+    onDeleteFile(fileId: number): void {
+        let filesFiltered = this.files.filter(f => f.fileId !== fileId);
+
+        if (filesFiltered.length > 0){
+            filesFiltered = filesFiltered.map((f, index) => ({...f, fileId: index + 1}));
+        }
+
+        this.files = [...filesFiltered];
+    }
+
+    onFileSelectedChiusura(event: Event): void {
         if (event) {
             const inputFile = event.target as HTMLInputElement;
 
             if (inputFile && inputFile.files && inputFile.files.length > 0) {
 
-                const fileId = this.files.length + 1;
+                const fileId = this.filesChiusuraIncident.length + 1;
                 const name = inputFile.files[0].name;
                 const size = inputFile.files[0].size;
 
-                this.filesModal = [...this.filesModal, {fileId: fileId, name: name, size: size}];
+                this.filesChiusuraIncident = [...this.filesChiusuraIncident, {fileId: fileId, name: name, size: size}];
                 
             }
         }
+    }
+
+    onDeleteFileChiusuraIncident(fileId: number): void {
+        let filesFiltered = this.filesChiusuraIncident.filter(f => f.fileId !== fileId);
+
+        if (filesFiltered.length > 0){
+            filesFiltered = filesFiltered.map((f, index) => ({...f, fileId: index + 1}));
+        }
+
+        this.filesChiusuraIncident = [...filesFiltered];
     }
 
 }

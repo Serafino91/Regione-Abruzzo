@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, output } from '@angular/core';
 import { TableComponent, TableColumn } from '../../../components/table/table';
 import { File } from '../../../model/file.model';
 
@@ -21,9 +21,15 @@ export class TabellaFileIncidentTicket {
 
     @Input() files: File[] = [];
 
+    fileId = output<number>();
+
     getValue(row: any, key: string): string {
         if (!key) return '';
         return key.split('.').reduce((acc, part) => acc && acc[part], row) ?? '';
+    }
+
+    onDelete(fileId: number): void {
+        this.fileId.emit(fileId);
     }
 
 }

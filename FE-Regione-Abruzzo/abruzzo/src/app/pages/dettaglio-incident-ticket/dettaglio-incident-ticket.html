@@ -205,7 +205,7 @@
             </div>
 
             <div class="col-12">
-                <app-tabella-file-incident-ticket [files]="files"></app-tabella-file-incident-ticket>
+                <app-tabella-file-incident-ticket [files]="files" (fileId)="onDeleteFile($event)"></app-tabella-file-incident-ticket>
             </div>
         </div>
         }
@@ -247,7 +247,7 @@
             <div class="section-modal">
                 <div class="row my-2">
                     <div class="col-12">
-                        <input type="file" id="allegatoModal" class="d-none" (change)="onFileSelectedModal($event)" />
+                        <input type="file" id="allegatoModal" class="d-none" (change)="onFileSelectedChiusura($event)" />
 
                         <label for="allegatoModal" class="upload-area">
                             <svg class="icon icon-sm me-2" aria-hidden="true">
@@ -259,7 +259,7 @@
                     </div>
                 </div>
 
-                @if (filesModal.length > 0) {
+                @if (filesChiusuraIncident.length > 0) {
                 <div class="row" style="max-height: 130px; overflow-y: scroll;">
                     <div class="col-12">
                         <p class="mb-0">
@@ -270,7 +270,7 @@
                     </div>
 
                     <div class="col-12">
-                        <app-tabella-file-incident-ticket [files]="filesModal"></app-tabella-file-incident-ticket>
+                        <app-tabella-file-incident-ticket [files]="filesChiusuraIncident" (fileId)="onDeleteFileChiusuraIncident($event)"></app-tabella-file-incident-ticket>
                     </div>
                 </div>
                 }

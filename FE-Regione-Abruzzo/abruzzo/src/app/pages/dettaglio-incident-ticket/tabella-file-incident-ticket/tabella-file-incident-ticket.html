@@ -1,16 +1,25 @@
-<app-table [data]="files" [columns]="colonneFileIncidentTicket" defaultSortColumn="fileId"
-    defaultSortDir="asc">
+<app-table [data]="files" [columns]="colonneFileIncidentTicket" defaultSortColumn="fileId" defaultSortDir="asc">
 
     <ng-template #cellTemplate let-row let-col="column">
 
         @if (col.key === 'azioni') {
+
         <div class="dropdown text-center">
-            <button class="btn btn-link p-0 text-decoration-none">
+            <button class="btn btn-link p-0 text-decoration-none" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false" aria-label="Azioni files">
                 <svg class="icon icon-primary" aria-hidden="true">
                     <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-more-items'"></use>
                 </svg>
             </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <a type="button" class="dropdown-item" (click)="onDelete(row.fileId)">
+                        Elimina file
+                    </a>
+                </li>
+            </ul>
         </div>
+
         } @else {
         {{ getValue(row, col.key) }}
         }
