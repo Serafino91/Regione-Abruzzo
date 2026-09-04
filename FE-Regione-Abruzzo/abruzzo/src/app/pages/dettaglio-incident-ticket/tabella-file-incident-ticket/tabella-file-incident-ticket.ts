@@ -1,4 +1,4 @@
-import { Component, Input, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { TableComponent, TableColumn } from '../../../components/table/table';
 import { File } from '../../../model/file.model';
 
@@ -19,7 +19,7 @@ export class TabellaFileIncidentTicket {
         { key: 'azioni', label: 'Azioni', sortable: false, class: 'text-center col-actions' }
     ];
 
-    @Input() files: File[] = [];
+    files = input.required<File[]>();
 
     fileId = output<number>();
 
