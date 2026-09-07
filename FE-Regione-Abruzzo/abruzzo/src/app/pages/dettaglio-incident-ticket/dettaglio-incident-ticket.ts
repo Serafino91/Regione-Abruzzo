@@ -50,7 +50,7 @@ export class DettaglioIncidentTicket {
                 const name = inputFile.files[0].name;
                 const size = inputFile.files[0].size;
 
-                this.files = [...this.files, {fileId: fileId, name: name, size: size}];
+                this.files = [...this.files, {fileId: fileId, file: inputFile.files[0], name: name, size: size}];
                 
             }
         }
@@ -76,7 +76,7 @@ export class DettaglioIncidentTicket {
                 const name = inputFile.files[0].name;
                 const size = inputFile.files[0].size;
 
-                this.filesChiusuraIncident = [...this.filesChiusuraIncident, {fileId: fileId, name: name, size: size}];
+                this.filesChiusuraIncident = [...this.filesChiusuraIncident, {fileId: fileId, file: inputFile.files[0], name: name, size: size}];
                 
             }
         }

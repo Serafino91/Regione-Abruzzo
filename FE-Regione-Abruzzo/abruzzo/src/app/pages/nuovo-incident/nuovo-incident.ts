@@ -58,10 +58,9 @@ export class NuovoIncident {
                 const name = inputFile.files[0].name;
                 const size = inputFile.files[0].size;
 
-                this.files = [...this.files, { fileId: fileId, name: name, size: size }];
+                this.files = [...this.files, { fileId: fileId, file: inputFile.files[0], name: name, size: size }];
 
                 this.incidentForm.get('files')?.setValue(this.files);
-                console.log("files: ", this.incidentForm.get('files'));
 
             }
         }
