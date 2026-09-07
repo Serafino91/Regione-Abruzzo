@@ -9,72 +9,82 @@ import { getStatoRichiesta } from '../../constants/incident-state-icon.constants
 import { IncidentDetailCard } from '../../components/incident-detail-card/incident-detail-card';
 import { RichiedenteCard } from '../../components/richiedente-card/richiedente-card';
 import { ReactiveFormsModule } from '@angular/forms';
+import { File } from '../../model/file.model';
+import { TabellaFileIncidentDettaglio } from './tabella-file-incident-dettaglio/tabella-file-incident-dettaglio';
 
 @Component({
-  selector: 'app-dettaglio-incident',
-  imports: [
-    PageHeader,
-    InfoBar,
-    IncidentDetailCard,
-    RichiedenteCard,
-    ReactiveFormsModule,
-  ],
-  standalone: true,
-  templateUrl: './dettaglio-incident.html',
-  styleUrl: './dettaglio-incident.css',
+    selector: 'app-dettaglio-incident',
+    imports: [
+        PageHeader,
+        InfoBar,
+        IncidentDetailCard,
+        RichiedenteCard,
+        ReactiveFormsModule,
+        TabellaFileIncidentDettaglio
+    ],
+    standalone: true,
+    templateUrl: './dettaglio-incident.html',
+    styleUrl: './dettaglio-incident.css',
 })
+
 export class DettaglioIncident {
-  incidentId!: string;
-  incidentDetail!: TicketModel;
-  infoIncident: any;
 
-  private destroyRef = inject(DestroyRef);
-  private cdr = inject(ChangeDetectorRef);
+    incidentId!: string;
+    incidentDetail!: TicketModel;
+    infoIncident: any;
+    files: File[] = [
+        { fileId: 1, name: "test 1", size: 1234 },
+        { fileId: 2, name: "test 2", size: 3434 }
+    ];
 
-  constructor(
-    private route: ActivatedRoute,
-    private incidentService: IncidentService,
-  ) {}
+    private destroyRef = inject(DestroyRef);
+    private cdr = inject(ChangeDetectorRef);
 
-  ngOnInit() {
-    this.incidentId = this.route.snapshot.paramMap.get('id')!;
-    this.getIncident(this.incidentId);
-  }
+    constructor(
+        private route: ActivatedRoute,
+        private incidentService: IncidentService,
+    ) { }
 
-  private getIncident(id: string): void {
-    this.incidentService
-      .getTicketDetail(id)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (resp: any) => {
-          this.incidentDetail = resp.serviceDetail ?? resp;
-          const stato = getStatoRichiesta(this.incidentDetail.state.id);
+    ngOnInit() {
+        this.incidentId = this.route.snapshot.paramMap.get('id')!;
+        this.getIncident(this.incidentId);
+    }
 
-          console.log(this.incidentDetail);
+    private getIncident(id: string): void {
+        this.incidentService
+            .getTicketDetail(id)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: (resp: any) => {
+                    this.incidentDetail = resp.serviceDetail ?? resp;
+                    const stato = getStatoRichiesta(this.incidentDetail.state.id);
 
-          this.infoIncident = [
-            {
-              label: 'Codice',
-              value: this.incidentDetail.code,
-              icon: 'it-file',
-            },
-            {
-              label: 'Stato',
-              value: this.incidentDetail.state.name,
-              icon: stato?.icon,
-            },
-            {
-              label: 'Data Apertura',
-              value: this.incidentDetail.openingDate,
-              icon: 'it-calendar',
-            },
-          ];
+                    console.log(this.incidentDetail);
 
-          this.cdr.detectChanges();
-        },
-        error: (err) => {
-          console.error('Errore nel recupero richieste:', err);
-        },
-      });
-  }
+                    this.infoIncident = [
+                        {
+                            label: 'Codice',
+                            value: (this.incidentDetail.code && this.incidentDetail.code !== '') ? this.incidentDetail.code : '',
+                            icon: 'it-file',
+                        },
+                        {
+                            label: 'Stato',
+                            value: this.incidentDetail.state.name,
+                            icon: stato?.icon,
+                        },
+                        {
+                            label: 'Data Apertura',
+                            value: this.incidentDetail.openingDate,
+                            icon: 'it-calendar',
+                        },
+                    ];
+
+                    this.cdr.detectChanges();
+                },
+                error: (err) => {
+                    console.error('Errore nel recupero richieste:', err);
+                },
+            });
+    }
+
 }
