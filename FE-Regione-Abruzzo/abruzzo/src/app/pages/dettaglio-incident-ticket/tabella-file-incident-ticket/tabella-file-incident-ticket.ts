@@ -28,6 +28,11 @@ export class TabellaFileIncidentTicket {
         return key.split('.').reduce((acc, part) => acc && acc[part], row) ?? '';
     }
 
+    onOpen(file: any): void {
+        const url = window.URL.createObjectURL(file);
+        window.open(url, '_blank');
+    }
+
     onDelete(fileId: number): void {
         this.fileId.emit(fileId);
     }

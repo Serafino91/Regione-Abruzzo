@@ -11,10 +11,23 @@
                     <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-more-items'"></use>
                 </svg>
             </button>
+            
             <ul class="dropdown-menu dropdown-menu-end">
                 <li>
+                    <a type="button" class="dropdown-item" (click)="onOpen(row.file)">
+                        <svg class="icon me-2" aria-hidden="true">
+                            <use href="assets/bootstrap-italia/sprites.svg#it-search"></use>
+                        </svg>
+                        Vedi documento
+                    </a>
+                </li>
+
+                <li>
                     <a type="button" class="dropdown-item" (click)="onDelete(row.fileId)">
-                        Elimina file
+                        <svg class="icon me-2" aria-hidden="true">
+                            <use href="assets/bootstrap-italia/sprites.svg#it-delete"></use>
+                        </svg>
+                        Elimina documento
                     </a>
                 </li>
             </ul>
