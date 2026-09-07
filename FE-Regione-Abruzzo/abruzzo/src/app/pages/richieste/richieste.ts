@@ -9,10 +9,11 @@ import {CategoriaModel} from '../../model/categoria.model';
 import {Filtri} from '../../sections/richieste/filtri/filtri';
 import { FiltroRichiestaCriteriaModel } from '../../model/filtro-richiesta-criteria.model';
 import {PageHeader} from '../../components/page-header/page-header';
+import { SpinnerCard } from '../../components/spinner-card/spinner-card';
 
 @Component({
   selector: 'app-richieste',
-  imports: [TabellaRichieste, ReactiveFormsModule, Filtri, PageHeader],
+  imports: [TabellaRichieste, ReactiveFormsModule, Filtri, PageHeader, SpinnerCard],
   templateUrl: './richieste.html',
   styleUrl: './richieste.css',
   standalone: true,
@@ -21,6 +22,7 @@ export class Richieste implements OnInit {
   private destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef);
   categorie: CategoriaModel[] = [];
+  isLoading = false;
   constructor(
     private richiestaService: RichiesteService,
     private categoriaService: CategoriaService,
