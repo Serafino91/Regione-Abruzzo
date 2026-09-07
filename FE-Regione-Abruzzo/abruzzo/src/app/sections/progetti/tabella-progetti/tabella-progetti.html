@@ -9,9 +9,24 @@
       @if (col.key === 'idProgetto') {
         <span class="fw-bold text-dark">{{ row.idProgetto }}</span>
       }
-
       @else if (col.key === 'azioni') {
 
+      <div class="d-flex flex-row gap-2">
+        <button [routerLink]="['/home/progetti/dettaglio-progetto', row.idProgetto]" type="button" class="btn btn-link p-0 text-decoration-none" >
+          <svg class="icon icon-primary icon-sm me-1" aria-hidden="true">
+            <use href="assets/bootstrap-italia/sprites.svg#it-zoom-in"></use>
+          </svg>
+        </button>
+
+        <button type="button" class="btn btn-link p-0 text-decoration-none" >
+          <svg class="icon icon-primary icon-sm me-1" aria-hidden="true" >
+            <use href="assets/bootstrap-italia/sprites.svg#it-tool"></use>
+          </svg>
+        </button>
+
+      </div>
+
+        <!--
         <button #trigger="appDropdownTrigger"
                 class="btn btn-link p-0 text-decoration-none"
                 type="button"
@@ -24,11 +39,13 @@
         </button>
 
         <ng-template #menuFileActions let-row="row">
+
           <ul class="dropdown-menu dropdown-menu-end show" style="position: relative;">
             <li><a class="dropdown-item" [routerLink]="['/home/progetti/dettaglio-progetto', row.idProgetto]">Visualizza dettagli</a></li>
             <li><a class="dropdown-item" href="#">Modifica</a></li>
           </ul>
         </ng-template>
+        -->
 
       } @else {
         {{ getValue(row, col.key) }}

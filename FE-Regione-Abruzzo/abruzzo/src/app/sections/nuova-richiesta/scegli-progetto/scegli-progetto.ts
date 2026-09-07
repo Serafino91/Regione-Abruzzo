@@ -74,6 +74,7 @@ export class ScegliProgetto implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (resp: any[]) => {
+          console.log(resp);
           this.allProgetti = resp.map((p: any) => ({
             idProgetto: p.id,
             nome: p.name,
@@ -81,7 +82,7 @@ export class ScegliProgetto implements OnInit {
             description: p.description,
             dataCreazione: p.createAt,
             dataUltimaModifica: p.updateAt,
-            servizi: p.servizi,
+            servizi: p.services,
           }));
           this.cdr.detectChanges();
         },

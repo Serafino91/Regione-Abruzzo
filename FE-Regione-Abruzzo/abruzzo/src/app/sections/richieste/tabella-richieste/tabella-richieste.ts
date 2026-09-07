@@ -5,11 +5,10 @@ import { ServizioModel } from '../../../model/servizioModel';
 import { STATO_CONFIG, STATO_TICKET_CONFIG, StatoRichiesta, StatoTicket } from '../../../constants/request-state-badge.constants';
 import { RouterLink } from '@angular/router';
 import { TicketModel } from '../../../model/ticket.model';
-import { DropdownTriggerDirective } from '../../../components/dropdown-trigger/dropdown-trigger';
 
 @Component({
   selector: 'app-tabella-richieste',
-  imports: [TableComponent, DropdownTriggerDirective, RouterLink],
+  imports: [TableComponent, RouterLink],
   standalone: true,
   templateUrl: './tabella-richieste.html',
   styleUrl: './tabella-richieste.css',

@@ -20,6 +20,8 @@
       }
 
       @else if (col.key === 'azioni') {
+
+
         <a class="btn btn-link p-0 text-decoration-none" [routerLink]="['/home/ticket/dettaglio-ticket', row.id]" aria-label="Visualizza dettaglio ticket">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="#0066CC">
             <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
@@ -55,28 +57,22 @@
       }
 
       @else if (col.key === 'azioni') {
-        <div class="dropdown text-center">
-          <button
-            #trigger="appDropdownTrigger"
-            class="btn btn-link p-0 text-decoration-none"
-            type="button"
-            aria-label="Azioni richiesta"
-            [appDropdownTrigger]="menuTpl">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="#0066CC">
-              <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+
+
+
+        <div class="d-flex flex-row gap-2">
+          <button  [routerLink]="['/home/richieste/dettaglio-richiesta', row.requestId]" type="button" class="btn btn-link p-0 text-decoration-none" >
+            <svg class="icon icon-primary icon-sm me-1" aria-hidden="true">
+              <use href="assets/bootstrap-italia/sprites.svg#it-zoom-in"></use>
             </svg>
           </button>
 
-          <ng-template #menuTpl>
-            <ul class="dropdown-menu dropdown-menu-end show" style="position: relative;">
-              <li>
-                <a class="dropdown-item" [routerLink]="['/home/richieste/dettaglio-richiesta', row.requestId]">
-                  Visualizza dettagli
-                </a>
-              </li>
-              <li><a class="dropdown-item" href="#">Modifica</a></li>
-            </ul>
-          </ng-template>
+          <button type="button" class="btn btn-link p-0 text-decoration-none" >
+            <svg class="icon icon-primary icon-sm me-1" aria-hidden="true" >
+              <use href="assets/bootstrap-italia/sprites.svg#it-tool"></use>
+            </svg>
+          </button>
+
         </div>
       }
 

@@ -1,14 +1,13 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { ProgettoModel } from '../../../model/progetto.model';
-import { TableColumn, TableComponent } from '../../../components/table/table';
+import { TableComponent } from '../../../components/table/table';
 import {RouterLink} from "@angular/router";
-import { RowAction } from '../../../components/row-actions-menu/row-actions-menu';
-import { DropdownTriggerDirective } from '../../../components/dropdown-trigger/dropdown-trigger';
+
 
 
 @Component({
   selector: 'app-tabella-progetti',
-  imports: [TableComponent, RouterLink, DropdownTriggerDirective, ],
+  imports: [TableComponent, RouterLink, ],
   standalone: true,
   templateUrl: './tabella-progetti.html',
   styleUrl: './tabella-progetti.css',

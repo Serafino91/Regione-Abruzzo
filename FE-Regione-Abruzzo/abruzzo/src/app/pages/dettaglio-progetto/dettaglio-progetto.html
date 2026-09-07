@@ -30,7 +30,8 @@
   @if(progettoDetail?.servizi) {
     @for (servizio of progettoDetail?.servizi; track $index) {
       <app-servizio-accordion
-        [servizio]="servizio">
+        [servizio]="servizio"
+      [index]="$index">
       </app-servizio-accordion>
     }
   }
