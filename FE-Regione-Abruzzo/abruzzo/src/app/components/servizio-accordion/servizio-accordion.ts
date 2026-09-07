@@ -10,8 +10,8 @@ import { ServizioModel } from '../../model/servizioModel';
   styleUrl: './servizio-accordion.css',
 })
 export class ServizioAccordion {
-
   @Input({ required: true }) servizio!: ServizioModel;
+  @Input() index!: number;
   expanded = false;
 
   toggle(): void {

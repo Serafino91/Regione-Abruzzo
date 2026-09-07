@@ -160,25 +160,13 @@ class NuovaRichiesta {
       };
     }
 
-    const serviziRaggruppati = servizi.reduce((acc: any[], s: any) => {
-      console.log('SINGOLO SERVIZIO NEL REDUCE:', JSON.stringify(s, null, 2));
-      const existing = acc.find((item: any) => item.servizioId === s.servizioId);
-      if (existing) {
-        existing.unit = Number(existing.unit) + Number(s.unit);
-      } else {
-        acc.push({ ...s, unit: Number(s.unit) });
-      }
-      return acc;
-    }, []);
-
-    const servizioId = serviziRaggruppati[0].servizioId;
 
     const richiesta: RichiestaSafeModel = {
       requestId: '',
       state: 'In elaborazione',
       project,
       service: null!,
-      services: serviziRaggruppati.map((s: any) => ({
+      services: servizi.map((s: any) => ({
         id: s.servizioId,
         type: s.type,
         item: s.item,
@@ -186,19 +174,18 @@ class NuovaRichiesta {
         optional: false,
         quantity: String(s.unit),
         durationMonths: null,
-        params: Object.entries(s.params ?? {}).map(([name, value]: [string, any]) => ({
-          id: servizioId,
+        params: Object.entries(s.params ?? {}).map(([name, paramObj]: [string, any]) => ({
+          id: paramObj.id,
           name,
-          value
+          value: paramObj.value
         }))
-        // params: Object.entries(s.params ?? {}).map(([name, value]) => ({ name, value })),
       })),
       category: categoria,
       sendFrom: progettoForm['dataDa'] ? new Date(progettoForm['dataDa']).toISOString() : '',
       sendTo: progettoForm['dataA'] ? new Date(progettoForm['dataA']).toISOString() : '',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
-      note: this.noteForm.controls.note.value ?? ''
+      note: this.noteForm.controls.note.value ?? '',
     };
 
     this.richiesteService.createRichiesta(richiesta).subscribe({

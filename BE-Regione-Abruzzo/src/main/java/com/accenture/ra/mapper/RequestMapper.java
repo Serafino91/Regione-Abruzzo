@@ -12,7 +12,8 @@ import java.util.List;
         StateMapper.class,
         RequestServiceMapper.class,
         ParamMapper.class,
-        ParamListMapper.class
+        ParamListMapper.class,
+        ServiceMapper.class
 })
 public interface RequestMapper {
 

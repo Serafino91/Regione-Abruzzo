@@ -7,6 +7,7 @@ import com.accenture.ra.entity.*;
 import com.accenture.ra.repository.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import com.accenture.ra.dto.request.RequestDetail;
@@ -24,6 +25,7 @@ import com.accenture.ra.utils.RequestSpecification;
 
 import lombok.RequiredArgsConstructor;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class RequestServiceImpl implements RequestService {
@@ -92,6 +94,8 @@ public class RequestServiceImpl implements RequestService {
 						RequestServiceEntity requestServiceEntity = new RequestServiceEntity();
 						requestServiceEntity.setRequest(requestEntity);
 						requestServiceEntity.setService(serviceEntity);
+
+						log.info(serviceReq.toString());
 
 						if (serviceReq.getParams() != null && !serviceReq.getParams().isEmpty()) {
 

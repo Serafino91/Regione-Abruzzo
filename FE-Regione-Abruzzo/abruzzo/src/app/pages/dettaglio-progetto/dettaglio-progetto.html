@@ -20,6 +20,7 @@
     <app-progetto-detail-card
       [nome]="progettoDetail.nome"
       [link]="progettoDetail.destinationLink"
+      [numeroServizi]="progettoDetail?.servizi?.length ?? 0"
       [descrizione]="progettoDetail.description"
       [nuovaRichiesta]="nuovaRichiesta">
     </app-progetto-detail-card>
@@ -27,13 +28,12 @@
 
 
   @if(progettoDetail?.servizi) {
-    @for (servizio of progettoDetail?.servizi; track servizio.id) {
+    @for (servizio of progettoDetail?.servizi; track $index) {
       <app-servizio-accordion
         [servizio]="servizio">
       </app-servizio-accordion>
     }
   }
-
 
   <h5>Delegati</h5>
   <!-- mock -->

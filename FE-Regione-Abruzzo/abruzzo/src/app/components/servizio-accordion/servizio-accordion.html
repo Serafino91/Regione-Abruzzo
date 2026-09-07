@@ -24,9 +24,9 @@
       type="button"
       (click)="toggle()"
       data-bs-toggle="collapse"
-      [attr.data-bs-target]="'#collapse-progetto-' + servizio.id"
+      [attr.data-bs-target]="'#collapse-progetto-' + index"
       [attr.aria-expanded]="expanded"
-      [attr.aria-controls]="'collapse-progetto-' +  servizio.id">
+      [attr.aria-controls]="'collapse-progetto-' + index">
 
       @if (expanded) {
         <svg class="icon icon-primary icon-sm me-1">
@@ -48,7 +48,7 @@
 
   <div
     class="collapse"
-    [id]="'collapse-progetto-' + servizio.id">
+    [id]="'collapse-progetto-' + index">
 
     <div class="accordion-body p-4">
 

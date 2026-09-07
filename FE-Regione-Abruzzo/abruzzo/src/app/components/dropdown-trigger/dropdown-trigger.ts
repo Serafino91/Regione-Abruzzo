@@ -18,6 +18,8 @@ import { TemplatePortal } from '@angular/cdk/portal';
 })
 export class DropdownTriggerDirective implements OnDestroy {
   @Input('appDropdownTrigger') template!: TemplateRef<unknown>;
+  @Input() appDropdownTriggerContext: unknown = null;
+
 
   private overlayRef: OverlayRef | null = null;
 
@@ -69,7 +71,7 @@ export class DropdownTriggerDirective implements OnDestroy {
 
     this.overlayRef.backdropClick().subscribe(() => this.close());
 
-    const portal = new TemplatePortal(this.template, this.vcr);
+    const portal = new TemplatePortal(this.template, this.vcr, this.appDropdownTriggerContext);
     this.overlayRef.attach(portal);
 
     // chiude il menu quando si clicca un item al suo interno (link, bottone, ecc.)

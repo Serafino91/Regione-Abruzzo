@@ -1,14 +1,14 @@
 import {ChangeDetectorRef, Component, DestroyRef, inject} from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
-import {ProgettoModel} from '../../model/progetto.model';
-import {ProgettiService} from '../../services/progetti.service';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {ProgettoDetailCard} from '../../components/progetto-detail-card/progetto-detail-card';
-import {ServizioAccordion} from '../../components/servizio-accordion/servizio-accordion';
-import {InfoBar} from '../../components/info-bar/info-bar';
+import { ActivatedRoute } from '@angular/router';
+import { ProgettoModel } from '../../model/progetto.model';
+import { ProgettiService } from '../../services/progetti.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ProgettoDetailCard } from '../../components/progetto-detail-card/progetto-detail-card';
+import { ServizioAccordion } from '../../components/servizio-accordion/servizio-accordion';
+import { InfoBar } from '../../components/info-bar/info-bar';
 import { PageHeader } from '../../components/page-header/page-header';
 import { DelegatoCard } from '../../components/delegato-card/delegato-card';
-import {ServizioModel} from '../../model/servizioModel';
+import { ServizioModel } from '../../model/servizioModel';
 import { CategoriaModel } from '../../model/categoria.model';
 import { CategoriaService } from '../../services/categoria.service';
 
@@ -46,7 +46,6 @@ export class DettaglioProgetto {
   constructor(
     private route: ActivatedRoute,
     private progettiService: ProgettiService,
-    private categoriaService: CategoriaService,
   ) {}
 
   ngOnInit() {
@@ -58,7 +57,7 @@ export class DettaglioProgetto {
     return {
       id: String(dto.id),
       type: dto.type as any, // oppure una mappatura verso CategoriaModel se serve
-      item: dto.name, // <-- qui il fix: il backend chiama "name" quello che tu vuoi in "item"
+      item: dto.name,
       base: !!dto.base,
       optional: !!dto.optional,
       quantity: dto.quantity ?? null,
@@ -108,18 +107,4 @@ export class DettaglioProgetto {
       });
   }
 
-  getCategorie() {
-    this.categoriaService
-      .getCategorie()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (resp) => {
-          this.categorie = resp;
-          this.cdr.detectChanges();
-        },
-        error: (err) => {
-          console.error('Errore categorie:', err);
-        },
-      });
-  }
 }

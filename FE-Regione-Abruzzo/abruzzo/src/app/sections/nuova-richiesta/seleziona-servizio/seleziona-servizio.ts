@@ -143,7 +143,10 @@ export class SelezionaServizio implements OnInit {
     for (let i = 0; i < unit; i++) {
       const paramsGroup = new FormGroup({});
       servizio.params.forEach((p) => {
-        paramsGroup.addControl(p.name, new FormControl(p.minValue ?? 0));
+        paramsGroup.addControl(p.name, new FormGroup({
+          id: new FormControl(p.id),
+          value: new FormControl(p.minValue ?? 0),
+        }));
       });
 
       servizi.push(
@@ -173,7 +176,7 @@ export class SelezionaServizio implements OnInit {
   }
 
   getParamControl(servizio: AbstractControl, param: string): FormControl {
-    return servizio.get(['params', param]) as FormControl;
+    return servizio.get(['params', param, 'value']) as FormControl;
   }
 
   rimuoviServizio(index: number): void {
