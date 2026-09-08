@@ -39,7 +39,8 @@
   [canGoNext]="canGoNext()"
   (next)="nextStep()"
   (previous)="previousStep()"
-  (invia)="showModal = true">
+  (invia)="showModal = true"
+  (annulla)="goBack()">
 </app-section-footer>
 
 @if (showModal) {

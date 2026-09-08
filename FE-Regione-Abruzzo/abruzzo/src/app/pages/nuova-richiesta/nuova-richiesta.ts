@@ -212,6 +212,10 @@ class NuovaRichiesta {
   debugForm() {
     console.log(this.richiestaForm.value);
   }
+
+  goBack(): void {
+    this.router.navigateByUrl("home/richieste");
+  }
 }
 
 export default NuovaRichiesta;

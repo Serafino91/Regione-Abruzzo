@@ -87,5 +87,9 @@ export class NuovoIncident {
         this.router.navigate(['home']);
     }
 
+    goBack(): void {
+        this.router.navigateByUrl("home/incident");
+    }
+
     vediDettaglio() { }
 }

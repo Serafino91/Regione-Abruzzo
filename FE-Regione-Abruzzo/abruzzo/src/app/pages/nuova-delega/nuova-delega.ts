@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { WizardLabelItem } from '../../constants/WizardLabelItem';
 import { WizardBar } from '../../components/wizard-bar/wizard-bar';
 import { SectionFooter } from '../../sections/nuova-richiesta/section-footer/section-footer';
@@ -7,6 +7,7 @@ import { ScegliUtenza } from '../../sections/nuova-delega/scegli-utenza/scegli-u
 import { SelezionaProgetti } from '../../sections/nuova-delega/seleziona-progetti/seleziona-progetti';
 import { ControllaDati } from '../../sections/nuova-delega/controlla-dati/controlla-dati';
 import {PageHeader} from '../../components/page-header/page-header';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nuova-delega',
@@ -41,6 +42,8 @@ export class NuovaDelega {
     note: new FormControl('', [Validators.maxLength(500)]),
   });
 
+  private router = inject(Router);
+
   nextStep() {
     this.currentStep++;
   }
@@ -49,6 +52,9 @@ export class NuovaDelega {
   }
   canGoNext(): boolean {
     return true;
+  }
+  goBack(): void {
+    this.router.navigateByUrl("home/deleghe");
   }
 
   debugForm() {
