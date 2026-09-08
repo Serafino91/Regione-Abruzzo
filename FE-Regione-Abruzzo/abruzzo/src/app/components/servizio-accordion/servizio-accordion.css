@@ -35,8 +35,8 @@
 
 .service-name {
   font-weight: 600;
-  font-size: 0.95rem;
   flex: 1;
+  margin-bottom: 0;
 }
 
 .quantity-badge {
@@ -77,6 +77,5 @@
 }
 
 .accordion-body {
-  padding: 0 20px 16px;
-  border-top: 1px solid #d0dbe6;
+  padding: 20px 16px;
 }

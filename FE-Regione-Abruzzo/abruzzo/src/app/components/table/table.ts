@@ -34,21 +34,15 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() defaultSortDir: 'asc' | 'desc' = 'asc';
   @Input() selectable?: boolean;
   @Input() selectedRow: any = null;
-  @Output() rowSelected = new EventEmitter<{
-    row: any;
-    selected: boolean;
-  }>();
-  openedRow: any = null;
-
+  @Output() rowSelected = new EventEmitter<{ row: any; selected: boolean;}>();
   @ContentChild('cellTemplate') cellTemplate!: TemplateRef<any>;
-
-  // Variabili di Paginazione e Ordinamento
+  openedRow: any = null;
   currentPage: number = 1;
   pageSize: number = 10;
   sortColumn: string = '';
   sortDir: 'asc' | 'desc' = 'asc';
-
   paginatedData: any[] = [];
+  selectedRows: any[] = [];
 
   ngOnInit() {
     this.sortColumn = this.defaultSortColumn;
@@ -121,15 +115,9 @@ export class TableComponent implements OnInit, OnChanges {
     if (!key) return '';
     return key.split('.').reduce((acc, part) => acc && acc[part], row) ?? '';
   }
-  toggleDropdown(row: any) {
-    this.openedRow = this.openedRow === row ? null : row;
-  }
-
-  selectedRows: any[] = [];
 
   toggleRow(row: any, event: Event): void {
     const selected = (event.target as HTMLInputElement).checked;
-
     this.rowSelected.emit({
       row,
       selected,
@@ -138,23 +126,5 @@ export class TableComponent implements OnInit, OnChanges {
 
   isSelected(row: any): boolean {
     return this.selectedRows.includes(row);
-  }
-
-  get allSelected(): boolean {
-    return this.paginatedData.length > 0 && this.paginatedData.every((row) => this.isSelected(row));
-  }
-
-  toggleAll(event: Event): void {
-    const checked = (event.target as HTMLInputElement).checked;
-
-    if (checked) {
-      this.paginatedData.forEach((row) => {
-        if (!this.isSelected(row)) {
-          this.selectedRows.push(row);
-        }
-      });
-    } else {
-      this.selectedRows = this.selectedRows.filter((row) => !this.paginatedData.includes(row));
-    }
   }
 }

@@ -71,6 +71,7 @@ export class SelezionaProgetti {
   onRowSelectionChange(event: { row: ProgettoModel; selected: boolean }): void {
     const progettiFormArray = this.formGroup.get('progetti') as FormArray;
 
+    // Verifica se il progetto è stato selezionato (index = -1) o deselezionato (index = 1)
     const index = progettiFormArray.controls.findIndex(
       (control) => control.value.idProgetto === event.row.idProgetto,
     );

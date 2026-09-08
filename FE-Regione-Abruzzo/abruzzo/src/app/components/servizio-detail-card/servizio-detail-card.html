@@ -1,22 +1,28 @@
 <div class="shadow-card p-4 border-4 rounded">
 
-  <h5>Dati Servizio </h5>
+  <div class="d-flex flex-row align-items-center">
+    <svg class="icon icon-sm me-2 ">
+      <use href="assets/bootstrap-italia/sprites.svg#it-code-circle"></use>
+    </svg>
+    <h5 class="mb-0">Dati Servizio </h5>
+  </div>
 
-  <div class="d-flex flex-row mt-4" style="gap: 8rem;">
 
-    <div class="">
-    <p class="fw-bold mb-1">Id servizio</p>
-    <p class="mb-0">{{ servizio?.id }}</p>
+  <div class="row gap-4 mt-2">
+
+    <div class="col-3">
+      <p class="fw-bold mb-1">Id servizio</p>
+      <p class="mb-0">{{ servizio?.id }}</p>
     </div>
 
-    <div class="">
-    <p class="fw-bold mb-1">Servizio</p>
-    <p class="mb-0">{{ servizio?.item }}</p>
+    <div class="col-3">
+      <p class="fw-bold mb-1">Servizio</p>
+      <p class="mb-0">{{ servizio?.item }}</p>
     </div>
 
-    <div class="">
-    <p class="fw-bold mb-1">Categoria</p>
-    <p class="mb-0">{{ servizio?.type?.name }}</p>
+    <div class="col-3">
+      <p class="fw-bold mb-1">Categoria</p>
+      <p class="mb-0">{{ servizio?.type?.name }}</p>
     </div>
 
   </div>
@@ -25,10 +31,15 @@
 
 
   @if (servizio?.params?.length) {
-    <h5>Parametri </h5>
-    <div class="d-flex flex-row mt-4" style="gap: 8rem;">
+    <div class="d-flex flex-row align-items-center">
+      <svg class="icon icon-sm me-2">
+        <use href="assets/bootstrap-italia/sprites.svg#it-software"></use>
+      </svg>
+      <h5 class="mb-0">Parametri </h5>
+    </div>
+    <div class="row gap-4 mt-2">
       @for (param of servizio?.params; track param.id) {
-        <div class="servizio-detail-card__param-col">
+        <div class="col-3">
           <p class="fw-bold mb-1">{{ param.name }}</p>
           <p class="mb-0">{{ param.paramType }}</p>
         </div>
