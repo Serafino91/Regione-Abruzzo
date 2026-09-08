@@ -55,8 +55,7 @@ export class SelezionaProgetti {
             idProgetto: p.id,
             nome: p.name,
             description: p.description,
-            /* mock */
-            servizi: 2,
+            servizi: p.services.length,
           }));
           this.cdr.detectChanges();
         },

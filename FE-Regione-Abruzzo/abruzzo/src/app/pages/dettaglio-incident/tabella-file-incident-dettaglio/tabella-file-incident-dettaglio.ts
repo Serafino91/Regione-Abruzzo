@@ -5,11 +5,12 @@ import { File } from '../../../model/file.model';
 @Component({
     selector: 'app-tabella-file-incident-dettaglio',
     imports: [TableComponent],
+    standalone: true,
     templateUrl: './tabella-file-incident-dettaglio.html',
     styleUrl: './tabella-file-incident-dettaglio.css',
 })
 
-export class TabellaFileIncidentDettaglio { 
+export class TabellaFileIncidentDettaglio {
 
     colonneFileIncident: TableColumn[] = [
         { key: 'name', label: 'Nome file', sortable: false, class: 'col-small' },
