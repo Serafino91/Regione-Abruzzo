@@ -16,6 +16,7 @@ export class SelezionaProgetti {
   @Input({ required: true })
   formGroup!: FormGroup;
   @Input() progetti: ProgettoModel[] = [];
+  allProgetti: { description: any; idProgetto: any; nome: any; servizi: any }[] = [];
   listaProgetti: any[] = [];
 
   private destroyRef = inject(DestroyRef);
@@ -28,10 +29,7 @@ export class SelezionaProgetti {
 
   ngOnInit() {
     if (!this.formGroup.contains('progetti')) {
-      this.formGroup.addControl(
-          'progetti',
-          new FormArray([])
-      );
+      this.formGroup.addControl('progetti', new FormArray([]));
     }
 
     this.loadProgetti();
@@ -51,12 +49,13 @@ export class SelezionaProgetti {
       .subscribe({
         next: (resp: any[]) => {
           console.log(resp);
-          this.listaProgetti = resp.map((p: any) => ({
+          this.allProgetti = resp.map((p: any) => ({
             idProgetto: p.id,
             nome: p.name,
             description: p.description,
-            servizi: p.services.length,
+            servizi: p.services?.length ?? 0,
           }));
+          this.listaProgetti = [...this.allProgetti];
           this.cdr.detectChanges();
         },
         error: (err) => console.error('Errore nel recupero dei progetti:', err),
@@ -90,5 +89,16 @@ export class SelezionaProgetti {
     console.log(progettiFormArray.value);
   }
 
-  cercaProgetto() {}
+  cercaProgetto(): void {
+    const valoreRicerca = this.progettiForm.controls.progetto.value?.trim().toLowerCase() ?? '';
+    if (!valoreRicerca) {
+      this.listaProgetti = [...this.allProgetti];
+      return;
+    }
+    this.listaProgetti = this.allProgetti.filter((progetto) => {
+      const idProgetto = String(progetto.idProgetto);
+      const nomeProgetto = progetto.nome?.toLowerCase() ?? '';
+      return idProgetto.includes(valoreRicerca) || nomeProgetto.includes(valoreRicerca);
+    });
+  }
 }
