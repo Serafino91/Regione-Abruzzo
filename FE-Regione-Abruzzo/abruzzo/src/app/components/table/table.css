@@ -43,6 +43,15 @@
   z-index: 2;
 }
 
+.no-sticky-edges th:first-child,
+.no-sticky-edges tbody tr td:first-child,
+.no-sticky-edges th:last-child,
+.no-sticky-edges tbody tr td:last-child {
+  position: static !important;
+  background-color: inherit !important;
+}
+
+
 /* Impedisce al testo di sfarfallare sopra le intestazioni fisse */
 .table thead th:first-child,
 .table thead th:last-child {

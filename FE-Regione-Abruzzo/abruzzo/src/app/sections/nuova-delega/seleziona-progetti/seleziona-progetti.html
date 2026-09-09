@@ -50,6 +50,8 @@
             </svg>
           </button>
         </div>
+      } @else if (col.key === 'servizi') {
+        {{ getValue(row, col.key).length }}
       } @else {
         {{ getValue(row, col.key) }}
       }

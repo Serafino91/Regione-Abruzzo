@@ -13,8 +13,7 @@ import {ProgettiService} from "../../../services/progetti.service";
   styleUrl: './seleziona-progetti.css',
 })
 export class SelezionaProgetti {
-  @Input({ required: true })
-  formGroup!: FormGroup;
+  @Input({ required: true }) formGroup!: FormGroup;
   @Input() progetti: ProgettoModel[] = [];
   allProgetti: { description: any; idProgetto: any; nome: any; servizi: any }[] = [];
   listaProgetti: any[] = [];
@@ -31,7 +30,6 @@ export class SelezionaProgetti {
     if (!this.formGroup.contains('progetti')) {
       this.formGroup.addControl('progetti', new FormArray([]));
     }
-
     this.loadProgetti();
   }
 
@@ -53,7 +51,7 @@ export class SelezionaProgetti {
             idProgetto: p.id,
             nome: p.name,
             description: p.description,
-            servizi: p.services?.length ?? 0,
+            servizi: p.services,
           }));
           this.listaProgetti = [...this.allProgetti];
           this.cdr.detectChanges();

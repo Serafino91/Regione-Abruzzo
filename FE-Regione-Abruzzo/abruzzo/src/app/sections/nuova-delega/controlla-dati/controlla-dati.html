@@ -52,9 +52,20 @@
   @if (progetti) {
     @for (progetto of progetti.controls; track $index) {
 
-      <app-progetto-accordion [progetto]="progetto.value">
-        <h6>Descrizione </h6>
-        <p> {{progetto.value.description}}</p>
+      <app-progetto-accordion
+        [progetto]="progetto.value">
+
+        <div class="d-flex flex-column">
+          <h6>Descrizione </h6>
+          <p> {{progetto.value.description}}</p>
+
+          <h6>Lista servizi attivi </h6>
+
+          <app-tabella-servizi-progetto
+            [data]="progetto.value.servizi | mapServizi">
+          </app-tabella-servizi-progetto>
+        </div>
+
       </app-progetto-accordion>
     }
   }

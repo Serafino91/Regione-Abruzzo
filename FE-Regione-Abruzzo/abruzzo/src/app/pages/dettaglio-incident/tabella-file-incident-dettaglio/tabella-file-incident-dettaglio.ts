@@ -10,6 +10,8 @@ import { File } from '../../../model/file.model';
     styleUrl: './tabella-file-incident-dettaglio.css',
 })
 
+
+
 export class TabellaFileIncidentDettaglio {
 
     colonneFileIncident: TableColumn[] = [
