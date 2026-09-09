@@ -32,7 +32,7 @@ export class ControllaInvia {
   }
 
   getParams(servizio: AbstractControl) {
-    return Object.entries((servizio.get('params') as FormGroup).value);
+    const params = (servizio.get('params') as FormGroup).value;
+    return Object.entries(params).map(([key, val]: [string, any]) => [key, val?.value ?? val]);
   }
-
 }

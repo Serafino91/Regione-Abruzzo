@@ -7,8 +7,6 @@ import { ServizioModel } from '../../../model/servizioModel';
 import {TabellaServiziProgetto} from "../../../components/tabella-servizi-progetto/tabella-servizi-progetto";
 
 
-
-
 @Pipe({ name: 'mapServizi', standalone: true, pure: true })
 export class MapServiziPipe implements PipeTransform {
   transform(servizi: any[] | null | undefined) {
@@ -36,11 +34,7 @@ export class ControllaDati {
     console.log('formGroup value:', this.formGroup.value);
     console.log('progetti:', this.formGroup.get('progetti'));
   }
-  colonneServizi: TableColumn[] = [
-    { key: 'idServizio', label: 'ID Servizio', sortable: true, class: 'col-id' },
-    { key: 'servizio', label: 'Servizio', sortable: true, class: 'col-nome' },
-    { key: 'categoria', label: 'Categoria', sortable: true, class: 'col-desc' },
-  ];
+
   expanded: boolean[] = [];
   get progetti(): FormArray {
     return this.formGroup.get('progetti') as FormArray;
