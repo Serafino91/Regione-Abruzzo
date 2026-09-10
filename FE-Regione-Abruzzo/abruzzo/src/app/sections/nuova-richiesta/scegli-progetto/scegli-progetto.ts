@@ -102,8 +102,15 @@ export class ScegliProgetto implements OnInit {
   }
 
   selezionaProgetto(progetto: ProgettoModel): void {
-    this.progettoSelezionato = progetto;
-    this.formGroup.get('selezione')?.setValue(progetto);
+    const progettoSelezionato = this.formGroup.get('selezione')?.value;
+
+    if (progettoSelezionato?.idProgetto === progetto.idProgetto) {
+      this.progettoSelezionato = null;
+      this.formGroup.get('selezione')?.setValue(null);
+    } else {
+      this.progettoSelezionato = progetto;
+      this.formGroup.get('selezione')?.setValue(progetto);
+    }
   }
 
   formatDate(dateStr?: string): string {

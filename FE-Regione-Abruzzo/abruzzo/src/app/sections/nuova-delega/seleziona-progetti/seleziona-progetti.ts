@@ -34,6 +34,7 @@ export class SelezionaProgetti {
   }
 
   colonneProgetti: TableColumn[] = [
+    { key: 'checkbox', label: '', sortable: false, class: 'col-checkbox' },
     { key: 'idProgetto', label: 'ID progetto', sortable: true, class: 'col-id' },
     { key: 'nome', label: 'Nome progetto', sortable: true, class: 'col-nome' },
     { key: 'description', label: 'Descrizione progetto', sortable: true, class: 'col-desc' },
@@ -86,6 +87,19 @@ export class SelezionaProgetti {
     }
     console.log(progettiFormArray.value);
   }
+  toggleProgetto(row: any): void {
+    const progettiFormArray = this.formGroup.get('progetti') as FormArray;
+    const index = progettiFormArray.controls.findIndex(
+      (control) => control.value.idProgetto === row.idProgetto,
+    );
+
+    if (index === -1) {
+      progettiFormArray.push(new FormControl(row));
+    } else {
+      progettiFormArray.removeAt(index);
+    }
+  }
+
 
   cercaProgetto(): void {
     const valoreRicerca = this.progettiForm.controls.progetto.value?.trim().toLowerCase() ?? '';
@@ -98,5 +112,13 @@ export class SelezionaProgetti {
       const nomeProgetto = progetto.nome?.toLowerCase() ?? '';
       return idProgetto.includes(valoreRicerca) || nomeProgetto.includes(valoreRicerca);
     });
+  }
+
+
+  isProgettoSelezionato(row: any): boolean {
+    const progettiFormArray = this.formGroup.get('progetti') as FormArray;
+    return progettiFormArray.controls.some(
+      (control) => control.value.idProgetto === row.idProgetto,
+    );
   }
 }

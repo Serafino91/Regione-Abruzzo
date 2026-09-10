@@ -6,7 +6,7 @@
       <strong>{{ progetto.idProgetto.toString() | uppercase }}</strong>
     </span>
 
-    <h6>{{ progetto.nome }}</h6>
+    <h6 class="mb-0">{{ progetto.nome }}</h6>
 
     <button
       class="btn btn-link text-primary ms-auto"
@@ -21,13 +21,12 @@
         <svg class="icon icon-primary icon-sm me-1">
           <use href="assets/bootstrap-italia/sprites.svg#it-minus-circle"></use>
         </svg>
-
         Riduci sezione
+
       } @else {
         <svg class="icon icon-primary icon-sm me-1">
           <use href="assets/bootstrap-italia/sprites.svg#it-plus-circle"></use>
         </svg>
-
         Espandi sezione
       }
 

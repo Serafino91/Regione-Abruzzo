@@ -1,6 +1,7 @@
 @if (mode === 'tickets') {
   <app-table
     [data]="listaTicket"
+    [pagination]="true"
     [columns]="colonneTicket"
     defaultSortColumn="code"
     defaultSortDir="asc">

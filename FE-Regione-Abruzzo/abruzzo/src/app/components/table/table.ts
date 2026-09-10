@@ -29,7 +29,7 @@ export interface TableColumn {
 })
 export class TableComponent implements OnInit, OnChanges {
   @Input() data: any[] = [];
-  @Input() pagination!: boolean;
+  @Input() pagination: boolean = true;
   @Input() columns: TableColumn[] = [];
   @Input() defaultSortColumn: string = '';
   @Input() defaultSortDir: 'asc' | 'desc' = 'asc';
