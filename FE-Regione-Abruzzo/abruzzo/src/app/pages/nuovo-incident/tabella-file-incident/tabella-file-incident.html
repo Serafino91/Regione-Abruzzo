@@ -4,32 +4,23 @@
 
         @if (col.key === 'azioni') {
 
-        <div class="dropdown text-center">
-            <button class="btn btn-link p-0 text-decoration-none" type="button" data-bs-toggle="dropdown"
-                aria-expanded="false" aria-label="Azioni files">
-                <svg class="icon icon-primary" aria-hidden="true">
-                    <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-more-items'"></use>
-                </svg>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end">
-                <li>
-                    <a type="button" class="dropdown-item" (click)="onOpen(row.file)">
-                        <svg class="icon me-2" aria-hidden="true">
-                            <use href="assets/bootstrap-italia/sprites.svg#it-search"></use>
-                        </svg>
-                        Vedi documento
-                    </a>
-                </li>
 
-                <li>
-                    <a type="button" class="dropdown-item" (click)="onDelete(row.fileId)">
-                        <svg class="icon me-2" aria-hidden="true">
-                            <use href="assets/bootstrap-italia/sprites.svg#it-delete"></use>
-                        </svg>
-                        Elimina documento
-                    </a>
-                </li>
-            </ul>
+        <div class="d-flex flex-row justify-content-evenly">
+
+            <button type="button" class="btn btn-link p-0 text-decoration-none" (click)="onOpen(row.file)">
+                <svg class="icon icon-primary icon-sm me-1" aria-hidden="true">
+                    <use href="assets/bootstrap-italia/sprites.svg#it-search"></use>
+                </svg>
+                Vedi documento
+            </button>
+
+            <button type="button" class="btn btn-link p-0 text-decoration-none" (click)="onDelete(row.fileId)">
+                <svg class="icon icon-primary icon-sm me-1" aria-hidden="true">
+                    <use href="assets/bootstrap-italia/sprites.svg#it-delete"></use>
+                </svg>
+                Elimina Documento
+            </button>
+
         </div>
 
         } @else {
