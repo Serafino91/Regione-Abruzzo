@@ -1,4 +1,6 @@
-<app-table [data]="files()" [columns]="colonneFileIncidentTicket" defaultSortColumn="fileId" defaultSortDir="asc">
+<app-table [data]="files()"
+           [pagination]="false"
+           [columns]="colonneFileIncidentTicket" defaultSortColumn="fileId" defaultSortDir="asc">
 
     <ng-template #cellTemplate let-row let-col="column">
 

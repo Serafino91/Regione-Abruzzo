@@ -87,6 +87,7 @@ export class SelezionaProgetti {
     }
     console.log(progettiFormArray.value);
   }
+
   toggleProgetto(row: any): void {
     const progettiFormArray = this.formGroup.get('progetti') as FormArray;
     const index = progettiFormArray.controls.findIndex(

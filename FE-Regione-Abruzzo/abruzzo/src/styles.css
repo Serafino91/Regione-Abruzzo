@@ -5,6 +5,8 @@
   /* Colori generali */
   --color-primary: #0066CC;
   --color-primary-dark: #003366;
+  --color-badge-bg:#E8F2FC;
+  --color-badge-text: #004080;
   --color-primary-light: #f0f6ff;
   --color-primary-bg-light: #F2F7FC;
   --color-blue-border: #004D99;
