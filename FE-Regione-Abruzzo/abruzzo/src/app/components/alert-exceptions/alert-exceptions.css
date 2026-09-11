@@ -1,0 +1,27 @@
+.alert {
+
+    position: fixed;
+
+    top: 20px;
+    right: 20px;
+
+    z-index: 9999;
+
+    padding: 16px;
+
+    min-width: 350px;
+
+    border-radius: 8px;
+
+    color: #fff;
+
+    box-shadow: 0 4px 12px rgb(0 0 0 / 25%);
+}
+
+.error {
+    background: #d32f2f;
+}
+
+.success {
+    background: #2e7d32;
+}

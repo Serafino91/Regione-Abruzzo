@@ -1,0 +1,15 @@
+@if (alert) {
+
+<div class="alert" [class.error]="alert.type === 'error'">
+
+    <div class="title">
+        {{ alert.title }}
+    </div>
+
+    <div>
+        {{ alert.message }}
+    </div>
+
+</div>
+
+}

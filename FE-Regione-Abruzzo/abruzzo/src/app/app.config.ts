@@ -3,13 +3,17 @@ import { provideRouter } from '@angular/router';
 import { withFetch } from '@angular/common/http';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { errorInterceptor } from './interceptors/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideRouter(routes),
-    provideClientHydration(),
-    provideHttpClient(withFetch()),
-  ]
+    providers: [
+        provideBrowserGlobalErrorListeners(),
+        provideRouter(routes),
+        provideClientHydration(),
+        provideHttpClient(
+            withFetch(),
+            withInterceptors([ errorInterceptor ])
+        ),
+    ]
 };
