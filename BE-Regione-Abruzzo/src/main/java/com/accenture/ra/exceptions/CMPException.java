@@ -1,16 +1,16 @@
 package com.accenture.ra.exceptions;
 
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 public class CMPException extends RuntimeException{
 
+    @Getter
     private final TipoErroreInterface tipoErroreInterface;
-    private final String messaggio;
-
 
     public CMPException(String messaggio, TipoErroreInterface tipoErroreInterface) {
-            this.messaggio = messaggio;
+            super(messaggio);
             this.tipoErroreInterface = tipoErroreInterface;
-
     }
+
 }

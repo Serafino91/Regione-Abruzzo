@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.accenture.ra.entity.*;
+import com.accenture.ra.exceptions.CMPException;
+import com.accenture.ra.exceptions.TipoErroreBase;
 import com.accenture.ra.repository.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -52,8 +54,14 @@ public class RequestServiceImpl implements RequestService {
 
 	@Override
 	public RequestDetail getRequestById(String requestId) {
-		RequestEntity requestEntity = requestRepository.findById(requestId).get();
-        return requestMapper.toModel(requestEntity);
+
+		RequestEntity requestEntity = requestRepository.findById(requestId)
+				.orElseThrow(() -> new CMPException(
+						"Richiesta con id " + requestId + " non trovata",
+						TipoErroreBase.NON_TROVATO
+				));
+
+		return requestMapper.toModel(requestEntity);
 	}
 
 	@Override
