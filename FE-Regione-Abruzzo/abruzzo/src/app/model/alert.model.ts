@@ -1,5 +1,6 @@
 export interface AlertMessage {
-    type: 'error' | 'warning' | 'success' | 'info';
-    title: string;
+    status: number;
+    name: string;
     message: string;
+    path: string
 }

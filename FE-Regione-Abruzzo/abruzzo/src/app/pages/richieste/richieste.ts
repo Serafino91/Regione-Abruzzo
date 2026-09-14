@@ -44,10 +44,7 @@ export class Richieste implements OnInit {
           this.listaRichieste = resp;
           console.log('resp richieste: ', this.listaRichieste);
           this.cdr.detectChanges();
-        },
-        error: (err) => {
-          console.error('Errore nel recupero richieste:', err);
-        },
+        }
       });
   }
 
@@ -59,10 +56,7 @@ export class Richieste implements OnInit {
         next: (resp) => {
           this.categorie = resp;
           this.cdr.detectChanges();
-        },
-        error: (err) => {
-          console.error('Errore categorie:', err);
-        },
+        }
       });
   }
 
@@ -74,10 +68,7 @@ export class Richieste implements OnInit {
         next: (richieste) => {
           this.listaRichieste = richieste;
           this.cdr.detectChanges();
-        },
-        error: (err) => {
-          console.error('Errore durante il filtro delle richieste:', err);
-        },
+        }
       });
   }
 

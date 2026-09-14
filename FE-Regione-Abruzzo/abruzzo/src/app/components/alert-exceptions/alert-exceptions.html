@@ -1,15 +1,25 @@
-@if (alert) {
+<div class="alert-container">
 
-<div class="alert" [class.error]="alert.type === 'error'">
+    @for (alert of alertService.alerts(); track alert) {
 
-    <div class="title">
-        {{ alert.title }}
+    <div class="alert alert-danger alert-dismissible fade show shadow" role="alert">
+
+        <strong>
+            {{ alert.status }} - {{ alert.name }}
+        </strong>
+
+        <div>
+            {{ alert.message }}
+        </div>
+
+        <div>
+            <em>{{ alert.path }}</em>
+        </div>
+
+        <button type="button" class="btn-close" aria-label="Close" (click)="removeAt($index)"></button>
+
     </div>
 
-    <div>
-        {{ alert.message }}
-    </div>
+    }
 
 </div>
-
-}

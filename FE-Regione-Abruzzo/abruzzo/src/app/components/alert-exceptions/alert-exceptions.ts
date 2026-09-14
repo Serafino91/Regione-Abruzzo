@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 
@@ -10,28 +10,16 @@ import { AlertMessage } from '../../model/alert.model';
     imports: [CommonModule],
     templateUrl: './alert-exceptions.html',
     styleUrl: './alert-exceptions.css',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class AlertExceptions {
 
-    private alertService = inject(AlertService);
+    protected readonly alertService = inject(AlertService);
 
-    alert?: AlertMessage;
-
-    constructor() {
-
-        this.alertService.alert$.subscribe(value => {
-
-                this.alert = value;
-
-                setTimeout(() => {
-
-                    this.alert = undefined;
-
-                }, 5000);
-
-        });
-
+    removeAt(index: number): void {
+        const alert = this.alertService.alerts()[index];
+        this.alertService.remove(alert);
     }
 
 }

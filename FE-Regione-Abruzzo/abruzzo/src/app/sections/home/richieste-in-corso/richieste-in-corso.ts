@@ -50,9 +50,6 @@ export class RichiesteInCorso implements OnInit {
           console.log('resp richieste: ', this.listaRichieste);
           this.cdr.detectChanges();
         },
-        error: (err) => {
-          console.error('Errore nel recupero richieste:', err);
-        },
       });
   }
 

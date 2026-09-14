@@ -58,10 +58,7 @@ export class DettaglioServizio {
           ];
           console.log(this.servizioDetail);
           this.cdr.detectChanges();
-        },
-        error: (err) => {
-          console.error('Errore nel recupero richieste:', err);
-        },
+        }
       });
   }
 }

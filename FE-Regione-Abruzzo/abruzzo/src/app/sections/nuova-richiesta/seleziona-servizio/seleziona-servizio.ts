@@ -92,10 +92,7 @@ export class SelezionaServizio implements OnInit {
         next: (resp) => {
           this.categorie = resp;
           this.cdr.detectChanges();
-        },
-        error: (err) => {
-          console.error('Errore categorie:', err);
-        },
+        }
       });
   }
 
@@ -113,10 +110,7 @@ export class SelezionaServizio implements OnInit {
         next: (resp) => {
           this.servizi = resp;
           this.cdr.detectChanges(); //
-        },
-        error: (err) => {
-          console.error('Errore nel recupero servizi:', err);
-        },
+        }
       });
   }
 

@@ -80,10 +80,7 @@ export class DettaglioRichiesta {
             },
           ];
           this.cdr.detectChanges();
-        },
-        error: (err) => {
-          console.error('Errore nel recupero richieste:', err);
-        },
+        }
       });
   }
 }

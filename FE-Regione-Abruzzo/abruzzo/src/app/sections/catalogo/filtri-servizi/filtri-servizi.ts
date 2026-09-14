@@ -69,10 +69,7 @@ export class FiltriServizi {
         next: (resp) => {
           this.servizi = resp;
           this.cdr.detectChanges(); //
-        },
-        error: (err) => {
-          console.error('Errore nel recupero servizi:', err);
-        },
+        }
       });
   }
   getCategorie() {
@@ -83,10 +80,7 @@ export class FiltriServizi {
         next: (resp) => {
           this.categorie = resp;
           this.cdr.detectChanges();
-        },
-        error: (err) => {
-          console.error('Errore categorie:', err);
-        },
+        }
       });
   }
 

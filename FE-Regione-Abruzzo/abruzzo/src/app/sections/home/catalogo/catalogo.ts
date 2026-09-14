@@ -50,10 +50,7 @@ export class Catalogo implements OnInit {
 
           // Now that HTML elements exist, initialize Splide safely
           this.initSplide();
-        },
-        error: (err) => {
-          console.error('Errore nel recupero dei servizi:', err);
-        },
+        }
       });
   }
 

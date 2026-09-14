@@ -56,8 +56,7 @@ export class SelezionaProgetti {
           }));
           this.listaProgetti = [...this.allProgetti];
           this.cdr.detectChanges();
-        },
-        error: (err) => console.error('Errore nel recupero dei progetti:', err),
+        }
       });
   }
 

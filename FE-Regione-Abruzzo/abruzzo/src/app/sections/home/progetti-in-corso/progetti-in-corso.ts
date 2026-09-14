@@ -48,10 +48,7 @@ export class ProgettiInCorso {
             servizi: p.services
           }));
           this.cdr.detectChanges();
-        },
-        error: (err) => {
-          console.error('Errore nel recupero dei progetti:', err);
-        },
+        }
       });
   }
 }

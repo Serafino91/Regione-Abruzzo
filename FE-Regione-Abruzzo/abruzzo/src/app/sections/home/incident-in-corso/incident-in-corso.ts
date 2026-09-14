@@ -35,12 +35,8 @@ export class IncidentInCorso {
         next: (resp) => {
           console.log(resp);
           this.incidents = resp;
-          console.log('resp tickets: ', this.incidents);
           this.cdr.detectChanges();
-        },
-        error: (err) => {
-          console.error('Errore nel recupero richieste:', err);
-        },
+        }
       });
   }
 }

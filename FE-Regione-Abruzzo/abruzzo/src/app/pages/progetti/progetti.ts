@@ -59,10 +59,7 @@ export class Progetti implements OnInit {
         next: (filtered) => {
           this.progetti = filtered;
           this.cdr.detectChanges();
-        },
-        error: (err) => {
-          console.error('Errore nel recupero dei progetti:', err);
-        },
+        }
       });
   }
 

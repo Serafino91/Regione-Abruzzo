@@ -36,10 +36,7 @@ export class Catalogo {
           this.servizi = resp;
 
           this.cdr.detectChanges();
-        },
-        error: (err) => {
-          console.error('Errore nel recupero dei servizi:', err);
-        },
+        }
       });
   }
 

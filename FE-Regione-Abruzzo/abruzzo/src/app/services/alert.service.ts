@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
 import { AlertMessage } from '../model/alert.model';
 
 @Injectable({
@@ -8,28 +7,27 @@ import { AlertMessage } from '../model/alert.model';
 
 export class AlertService {
 
-    private readonly alertSubject = new Subject<AlertMessage>();
+    readonly alerts = signal<AlertMessage[]>([]);
 
-    readonly alert$ = this.alertSubject.asObservable();
+    add(alert: AlertMessage): void {
 
-    show(alert: AlertMessage): void {
-        this.alertSubject.next(alert);
+        this.alerts.update(alerts => [...alerts, alert]);
+
+        setTimeout(() => {
+            this.remove(alert);
+        }, 5000);
     }
 
-    showError(message: string): void {
-        this.show({
-            type: 'error',
-            title: 'Errore',
-            message
-        });
+    remove(alert: AlertMessage): void {
+
+        this.alerts.update(alerts =>
+            alerts.filter(item => item !== alert)
+        );
+
     }
 
-    showSuccess(message: string): void {
-        this.show({
-            type: 'success',
-            title: 'Successo',
-            message
-        });
+    clear(): void {
+        this.alerts.set([]);
     }
 
 }
