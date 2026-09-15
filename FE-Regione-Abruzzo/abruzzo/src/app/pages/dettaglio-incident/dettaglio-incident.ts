@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, DestroyRef, inject } from '@angular/core';
+import { Component, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TicketModel } from '../../model/ticket.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -11,6 +11,8 @@ import { RichiedenteCard } from '../../components/richiedente-card/richiedente-c
 import { ReactiveFormsModule } from '@angular/forms';
 import { File } from '../../model/file.model';
 import { TabellaFileIncidentDettaglio } from './tabella-file-incident-dettaglio/tabella-file-incident-dettaglio';
+import { finalize } from 'rxjs';
+import { SpinnerCard } from '../../components/spinner-card/spinner-card';
 
 @Component({
     selector: 'app-dettaglio-incident',
@@ -20,7 +22,8 @@ import { TabellaFileIncidentDettaglio } from './tabella-file-incident-dettaglio/
         IncidentDetailCard,
         RichiedenteCard,
         ReactiveFormsModule,
-        TabellaFileIncidentDettaglio
+        TabellaFileIncidentDettaglio,
+        SpinnerCard
     ],
     standalone: true,
     templateUrl: './dettaglio-incident.html',
@@ -36,6 +39,7 @@ export class DettaglioIncident {
         { fileId: 1, name: "test 1", size: 1234 },
         { fileId: 2, name: "test 2", size: 3434 }
     ];
+    isLoading = signal(false);
 
     private destroyRef = inject(DestroyRef);
     private cdr = inject(ChangeDetectorRef);
@@ -51,37 +55,41 @@ export class DettaglioIncident {
     }
 
     private getIncident(id: string): void {
-        this.incidentService
-            .getTicketDetail(id)
-            .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe({
-                next: (resp: any) => {
-                    this.incidentDetail = resp.serviceDetail ?? resp;
-                    const stato = getStatoRichiesta(this.incidentDetail.state.id);
+        this.isLoading.set(true);
 
-                    console.log(this.incidentDetail);
+        this.incidentService.getTicketDetail(id).pipe(
 
-                    this.infoIncident = [
-                        {
-                            label: 'Codice',
-                            value: (this.incidentDetail.code && this.incidentDetail.code !== '') ? this.incidentDetail.code : '',
-                            icon: 'it-file',
-                        },
-                        {
-                            label: 'Stato',
-                            value: this.incidentDetail.state.name,
-                            icon: stato?.icon,
-                        },
-                        {
-                            label: 'Data Apertura',
-                            value: this.incidentDetail.openingDate,
-                            icon: 'it-calendar',
-                        },
-                    ];
+            takeUntilDestroyed(this.destroyRef),
+            finalize(() => this.isLoading.set(false))
 
-                    this.cdr.detectChanges();
-                }
-            });
+        ).subscribe({
+            next: (resp: any) => {
+                this.incidentDetail = resp.serviceDetail ?? resp;
+                const stato = getStatoRichiesta(this.incidentDetail.state.id);
+
+                console.log(this.incidentDetail);
+
+                this.infoIncident = [
+                    {
+                        label: 'Codice',
+                        value: (this.incidentDetail.code && this.incidentDetail.code !== '') ? this.incidentDetail.code : '',
+                        icon: 'it-file',
+                    },
+                    {
+                        label: 'Stato',
+                        value: this.incidentDetail.state.name,
+                        icon: stato?.icon,
+                    },
+                    {
+                        label: 'Data Apertura',
+                        value: this.incidentDetail.openingDate,
+                        icon: 'it-calendar',
+                    },
+                ];
+
+                this.cdr.detectChanges();
+            }
+        });
     }
 
 }

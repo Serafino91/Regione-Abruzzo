@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, signal } from '@angular/core';
 import {
 	FormsModule,
 	ReactiveFormsModule,
@@ -6,24 +6,28 @@ import {
 	FormBuilder,
 	Validators
 } from '@angular/forms';
-import { Subscription, tap } from 'rxjs';
+import { Subscription, tap, finalize } from 'rxjs';
 
 import { CategoriaService } from '../../../services/categoria.service';
 import { CategoriaModel } from '../../../model/categoria.model';
 import { ServiziService } from '../../../services/servizi.service';
 import { ServizioModel } from '../../../model/servizioModel';
+import { SpinnerCard } from '../../../components/spinner-card/spinner-card';
 
 @Component({
 	selector: 'app-filtri-richieste-ticket',
 	imports: [
 		FormsModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		SpinnerCard
 	],
 	templateUrl: './filtri-richieste-ticket.html',
 	styleUrl: './filtri-richieste-ticket.css',
 })
 
 export class FiltriRichiesteTicket implements OnInit, OnDestroy {
+
+	isLoading = signal(false);
 
 	private formBuilder: FormBuilder = inject(FormBuilder);
 	private subscriptions: Subscription[] = [];
@@ -51,12 +55,17 @@ export class FiltriRichiesteTicket implements OnInit, OnDestroy {
 	}
 
 	getCategorie(): void {
+		this.isLoading.set(true);
+
 		this.subscriptions.push(
 			this.categoriaService.getCategorie().pipe(
+
 				tap((categorie: CategoriaModel[]) => {
 					this.categorie = categorie;
 					this.formRichiesteTicket.get('servizio')!.disable();
-				})
+				}),
+				finalize(() => this.isLoading.set(false))
+
 			).subscribe()
 		)
 	}
@@ -74,12 +83,17 @@ export class FiltriRichiesteTicket implements OnInit, OnDestroy {
 	}
 
 	getServiziDaCategoria(): void {
+		this.isLoading.set(true);
+
 		this.subscriptions.push(
 			this.serviziService.getServiziDaCategoria(this.idCategoria).pipe(
+
 				tap((servizi: ServizioModel[]) => {
 					this.servizi = servizi;
 					this.formRichiesteTicket.get('servizio')!.enable();
-				})
+				}),
+				finalize(() => this.isLoading.set(false))
+
 			).subscribe()
 		)
 	}
