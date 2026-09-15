@@ -7,6 +7,7 @@ import { File } from '../../../model/file.model';
     imports: [
         TableComponent
     ],
+    standalone: true,
     templateUrl: './tabella-file-incident-ticket.html',
     styleUrl: './tabella-file-incident-ticket.css',
 })

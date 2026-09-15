@@ -3,6 +3,9 @@ import { ChiamateApiUrl } from '../constants/chiamate-api-url.constants';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
 import { ProgettoModel } from '../model/progetto.model';
+import {FiltroRichiestaCriteriaModel} from '../model/filtro-richiesta-criteria.model';
+import {RichiestaModel} from '../model/richiestaModel';
+import {FiltroProgettoCriteriaModel} from '../constants/filtro-progetto-criteria.model';
 
 @Injectable({
   providedIn: 'root',
@@ -26,9 +29,11 @@ export class ProgettiService {
     return this.http.post<ProgettoModel>(ChiamateApiUrl.BASE_URL_PROGETTI, progetto);
   }
 
+  /*
   filterProgetto(progetto: ProgettoModel) {
     return this.http.post<ProgettoModel>(ChiamateApiUrl.BASE_URL_PROGETTI + '/filter', progetto);
   }
+*/
 
   checkProgettoEsiste(nome: string, destinationLink: string) {
     return this.http.get<boolean>(`${ChiamateApiUrl.BASE_URL_PROGETTI}/${nome}/${destinationLink}`, {
@@ -40,6 +45,14 @@ export class ProgettiService {
       `${ChiamateApiUrl.BASE_URL_SERVIZI}/${progetto.idProgetto}`,
       progetto,
     );
+  }
+
+  filterProgetto(criteria: FiltroProgettoCriteriaModel) {
+    return this.http
+      .post<{
+        projectsList: ProgettoModel[];
+      }>(`${ChiamateApiUrl.BASE_URL_PROGETTI}/filter`, criteria)
+      .pipe(map((resp) => resp.projectsList));
   }
 
   deleteProgetto(id: number) {

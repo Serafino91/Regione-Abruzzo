@@ -8,6 +8,8 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {ProgettiService} from '../../services/progetti.service';
 import { PageHeader } from '../../components/page-header/page-header';
 import {UserService} from '../../services/user.service';
+import { FiltroProgettoCriteriaModel } from '../../constants/filtro-progetto-criteria.model';
+
 
 const INDICI_PER_PROFILO: Record<string, number[]> = {
   delegato: [0, 1],
@@ -17,7 +19,7 @@ const INDICI_PER_PROFILO: Record<string, number[]> = {
 @Component({
   selector: 'app-progetti',
   standalone: true,
-  imports: [CommonModule, Filtri, TabellaProgetti, PageHeader],
+  imports: [CommonModule, TabellaProgetti, PageHeader, Filtri],
   templateUrl: './progetti.html',
   styleUrl: './progetti.css',
 })
@@ -25,6 +27,9 @@ export class Progetti implements OnInit {
   progetti: ProgettoModel[] = [];
   private destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef);
+
+  // lista già ristretta al profilo utente, usata come base per i filtri
+  private progettiProfilo: ProgettoModel[] = [];
 
   constructor(
     private progettiService: ProgettiService,
@@ -39,24 +44,14 @@ export class Progetti implements OnInit {
     combineLatest([this.progettiService.getProgetti(), this.userService.user$])
       .pipe(
         map(([resp, user]: [any[], any]) => {
-          // mapping response dal backend
-          console.log(resp);
-          const progetti: ProgettoModel[] = resp.map((p) => ({
-            idProgetto: p.id,
-            nome: p.name,
-            destinationLink: p.destinationLink,
-            description: p.description,
-            dataCreazione: p.createAt,
-            dataUltimaModifica: p.updateAt,
-            servizi: p.services
-          }));
-
+          const progetti = this.mapToProgettoModel(resp);
           return this.filterByProfile(progetti, user.role);
         }),
         takeUntilDestroyed(this.destroyRef),
       )
       .subscribe({
         next: (filtered) => {
+          this.progettiProfilo = filtered;
           this.progetti = filtered;
           this.cdr.detectChanges();
         },
@@ -64,6 +59,40 @@ export class Progetti implements OnInit {
           console.error('Errore nel recupero dei progetti:', err);
         },
       });
+  }
+
+  onFiltra(criteria: FiltroProgettoCriteriaModel): void {
+    this.progettiService
+      .filterProgetto(criteria)
+      .pipe(
+        map((resp: any[]) => this.mapToProgettoModel(resp)),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe({
+        next: (progetti) => {
+          this.progetti = progetti;
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Errore durante il filtro dei progetti:', err);
+        },
+      });
+  }
+
+  onResetFiltri(): void {
+    this.getProgetti();
+  }
+
+  private mapToProgettoModel(resp: any[]): ProgettoModel[] {
+    return resp.map((p) => ({
+      idProgetto: p.id,
+      nome: p.name,
+      destinationLink: p.destinationLink,
+      description: p.description,
+      dataCreazione: p.createAt,
+      dataUltimaModifica: p.updateAt,
+      servizi: p.services,
+    }));
   }
 
   private filterByProfile(progetti: ProgettoModel[], role: string): ProgettoModel[] {
@@ -74,4 +103,3 @@ export class Progetti implements OnInit {
     return indici.map((i) => progetti[i]).filter((p): p is ProgettoModel => !!p);
   }
 }
-

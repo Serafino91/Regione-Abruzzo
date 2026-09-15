@@ -2,7 +2,10 @@ package com.accenture.ra.controller;
 
 import com.accenture.ra.dto.request.ProjectDetail;
 import com.accenture.ra.dto.request.ProjectPatchRequest;
+import com.accenture.ra.dto.request.RequestDetail;
 import com.accenture.ra.dto.response.*;
+import com.accenture.ra.request.ProjectFilterCriteria;
+import com.accenture.ra.request.RequestFilterCriteria;
 import com.accenture.ra.service.impl.ProjectServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -12,10 +15,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -207,8 +213,9 @@ public class ProjectsController {
             )
     })
     @PostMapping(value = "/filter")
-    public ResponseEntity<CatalogServicesListResponse> getFilteredProject() {
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<ProjectListResponse> getFilteredProject(@RequestBody @Valid ProjectFilterCriteria criteria) {
+        List<ProjectDetail> results = projectService.filterProjects(criteria);
+        return ResponseEntity.status(HttpStatus.OK).body(new ProjectListResponse(results));
     }
 
 
