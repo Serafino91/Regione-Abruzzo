@@ -21,20 +21,12 @@ public class ServiceSpecification {
 
             // Filtro per categoria
             if (criteria.getCategoryId() != null) {
-                predicates.add(criteriaBuilder.equal(root.get("service_type_id"), criteria.getCategoryId()));
+                predicates.add(criteriaBuilder.equal(root.get("serviceType").get("id"), criteria.getCategoryId()));
             }
 
             // Filtro per servizi
             if (criteria.getServiceIds() != null && !criteria.getServiceIds().isEmpty()) {
-                Join<RequestEntity, RequestServiceEntity> requestServiceJoin =
-                        root.join("requestServices", JoinType.INNER);
-
-                Join<RequestServiceEntity, ServiceEntity> serviceJoin =
-                        requestServiceJoin.join("service", JoinType.INNER);
-
-                predicates.add(serviceJoin.get("id").in(criteria.getServiceIds()));
-
-                query.distinct(true);
+                predicates.add(root.get("id").in(criteria.getServiceIds()));
             }
 
             // Combina tutti i predicati con AND

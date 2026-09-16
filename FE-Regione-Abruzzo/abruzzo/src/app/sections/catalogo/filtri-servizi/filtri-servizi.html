@@ -1,6 +1,6 @@
-<form [formGroup]="filtersForm" class="row mb-4 gap-3 align-items-end">
+<form [formGroup]="filtersForm" class="row p-2 mb-4 gap-2 align-items-end">
 
-  <div class="row align-items-end ">
+
     <div class="col-12 col-md-5">
       <label for="categoria" >Categoria</label>
       <select id="categoria"
@@ -30,14 +30,18 @@
       </select>
     </div>
 
-  <div class="col d-flex justify-content-end">
+    <button type="button"
+            class="btn btn-primary col-2 w-auto ms-auto"
+            (click)="resetFiltri()">
+      Elimina filtri
+    </button>
+
     <button
       type="button"
-      class="btn btn-primary"
-      (click)="cercaServizi()">
+      class="btn btn-primary col-2  w-auto"
+      (click)="applicaFiltri()">
       Cerca
     </button>
-  </div>
-  </div>
+
 
 </form>

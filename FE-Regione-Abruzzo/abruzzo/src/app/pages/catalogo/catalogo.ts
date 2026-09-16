@@ -5,6 +5,8 @@ import { ServizioModel } from '../../model/servizioModel';
 import { ServiziService } from '../../services/servizi.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PageHeader } from '../../components/page-header/page-header';
+import { FiltroServiziCriteriaModel } from '../../constants/filtro-servizi-criteria.model';
+import {map} from 'rxjs';
 
 @Component({
   selector: 'app-catalogue',
@@ -18,7 +20,6 @@ export class Catalogo {
   private cdr = inject(ChangeDetectorRef);
 
   public servizi: ServizioModel[] = [];
-  private tuttiIServizi: ServizioModel[] = [];
 
   constructor(private servizioService: ServiziService) {}
 
@@ -32,9 +33,7 @@ export class Catalogo {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (resp) => {
-          this.tuttiIServizi = resp;
           this.servizi = resp;
-
           this.cdr.detectChanges();
         },
         error: (err) => {
@@ -43,8 +42,24 @@ export class Catalogo {
       });
   }
 
-  onCerca(risultati: ServizioModel[]): void {
-    this.servizi = risultati.length > 0 ? risultati : this.tuttiIServizi;
-    this.cdr.detectChanges();
+  onFiltra(criteria: FiltroServiziCriteriaModel): void {
+    this.servizioService
+      .filterServizio(criteria)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (resp) => {
+          this.servizi = resp;
+          console.log(resp);
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Errore durante il filtro dei servizi:', err);
+        },
+      });
   }
+
+  onResetFiltri(): void {
+    this.getServizi();
+  }
+
 }

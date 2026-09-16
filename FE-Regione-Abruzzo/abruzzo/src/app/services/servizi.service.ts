@@ -43,9 +43,9 @@ export class ServiziService {
   filterServizio(criteria: FiltroServiziCriteriaModel) {
     return this.http
       .post<{
-        projectsList: ServizioModel[];
+        serviceDetail: ServizioModel[];
       }>(`${ChiamateApiUrl.BASE_URL_SERVIZI}/filter`, criteria)
-      .pipe(map((resp) => resp.projectsList));
+      .pipe(map((resp) => resp.serviceDetail));
   }
 
   updateServizio(servizio: ServizioModel) {
