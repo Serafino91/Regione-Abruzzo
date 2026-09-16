@@ -23,11 +23,6 @@ export class RichiesteService {
   createRichiesta(richiesta: RichiestaSafeModel) {
     return this.http.put<RichiestaSafeModel>(ChiamateApiUrl.BASE_URL_RICHIESTA, richiesta);
   }
-  /*
-  filterRichieste(richiesta: RichiestaModel) {
-    return this.http.post<RichiestaModel>(ChiamateApiUrl.BASE_URL_RICHIESTA + '/filter', richiesta);
-  }
-  */
 
   updateRichieste(richiesta: RichiestaModel) {
     return this.http.patch<RichiestaModel>(
