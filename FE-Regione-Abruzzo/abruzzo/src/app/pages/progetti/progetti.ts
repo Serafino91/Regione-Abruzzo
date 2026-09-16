@@ -9,6 +9,7 @@ import { ProgettiService } from '../../services/progetti.service';
 import { PageHeader } from '../../components/page-header/page-header';
 import { UserService } from '../../services/user.service';
 import { SpinnerCard } from '../../components/spinner-card/spinner-card';
+import {FiltroProgettoCriteriaModel} from "../../constants/filtro-progetto-criteria.model";
 
 const INDICI_PER_PROFILO: Record<string, number[]> = {
     delegato: [0, 1],

@@ -24,11 +24,8 @@ export class Catalogo {
 
   public servizi: ServizioModel[] = [];
 
-    public servizi: ServizioModel[] = [];
     isLoading = signal(false);
 
-    private destroyRef = inject(DestroyRef);
-    private cdr = inject(ChangeDetectorRef);
     private tuttiIServizi: ServizioModel[] = [];
 
     constructor(private servizioService: ServiziService) { }
@@ -77,4 +74,4 @@ export class Catalogo {
 
 }
 
-}
+
