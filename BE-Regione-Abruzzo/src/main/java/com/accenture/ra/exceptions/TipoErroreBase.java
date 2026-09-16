@@ -7,7 +7,6 @@ public enum TipoErroreBase implements TipoErroreInterface {
     ERRORE_GENERICO(500, "Errore interno"),
     ENTITA_GIA_PRESENTE(400, "Entita' gia' presente"),
     NON_AUTORIZZATO(403, "Accesso negato"),
-    MODULO_SOSPESO(403, "Accesso sospeso"),
     UTENTE_NON_ATTIVO(301, "Utente in stato NON_ATTIVO");
 
     private final int statoHttp;
