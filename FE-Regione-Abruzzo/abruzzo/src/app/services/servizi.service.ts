@@ -3,14 +3,14 @@ import { ChiamateApiUrl } from '../constants/chiamate-api-url.constants';
 import { ServizioModel } from '../model/servizioModel';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
-import {ProgettoModel} from '../model/progetto.model';
-import {FiltroProgettoCriteriaModel} from '../constants/filtro-progetto-criteria.model';
 import {FiltroServiziCriteriaModel} from '../constants/filtro-servizi-criteria.model';
 
 @Injectable({
   providedIn: 'root',
 })
+
 export class ServiziService {
+
   constructor(private http: HttpClient) {}
 
   getServizi() {
