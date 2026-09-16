@@ -1,10 +1,14 @@
 package com.accenture.ra.controller;
 
+import com.accenture.ra.dto.request.RequestDetail;
 import com.accenture.ra.dto.response.CatalogServiceResponse;
 import com.accenture.ra.dto.request.ServiceDetail;
 import com.accenture.ra.dto.response.ServiceDetailResponse;
 import com.accenture.ra.dto.request.ServicePatchRequest;
 import com.accenture.ra.dto.response.CatalogServicesListResponse;
+import com.accenture.ra.request.RequestFilterCriteria;
+import com.accenture.ra.request.ServiceFilterCriteria;
+import com.accenture.ra.service.CatalogService;
 import com.accenture.ra.service.impl.CatalogServiceImpl;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,6 +18,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -221,8 +226,9 @@ public class CatalogServicesController {
             )
     })
     @PostMapping(value = "/filter")
-    public ResponseEntity<CatalogServicesListResponse> getFilteredServices() {
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<CatalogServicesListResponse> getFilteredServices(@RequestBody @Valid ServiceFilterCriteria criteria) {
+        List<ServiceDetail> results = catalogService.filterService(criteria);
+        return ResponseEntity.status(HttpStatus.OK).body(new CatalogServicesListResponse(results));
     }
 
 

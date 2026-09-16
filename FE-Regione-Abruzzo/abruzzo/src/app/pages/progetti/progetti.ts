@@ -31,53 +31,78 @@ export class Progetti implements OnInit {
     private destroyRef = inject(DestroyRef);
     private cdr = inject(ChangeDetectorRef);
 
-    constructor(
-        private progettiService: ProgettiService,
-        private userService: UserService,
-    ) { }
+  // lista già ristretta al profilo utente, usata come base per i filtri
+  private progettiProfilo: ProgettoModel[] = [];
+
+  constructor(
+    private progettiService: ProgettiService,
+    private userService: UserService,
+  ) {}
 
     ngOnInit(): void {
         this.getProgetti();
     }
 
-    private getProgetti(): void {
-        // this.isLoading.set(true); DA IMPLEMENTARE QUANDO this.userService.user$ SARA' COMPLETO
+  private getProgetti(): void {
+    combineLatest([this.progettiService.getProgetti(), this.userService.user$])
+      .pipe(
+        map(([resp, user]: [any[], any]) => {
+          const progetti = this.mapToProgettoModel(resp);
+          return this.filterByProfile(progetti, user.role);
+        }),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe({
+        next: (filtered) => {
+          this.progettiProfilo = filtered;
+          this.progetti = filtered;
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Errore nel recupero dei progetti:', err);
+        },
+      });
+  }
 
-        combineLatest([this.progettiService.getProgetti(), this.userService.user$])
-            .pipe(
+  onFiltra(criteria: FiltroProgettoCriteriaModel): void {
+    this.progettiService
+      .filterProgetto(criteria)
+      .pipe(
+        map((resp: any[]) => this.mapToProgettoModel(resp)),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe({
+        next: (progetti) => {
+          this.progetti = progetti;
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Errore durante il filtro dei progetti:', err);
+        },
+      });
+  }
 
-                map(([resp, user]: [any[], any]) => {
-                    // mapping response dal backend
-                    console.log(resp);
-                    const progetti: ProgettoModel[] = resp.map((p) => ({
-                        idProgetto: p.id,
-                        nome: p.name,
-                        destinationLink: p.destinationLink,
-                        description: p.description,
-                        dataCreazione: p.createAt,
-                        dataUltimaModifica: p.updateAt,
-                        servizi: p.services
-                    }));
+  onResetFiltri(): void {
+    this.getProgetti();
+  }
 
-                    return this.filterByProfile(progetti, user.role);
-                }),
-                takeUntilDestroyed(this.destroyRef),
-                finalize(() => this.isLoading.set(false))
+  private mapToProgettoModel(resp: any[]): ProgettoModel[] {
+    return resp.map((p) => ({
+      idProgetto: p.id,
+      nome: p.name,
+      destinationLink: p.destinationLink,
+      description: p.description,
+      dataCreazione: p.createAt,
+      dataUltimaModifica: p.updateAt,
+      servizi: p.services,
+    }));
+  }
 
-            ).subscribe({
-                next: (filtered) => {
-                    this.progetti = filtered;
-                    this.cdr.detectChanges();
-                }
-            });
+  private filterByProfile(progetti: ProgettoModel[], role: string): ProgettoModel[] {
+    const indici = INDICI_PER_PROFILO[role];
+    if (!indici) {
+      return progetti;
     }
-
-    private filterByProfile(progetti: ProgettoModel[], role: string): ProgettoModel[] {
-        const indici = INDICI_PER_PROFILO[role];
-        if (!indici) {
-            return progetti;
-        }
-        return indici.map((i) => progetti[i]).filter((p): p is ProgettoModel => !!p);
-    }
-
+    return indici.map((i) => progetti[i]).filter((p): p is ProgettoModel => !!p);
+  }
 }

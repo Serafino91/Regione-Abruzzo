@@ -7,6 +7,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PageHeader } from '../../components/page-header/page-header';
 import { finalize } from 'rxjs';
 import { SpinnerCard } from '../../components/spinner-card/spinner-card';
+import { FiltroServiziCriteriaModel } from '../../constants/filtro-servizi-criteria.model';
+import {map} from 'rxjs';
 
 @Component({
     selector: 'app-catalogue',
@@ -17,6 +19,10 @@ import { SpinnerCard } from '../../components/spinner-card/spinner-card';
 })
 
 export class Catalogo {
+  private destroyRef = inject(DestroyRef);
+  private cdr = inject(ChangeDetectorRef);
+
+  public servizi: ServizioModel[] = [];
 
     public servizi: ServizioModel[] = [];
     isLoading = signal(false);
@@ -49,9 +55,26 @@ export class Catalogo {
         });
     }
 
-    onCerca(risultati: ServizioModel[]): void {
-        this.servizi = risultati.length > 0 ? risultati : this.tuttiIServizi;
-        this.cdr.detectChanges();
-    }
+  onFiltra(criteria: FiltroServiziCriteriaModel): void {
+    this.servizioService
+      .filterServizio(criteria)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (resp) => {
+          this.servizi = resp;
+          console.log(resp);
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Errore durante il filtro dei servizi:', err);
+        },
+      });
+  }
+
+  onResetFiltri(): void {
+    this.getServizi();
+  }
+
+}
 
 }

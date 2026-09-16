@@ -9,7 +9,11 @@
 
 <div class="color-bg-lightblue">
     <div class="section-padding">
-        <app-filtri-servizi (risultatiCerca)="onCerca($event)"></app-filtri-servizi>
+        <app-filtri-servizi
+          (filtra)="onFiltra($event)"
+          (reset)="onResetFiltri()">
+
+        </app-filtri-servizi>
     </div>
 </div>
 

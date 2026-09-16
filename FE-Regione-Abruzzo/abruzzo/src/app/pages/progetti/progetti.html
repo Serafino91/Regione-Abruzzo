@@ -8,7 +8,10 @@
 
 <div class="color-bg-lightblue">
   <div class="section-padding">
-    <app-filtri></app-filtri>
+    <app-filtri-progetti
+      (filtra)="onFiltra($event)"
+      (reset)="onResetFiltri()">
+    </app-filtri-progetti>
   </div>
 </div>
 
