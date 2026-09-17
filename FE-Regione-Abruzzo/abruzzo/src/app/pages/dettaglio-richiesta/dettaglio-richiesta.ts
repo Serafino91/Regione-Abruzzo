@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -9,7 +9,7 @@ import { ServizioAccordion } from '../../components/servizio-accordion/servizio-
 import { InfoBar } from '../../components/info-bar/info-bar';
 import { PageHeader } from '../../components/page-header/page-header';
 import { getStatoRichiesta } from '../../constants/incident-state-icon.constants';
-import { finalize } from 'rxjs';
+import { finalize, Subscription } from 'rxjs';
 import { SpinnerCard } from '../../components/spinner-card/spinner-card';
 
 @Component({
@@ -20,7 +20,7 @@ import { SpinnerCard } from '../../components/spinner-card/spinner-card';
     standalone: true,
 })
 
-export class DettaglioRichiesta {
+export class DettaglioRichiesta implements OnInit, OnDestroy {
 
     richiestaId!: string;
     richiestaDetail!: RichiestaModel;
@@ -31,6 +31,7 @@ export class DettaglioRichiesta {
 
     private destroyRef = inject(DestroyRef);
     private cdr = inject(ChangeDetectorRef);
+    private subscriptions: Subscription[] = [];
 
     constructor(
         private route: ActivatedRoute,
@@ -44,54 +45,65 @@ export class DettaglioRichiesta {
     }
 
     onElimina() {
-        this.richiestaService.deleteRichieste(this.richiestaId as any).pipe(
+        this.isLoading.set(true);
 
-            takeUntilDestroyed(this.destroyRef),
-            finalize(() => this.isLoading.set(false))
+        this.subscriptions.push(
+            this.richiestaService.deleteRichieste(this.richiestaId as any).pipe(
 
-        ).subscribe({
-            next: () => {
-                this.showDeleteModal = false;
-                this.router.navigate(['/home/richieste']);
-            },
-            error: (err) => {
-                console.error('Errore eliminazione richiesta:', err);
-                this.showDeleteModal = false;
-            },
-        });
+                takeUntilDestroyed(this.destroyRef),
+                finalize(() => this.isLoading.set(false))
+
+            ).subscribe({
+                next: () => {
+                    this.showDeleteModal = false;
+                    this.router.navigate(['/home/richieste']);
+                },
+                error: (err) => {
+                    console.error('Errore eliminazione richiesta:', err);
+                    this.showDeleteModal = false;
+                },
+            })
+        );
     }
 
     private getRichiesta(id: string) {
         this.isLoading.set(true);
 
-        this.richiestaService.getRichiesta(id).pipe(
+        this.subscriptions.push(
+            this.richiestaService.getRichiesta(id).pipe(
 
-            takeUntilDestroyed(this.destroyRef),
-            finalize(() => this.isLoading.set(false))
+                takeUntilDestroyed(this.destroyRef),
+                finalize(() => this.isLoading.set(false))
 
-        ).subscribe({
-            next: (resp: any) => {
-                this.richiestaDetail = resp.requestDetail ?? resp;
-                console.log(this.richiestaDetail);
-                this.infoRichiesta = [
-                    {
-                        label: 'ID Richiesta',
-                        value: this.richiestaDetail.requestId,
-                        icon: 'it-file',
-                    },
-                    {
-                        label: 'Stato',
-                        value: this.richiestaDetail.state.stateName,
-                        icon: getStatoRichiesta(this.richiestaDetail.state.id)?.icon,
-                    },
-                    {
-                        label: 'Data apertura',
-                        value: this.richiestaDetail.createdAt,
-                        icon: 'it-calendar',
-                    },
-                ];
-                this.cdr.detectChanges();
-            }
-        });
+            ).subscribe({
+                next: (resp: any) => {
+                    this.richiestaDetail = resp.requestDetail ?? resp;
+                    console.log(this.richiestaDetail);
+                    this.infoRichiesta = [
+                        {
+                            label: 'ID Richiesta',
+                            value: this.richiestaDetail.requestId,
+                            icon: 'it-file',
+                        },
+                        {
+                            label: 'Stato',
+                            value: this.richiestaDetail.state.stateName,
+                            icon: getStatoRichiesta(this.richiestaDetail.state.id)?.icon,
+                        },
+                        {
+                            label: 'Data apertura',
+                            value: this.richiestaDetail.createdAt,
+                            icon: 'it-calendar',
+                        },
+                    ];
+                    this.cdr.detectChanges();
+                }
+            })
+        );
     }
+
+    ngOnDestroy(): void {
+        this.subscriptions.map((s: Subscription) => s.unsubscribe());
+    }
+
 }

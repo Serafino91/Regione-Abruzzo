@@ -1,10 +1,10 @@
-import { Component, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
 import { ProjectCard } from './components/project-card/project-card';
 import { ProgettoModel } from '../../../model/progetto.model';
 import { ProgettiService } from '../../../services/progetti.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SectionHeader } from '../../../components/section-header/section-header';
-import { map, finalize } from 'rxjs';
+import { map, finalize, Subscription } from 'rxjs';
 import { SpinnerCard } from '../../../components/spinner-card/spinner-card';
 
 @Component({
@@ -15,7 +15,7 @@ import { SpinnerCard } from '../../../components/spinner-card/spinner-card';
     standalone: true,
 })
 
-export class ProgettiInCorso {
+export class ProgettiInCorso implements OnInit, OnDestroy {
 
     progetti: ProgettoModel[] = [];
     richieste: number[] = [1, 2, 1];
@@ -23,6 +23,7 @@ export class ProgettiInCorso {
 
     private destroyRef = inject(DestroyRef);
     private cdr = inject(ChangeDetectorRef);
+    private subscriptions: Subscription[] = [];
 
     constructor(private progettiService: ProgettiService) { }
 
@@ -31,27 +32,36 @@ export class ProgettiInCorso {
     }
 
     private getProgetti(): void {
-        this.progettiService.getProgetti().pipe(
+        this.isLoading.set(true);
 
-            map((resp: ProgettoModel[]) => resp.slice(0, 3)), //prende massimo 3 progetti per la sezione in home
-            takeUntilDestroyed(this.destroyRef),
-            finalize(() => this.isLoading.set(false))
+        this.subscriptions.push(
+            this.progettiService.getProgetti().pipe(
 
-        ).subscribe({
-            next: (resp: any[]) => {
-                // mapping repsonse dal backend
-                console.log(resp);
-                this.progetti = resp.map((p) => ({
-                    idProgetto: p.id,
-                    nome: p.name,
-                    destinationLink: p.destinationLink,
-                    description: p.description,
-                    dataCreazione: p.createAt,
-                    dataUltimaModifica: p.updateAt,
-                    servizi: p.services
-                }));
-                this.cdr.detectChanges();
-            }
-        });
+                map((resp: ProgettoModel[]) => resp.slice(0, 3)), //prende massimo 3 progetti per la sezione in home
+                takeUntilDestroyed(this.destroyRef),
+                finalize(() => this.isLoading.set(false))
+
+            ).subscribe({
+                next: (resp: any[]) => {
+                    // mapping repsonse dal backend
+                    console.log(resp);
+                    this.progetti = resp.map((p) => ({
+                        idProgetto: p.id,
+                        nome: p.name,
+                        destinationLink: p.destinationLink,
+                        description: p.description,
+                        dataCreazione: p.createAt,
+                        dataUltimaModifica: p.updateAt,
+                        servizi: p.services
+                    }));
+                    this.cdr.detectChanges();
+                }
+            })
+        );
     }
+
+    ngOnDestroy(): void {
+        this.subscriptions.map((s: Subscription) => s.unsubscribe());
+    }
+
 }

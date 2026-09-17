@@ -1,10 +1,10 @@
-import { Component, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
 import { SectionHeader } from '../../../components/section-header/section-header';
 import { TicketModel } from '../../../model/ticket.model';
 import { IncidentService } from '../../../services/incident.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IncidentAccordion } from '../../../components/incident-accordion/incident-accordion';
-import { map, finalize } from 'rxjs';
+import { map, finalize, Subscription } from 'rxjs';
 import { SpinnerCard } from '../../../components/spinner-card/spinner-card';
 
 @Component({
@@ -15,13 +15,14 @@ import { SpinnerCard } from '../../../components/spinner-card/spinner-card';
     standalone: true,
 })
 
-export class IncidentInCorso {
+export class IncidentInCorso implements OnInit, OnDestroy {
 
     incidents: TicketModel[] = [];
     isLoading = signal(false);
 
     private destroyRef = inject(DestroyRef);
     private cdr = inject(ChangeDetectorRef);
+    private subscriptions: Subscription[] = [];
 
     constructor(private incident: IncidentService) { }
 
@@ -32,19 +33,25 @@ export class IncidentInCorso {
     private getAllTickets(): void {
         this.isLoading.set(true);
 
-        this.incident.getTickets().pipe(
+        this.subscriptions.push(
+            this.incident.getTickets().pipe(
 
-            map((resp: TicketModel[]) => resp.slice(0, 3)),
-            takeUntilDestroyed(this.destroyRef),
-            finalize(() => this.isLoading.set(false))
+                map((resp: TicketModel[]) => resp.slice(0, 3)),
+                takeUntilDestroyed(this.destroyRef),
+                finalize(() => this.isLoading.set(false))
 
-        ).subscribe({
-            next: (resp) => {
-                console.log(resp);
-                this.incidents = resp;
-                this.cdr.detectChanges();
-            }
-        });
+            ).subscribe({
+                next: (resp) => {
+                    console.log(resp);
+                    this.incidents = resp;
+                    this.cdr.detectChanges();
+                }
+            })
+        );
+    }
+
+    ngOnDestroy(): void {
+        this.subscriptions.map((s: Subscription) => s.unsubscribe());
     }
 
 }

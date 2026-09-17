@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TicketModel } from '../../model/ticket.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -11,7 +11,7 @@ import { RichiedenteCard } from '../../components/richiedente-card/richiedente-c
 import { ReactiveFormsModule } from '@angular/forms';
 import { File } from '../../model/file.model';
 import { TabellaFileIncidentDettaglio } from './tabella-file-incident-dettaglio/tabella-file-incident-dettaglio';
-import { finalize } from 'rxjs';
+import { finalize, Subscription } from 'rxjs';
 import { SpinnerCard } from '../../components/spinner-card/spinner-card';
 
 @Component({
@@ -30,7 +30,7 @@ import { SpinnerCard } from '../../components/spinner-card/spinner-card';
     styleUrl: './dettaglio-incident.css',
 })
 
-export class DettaglioIncident {
+export class DettaglioIncident implements OnInit, OnDestroy {
 
     incidentId!: string;
     incidentDetail!: TicketModel;
@@ -43,6 +43,7 @@ export class DettaglioIncident {
 
     private destroyRef = inject(DestroyRef);
     private cdr = inject(ChangeDetectorRef);
+    private subscriptions: Subscription[] = [];
 
     constructor(
         private route: ActivatedRoute,
@@ -57,39 +58,45 @@ export class DettaglioIncident {
     private getIncident(id: string): void {
         this.isLoading.set(true);
 
-        this.incidentService.getTicketDetail(id).pipe(
+        this.subscriptions.push(
+            this.incidentService.getTicketDetail(id).pipe(
 
-            takeUntilDestroyed(this.destroyRef),
-            finalize(() => this.isLoading.set(false))
+                takeUntilDestroyed(this.destroyRef),
+                finalize(() => this.isLoading.set(false))
 
-        ).subscribe({
-            next: (resp: any) => {
-                this.incidentDetail = resp.serviceDetail ?? resp;
-                const stato = getStatoRichiesta(this.incidentDetail.state.id);
+            ).subscribe({
+                next: (resp: any) => {
+                    this.incidentDetail = resp.serviceDetail ?? resp;
+                    const stato = getStatoRichiesta(this.incidentDetail.state.id);
 
-                console.log(this.incidentDetail);
+                    console.log(this.incidentDetail);
 
-                this.infoIncident = [
-                    {
-                        label: 'Codice',
-                        value: (this.incidentDetail.code && this.incidentDetail.code !== '') ? this.incidentDetail.code : '',
-                        icon: 'it-file',
-                    },
-                    {
-                        label: 'Stato',
-                        value: this.incidentDetail.state.name,
-                        icon: stato?.icon,
-                    },
-                    {
-                        label: 'Data Apertura',
-                        value: this.incidentDetail.openingDate,
-                        icon: 'it-calendar',
-                    },
-                ];
+                    this.infoIncident = [
+                        {
+                            label: 'Codice',
+                            value: (this.incidentDetail.code && this.incidentDetail.code !== '') ? this.incidentDetail.code : '',
+                            icon: 'it-file',
+                        },
+                        {
+                            label: 'Stato',
+                            value: this.incidentDetail.state.name,
+                            icon: stato?.icon,
+                        },
+                        {
+                            label: 'Data Apertura',
+                            value: this.incidentDetail.openingDate,
+                            icon: 'it-calendar',
+                        },
+                    ];
 
-                this.cdr.detectChanges();
-            }
-        });
+                    this.cdr.detectChanges();
+                }
+            })
+        );
+    }
+
+    ngOnDestroy(): void {
+        this.subscriptions.map((s: Subscription) => s.unsubscribe());
     }
 
 }

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, signal } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectorRef, signal } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, FormArray, FormControl, Validators } from '@angular/forms';
 import { ScegliProgetto } from '../../sections/nuova-richiesta/scegli-progetto/scegli-progetto';
 import { SelezionaServizio } from '../../sections/nuova-richiesta/seleziona-servizio/seleziona-servizio';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 import { ProgettoModel } from '../../model/progetto.model';
 import { RichiestaSafeModel, RichiestaProjectDto } from '../../model/richiestaSafeModel';
 import { PageHeader } from '../../components/page-header/page-header';
-import { finalize } from 'rxjs';
+import { finalize, Subscription } from 'rxjs';
 import { SpinnerCard } from '../../components/spinner-card/spinner-card';
 
 @Component({
@@ -32,20 +32,14 @@ import { SpinnerCard } from '../../components/spinner-card/spinner-card';
     standalone: true,
 })
 
-class NuovaRichiesta {
+export default class NuovaRichiesta implements OnDestroy {
 
     currentStep = 1;
     url = '';
     showModal = false;
     showModalSuccess = false;
     isLoading = signal(false);
-
-    constructor(
-        private richiesteService: RichiesteService,
-        private progettiService: ProgettiService,
-        private router: Router,
-        private cdr: ChangeDetectorRef,
-    ) { }
+    subscriptions: Subscription[] = [];
 
     richiestaForm = new FormGroup({
         progettoForm: new FormGroup({}),
@@ -64,6 +58,17 @@ class NuovaRichiesta {
         { id: 3, label: '03.Controlla ed invia', icon: 'it-check-circle' },
     ];
 
+    nuovaRichiesta = false;
+    isInviando = false;
+    progettoEsistenteError = false;
+
+    constructor(
+        private richiesteService: RichiesteService,
+        private progettiService: ProgettiService,
+        private router: Router,
+        private cdr: ChangeDetectorRef,
+    ) { }
+
     nextStep() {
         if (!this.canGoNext()) {
             return;
@@ -77,22 +82,24 @@ class NuovaRichiesta {
             if (nome && link) {
                 this.isLoading.set(true);
 
-                this.progettiService.checkProgettoEsiste(nome, link).subscribe({
-                    next: (exists: boolean) => {
-                        this.progettoEsistenteError = exists;
-                        if (!exists) {
+                this.subscriptions.push(
+                    this.progettiService.checkProgettoEsiste(nome, link).subscribe({
+                        next: (exists: boolean) => {
+                            this.progettoEsistenteError = exists;
+                            if (!exists) {
+                                this.currentStep++;
+                            }
+                            this.cdr.detectChanges();
+                            this.isLoading.set(false);
+                        },
+                        error: () => {
+                            this.progettoEsistenteError = false;
                             this.currentStep++;
-                        }
-                        this.cdr.detectChanges();
-                        this.isLoading.set(false);
-                    },
-                    error: () => {
-                        this.progettoEsistenteError = false;
-                        this.currentStep++;
-                        this.cdr.detectChanges();
-                        this.isLoading.set(false);
-                    },
-                });
+                            this.cdr.detectChanges();
+                            this.isLoading.set(false);
+                        },
+                    })
+                );
                 return;
             }
         }
@@ -130,10 +137,6 @@ class NuovaRichiesta {
                 return true;
         }
     }
-
-    nuovaRichiesta = false;
-    isInviando = false;
-    progettoEsistenteError = false;
 
     onNuovaRichiesta(flag: boolean) {
         this.nuovaRichiesta = flag;
@@ -201,23 +204,25 @@ class NuovaRichiesta {
 
         this.isLoading.set(true);
 
-        this.richiesteService.createRichiesta(richiesta).subscribe({
-            next: () => {
-                this.isInviando = false;
-                this.showModal = false;
-                this.showModalSuccess = true;
-                // this.cdr.detectChanges();
-                this.isLoading.set(false);
-                this.goToHome();
-            },
-            error: (err) => {
-                this.isInviando = false;
-                console.error("Errore durante l'invio della richiesta:", err);
-                this.showModal = false;
-                this.isLoading.set(false);
-                this.cdr.detectChanges();
-            },
-        });
+        this.subscriptions.push(
+            this.richiesteService.createRichiesta(richiesta).subscribe({
+                next: () => {
+                    this.isInviando = false;
+                    this.showModal = false;
+                    this.showModalSuccess = true;
+                    // this.cdr.detectChanges();
+                    this.isLoading.set(false);
+                    this.goToHome();
+                },
+                error: (err) => {
+                    this.isInviando = false;
+                    console.error("Errore durante l'invio della richiesta:", err);
+                    this.showModal = false;
+                    this.isLoading.set(false);
+                    this.cdr.detectChanges();
+                },
+            })
+        );
     }
 
     goToHome(): void {
@@ -231,6 +236,9 @@ class NuovaRichiesta {
     goBack(): void {
         this.router.navigateByUrl("home/richieste");
     }
-}
 
-export default NuovaRichiesta;
+    ngOnDestroy(): void {
+        this.subscriptions.map((s: Subscription) => s.unsubscribe());
+    }
+
+}

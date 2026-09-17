@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProgettoModel } from '../../model/progetto.model';
 import { ProgettiService } from '../../services/progetti.service';
@@ -10,7 +10,7 @@ import { PageHeader } from '../../components/page-header/page-header';
 import { DelegatoCard } from '../../components/delegato-card/delegato-card';
 import { ServizioModel } from '../../model/servizioModel';
 import { CategoriaModel } from '../../model/categoria.model';
-import { finalize } from 'rxjs';
+import { finalize, Subscription } from 'rxjs';
 import { SpinnerCard } from '../../components/spinner-card/spinner-card';
 
 export interface ServizioDto {
@@ -33,7 +33,7 @@ export interface ServizioDto {
     styleUrl: './dettaglio-progetto.css',
 })
 
-export class DettaglioProgetto {
+export class DettaglioProgetto implements OnInit, OnDestroy {
 
     progettoId!: string;
     progettoDetail!: ProgettoModel;
@@ -44,6 +44,7 @@ export class DettaglioProgetto {
 
     private destroyRef = inject(DestroyRef);
     private cdr = inject(ChangeDetectorRef);
+    private subscriptions: Subscription[] = [];
 
     constructor(
         private route: ActivatedRoute,
@@ -71,43 +72,49 @@ export class DettaglioProgetto {
     private getProgetto(id: string): void {
         this.isLoading.set(true);
 
-        this.progettiService.getProgetto(id).pipe(
+        this.subscriptions.push(
+            this.progettiService.getProgetto(id).pipe(
 
-            takeUntilDestroyed(this.destroyRef),
-            finalize(() => this.isLoading.set(false))
+                takeUntilDestroyed(this.destroyRef),
+                finalize(() => this.isLoading.set(false))
 
-        ).subscribe({
-            next: (resp: any) => {
-                const progetto = resp.serviceDetail ?? resp;
-                console.log(resp.serviceDetail);
-                this.progettoDetail = {
-                    ...progetto,
-                    nome: resp.serviceDetail.name,
-                    servizi: (resp.serviceDetail.services ?? []).map((s: ServizioDto) =>
-                        this.mapServizio(s),
-                    ),
-                };
-                this.infoProgetto = [
-                    {
-                        label: 'ID Progetto',
-                        value: progetto.id,
-                        icon: 'it-file',
-                    },
-                    {
-                        label: 'Nome',
-                        value: progetto.name,
-                        icon: 'it-note',
-                    },
-                    {
-                        label: 'Data Creazione',
-                        value: progetto.createAt,
-                        icon: 'it-calendar',
-                    },
-                ];
+            ).subscribe({
+                next: (resp: any) => {
+                    const progetto = resp.serviceDetail ?? resp;
+                    console.log(resp.serviceDetail);
+                    this.progettoDetail = {
+                        ...progetto,
+                        nome: resp.serviceDetail.name,
+                        servizi: (resp.serviceDetail.services ?? []).map((s: ServizioDto) =>
+                            this.mapServizio(s),
+                        ),
+                    };
+                    this.infoProgetto = [
+                        {
+                            label: 'ID Progetto',
+                            value: progetto.id,
+                            icon: 'it-file',
+                        },
+                        {
+                            label: 'Nome',
+                            value: progetto.name,
+                            icon: 'it-note',
+                        },
+                        {
+                            label: 'Data Creazione',
+                            value: progetto.createAt,
+                            icon: 'it-calendar',
+                        },
+                    ];
 
-                this.cdr.detectChanges();
-            }
-        });
+                    this.cdr.detectChanges();
+                }
+            })
+        );
+    }
+
+    ngOnDestroy(): void {
+        this.subscriptions.map((s: Subscription) => s.unsubscribe());
     }
 
 }
