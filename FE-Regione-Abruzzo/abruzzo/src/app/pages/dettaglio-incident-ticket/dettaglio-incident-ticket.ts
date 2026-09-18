@@ -11,6 +11,7 @@ import { File } from '../../model/file.model';
         InfoBar,
         TabellaFileIncidentTicket
     ],
+    standalone: true,
     templateUrl: './dettaglio-incident-ticket.html',
     styleUrl: './dettaglio-incident-ticket.css',
 })
@@ -51,7 +52,7 @@ export class DettaglioIncidentTicket {
                 const size = inputFile.files[0].size;
 
                 this.files = [...this.files, {fileId: fileId, file: inputFile.files[0], name: name, size: size}];
-                
+
             }
         }
     }
@@ -77,7 +78,7 @@ export class DettaglioIncidentTicket {
                 const size = inputFile.files[0].size;
 
                 this.filesChiusuraIncident = [...this.filesChiusuraIncident, {fileId: fileId, file: inputFile.files[0], name: name, size: size}];
-                
+
             }
         }
     }

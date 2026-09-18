@@ -4,7 +4,7 @@
 
 <div class="section-padding color-bg-lightblue">
 
-  <div [formGroup]="progettiForm" class="row mb-4 align-items-end ">
+  <div [formGroup]="progettiForm" class="row mb-4 gap-2 align-items-end ">
     <div class="col-4">
       <label class="active" for="id">ID Progetto</label>
       <input
@@ -31,15 +31,13 @@
       Elimina filtri
     </button>
 
+    <button
+      type="button"
+      class="btn btn-primary col-2  w-auto"
+      (click)="applicaFiltri()">
+      Cerca
+    </button>
 
-    <div class="col d-flex justify-content-end">
-      <button
-        type="button"
-        class="btn btn-primary"
-        (click)="applicaFiltri()">
-        Cerca
-      </button>
-    </div>
   </div>
 </div>
 

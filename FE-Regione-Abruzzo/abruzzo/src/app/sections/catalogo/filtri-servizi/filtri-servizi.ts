@@ -57,6 +57,8 @@ export class FiltriServizi {
 
   popolaServizi(idCategoria: number): void {
     this.servizio = undefined;
+    this.filtersForm.get('servizio')?.setValue('', { emitEvent: false });
+
     if (!idCategoria) {
       this.servizi = [];
       this.cdr.detectChanges();
@@ -70,7 +72,7 @@ export class FiltriServizi {
         next: (resp) => {
           this.servizi = resp;
           this.cdr.detectChanges(); //
-        }
+        },
       });
   }
   getCategorie() {
@@ -81,11 +83,16 @@ export class FiltriServizi {
         next: (resp) => {
           this.categorie = resp;
           this.cdr.detectChanges();
-        }
+        },
       });
   }
 
   onServizioChange(id: string): void {
+    if (!id) {
+      this.servizio = undefined;
+      this.cdr.detectChanges();
+      return;
+    }
     const servizio = this.servizi.find((s) => String(s.id) === String(id));
     if (!servizio) return;
     this.servizio = servizio;
@@ -108,6 +115,8 @@ export class FiltriServizi {
 
   resetFiltri() {
     this.filtersForm.reset();
+    this.servizi = [];
+    this.servizio = undefined;
     this.reset.emit();
   }
 }
