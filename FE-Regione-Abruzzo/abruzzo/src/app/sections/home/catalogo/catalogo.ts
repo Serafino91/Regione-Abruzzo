@@ -1,7 +1,6 @@
 import {
     Component,
     OnInit,
-    OnDestroy,
     DestroyRef,
     ElementRef,
     PLATFORM_ID,
@@ -16,7 +15,7 @@ import { ServizioCard } from '../../../components/servizio-card/servizio-card';
 import { ServiziService } from '../../../services/servizi.service';
 import { ServizioModel } from '../../../model/servizioModel';
 import { SectionHeader } from '../../../components/section-header/section-header';
-import { finalize, Subscription } from 'rxjs';
+import { finalize } from 'rxjs';
 import { SpinnerCard } from '../../../components/spinner-card/spinner-card';
 
 @Component({
@@ -27,7 +26,7 @@ import { SpinnerCard } from '../../../components/spinner-card/spinner-card';
     styleUrl: './catalogo.css',
 })
 
-export class Catalogo implements OnInit, OnDestroy {
+export class Catalogo implements OnInit {
 
     public servizi: ServizioModel[] = [];
     isLoading = signal(false);
@@ -37,9 +36,7 @@ export class Catalogo implements OnInit, OnDestroy {
     private platformId = inject(PLATFORM_ID);
     private destroyRef = inject(DestroyRef);
     private cdr = inject(ChangeDetectorRef); // Inject ChangeDetector
-    private subscriptions: Subscription[] = [];
-
-    constructor(private servizioService: ServiziService) { }
+   constructor(private servizioService: ServiziService) { }
 
     ngOnInit(): void {
         this.getServizi();
@@ -48,24 +45,20 @@ export class Catalogo implements OnInit, OnDestroy {
     private getServizi(): void {
         this.isLoading.set(true);
 
-        this.subscriptions.push(
-            this.servizioService.getServizi().pipe(
+        this.servizioService.getServizi().pipe(
 
-                takeUntilDestroyed(this.destroyRef),
-                finalize(() => this.isLoading.set(false))
+          takeUntilDestroyed(this.destroyRef),
+          finalize(() => this.isLoading.set(false))
 
-            ).subscribe({
-                next: (resp) => {
-                    this.servizi = resp;
-
+        ).subscribe({
+          next: (resp) => {
+            this.servizi = resp;
                     // Force Angular to see the array data and draw the HTML slots
-                    this.cdr.detectChanges();
-
+            this.cdr.detectChanges();
                     // Now that HTML elements exist, initialize Splide safely
-                    this.initSplide();
-                }
-            })
-        )
+            this.initSplide();
+          }
+        });
     }
 
     private async initSplide(): Promise<void> {
@@ -90,10 +83,6 @@ export class Catalogo implements OnInit, OnDestroy {
                 },
             }).mount();
         }, 0);
-    }
-
-    ngOnDestroy(): void {
-        this.subscriptions.map((s: Subscription) => s.unsubscribe());
     }
 
 }

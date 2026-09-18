@@ -1,12 +1,6 @@
-import { Component, OnInit, OnDestroy, inject, signal } from '@angular/core';
-import {
-	FormsModule,
-	ReactiveFormsModule,
-	FormGroup,
-	FormBuilder,
-	Validators
-} from '@angular/forms';
-import { Subscription, tap, finalize } from 'rxjs';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {tap, finalize } from 'rxjs';
 
 import { CategoriaService } from '../../../services/categoria.service';
 import { CategoriaModel } from '../../../model/categoria.model';
@@ -16,21 +10,17 @@ import { SpinnerCard } from '../../../components/spinner-card/spinner-card';
 
 @Component({
 	selector: 'app-filtri-richieste-ticket',
-	imports: [
-		FormsModule,
-		ReactiveFormsModule,
-		SpinnerCard
-	],
+	imports: [FormsModule, ReactiveFormsModule, SpinnerCard],
+  standalone: true,
 	templateUrl: './filtri-richieste-ticket.html',
 	styleUrl: './filtri-richieste-ticket.css',
 })
 
-export class FiltriRichiesteTicket implements OnInit, OnDestroy {
+export class FiltriRichiesteTicket implements OnInit {
 
 	isLoading = signal(false);
 
 	private formBuilder: FormBuilder = inject(FormBuilder);
-	private subscriptions: Subscription[] = [];
 	private categoriaService: CategoriaService = inject(CategoriaService);
 	private serviziService: ServiziService = inject(ServiziService);
 
@@ -56,18 +46,14 @@ export class FiltriRichiesteTicket implements OnInit, OnDestroy {
 
 	getCategorie(): void {
 		this.isLoading.set(true);
+    this.categoriaService.getCategorie().pipe(
 
-		this.subscriptions.push(
-			this.categoriaService.getCategorie().pipe(
-
-				tap((categorie: CategoriaModel[]) => {
+      tap((categorie: CategoriaModel[]) => {
 					this.categorie = categorie;
 					this.formRichiesteTicket.get('servizio')!.disable();
-				}),
-				finalize(() => this.isLoading.set(false))
-
-			).subscribe()
-		)
+      }),
+      finalize(() => this.isLoading.set(false))
+			).subscribe();
 	}
 
 	setIdCategoria(): void {
@@ -84,30 +70,19 @@ export class FiltriRichiesteTicket implements OnInit, OnDestroy {
 
 	getServiziDaCategoria(): void {
 		this.isLoading.set(true);
-
-		this.subscriptions.push(
-			this.serviziService.getServiziDaCategoria(this.idCategoria).pipe(
-
-				tap((servizi: ServizioModel[]) => {
-					this.servizi = servizi;
-					this.formRichiesteTicket.get('servizio')!.enable();
-				}),
-				finalize(() => this.isLoading.set(false))
-
-			).subscribe()
-		)
+    this.serviziService.getServiziDaCategoria(this.idCategoria).pipe(
+      tap((servizi: ServizioModel[]) => {
+        this.servizi = servizi;
+        this.formRichiesteTicket.get('servizio')!.enable();
+      }),
+      finalize(() => this.isLoading.set(false))
+    ).subscribe();
 	}
 
 	eliminaFiltri(): void {
-		
 	}
 
 	applicaFiltri(): void {
-		
-	}
-
-	ngOnDestroy(): void {
-		this.subscriptions.map((s: Subscription) => s.unsubscribe());
 	}
 
 }

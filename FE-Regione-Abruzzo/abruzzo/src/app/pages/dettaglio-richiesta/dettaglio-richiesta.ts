@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -9,101 +9,97 @@ import { ServizioAccordion } from '../../components/servizio-accordion/servizio-
 import { InfoBar } from '../../components/info-bar/info-bar';
 import { PageHeader } from '../../components/page-header/page-header';
 import { getStatoRichiesta } from '../../constants/incident-state-icon.constants';
-import { finalize, Subscription } from 'rxjs';
+import { finalize } from 'rxjs';
 import { SpinnerCard } from '../../components/spinner-card/spinner-card';
+import { DatePipe } from '@angular/common';
 
 @Component({
-    selector: 'app-dettaglio-richiesta',
-    imports: [ProgettoDetailCard, ServizioAccordion, InfoBar, PageHeader, SpinnerCard],
-    templateUrl: './dettaglio-richiesta.html',
-    styleUrl: './dettaglio-richiesta.css',
-    standalone: true,
+  selector: 'app-dettaglio-richiesta',
+  providers: [DatePipe],
+  imports: [ProgettoDetailCard, ServizioAccordion, InfoBar, PageHeader, SpinnerCard],
+  templateUrl: './dettaglio-richiesta.html',
+  styleUrl: './dettaglio-richiesta.css',
+  standalone: true,
 })
+export class DettaglioRichiesta implements OnInit {
+  richiestaId!: string;
+  richiestaDetail!: RichiestaModel;
+  nuovaRichiesta: boolean = false;
+  showDeleteModal = false;
+  infoRichiesta: any;
+  isLoading = signal(false);
 
-export class DettaglioRichiesta implements OnInit, OnDestroy {
+  private destroyRef = inject(DestroyRef);
+  private cdr = inject(ChangeDetectorRef);
 
-    richiestaId!: string;
-    richiestaDetail!: RichiestaModel;
-    nuovaRichiesta: boolean = false;
-    showDeleteModal = false;
-    infoRichiesta: any;
-    isLoading = signal(false);
+  constructor(
+    private route: ActivatedRoute,
+    private richiestaService: RichiesteService,
+    private router: Router,
+    private datePipe: DatePipe,
+  ) {}
 
-    private destroyRef = inject(DestroyRef);
-    private cdr = inject(ChangeDetectorRef);
-    private subscriptions: Subscription[] = [];
+  ngOnInit() {
+    this.richiestaId = this.route.snapshot.paramMap.get('id')!;
+    this.getRichiesta(this.richiestaId);
+  }
 
-    constructor(
-        private route: ActivatedRoute,
-        private richiestaService: RichiesteService,
-        private router: Router,
-    ) { }
+  onElimina() {
+    this.isLoading.set(true);
 
-    ngOnInit() {
-        this.richiestaId = this.route.snapshot.paramMap.get('id')!;
-        this.getRichiesta(this.richiestaId);
-    }
+    this.richiestaService
+      .deleteRichieste(this.richiestaId as any)
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => this.isLoading.set(false)),
+      )
+        .subscribe({
+          next: () => {
+            this.showDeleteModal = false;
+            this.router.navigate(['/home/richieste']);
+          },
+          error: (err) => {
+            console.error('Errore eliminazione richiesta:', err);
+            this.showDeleteModal = false;
+          },
+        });
+  }
 
-    onElimina() {
-        this.isLoading.set(true);
-
-        this.subscriptions.push(
-            this.richiestaService.deleteRichieste(this.richiestaId as any).pipe(
-
-                takeUntilDestroyed(this.destroyRef),
-                finalize(() => this.isLoading.set(false))
-
-            ).subscribe({
-                next: () => {
-                    this.showDeleteModal = false;
-                    this.router.navigate(['/home/richieste']);
-                },
-                error: (err) => {
-                    console.error('Errore eliminazione richiesta:', err);
-                    this.showDeleteModal = false;
-                },
-            })
-        );
-    }
-
-    private getRichiesta(id: string) {
-        this.isLoading.set(true);
-
-        this.subscriptions.push(
-            this.richiestaService.getRichiesta(id).pipe(
-
-                takeUntilDestroyed(this.destroyRef),
-                finalize(() => this.isLoading.set(false))
-
-            ).subscribe({
-                next: (resp: any) => {
-                    this.richiestaDetail = resp.requestDetail ?? resp;
-                    console.log(this.richiestaDetail);
-                    this.infoRichiesta = [
-                        {
-                            label: 'ID Richiesta',
-                            value: this.richiestaDetail.requestId,
-                            icon: 'it-file',
-                        },
-                        {
-                            label: 'Stato',
-                            value: this.richiestaDetail.state.stateName,
-                            icon: getStatoRichiesta(this.richiestaDetail.state.id)?.icon,
-                        },
-                        {
-                            label: 'Data apertura',
-                            value: this.richiestaDetail.createdAt,
-                            icon: 'it-calendar',
-                        },
-                    ];
-                    this.cdr.detectChanges();
-                }
-            })
-        );
-    }
-
-    ngOnDestroy(): void {
-        this.subscriptions.map((s: Subscription) => s.unsubscribe());
-    }
+  private getRichiesta(id: string) {
+    this.isLoading.set(true);
+    this.richiestaService
+        .getRichiesta(id)
+        .pipe(
+          takeUntilDestroyed(this.destroyRef),
+          finalize(() => this.isLoading.set(false)),
+        )
+        .subscribe({
+          next: (resp: any) => {
+            this.richiestaDetail = resp.requestDetail ?? resp;
+            console.log(this.richiestaDetail);
+            this.infoRichiesta = [
+              {
+                label: 'ID Richiesta',
+                value: this.richiestaDetail.requestId,
+                icon: 'it-file',
+              },
+              {
+                label: 'Stato',
+                value: this.richiestaDetail.state.stateName,
+                icon: getStatoRichiesta(this.richiestaDetail.state.id)?.icon,
+              },
+              {
+                label: 'Data apertura',
+                value: this.datePipe.transform(
+                  this.richiestaDetail.createdAt,
+                  'dd/MM/yyyy - HH:mm',
+                ),
+                icon: 'it-calendar',
+              },
+            ];
+            this.cdr.detectChanges();
+          },
+        });
+  }
 
 }

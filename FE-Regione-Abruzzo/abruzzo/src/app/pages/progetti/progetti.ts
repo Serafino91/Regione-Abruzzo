@@ -1,15 +1,16 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
+import { CommonModule, formatDate } from '@angular/common';
 import { Filtri } from '../../sections/progetti/filtri/filtri';
 import { TabellaProgetti } from '../../sections/progetti/tabella-progetti/tabella-progetti';
-import { combineLatest, map, finalize, Subscription } from 'rxjs';
+import { combineLatest, map, finalize } from 'rxjs';
 import { ProgettoModel } from '../../model/progetto.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ProgettiService } from '../../services/progetti.service';
 import { PageHeader } from '../../components/page-header/page-header';
 import { UserService } from '../../services/user.service';
 import { SpinnerCard } from '../../components/spinner-card/spinner-card';
-import { FiltroProgettoCriteriaModel } from "../../constants/filtro-progetto-criteria.model";
+import { FiltroProgettoCriteriaModel } from '../../constants/filtro-progetto-criteria.model';
+import { DatePipe } from '@angular/common';
 
 const INDICI_PER_PROFILO: Record<string, number[]> = {
     delegato: [0, 1],
@@ -19,19 +20,19 @@ const INDICI_PER_PROFILO: Record<string, number[]> = {
 @Component({
     selector: 'app-progetti',
     standalone: true,
+    providers: [DatePipe],
     imports: [CommonModule, Filtri, TabellaProgetti, PageHeader, SpinnerCard],
     templateUrl: './progetti.html',
     styleUrl: './progetti.css',
 })
 
-export class Progetti implements OnInit, OnDestroy {
+export class Progetti implements OnInit {
 
     progetti: ProgettoModel[] = [];
     isLoading = signal(false);
 
     private destroyRef = inject(DestroyRef);
     private cdr = inject(ChangeDetectorRef);
-    private subscriptions: Subscription[] = [];
 
     // lista già ristretta al profilo utente, usata come base per i filtri
     private progettiProfilo: ProgettoModel[] = [];
@@ -46,43 +47,37 @@ export class Progetti implements OnInit, OnDestroy {
     }
 
     private getProgetti(): void {
-        this.subscriptions.push(
-            combineLatest([this.progettiService.getProgetti(), this.userService.user$]).pipe(
 
-                map(([resp, user]: [any[], any]) => {
-                    const progetti = this.mapToProgettoModel(resp);
-                    return this.filterByProfile(progetti, user.role);
-                }),
-                takeUntilDestroyed(this.destroyRef),
-                finalize(() => this.isLoading.set(false))
+      combineLatest([this.progettiService.getProgetti(), this.userService.user$]).pipe(
 
-            ).subscribe({
-                next: (filtered) => {
-                    this.progettiProfilo = filtered;
-                    this.progetti = filtered;
-                    this.cdr.detectChanges();
-                }
-            })
-        );
+        map(([resp, user]: [any[], any]) => {
+          const progetti = this.mapToProgettoModel(resp);
+          return this.filterByProfile(progetti, user.role);
+        }),
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => this.isLoading.set(false))
+
+      ).subscribe({
+        next: (filtered) => {
+          this.progettiProfilo = filtered;
+          this.progetti = filtered;
+          this.cdr.detectChanges();
+        }
+      });
     }
 
     onFiltra(criteria: FiltroProgettoCriteriaModel): void {
         this.isLoading.set(true);
-
-        this.subscriptions.push(
-            this.progettiService.filterProgetto(criteria).pipe(
-
-                map((resp: any[]) => this.mapToProgettoModel(resp)),
-                takeUntilDestroyed(this.destroyRef),
-                finalize(() => this.isLoading.set(false))
-
-            ).subscribe({
-                next: (progetti) => {
-                    this.progetti = progetti;
-                    this.cdr.detectChanges();
-                }
-            })
-        );
+        this.progettiService.filterProgetto(criteria).pipe(
+          map((resp: any[]) => this.mapToProgettoModel(resp)),
+          takeUntilDestroyed(this.destroyRef),
+          finalize(() => this.isLoading.set(false))
+        ).subscribe({
+          next: (progetti) => {
+            this.progetti = progetti;
+            this.cdr.detectChanges();
+          }
+        });
     }
 
     onResetFiltri(): void {
@@ -91,13 +86,13 @@ export class Progetti implements OnInit, OnDestroy {
 
     private mapToProgettoModel(resp: any[]): ProgettoModel[] {
         return resp.map((p) => ({
-            idProgetto: p.id,
-            nome: p.name,
-            destinationLink: p.destinationLink,
-            description: p.description,
-            dataCreazione: p.createAt,
-            dataUltimaModifica: p.updateAt,
-            servizi: p.services,
+          idProgetto: p.id,
+          nome: p.name,
+          destinationLink: p.destinationLink,
+          description: p.description,
+          dataCreazione: formatDate(p.createAt, 'dd/MM/yyyy - HH:mm', 'en-US'),
+          dataUltimaModifica: formatDate(p.updateAt, 'dd/MM/yyyy - HH:mm', 'en-US'),
+          servizi: p.services,
         }));
     }
 
@@ -109,8 +104,5 @@ export class Progetti implements OnInit, OnDestroy {
         return indici.map((i) => progetti[i]).filter((p): p is ProgettoModel => !!p);
     }
 
-    ngOnDestroy(): void {
-        this.subscriptions.map((s: Subscription) => s.unsubscribe());
-    }
 
 }

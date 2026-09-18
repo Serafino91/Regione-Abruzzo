@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ChangeDetectorRef, signal } from '@angular/core';
+import { Component, ChangeDetectorRef, signal } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, FormArray, FormControl, Validators } from '@angular/forms';
 import { ScegliProgetto } from '../../sections/nuova-richiesta/scegli-progetto/scegli-progetto';
 import { SelezionaServizio } from '../../sections/nuova-richiesta/seleziona-servizio/seleziona-servizio';
@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 import { ProgettoModel } from '../../model/progetto.model';
 import { RichiestaSafeModel, RichiestaProjectDto } from '../../model/richiestaSafeModel';
 import { PageHeader } from '../../components/page-header/page-header';
-import { finalize, Subscription } from 'rxjs';
 import { SpinnerCard } from '../../components/spinner-card/spinner-card';
 
 @Component({
@@ -32,14 +31,13 @@ import { SpinnerCard } from '../../components/spinner-card/spinner-card';
     standalone: true,
 })
 
-export default class NuovaRichiesta implements OnDestroy {
+export default class NuovaRichiesta {
 
     currentStep = 1;
     url = '';
     showModal = false;
     showModalSuccess = false;
     isLoading = signal(false);
-    subscriptions: Subscription[] = [];
 
     richiestaForm = new FormGroup({
         progettoForm: new FormGroup({}),
@@ -82,7 +80,7 @@ export default class NuovaRichiesta implements OnDestroy {
             if (nome && link) {
                 this.isLoading.set(true);
 
-                this.subscriptions.push(
+
                     this.progettiService.checkProgettoEsiste(nome, link).subscribe({
                         next: (exists: boolean) => {
                             this.progettoEsistenteError = exists;
@@ -98,8 +96,7 @@ export default class NuovaRichiesta implements OnDestroy {
                             this.cdr.detectChanges();
                             this.isLoading.set(false);
                         },
-                    })
-                );
+                    });
                 return;
             }
         }
@@ -204,7 +201,7 @@ export default class NuovaRichiesta implements OnDestroy {
 
         this.isLoading.set(true);
 
-        this.subscriptions.push(
+
             this.richiesteService.createRichiesta(richiesta).subscribe({
                 next: () => {
                     this.isInviando = false;
@@ -221,8 +218,7 @@ export default class NuovaRichiesta implements OnDestroy {
                     this.isLoading.set(false);
                     this.cdr.detectChanges();
                 },
-            })
-        );
+            });
     }
 
     goToHome(): void {
@@ -237,8 +233,5 @@ export default class NuovaRichiesta implements OnDestroy {
         this.router.navigateByUrl("home/richieste");
     }
 
-    ngOnDestroy(): void {
-        this.subscriptions.map((s: Subscription) => s.unsubscribe());
-    }
 
 }

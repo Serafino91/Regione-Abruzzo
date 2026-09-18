@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
 import { FiltriServizi } from '../../sections/catalogo/filtri-servizi/filtri-servizi';
 import { ListaServizi } from '../../sections/catalogo/lista-servizi/lista-servizi';
 import { ServizioModel } from '../../model/servizioModel';
 import { ServiziService } from '../../services/servizi.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PageHeader } from '../../components/page-header/page-header';
-import { finalize, Subscription } from 'rxjs';
+import { finalize } from 'rxjs';
 import { SpinnerCard } from '../../components/spinner-card/spinner-card';
 import { FiltroServiziCriteriaModel } from '../../constants/filtro-servizi-criteria.model';
 
@@ -17,15 +17,13 @@ import { FiltroServiziCriteriaModel } from '../../constants/filtro-servizi-crite
     styleUrl: './catalogo.css',
 })
 
-export class Catalogo implements OnInit, OnDestroy {
+export class Catalogo implements OnInit {
 
     private destroyRef = inject(DestroyRef);
     public servizi: ServizioModel[] = [];
     isLoading = signal(false);
 
-    private tuttiIServizi: ServizioModel[] = [];
     private cdr = inject(ChangeDetectorRef);
-    private subscriptions: Subscription[] = [];
 
     constructor(private servizioService: ServiziService) { }
 
@@ -36,21 +34,17 @@ export class Catalogo implements OnInit, OnDestroy {
     private getServizi(): void {
         this.isLoading.set(true);
 
-        this.subscriptions.push(
-            this.servizioService.getServizi().pipe(
+        this.servizioService.getServizi().pipe(
 
-                takeUntilDestroyed(this.destroyRef),
-                finalize(() => this.isLoading.set(false))
+          takeUntilDestroyed(this.destroyRef),
+          finalize(() => this.isLoading.set(false))
 
-            ).subscribe({
-                next: (resp) => {
-                    this.tuttiIServizi = resp;
-                    this.servizi = resp;
-
-                    this.cdr.detectChanges();
-                }
-            })
-        );
+        ).subscribe({
+          next: (resp) => {
+            this.servizi = resp;
+            this.cdr.detectChanges();
+          }
+        });
     }
 
     onFiltra(criteria: FiltroServiziCriteriaModel): void {
@@ -72,10 +66,6 @@ export class Catalogo implements OnInit, OnDestroy {
 
     onResetFiltri(): void {
         this.getServizi();
-    }
-
-    ngOnDestroy(): void {
-        this.subscriptions.map((s: Subscription) => s.unsubscribe());
     }
 
 }

@@ -42,7 +42,7 @@
 
     <div class="d-flex align-items-center text-dark px-4 text-truncate">
       <svg class="icon me-2 flex-shrink-0"><use href="assets/bootstrap-italia/sprites.svg#it-calendar"></use></svg>
-      <span class="text-truncate">{{ dati.createdAt }}</span>
+      <span class="text-truncate">{{ dati.createdAt | date: 'dd/MM/yyyy - HH:mm' }}</span>
     </div>
 
     <div class="text-end ms-auto">

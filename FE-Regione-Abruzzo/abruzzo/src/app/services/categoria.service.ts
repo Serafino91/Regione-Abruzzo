@@ -7,6 +7,8 @@ import { CategoriaModel } from '../model/categoria.model';
 @Injectable({
   providedIn: 'root',
 })
+
+
 export class CategoriaService {
   constructor(private http: HttpClient) {}
 

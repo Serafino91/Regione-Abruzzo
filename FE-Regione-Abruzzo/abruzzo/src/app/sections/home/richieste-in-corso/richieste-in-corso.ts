@@ -1,12 +1,12 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RichiesteInCorsoCard } from './components/richieste-in-corso-card/richieste-in-corso-card';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RichiesteService } from '../../../services/richieste.service';
 import { RichiestaModel } from '../../../model/richiestaModel';
 import { Alert } from '../../../components/alert/alert';
-import { finalize, Subscription } from 'rxjs';
+import { finalize } from 'rxjs';
 import { SpinnerCard } from '../../../components/spinner-card/spinner-card';
 
 @Component({
@@ -16,7 +16,7 @@ import { SpinnerCard } from '../../../components/spinner-card/spinner-card';
     templateUrl: './richieste-in-corso.html',
 })
 
-export class RichiesteInCorso implements OnInit, OnDestroy {
+export class RichiesteInCorso implements OnInit {
 
     statoSelezionato: 'Inviate' | 'In valutazione' | 'In elaborazione' = 'In valutazione';
     listaRichieste: RichiestaModel[] = [];
@@ -24,11 +24,9 @@ export class RichiesteInCorso implements OnInit, OnDestroy {
 
     private destroyRef = inject(DestroyRef);
     private cdr = inject(ChangeDetectorRef);
-    private subscriptions: Subscription[] = [];
 
     constructor(
         private richiestaService: RichiesteService,
-        private router: Router,
     ) { }
 
     ngOnInit(): void {
@@ -50,28 +48,15 @@ export class RichiesteInCorso implements OnInit, OnDestroy {
 
     private getRichieste() {
         this.isLoading.set(true);
+        this.richiestaService.getAllRichieste().pipe(
+          takeUntilDestroyed(this.destroyRef),
+          finalize(() => this.isLoading.set(false))
 
-        this.subscriptions.push(
-            this.richiestaService.getAllRichieste().pipe(
-
-                takeUntilDestroyed(this.destroyRef),
-                finalize(() => this.isLoading.set(false))
-
-            ).subscribe({
-                next: (resp) => {
-                    this.listaRichieste = resp;
-                    this.cdr.detectChanges();
-                },
-            })
-        );
+        ).subscribe({
+          next: (resp) => {
+            this.listaRichieste = resp;
+            this.cdr.detectChanges();
+            },
+        });
     }
-
-    apriDettaglio(id: string) {
-        this.router.navigate(['/home/richieste/dettaglio-richiesta', id]);
-    }
-
-    ngOnDestroy(): void {
-        this.subscriptions.map((s: Subscription) => s.unsubscribe());
-    }
-
 }

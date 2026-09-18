@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
 import { ProjectCard } from './components/project-card/project-card';
 import { ProgettoModel } from '../../../model/progetto.model';
 import { ProgettiService } from '../../../services/progetti.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SectionHeader } from '../../../components/section-header/section-header';
-import { map, finalize, Subscription } from 'rxjs';
+import { map, finalize } from 'rxjs';
 import { SpinnerCard } from '../../../components/spinner-card/spinner-card';
 
 @Component({
@@ -15,7 +15,7 @@ import { SpinnerCard } from '../../../components/spinner-card/spinner-card';
     standalone: true,
 })
 
-export class ProgettiInCorso implements OnInit, OnDestroy {
+export class ProgettiInCorso implements OnInit {
 
     progetti: ProgettoModel[] = [];
     richieste: number[] = [1, 2, 1];
@@ -23,7 +23,6 @@ export class ProgettiInCorso implements OnInit, OnDestroy {
 
     private destroyRef = inject(DestroyRef);
     private cdr = inject(ChangeDetectorRef);
-    private subscriptions: Subscription[] = [];
 
     constructor(private progettiService: ProgettiService) { }
 
@@ -34,7 +33,6 @@ export class ProgettiInCorso implements OnInit, OnDestroy {
     private getProgetti(): void {
         this.isLoading.set(true);
 
-        this.subscriptions.push(
             this.progettiService.getProgetti().pipe(
 
                 map((resp: ProgettoModel[]) => resp.slice(0, 3)), //prende massimo 3 progetti per la sezione in home
@@ -56,12 +54,6 @@ export class ProgettiInCorso implements OnInit, OnDestroy {
                     }));
                     this.cdr.detectChanges();
                 }
-            })
-        );
+            });
     }
-
-    ngOnDestroy(): void {
-        this.subscriptions.map((s: Subscription) => s.unsubscribe());
-    }
-
 }
