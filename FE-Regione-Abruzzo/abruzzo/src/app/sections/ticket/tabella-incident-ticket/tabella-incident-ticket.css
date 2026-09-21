@@ -29,6 +29,13 @@
     border-color: rgb(33, 57, 135);
 }
 
+.badge-work-in-progress {
+    background-color: rgb(248, 238, 220); 
+    color: rgb(106, 59, 36);
+    border-style: solid;
+    border-color: rgb(106, 59, 36);
+}
+
 .badge-close {
     background-color: rgb(245, 245, 245);
     color: rgb(26, 26, 26);

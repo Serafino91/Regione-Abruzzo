@@ -5,7 +5,7 @@
 
         @if (col.key === 'state.config.label') {
 
-        @if (row.statoRichiesta === 'Inviata') {
+        @if (row.statoRichiesta === 'In elaborazione') {
         <span class="badge-stato badge-info">
             <svg class="icon icon-xs" aria-hidden="true">
                 <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-external-link'"></use>
@@ -14,7 +14,7 @@
         </span>
         }
 
-        @if (row.statoRichiesta === 'In approvazione') {
+        @if (row.statoRichiesta === 'In valutazione') {
         <span class="badge-stato badge-warning">
             <svg class="icon icon-xs" aria-hidden="true">
                 <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-refresh'"></use>
@@ -23,10 +23,37 @@
         </span>
         }
 
-        @if (row.statoRichiesta === 'Approvata') {
+        @if (row.statoRichiesta === 'Completata') {
         <span class="badge-stato badge-success">
             <svg class="icon icon-xs" aria-hidden="true">
                 <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-check-circle'"></use>
+            </svg>
+            {{ row.statoRichiesta }}
+        </span>
+        }
+
+        @if (row.statoRichiesta === 'Incompleta') {
+        <span class="badge-stato badge-success">
+            <svg class="icon icon-xs" aria-hidden="true">
+                <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-check-circle'"></use>
+            </svg>
+            {{ row.statoRichiesta }}
+        </span>
+        }
+
+        @if (row.statoRichiesta === 'Rifiutata') {
+        <span class="badge-stato badge-danger">
+            <svg class="icon icon-xs" aria-hidden="true">
+                <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-ban'"></use>
+            </svg>
+            {{ row.statoRichiesta }}
+        </span>
+        }
+
+        @if (row.statoRichiesta === 'Inviate') {
+        <span class="badge-stato badge-primary">
+            <svg class="icon icon-xs" aria-hidden="true">
+                <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-mail'"></use>
             </svg>
             {{ row.statoRichiesta }}
         </span>

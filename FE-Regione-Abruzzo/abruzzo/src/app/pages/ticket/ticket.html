@@ -1,3 +1,5 @@
+<app-spinner-card [isLoading]="isLoading()"></app-spinner-card>
+
 <div class="section-padding">
 
     <app-page-header [titolo]="'Gestione Ticket'"
@@ -54,11 +56,11 @@
     <div class="mt-3">
 
         @if (tipologiaTicketSelezionata === 'Richieste servizi') {
-            <app-tabella-richieste-ticket></app-tabella-richieste-ticket>
+            <app-tabella-richieste-ticket [listaRichiesteTicket]="richieste"></app-tabella-richieste-ticket>
         }
 
         @if (tipologiaTicketSelezionata === 'Incident') {
-            <app-tabella-incident-ticket></app-tabella-incident-ticket>
+            <app-tabella-incident-ticket [listaIncidentTicket]="incident"></app-tabella-incident-ticket>
         }
 
         @if (tipologiaTicketSelezionata === 'Accreditamenti') {
