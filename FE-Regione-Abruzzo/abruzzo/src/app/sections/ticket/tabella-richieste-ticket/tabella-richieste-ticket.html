@@ -68,7 +68,7 @@
         @else if (col.key === 'azioni') {
 
           <div class="align-items-center">
-            <button [routerLink]="['/home/ticket/richieste-servizi/dettaglio-richiesta-ticket']" type="button" class="btn btn-link p-0 text-decoration-none" >
+            <button [routerLink]="['/home/ticket/richieste-servizi/dettaglio-richiesta-ticket/', row.idRichiesta]" type="button" class="btn btn-link p-0 text-decoration-none" >
               <svg class="icon icon-primary icon-sm me-1" aria-hidden="true">
                 <use href="assets/bootstrap-italia/sprites.svg#it-zoom-in"></use>
               </svg>

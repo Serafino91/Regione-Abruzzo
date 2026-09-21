@@ -2,7 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ChiamateApiUrl } from '../constants/chiamate-api-url.constants';
 
-import { RichiestaModel, RichiestaTicketModel } from '../model/richiestaModel';
+import {
+    RichiestaModel,
+    RichiestaTicketModel,
+    RichiestaDetailResponse
+} from '../model/richiestaModel';
+
 import { TicketModel, IncidentTicketModel } from '../model/ticket.model';
 
 import { Observable, map } from 'rxjs';
@@ -50,6 +55,14 @@ export class TicketService {
                     }))
                 )
             );;
+    }
+
+    getRichiesta(id: string) {
+        return this.http.get<RichiestaDetailResponse>(`${ChiamateApiUrl.BASE_URL_RICHIESTA}/${id}`);
+    }
+
+    getTicketDetail(code: string) {
+        return this.http.get<TicketModel>(`${ChiamateApiUrl.BASE_URL_INCIDENT}/${code}`);
     }
 
 }

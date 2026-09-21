@@ -32,7 +32,7 @@
         @else if (col.key === 'azioni') {
 
         <div class="align-content-center">
-            <button [routerLink]="['/home/ticket/incident/dettaglio-incident-ticket']" type="button"
+            <button [routerLink]="['/home/ticket/incident/dettaglio-incident-ticket', row.codice]" type="button"
                 class="btn btn-link p-0 text-decoration-none">
                 <svg class="icon icon-primary" aria-hidden="true">
                     <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-chevron-right'"></use>
