@@ -1,16 +1,14 @@
 package com.accenture.ra.controller;
 
-import com.accenture.ra.dto.request.RequestDetail;
-import com.accenture.ra.dto.response.CatalogServiceResponse;
 import com.accenture.ra.dto.request.ServiceDetail;
-import com.accenture.ra.dto.response.ServiceDetailResponse;
 import com.accenture.ra.dto.request.ServicePatchRequest;
+import com.accenture.ra.dto.response.CatalogServiceResponse;
 import com.accenture.ra.dto.response.CatalogServicesListResponse;
-import com.accenture.ra.request.RequestFilterCriteria;
+import com.accenture.ra.dto.response.ServiceDetailResponse;
 import com.accenture.ra.request.ServiceFilterCriteria;
-import com.accenture.ra.service.CatalogService;
 import com.accenture.ra.service.impl.CatalogServiceImpl;
-
+import com.accenture.ra.utils.Constants;
+import com.accenture.ra.utils.JsonUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -18,16 +16,13 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,7 +35,7 @@ public class CatalogServicesController {
 
     @Autowired
     CatalogServiceImpl catalogService;
-
+    Logger  logger = LoggerFactory.getLogger(CatalogServicesController.class);
     @Operation(
             summary = "Lista dei servizi a catalogo",
             description = "Recupera l'elenco di tutti i servizi presenti a catalogo."
@@ -109,8 +104,16 @@ public class CatalogServicesController {
     })
     @GetMapping
     public ResponseEntity<CatalogServicesListResponse> getCatalogServicesList() {
+        long start = System.currentTimeMillis();
+        String methodName = "getCatalogServicesList";
+        logger.info(Constants.LOG_START_CONTROLLER, methodName);
 
-        return ResponseEntity.ok(new CatalogServicesListResponse(catalogService.getServiceAll()));
+        CatalogServicesListResponse catalogServicesListResponse = new CatalogServicesListResponse(catalogService.getServiceAll());
+
+        long timeElapsed = System.currentTimeMillis() - start;
+        logger.info(Constants.LOG_END_CONTROLLER,methodName, JsonUtils.toJson(catalogServicesListResponse),timeElapsed);
+
+        return ResponseEntity.ok(catalogServicesListResponse);
     }
 
     @Operation(
@@ -227,9 +230,19 @@ public class CatalogServicesController {
     })
     @PostMapping(value = "/filter")
     public ResponseEntity<CatalogServicesListResponse> getFilteredServices(@RequestBody @Valid ServiceFilterCriteria criteria) {
+        long start = System.currentTimeMillis();
+        String methodName = "getFilteredServices";
+        logger.info(Constants.LOG_START_CONTROLLER, methodName);
+
         List<ServiceDetail> results = catalogService.filterService(criteria);
-        return ResponseEntity.status(HttpStatus.OK).body(new CatalogServicesListResponse(results));
+        CatalogServicesListResponse catalogServicesListResponse = new CatalogServicesListResponse(results);
+
+        long timeElapsed = System.currentTimeMillis() - start;
+        logger.info(Constants.LOG_END_CONTROLLER,methodName, JsonUtils.toJson(catalogServicesListResponse),timeElapsed);
+
+        return ResponseEntity.status(HttpStatus.OK).body(catalogServicesListResponse);
     }
+
 
 
     @Operation(
@@ -299,11 +312,16 @@ public class CatalogServicesController {
             )
             @PathVariable("service-id") String serviceId
     ) {
+        long start = System.currentTimeMillis();
+        String methodName = "getServiceDetail";
+        logger.info(Constants.LOG_START_CONTROLLER, methodName);
+
         ServiceDetail serviceDetail = catalogService.getServiceById(serviceId);
 
-        return ResponseEntity.ok(
-                new ServiceDetailResponse(serviceDetail)
-        );
+        long timeElapsed = System.currentTimeMillis() - start;
+        logger.info(Constants.LOG_END_CONTROLLER,methodName, JsonUtils.toJson(serviceDetail),timeElapsed);
+
+        return ResponseEntity.ok( new ServiceDetailResponse(serviceDetail));
     }
 
     @Operation(
@@ -393,7 +411,6 @@ public class CatalogServicesController {
                     example = "b1407cd4-2faba-4c8b-ba7b-19cfdb463962"
             )
             @PathVariable("service-id") String serviceId,
-
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     required = true,
                     description = "Dati parziali del servizio da modificare",
@@ -416,11 +433,16 @@ public class CatalogServicesController {
             )
             @RequestBody ServicePatchRequest request
     ) {
+        long start = System.currentTimeMillis();
+        String methodName = "getServiceDetail";
+        logger.info(Constants.LOG_START_CONTROLLER, methodName, JsonUtils.toJson(request));
+
         ServiceDetail updatedService = catalogService.patchService(serviceId, request);
 
-        return ResponseEntity.ok(
-                new ServiceDetailResponse(updatedService)
-        );
+        long timeElapsed = System.currentTimeMillis() - start;
+        logger.info(Constants.LOG_END_CONTROLLER,methodName, JsonUtils.toJson(updatedService),timeElapsed);
+
+        return ResponseEntity.ok(new ServiceDetailResponse(updatedService));
     }
 
 
@@ -459,12 +481,20 @@ public class CatalogServicesController {
             )
             @PathVariable("service-id") String serviceId
     ) {
+        long start = System.currentTimeMillis();
+        String methodName = "deleteServiceDetail";
+        logger.info(Constants.LOG_START_CONTROLLER, methodName);
+
         boolean deleted = catalogService.deleteService(serviceId);
 
         if (deleted) {
+        long timeElapsed = System.currentTimeMillis() - start;
+        logger.info(Constants.LOG_END_CONTROLLER,methodName, deleted,timeElapsed);
             return ResponseEntity.noContent().build();
         }
 
+        long timeElapsed = System.currentTimeMillis() - start;
+        logger.info(Constants.LOG_END_CONTROLLER,methodName, deleted,timeElapsed);
         return ResponseEntity.notFound().build();
     }
 
@@ -527,7 +557,7 @@ public class CatalogServicesController {
             )
     })
     @GetMapping("getServices/{category-id}")
-    public ResponseEntity<CatalogServicesListResponse>getServiceDetail(
+    public ResponseEntity<CatalogServicesListResponse>getServiceByCategory(
             @Parameter(
                     description = "Identificativo univoco del servizio",
                     required = true,
@@ -535,7 +565,14 @@ public class CatalogServicesController {
             )
             @PathVariable("category-id") Long categoryId
     ) {
+        long start = System.currentTimeMillis();
+        String methodName = "getServiceByCategory";
+        logger.info(Constants.LOG_START_CONTROLLER, methodName);
+
         List<ServiceDetail> serviceDetail = catalogService.getServiceByCategoryId(categoryId);
+
+        long timeElapsed = System.currentTimeMillis() - start;
+        logger.info(Constants.LOG_END_CONTROLLER,methodName, JsonUtils.toJson(serviceDetail),timeElapsed);
 
         return ResponseEntity.ok(new CatalogServicesListResponse(serviceDetail));
     }
