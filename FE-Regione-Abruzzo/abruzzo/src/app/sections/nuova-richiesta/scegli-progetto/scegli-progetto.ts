@@ -85,7 +85,7 @@ export class ScegliProgetto implements OnInit {
             servizi: p.services,
           }));
           this.cdr.detectChanges();
-        }
+        },
       });
   }
 
@@ -110,6 +110,12 @@ export class ScegliProgetto implements OnInit {
       this.progettoSelezionato = progetto;
       this.formGroup.get('selezione')?.setValue(progetto);
     }
+    this.formGroup.get('selezione')?.markAsTouched();
+  }
+
+  get selezioneInvalida(): boolean {
+    const c = this.formGroup.get('selezione');
+    return !!c && c.invalid && c.touched && !this.newProgetto;
   }
 
   formatDate(dateStr?: string): string {

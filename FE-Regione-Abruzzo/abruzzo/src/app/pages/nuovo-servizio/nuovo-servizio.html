@@ -5,162 +5,99 @@
 </div>
 
 <div class="section color-bg-lightgrey">
+
+  <form [formGroup]="categoriaForm">
     <div class="row mb-5">
         <div class="col-6">
-            <label for="categoria">Categoria</label>
-            <select class="form-select form-select-rounded">
-                <option value="">Seleziona Categoria</option>
-            </select>
+
+          <label for="categoria">Categoria</label>
+          <select id="categoria"
+                  class="form-select form-select-rounded"
+                  formControlName="categoria">
+            <option value="">Seleziona Categoria</option>
+            @for (categoria of categorie; track categoria.id) {
+              <option [value]="categoria.id">
+                {{ categoria.name + " - " + categoria.description }}
+              </option>
+            }
+          </select>
         </div>
 
+
+
         <div class="col-6">
-            <label for="categoria">Sottocategoria</label>
-            <select class="form-select form-select-rounded" disabled>
+            <label for="sottocategoria">Sottocategoria</label>
+            <select class="form-select form-select-rounded"  formControlName="sottocategoria">
                 <option value="">Seleziona Sottocategoria</option>
             </select>
         </div>
     </div>
+
+  </form>
 
     <hr style="height: 2px; border-radius: 2px;" />
 </div>
 
 <div class="section">
 
-    <div class="richiesta-detail-card">
-        <div class="row mb-4">
+  <form [formGroup]="servizioForm">
+    <div class="richiesta-detail-card shadow-card">
+        <div class="row mb-4 ">
             <div class="col-12">
                 <h5 class="fw-bold">Dati servizio</h5>
             </div>
         </div>
 
-        <div class="row mb-4">
+
+        <div class="row mb-4 gap-2">
+
             <div class="col-12">
                 <h6 class="fw-bold">
                     <svg class="icon icon-sm">
                         <use href="assets/bootstrap-italia/sprites.svg#it-file"></use>
                     </svg>
-                    Lorem ipsum
+                    Informazioni Generali
                 </h6>
             </div>
+
+
+          <div class="col-8">
+            <label for="nome">Nome</label>
+            <input
+              id="nome"
+              type="text"
+              formControlName="nome"
+              placeholder="Inserisci Nome"
+              class="form-control form-control-rounded">
+          </div>
+
+          <div class="col-4">
+            <label for="nome">Descrizione</label>
+            <input
+              id="descrizione"
+              type="text"
+              formControlName="descrizione"
+              placeholder="Inserisci Descrizione"
+              class="form-control form-control-rounded">
+          </div>
+
+          <div class="col-4">
+            <label for="stato">Stato</label>
+            <select class="form-select form-select-rounded"
+                    placeholder="Inserisci Stato"
+                    formControlName="stato">
+              <option value="">Seleziona uno stato</option>
+              <option value="stato1">Stopped</option>
+              <option value="stato2">Running</option>
+              <option value="user">Paused</option>
+            </select>
+          </div>
         </div>
 
-        <div class="row mb-4">
-            <div class="col-8">
-                <label>Lorem ipsum*</label>
-
-                <div class="position-relative">
-                    <input type="text" class="form-control form-control-rounded" placeholder="Inserisci Lorem ipsum">
-                </div>
-            </div>
-        </div>
-
-        <div class="row mb-4">
-            <div class="col-4">
-                <label>Lorem ipsum*</label>
-
-                <div class="position-relative">
-                    <input type="text" class="form-control form-control-rounded" placeholder="Inserisci Lorem ipsum">
-                </div>
-            </div>
-
-            <div class="col-4">
-                <label>Lorem ipsum*</label>
-
-                <div class="position-relative">
-                    <input type="text" class="form-control form-control-rounded" placeholder="Inserisci Lorem ipsum">
-                </div>
-            </div>
-        </div>
-
-        <hr style="height: 2px; border-radius: 2px;" />
-
-        <div class="row mb-4">
-            <div class="col-12">
-                <h6 class="fw-bold">
-                    <svg class="icon icon-sm">
-                        <use href="assets/bootstrap-italia/sprites.svg#it-file"></use>
-                    </svg>
-                    Lorem ipsum
-                </h6>
-            </div>
-        </div>
-
-        <div class="row mb-4">
-            <div class="col-4">
-                <label>Lorem ipsum*</label>
-
-                <div class="position-relative">
-                    <input type="text" class="form-control form-control-rounded" placeholder="Inserisci Lorem ipsum">
-                </div>
-            </div>
-
-            <div class="col-4">
-                <label>Lorem ipsum*</label>
-
-                <div class="position-relative">
-                    <input type="text" class="form-control form-control-rounded" placeholder="Inserisci Lorem ipsum">
-                </div>
-            </div>
-
-            <div class="col-4">
-                <label>Lorem ipsum*</label>
-
-                <div class="position-relative">
-                    <input type="text" class="form-control form-control-rounded" placeholder="Inserisci Lorem ipsum">
-                </div>
-            </div>
-        </div>
-
-        <hr style="height: 2px; border-radius: 2px;" />
-
-        <div class="row mb-4">
-            <div class="col-12">
-                <h6 class="fw-bold">
-                    <svg class="icon icon-sm">
-                        <use href="assets/bootstrap-italia/sprites.svg#it-file"></use>
-                    </svg>
-                    Lorem ipsum
-                </h6>
-            </div>
-        </div>
-
-        <div class="row mb-4">
-            <div class="col-4">
-                <label>Lorem ipsum*</label>
-
-                <div class="position-relative">
-                    <input type="text" class="form-control form-control-rounded" placeholder="Inserisci Lorem ipsum">
-                </div>
-            </div>
-
-            <div class="col-4">
-                <label>Lorem ipsum*</label>
-
-                <div class="position-relative">
-                    <input type="text" class="form-control form-control-rounded" placeholder="Inserisci Lorem ipsum">
-                </div>
-            </div>
-
-            <div class="col-4">
-                <label>Lorem ipsum*</label>
-
-                <div class="position-relative">
-                    <input type="text" class="form-control form-control-rounded" placeholder="Inserisci Lorem ipsum">
-                </div>
-            </div>
-        </div>
-
-        <div class="row mb-4">
-            <div class="col-4">
-                <label>Lorem ipsum*</label>
-
-                <div class="position-relative">
-                    <input type="text" class="form-control form-control-rounded" placeholder="Inserisci Lorem ipsum">
-                </div>
-            </div>
-        </div>
+      <hr/>
     </div>
 
+  </form>
 </div>
 
 <div class="section mb-5">
@@ -168,10 +105,10 @@
 
     <div class="row justify-content-between">
         <div class="col-auto">
-            <button type="button" class="btn btn-secondary" (click)="goBack()">ANNULLA</button>
+            <button type="button" class="btn btn-secondary" (click)="goBack()">Annulla</button>
         </div>
         <div class="col-auto">
-            <button type="button" class="btn btn-primary">CREA SERVIZIO</button>
+            <button type="button" class="btn btn-primary">Crea Servizio</button>
         </div>
     </div>
 </div>

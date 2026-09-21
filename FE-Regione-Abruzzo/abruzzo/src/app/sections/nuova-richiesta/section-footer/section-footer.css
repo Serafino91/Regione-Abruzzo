@@ -4,7 +4,7 @@
   flex-direction: row;
   justify-content: space-between;
   padding: 20px;
-  box-sizing: border-box; 
+  box-sizing: border-box;
   width: 100%;
   align-items: center;
 }
@@ -14,4 +14,10 @@
   height: 2px;
   background-color: #004d99; /* Light gray color for the line */
   margin: 5px 0; /* Space above and below the line */
+}
+
+
+.disabled-look {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

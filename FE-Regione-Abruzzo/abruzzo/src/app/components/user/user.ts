@@ -40,16 +40,27 @@ export class User {
   });
 
   cambiaProfilo() {
-    const selected = this.profiloForm.value.profilo; // 'profilo1' | 'profilo2'
+    const selected = this.profiloForm.value.profilo;
 
+    const nameMap: Record<string, string> = {
+      profilo1: 'profilo 1',
+      profilo2: 'profilo 2',
+      user: 'user'
+    };
 
-    const nameMap: Record<string, string> = { profilo1: 'profilo 1', profilo2: 'profilo 2' };
-    const roleMap: Record<string, string> = { profilo1: 'delegato', profilo2: 'delegato2' };
+    const roleMap: Record<string, string> = {
+      profilo1: 'delegato',
+      profilo2: 'delegato',
+      user: 'admin'
+    };
+
+    const currentUser = this.userService.getUser();
 
     this.userService.setUser({
-      ...this.userService.getUser(),
+      ...currentUser,
       name: nameMap[selected] ?? 'user',
       role: roleMap[selected] ?? 'user',
+      isAdmin: selected === 'user',
     });
 
     this.showProfiliModal = false;
