@@ -6,6 +6,7 @@ import { ProgettiInCorso } from '../../sections/home/progetti-in-corso/progetti-
 import { Catalogo } from '../../sections/home/catalogo/catalogo';
 import { AppModal } from '../../components/app-modal/app-modal';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +27,12 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 export class Home {
   isAdmin = true;
   showSelezionaProfiliModal = false;
+
+  constructor(private userService: UserService) {}
+
+  ngOnInit() {
+    this.isAdmin = this.userService.getUser().isAdmin;
+  }
 
   profiloForm: FormGroup = new FormGroup({
     profilo: new FormControl('', Validators.required),

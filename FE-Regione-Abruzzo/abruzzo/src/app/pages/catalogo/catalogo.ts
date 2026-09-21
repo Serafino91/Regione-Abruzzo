@@ -8,6 +8,7 @@ import { PageHeader } from '../../components/page-header/page-header';
 import { finalize } from 'rxjs';
 import { SpinnerCard } from '../../components/spinner-card/spinner-card';
 import { FiltroServiziCriteriaModel } from '../../constants/filtro-servizi-criteria.model';
+import {UserService} from "../../services/user.service";
 
 @Component({
     selector: 'app-catalogue',
@@ -20,15 +21,19 @@ import { FiltroServiziCriteriaModel } from '../../constants/filtro-servizi-crite
 export class Catalogo implements OnInit {
 
     private destroyRef = inject(DestroyRef);
+    isAdmin= true;
     public servizi: ServizioModel[] = [];
     isLoading = signal(false);
 
     private cdr = inject(ChangeDetectorRef);
 
-    constructor(private servizioService: ServiziService) { }
+    constructor(private servizioService: ServiziService, private userService: UserService) { }
 
     ngOnInit(): void {
         this.getServizi();
+        this.isAdmin = this.userService.getUser().isAdmin;
+
+
     }
 
     private getServizi(): void {
