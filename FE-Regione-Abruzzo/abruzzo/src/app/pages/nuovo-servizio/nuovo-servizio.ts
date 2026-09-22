@@ -4,11 +4,14 @@ import { PageHeader } from '../../components/page-header/page-header';
 import { CategoriaService } from '../../services/categoria.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CategoriaModel } from '../../model/categoria.model';
-import {FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {FormIaaS} from "../../sections/nuovo-servizio/form-iaa-s/form-iaa-s";
+type TipoForm = 'iaas' | 'storage' | 'os' | 'pubblicazione' | null;
+
 
 @Component({
   selector: 'app-nuovo-servizio',
-  imports: [PageHeader, ReactiveFormsModule],
+  imports: [PageHeader, ReactiveFormsModule, FormIaaS],
   standalone: true,
   templateUrl: './nuovo-servizio.html',
   styleUrl: './nuovo-servizio.css',
@@ -18,14 +21,27 @@ export class NuovoServizio {
   private destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef);
   categorie!: CategoriaModel[];
-  families: string[] = ['Linux', 'Windows', 'MacOS'];
-  disc_type: string[] = ['hdd', 'ssd', 'nvme'];
-  network_type: string[] = ['nat', 'bridged', 'private'];
+
   constructor(private categoriaService: CategoriaService) {}
 
   ngOnInit() {
     this.getCategorie();
-    this.aggiungiDisco();
+
+    let tipoFormPrecedente: TipoForm = null;
+
+    this.categoriaForm
+      .get('categoria')
+      ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        const tipoAttuale = this.tipoFormAttivo;
+        if (tipoAttuale !== tipoFormPrecedente) {
+          Object.keys(this.servizioForm.controls).forEach((key) => {
+            this.servizioForm.removeControl(key);
+          });
+          tipoFormPrecedente = tipoAttuale;
+        }
+      });
+
   }
 
   categoriaForm = new FormGroup({
@@ -33,61 +49,9 @@ export class NuovoServizio {
     sottocategoria: new FormControl('', Validators.required),
   });
 
-  servizioForm = new FormGroup({
-    nome: new FormControl('', Validators.required),
-    descrizione: new FormControl('', Validators.required),
-    os: new FormGroup({
-      family: new FormControl('', Validators.required),
-      version: new FormControl('', Validators.required),
-    }),
-    hardware: new FormGroup({
-      vcpu: new FormControl('', Validators.required),
-      ram_gb: new FormControl('', Validators.required),
-      disks: new FormArray([]),
-    }),
-    network_interfaces: new FormArray([]),
-  });
+  servizioForm = new FormGroup({});
 
 
-  get interfacciaArray(): FormArray {
-    return this.servizioForm.get('network_interfaces') as FormArray;
-  }
-
-  aggiungiInterfaccia(): void {
-    this.interfacciaArray.push(
-      new FormGroup({
-        name: new FormControl('', Validators.required),
-        network_type: new FormControl('', Validators.required),
-        ip_address: new FormControl('', Validators.required),
-      }),
-    );
-  }
-
-  rimuoviInterfaccia(index: number): void {
-    this.interfacciaArray.removeAt(index);
-  }
-
-  get discsArray(): FormArray {
-    return this.servizioForm.get('hardware.disks') as FormArray;
-  }
-
-  aggiungiDisco(): void {
-    this.discsArray.push(
-      new FormGroup({
-        name: new FormControl('', Validators.required),
-        size_gb: new FormControl('', Validators.required),
-        type: new FormControl('', Validators.required),
-      }),
-    );
-  }
-
-  rimuoviDisco(index: number): void {
-    this.discsArray.removeAt(index);
-  }
-
-  goBack(): void {
-    this.router.navigateByUrl('home/catalogo');
-  }
 
   getCategorie() {
     this.categoriaService
@@ -101,8 +65,25 @@ export class NuovoServizio {
       });
   }
 
-
   debugForm() {
     console.log(this.servizioForm.value);
+    console.log(this.categoriaForm.value);
+  }
+
+  get tipoFormAttivo(): TipoForm {
+    switch (String(this.categoriaForm.get('categoria')?.value)) {
+      case '1':
+      case '3':
+        return 'iaas';
+      case '2':
+      case '4':
+        return 'storage';
+      case '5':
+        return 'os';
+      case '6':
+        return 'pubblicazione';
+      default:
+        return null;
+    }
   }
 }
