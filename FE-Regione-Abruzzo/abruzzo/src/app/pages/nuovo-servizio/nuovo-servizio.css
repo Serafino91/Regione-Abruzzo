@@ -13,3 +13,9 @@
     border-color: #d0dbe6;
     opacity: 1;
 }
+
+
+:host ::ng-deep .card.rounded-4::after {
+  content: none;
+}
+

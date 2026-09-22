@@ -4,7 +4,7 @@
     </app-page-header>
 </div>
 
-<div class="section color-bg-lightgrey">
+<div class="section-padding color-bg-lightgrey ">
 
   <form [formGroup]="categoriaForm">
     <div class="row mb-5">
@@ -36,15 +36,14 @@
   </form>
 
     <hr style="height: 2px; border-radius: 2px;" />
-</div>
 
-<div class="section">
+
 
   <form [formGroup]="servizioForm">
-    <div class="richiesta-detail-card shadow-card">
+    <div class="richiesta-detail-card color-white shadow-card">
         <div class="row mb-4 ">
             <div class="col-12">
-                <h5 class="fw-bold">Dati servizio</h5>
+                <h5 class="fw-bold mb-0"> Dati servizio</h5>
             </div>
         </div>
 
@@ -52,7 +51,7 @@
         <div class="row mb-4 gap-2">
 
             <div class="col-12">
-                <h6 class="fw-bold">
+                <h6 class="fw-bold mb-0">
                     <svg class="icon icon-sm">
                         <use href="assets/bootstrap-italia/sprites.svg#it-file"></use>
                     </svg>
@@ -61,8 +60,8 @@
             </div>
 
 
-          <div class="col-8">
-            <label for="nome">Nome</label>
+          <div class="col-4">
+            <label for="nome">Nome VM</label>
             <input
               id="nome"
               type="text"
@@ -80,31 +79,236 @@
               placeholder="Inserisci Descrizione"
               class="form-control form-control-rounded">
           </div>
+      </div>
 
-          <div class="col-4">
-            <label for="stato">Stato</label>
-            <select class="form-select form-select-rounded"
-                    placeholder="Inserisci Stato"
-                    formControlName="stato">
-              <option value="">Seleziona uno stato</option>
-              <option value="stato1">Stopped</option>
-              <option value="stato2">Running</option>
-              <option value="user">Paused</option>
-            </select>
-          </div>
+
+      <hr>
+
+
+      <div  formGroupName="os" class="row mb-4 gap-2">
+
+        <div class="col-12">
+          <h6 class="fw-bold mb-0">
+            <svg class="icon icon-sm">
+              <use href="assets/bootstrap-italia/sprites.svg#it-file"></use>
+            </svg>
+            Sistema Operativo
+          </h6>
         </div>
 
-      <hr/>
+
+        <div class="col-4">
+          <label for="family">Famiglia Sistema Operativo</label>
+          <select
+            id="family"
+            type="text"
+            formControlName="family"
+            class="form-select form-select-rounded">
+            <option value="">Seleziona Famiglia</option>
+            @for (family of families; track $index) {
+              <option [value]="family">
+                {{ family }}
+              </option>
+            }
+          </select>
+        </div>
+
+        <div class="col-4">
+          <label for="version">Versione</label>
+          <input
+            id="version"
+            type="number"
+            formControlName="version"
+            placeholder="Inserisci Versione"
+            class="form-control form-control-rounded">
+        </div>
+      </div>
+
+      <hr>
+      <div formGroupName="hardware" class="row mb-4 gap-2 align-items-center">
+
+
+        <div class="col-12 d-flex justify-content-between align-items-center">
+
+          <h6 class="fw-bold mb-0">
+            <svg class="icon icon-sm"><use href="assets/bootstrap-italia/sprites.svg#it-file"></use></svg>
+            Hardware
+          </h6>
+
+
+          <button
+            type="button"
+            class="col-3 d-flex justify-content-end btn btn-link text-primary fw-semibold p-0 mt-3"
+            (click)="aggiungiDisco()">
+            <svg class="icon icon-primary icon-sm"><use href="assets/bootstrap-italia/sprites.svg#it-plus-circle"></use></svg>
+            Aggiungi Disco di Memoria
+          </button>
+        </div>
+
+        <div class="col-4">
+          <label for="vcpu">Vcpu</label>
+          <input
+            id="vcpu"
+            type="text"
+            formControlName="vcpu"
+            placeholder="Inserisci vcpu"
+            class="form-select form-select-rounded">
+        </div>
+
+        <div class="col-4">
+          <label for="ram_gb">Ram GB</label>
+          <input
+            id="ram_gb"
+            type="number"
+            formControlName="ram_gb"
+            placeholder="Inserisci GB RAM"
+            class="form-control form-control-rounded">
+        </div>
 
 
 
+        <div formArrayName="disks" class="w-100">
+
+          @if (discsArray.length > 0) {
+            @for (disco of discsArray.controls; track $index; let i = $index) {
+
+              <div [formGroupName]="i" class="py-4 row">
+
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                  <h6 class="mb-0"> Disco {{ i + 1 }}</h6>
+
+                  @if (i > 0) {
+                    <button type="button" class="btn btn-link text-danger p-0" (click)="rimuoviDisco(i)">
+                      <svg class="icon icon-sm icon-danger"><use href="assets/bootstrap-italia/sprites.svg#it-delete"></use></svg>
+                      Rimuovi
+                    </button>
+                  }
+                </div>
+
+                <div class="col-4">
+                  <label [for]="'name-' + i">Nome Disco</label>
+                  <input
+                    [id]="'name-' + i"
+                    type="text"
+                    placeholder="Inserisci Nome Disco"
+                    formControlName="name"
+                    class="form-control form-control-rounded">
+                </div>
+
+                <div class="col-4">
+                  <label [for]="'size_gb-' + i">Dimensione</label>
+                  <input
+                    [id]="'size_gb-' + i"
+                    type="number"
+                    placeholder="Inserisci Dimensione in GB"
+                    formControlName="size_gb"
+                    class="form-control form-control-rounded">
+                </div>
+
+                <div class="col-4">
+                  <label [for]="'type-' + i">Tipo Disco</label>
+                  <select
+                    [id]="'type-' + i"
+                    formControlName="type"
+                    class="form-select form-select-rounded">
+                    <option value="">Seleziona Tipo</option>
+                    @for (type of disc_type; track $index) {
+                      <option [value]="type">{{ type }}</option>
+                    }
+                  </select>
+                </div>
+
+              </div>
+              <hr>
+            }
+          }
+        </div>
+      </div>
 
 
 
-    </div>
+      <div formArrayName="network_interfaces" class="row mb-4 gap-2 align-items-center">
 
+
+        <div class="col-12 d-flex justify-content-between align-items-center">
+
+          <h6 class="fw-bold mb-0">
+            <svg class="icon icon-sm"><use href="assets/bootstrap-italia/sprites.svg#it-file"></use></svg>
+            Interfaccia di Rete
+          </h6>
+
+
+          <button
+            type="button"
+            class="col-3 d-flex justify-content-end btn btn-link text-primary fw-semibold p-0 mt-3"
+            (click)="aggiungiInterfaccia()">
+            <svg class="icon icon-primary icon-sm"><use href="assets/bootstrap-italia/sprites.svg#it-plus-circle"></use></svg>
+            Aggiungi Interfaccia di Rete
+          </button>
+        </div>
+
+
+        @if (interfacciaArray.length > 0) {
+            @for (interfaccia of interfacciaArray.controls; track $index; let i = $index) {
+
+              <div [formGroupName]="i" class="py-4 row">
+
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                  <h6>Interfaccia di Rete {{ i + 1 }}</h6>
+
+                  <button type="button" class="btn btn-link text-danger p-0" (click)="rimuoviInterfaccia(i)">
+                    <svg class="icon icon-sm icon-danger"><use href="assets/bootstrap-italia/sprites.svg#it-delete"></use></svg>
+                    Rimuovi
+                  </button>
+
+                </div>
+
+                <div class="col-4">
+                  <label [for]="'name-' + i">Nome Interfaccia</label>
+                  <input
+                    [id]="'name-' + i"
+                    type="text"
+                    placeholder="Inserisci Nome Interfaccia"
+                    formControlName="name"
+                    class="form-control form-control-rounded">
+                </div>
+
+
+                <div class="col-4">
+                  <label [for]="'network-type' + i">Tipo Interfaccia</label>
+                  <select
+                    [id]="'network-type' + i"
+                    formControlName="network_type"
+                    class="form-select form-select-rounded">
+                    <option value="">Seleziona Tipo</option>
+                    @for (type of network_type; track $index) {
+                      <option [value]="type">{{ type }}</option>
+                    }
+                  </select>
+                </div>
+
+
+                <div class="col-4">
+                  <label [for]="'ip_address' + i">Indirizzo IP</label>
+                  <input
+                    [id]="'ip_address' + i"
+                    type="text"
+                    placeholder="Inserisci Indirizzo IP"
+                    formControlName="ip_address"
+                    class="form-control form-control-rounded">
+                </div>
+
+
+              </div>
+              <hr>
+            }
+          }
+        </div>
+
+      </div>
   </form>
 </div>
+
 
 <div class="section mb-5">
     <hr style="color: var(--color-primary); height: 2px; background-color: var(--color-primary); border-radius: 2px;">
@@ -118,3 +322,8 @@
         </div>
     </div>
 </div>
+
+
+
+<!--
+<button type="button" class="btn btn-primary" (click)="debugForm()">Debug Form</button> -->

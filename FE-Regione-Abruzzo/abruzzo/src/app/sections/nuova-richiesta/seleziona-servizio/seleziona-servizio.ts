@@ -16,16 +16,6 @@ import { ServiceName } from '../../../constants/service-name.constants';
 import { ServiceCategory } from '../../../constants/service-category.constants';
 import { LabelServizio } from '../../../components/label-servizio/label-servizio';
 
-interface ParamForm {
-  id: FormControl<number>;
-  value: FormControl<number>;
-  min: FormControl<number>;
-  max: FormControl<number>;
-}
-interface ServizioForm {
-  params: FormGroup<{ [key: string]: FormGroup<ParamForm> }>;
-}
-
 @Component({
   selector: 'app-seleziona-servizio',
   imports: [ReactiveFormsModule, LabelServizio],
@@ -33,11 +23,12 @@ interface ServizioForm {
   styleUrl: './seleziona-servizio.css',
   standalone: true,
 })
+
+
 export class SelezionaServizio implements OnInit {
   private destroyRef = inject(DestroyRef);
-  private cdr = inject(ChangeDetectorRef); // <-- 1. Iniettiamo il ChangeDetectorRef
+  private cdr = inject(ChangeDetectorRef);
   protected readonly ServiceName = ServiceName;
-  protected readonly ServiceCategory = ServiceCategory;
   private nextRigaId = 0;
 
   categorie: CategoriaModel[] = [];
@@ -215,12 +206,10 @@ export class SelezionaServizio implements OnInit {
 
     let clamped = value;
 
-    // 1. mai negativo, in ogni caso
     if (clamped < 0) {
       clamped = 0;
     }
 
-    // 2. poi applica anche i limiti specifici del parametro
     if (min !== null && clamped < min) {
       clamped = min;
     } else if (max !== null && clamped > max) {
