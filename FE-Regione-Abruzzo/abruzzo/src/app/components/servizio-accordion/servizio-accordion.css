@@ -16,10 +16,11 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  border: 1px solid #0066cc;
+  border: 1px solid var(--color-badge-text);
   border-radius: 6px;
   padding: 3px 10px;
-  color: #0066cc;
+  color: var(--color-badge-text);
+  background-color: var(--color-badge-bg);
   font-size: 0.75rem;
   font-weight: 600;
   white-space: nowrap;
@@ -30,13 +31,13 @@
 .type-badge svg {
   width: 16px;
   height: 16px;
-  fill: #0066cc;
+  fill: var(--color-badge-text);
 }
 
 .service-name {
   font-weight: 600;
-  font-size: 0.95rem;
   flex: 1;
+  margin-bottom: 0;
 }
 
 .quantity-badge {
@@ -77,6 +78,5 @@
 }
 
 .accordion-body {
-  padding: 0 20px 16px;
-  border-top: 1px solid #d0dbe6;
+  padding: 20px 16px;
 }

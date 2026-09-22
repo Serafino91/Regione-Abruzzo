@@ -10,7 +10,7 @@
         </button>
       } @else {
         <div>
-          <button
+          <button (click)="annulla.emit()"
             class="btn btn-outline-primary">
             Annulla
           </button>
@@ -18,12 +18,13 @@
       }
 
       @if (currentStep != 3) {
-      <button
+        <button
           class="btn btn-outline-primary"
-          (click)="next.emit()"
-          [disabled]="!canGoNext">
+          [class.disabled-look]="!canGoNext"
+          [attr.aria-disabled]="!canGoNext"
+          (click)="next.emit()">
           Avanti
-        <svg class="icon icon-sm icon-primary"><use href="assets/bootstrap-italia/sprites.svg#it-arrow-right"></use></svg>
+          <svg class="icon icon-sm icon-primary"><use href="assets/bootstrap-italia/sprites.svg#it-arrow-right"></use></svg>
         </button>
       } @else {
         <button

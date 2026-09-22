@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Input } from '@angular/core'
 import { ProgettoModel } from '../../../../../model/progetto.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import {ProgettiService} from "../../../../../services/progetti.service";
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-project-card',
   imports: [],
@@ -10,6 +10,7 @@ import {ProgettiService} from "../../../../../services/progetti.service";
   styleUrl: './project-card.css',
   standalone: true,
 })
+
 export class ProjectCard {
   @Input() progetto!: ProgettoModel;
   @Input() servizi!: number;

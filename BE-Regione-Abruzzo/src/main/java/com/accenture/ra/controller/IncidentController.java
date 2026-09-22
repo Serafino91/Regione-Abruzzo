@@ -2,6 +2,10 @@ package com.accenture.ra.controller;
 
 import java.util.List;
 
+import com.accenture.ra.utils.Constants;
+import com.accenture.ra.utils.JsonUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +29,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RequestMapping(value="/incident")
 @Tag(name="incident", description = "Gruppo relativo agli incident")
 public class IncidentController {
+
+    Logger logger = LoggerFactory.getLogger(CatalogServicesController.class);
 
     @Autowired
     IncidentServiceImpl incidentServiceImpl;
@@ -96,9 +102,17 @@ public class IncidentController {
     })
 	@GetMapping("/list")
 	public ResponseEntity<List<TicketModel>> getIncidentList() {
-		
-        return ResponseEntity.ok(incidentServiceImpl.getAllIncident());
+        long start = System.currentTimeMillis();
+        String methodName = "getIncidentList";
+        logger.info(Constants.LOG_START_CONTROLLER, methodName);
 
+
+        List<TicketModel> allIncident = incidentServiceImpl.getAllIncident();
+
+        long timeElapsed = System.currentTimeMillis() - start;
+        logger.info(Constants.LOG_END_CONTROLLER,methodName, JsonUtils.toJson(allIncident),timeElapsed);
+
+        return ResponseEntity.ok(allIncident);
 	}
 	
     @Operation(
@@ -173,8 +187,15 @@ public class IncidentController {
 	            required = true,
 	            example = "T1781595972077167")
 			@PathVariable("code") String code) {
-		
-        return ResponseEntity.ok(incidentServiceImpl.getIncidentDetail(code));
+        long start = System.currentTimeMillis();
+        String methodName = "getCatalogServiceTypeList";
+        logger.info(Constants.LOG_START_CONTROLLER, methodName,code);
+
+        TicketModel incidentDetail = incidentServiceImpl.getIncidentDetail(code);
+        long timeElapsed = System.currentTimeMillis() - start;
+        logger.info(Constants.LOG_END_CONTROLLER,methodName, JsonUtils.toJson(incidentDetail),timeElapsed);
+
+        return ResponseEntity.ok(incidentDetail);
 
 	}
 }

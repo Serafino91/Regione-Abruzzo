@@ -1,0 +1,25 @@
+<div class="alert-container">
+
+    @for (alert of alertService.alerts(); track alert) {
+
+    <div class="alert alert-danger alert-dismissible fade show shadow" role="alert">
+
+        <strong>
+            {{ alert.status }} - {{ alert.name }}
+        </strong>
+
+        <div>
+            {{ alert.message }}
+        </div>
+
+        <div>
+            <em>{{ alert.path }}</em>
+        </div>
+
+        <button type="button" class="btn-close" aria-label="Close" (click)="removeAt($index)"></button>
+
+    </div>
+
+    }
+
+</div>

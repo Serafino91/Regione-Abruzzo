@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 import com.accenture.ra.dto.request.ProjectDetail;
 import com.accenture.ra.entity.ProjectEntity;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",  uses = {ServiceMapper.class})
 public interface ProjectMapper {
 
 	@Mapping(source = "createdAt", target = "createAt")

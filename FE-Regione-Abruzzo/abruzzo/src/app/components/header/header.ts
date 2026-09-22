@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { User } from '../user/user';
-import { RouterLink } from '@angular/router';
-import { RouterModule } from '@angular/router';
+import { RouterLink, RouterModule } from '@angular/router';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -11,5 +11,13 @@ import { RouterModule } from '@angular/router';
   standalone: true,
 })
 export class Header {
-  isAdmin = true;
+  isAdmin = false;
+
+  constructor(private userService: UserService) {}
+
+  ngOnInit(): void {
+    this.userService.user$.subscribe((user) => {
+      this.isAdmin = user.isAdmin;
+    });
+  }
 }

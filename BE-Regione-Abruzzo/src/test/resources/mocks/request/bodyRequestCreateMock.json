@@ -1,0 +1,65 @@
+{
+  "project": {
+    "id": 1,
+    "name": "Portale Servizi Cittadino",
+    "destinationLink": "https://portale.regione.abruzzo.it",
+    "description": "Piattaforma digitale per la consultazione e gestione delle istanze telematiche.",
+    "createAt": "2026-09-21T10:00:00",
+    "updateAt": "2026-09-21T14:30:00"
+  },
+  "state": "In elaborazione",
+  "note": "Richiesta abilitazione istanza e configurazione parametri standard",
+  "requestPayload": "{\"ambiente\": \"collaudo\", \"notifiche\": true}",
+  "services": [
+    {
+      "id": 1,
+      "name": "VM Small",
+      "type": {
+        "id": 1,
+        "name": "IaaS standard",
+        "description": "Servizi IaaS standard"
+      },
+      "item": "VM Small",
+      "base": true,
+      "optional": false,
+      "params": [
+        {
+          "id": 1,
+          "name": "vcpu",
+          "value": "2"
+        },
+        {
+          "id": 2,
+          "name": "vramGb",
+          "value": "4"
+        },
+        {
+          "id": 3,
+          "name": "storageGb",
+          "value": "100"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Storage Standard Performance",
+      "type": {
+        "id": 2,
+        "name": "IaaS standard - Storage",
+        "description": "Storage aggiuntivo per servizi IaaS standard"
+      },
+      "item": "Storage Standard Performance",
+      "base": false,
+      "optional": true,
+      "params": [
+        {
+          "id": 4,
+          "name": "storageGb",
+          "value": "500"
+        }
+      ]
+    }
+  ],
+  "sendFrom": "2026-09-21T08:00:00",
+  "sendTo": "2026-09-21T18:00:00"
+}

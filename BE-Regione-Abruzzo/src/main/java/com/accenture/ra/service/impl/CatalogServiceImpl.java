@@ -2,6 +2,9 @@ package com.accenture.ra.service.impl;
 
 import java.util.List;
 
+import com.accenture.ra.request.ServiceFilterCriteria;
+import com.accenture.ra.utils.RequestSpecification;
+import com.accenture.ra.utils.ServiceSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -74,5 +77,12 @@ public class CatalogServiceImpl implements CatalogService {
 	 */
     public Boolean deleteService(String serviceId) {
       return true;
+    }
+
+
+    @Override
+    public List<ServiceDetail> filterService(ServiceFilterCriteria criteria) {
+        List<ServiceEntity> entites = serviceRepository.findAll(ServiceSpecification.withFilters(criteria));
+        return serviceMapper.toModelList(entites);
     }
 }

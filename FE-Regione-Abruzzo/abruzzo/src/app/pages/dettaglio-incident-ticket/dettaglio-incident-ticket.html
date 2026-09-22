@@ -1,5 +1,6 @@
 <div class="section">
-    <app-page-header [titolo]="'Dettaglio incident'" [backspace]="'Torna alla lista'" [linkBackspace]="'/home/ticket/incident'">
+    <app-page-header [titolo]="'Dettaglio incident'" [backspace]="'Torna alla lista'"
+        [linkBackspace]="'/home/ticket/incident'">
 
         <div class="text-center">
             <a class="text-primary" style="cursor: pointer;" (click)="isShowChiusuraIncident = true">
@@ -116,21 +117,21 @@
                 <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
                     ID progetto
                 </div>
-                <div>test</div>
+                <div>{{ incidentDettaglio.id }}</div>
             </div>
 
             <div class="col-4">
                 <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
                     Stato
                 </div>
-                <div>test</div>
+                <div>{{ incidentDettaglio.state.name }}</div>
             </div>
 
             <div class="col-4">
                 <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
                     Data apertura
                 </div>
-                <div>test</div>
+                <div>{{ incidentDettaglio.openingDate }}</div>
             </div>
         </div>
 
@@ -139,26 +140,17 @@
                 <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
                     Categoria
                 </div>
-                <div>test</div>
+                <div>{{ incidentDettaglio.category }}</div>
             </div>
 
             <div class="col-4">
                 <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
                     Sottocategoria
                 </div>
-                <div>test</div>
+                <div>{{ incidentDettaglio.subcategory }}</div>
             </div>
 
             <div class="col-4">
-                <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
-                    ID progetto
-                </div>
-                <div>test</div>
-            </div>
-        </div>
-
-        <div class="row my-4">
-            <div class="col-12">
                 <div class="fw-semibold small mb-1 d-flex align-items-center gap-1">
                     ID servizio
                 </div>
@@ -178,17 +170,36 @@
             </div>
         </div>
 
-        <div class="col-12">
-            <input type="file" id="allegato" class="d-none" formControlName="file" (change)="onFileSelected($event)" />
+        <div class="row mb-4">
+            <div class="col-12">
+                <input type="file" id="allegato" class="d-none" formControlName="file"
+                    (change)="onFileSelected($event)" />
 
-            <label for="allegato" class="upload-area">
-                <svg class="icon icon-sm me-2" aria-hidden="true">
-                    <use href="assets/bootstrap-italia/sprites.svg#it-upload"></use>
-                </svg>
+                <label for="allegato" class="upload-area">
+                    <svg class="icon icon-sm me-2" aria-hidden="true">
+                        <use href="assets/bootstrap-italia/sprites.svg#it-upload"></use>
+                    </svg>
 
-                <span>Trascina qui il file da allegare o clicca per scegliere</span>
-            </label>
+                    <span>Trascina qui il file da allegare o clicca per scegliere</span>
+                </label>
+            </div>
         </div>
+
+        @if (files.length > 0) {
+        <div class="row">
+            <div class="col-12">
+                <p class="mb-0">
+                    <strong>
+                        <small>Allegati caricati</small>
+                    </strong>
+                </p>
+            </div>
+
+            <div class="col-12">
+                <app-tabella-file-incident-ticket [files]="files" (fileId)="onDeleteFile($event)"></app-tabella-file-incident-ticket>
+            </div>
+        </div>
+        }
     </div>
 
 </div>
@@ -227,10 +238,9 @@
             <div class="section-modal">
                 <div class="row my-2">
                     <div class="col-12">
-                        <input type="file" id="allegato" class="d-none" formControlName="file"
-                            (change)="onFileSelected($event)" />
+                        <input type="file" id="allegatoModal" class="d-none" (change)="onFileSelectedChiusura($event)" />
 
-                        <label for="allegato" class="upload-area">
+                        <label for="allegatoModal" class="upload-area">
                             <svg class="icon icon-sm me-2" aria-hidden="true">
                                 <use href="assets/bootstrap-italia/sprites.svg#it-upload"></use>
                             </svg>
@@ -239,6 +249,22 @@
                         </label>
                     </div>
                 </div>
+
+                @if (filesChiusuraIncident.length > 0) {
+                <div class="row" style="max-height: 130px; overflow-y: scroll;">
+                    <div class="col-12">
+                        <p class="mb-0">
+                            <strong>
+                                <small>Allegati caricati</small>
+                            </strong>
+                        </p>
+                    </div>
+
+                    <div class="col-12">
+                        <app-tabella-file-incident-ticket [files]="filesChiusuraIncident" (fileId)="onDeleteFileChiusuraIncident($event)"></app-tabella-file-incident-ticket>
+                    </div>
+                </div>
+                }
             </div>
         </div>
         <div class="modal-footer">

@@ -66,14 +66,16 @@ export class TabellaRichieste {
         const stateData = { ...richiesta.state, key: statoKey, config };
 
         if (!richiesta.services || richiesta.services.length === 0) {
-          return [{
-            state: stateData,
-            requestId: richiesta.requestId,
-            project: richiesta.project?.name,
-            service: 'Nessun servizio',
-            category: richiesta.category?.name,
-            createdAt: richiesta.createdAt,
-          }];
+          return [
+            {
+              state: stateData,
+              requestId: richiesta.requestId,
+              project: richiesta.project?.name,
+              service: 'Nessun servizio',
+              category: richiesta.category?.name,
+              createdAt: richiesta.createdAt,
+            },
+          ];
         }
 
         return richiesta.services.map((servizio: ServizioModel) => ({

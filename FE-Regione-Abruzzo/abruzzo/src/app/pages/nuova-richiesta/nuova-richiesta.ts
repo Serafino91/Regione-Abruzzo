@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component, ChangeDetectorRef, signal } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, FormArray, FormControl, Validators } from '@angular/forms';
 import { ScegliProgetto } from '../../sections/nuova-richiesta/scegli-progetto/scegli-progetto';
 import { SelezionaServizio } from '../../sections/nuova-richiesta/seleziona-servizio/seleziona-servizio';
@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { ProgettoModel } from '../../model/progetto.model';
 import { RichiestaSafeModel, RichiestaProjectDto } from '../../model/richiestaSafeModel';
 import { PageHeader } from '../../components/page-header/page-header';
+import { SpinnerCard } from '../../components/spinner-card/spinner-card';
 
 @Component({
   selector: 'app-nuova-richiesta',
@@ -23,24 +24,18 @@ import { PageHeader } from '../../components/page-header/page-header';
     ReactiveFormsModule,
     WizardBar,
     PageHeader,
+    SpinnerCard,
   ],
   templateUrl: './nuova-richiesta.html',
   styleUrl: './nuova-richiesta.css',
   standalone: true,
 })
-class NuovaRichiesta {
-
+export default class NuovaRichiesta {
   currentStep = 1;
   url = '';
   showModal = false;
   showModalSuccess = false;
-
-  constructor(
-    private richiesteService: RichiesteService,
-    private progettiService: ProgettiService,
-    private router: Router,
-    private cdr: ChangeDetectorRef,
-  ) { }
+  isLoading = signal(false);
 
   richiestaForm = new FormGroup({
     progettoForm: new FormGroup({}),
@@ -59,15 +54,40 @@ class NuovaRichiesta {
     { id: 3, label: '03.Controlla ed invia', icon: 'it-check-circle' },
   ];
 
-  nextStep() {
-    if (!this.canGoNext()) {
-      return;
+  nuovaRichiesta = false;
+  isInviando = false;
+  progettoEsistenteError = false;
+
+  constructor(
+    private richiesteService: RichiesteService,
+    private progettiService: ProgettiService,
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+  ) {}
+
+
+    private markStepAsTouched(): void {
+        if (this.currentStep === 1) {
+            (this.richiestaForm.get('progettoForm') as FormGroup).markAllAsTouched();
+        }
+        if (this.currentStep === 2) {
+            (this.richiestaForm.get('servizioForm') as FormGroup).markAllAsTouched();
+        }
     }
+
+  nextStep() {
+      if (!this.canGoNext()) {
+          this.markStepAsTouched();
+          return;
+      }
 
     if (this.currentStep === 1 && this.nuovaRichiesta) {
       const nome = this.richiestaForm.get('progettoForm.progetto.nome')?.value;
       const link = this.richiestaForm.get('progettoForm.progetto.link')?.value;
+
       if (nome && link) {
+        this.isLoading.set(true);
+
         this.progettiService.checkProgettoEsiste(nome, link).subscribe({
           next: (exists: boolean) => {
             this.progettoEsistenteError = exists;
@@ -75,11 +95,13 @@ class NuovaRichiesta {
               this.currentStep++;
             }
             this.cdr.detectChanges();
+            this.isLoading.set(false);
           },
           error: () => {
             this.progettoEsistenteError = false;
             this.currentStep++;
             this.cdr.detectChanges();
+            this.isLoading.set(false);
           },
         });
         return;
@@ -105,6 +127,7 @@ class NuovaRichiesta {
   }
 
   canGoNext(): boolean {
+    const servizioForm = this.richiestaForm.get('servizioForm') as FormGroup;
     const servizi = this.richiestaForm.get('servizioForm.servizi') as FormArray;
 
     switch (this.currentStep) {
@@ -114,15 +137,11 @@ class NuovaRichiesta {
           return false;
         } else return true;
       case 2:
-        return servizi.length > 0;
+        return servizi.length > 0 && servizioForm.valid;
       default:
         return true;
     }
   }
-
-  nuovaRichiesta = false;
-  isInviando = false;
-  progettoEsistenteError = false;
 
   onNuovaRichiesta(flag: boolean) {
     this.nuovaRichiesta = flag;
@@ -160,25 +179,12 @@ class NuovaRichiesta {
       };
     }
 
-    const serviziRaggruppati = servizi.reduce((acc: any[], s: any) => {
-      console.log('SINGOLO SERVIZIO NEL REDUCE:', JSON.stringify(s, null, 2));
-      const existing = acc.find((item: any) => item.servizioId === s.servizioId);
-      if (existing) {
-        existing.unit = Number(existing.unit) + Number(s.unit);
-      } else {
-        acc.push({ ...s, unit: Number(s.unit) });
-      }
-      return acc;
-    }, []);
-
-    const servizioId = serviziRaggruppati[0].servizioId;
-
     const richiesta: RichiestaSafeModel = {
       requestId: '',
       state: 'In elaborazione',
       project,
       service: null!,
-      services: serviziRaggruppati.map((s: any) => ({
+      services: servizi.map((s: any) => ({
         id: s.servizioId,
         type: s.type,
         item: s.item,
@@ -186,20 +192,21 @@ class NuovaRichiesta {
         optional: false,
         quantity: String(s.unit),
         durationMonths: null,
-        params: Object.entries(s.params ?? {}).map(([name, value]: [string, any]) => ({
-          id: servizioId,
+        params: Object.entries(s.params ?? {}).map(([name, paramObj]: [string, any]) => ({
+          id: paramObj.id,
           name,
-          value
-        }))
-        // params: Object.entries(s.params ?? {}).map(([name, value]) => ({ name, value })),
+          value: paramObj.value,
+        })),
       })),
       category: categoria,
       sendFrom: progettoForm['dataDa'] ? new Date(progettoForm['dataDa']).toISOString() : '',
       sendTo: progettoForm['dataA'] ? new Date(progettoForm['dataA']).toISOString() : '',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
-      note: this.noteForm.controls.note.value ?? ''
+      note: this.noteForm.controls.note.value ?? '',
     };
+
+    this.isLoading.set(true);
 
     this.richiesteService.createRichiesta(richiesta).subscribe({
       next: () => {
@@ -207,12 +214,14 @@ class NuovaRichiesta {
         this.showModal = false;
         this.showModalSuccess = true;
         // this.cdr.detectChanges();
+        this.isLoading.set(false);
         this.goToHome();
       },
       error: (err) => {
         this.isInviando = false;
         console.error("Errore durante l'invio della richiesta:", err);
         this.showModal = false;
+        this.isLoading.set(false);
         this.cdr.detectChanges();
       },
     });
@@ -225,6 +234,8 @@ class NuovaRichiesta {
   debugForm() {
     console.log(this.richiestaForm.value);
   }
-}
 
-export default NuovaRichiesta;
+  goBack(): void {
+    this.router.navigateByUrl('home/richieste');
+  }
+}

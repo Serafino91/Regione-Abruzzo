@@ -83,21 +83,27 @@
         <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa-test</artifactId>
+            <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webmvc-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
+        
         <!-- Mapping -->
         <dependency>
   			<groupId>org.mapstruct</groupId>
   			<artifactId>mapstruct</artifactId>
  			<version>${org.mapstruct.version}</version>
 		</dependency>
+
+<!--        test-->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-commons</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <scope>test</scope>
+        </dependency>
 
 
         <!-- Security Start-->
@@ -156,6 +162,8 @@
             </plugin>
 
             <plugin>
+		<!-- FINE aggiunto per mapstruct come consigliato da copilot, ma ci serve tutto?  -->
+
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>

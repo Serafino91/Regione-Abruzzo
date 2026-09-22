@@ -1,0 +1,31 @@
+<app-table [data]="files()" [columns]="colonneFileIncident" defaultSortColumn="fileId" defaultSortDir="asc">
+
+    <ng-template #cellTemplate let-row let-col="column">
+
+        @if (col.key === 'azioni') {
+
+
+        <div class="d-flex flex-row justify-content-evenly">
+
+            <button type="button" class="btn btn-link p-0 text-decoration-none" (click)="onOpen(row.file)">
+                <svg class="icon icon-primary icon-sm me-1" aria-hidden="true">
+                    <use href="assets/bootstrap-italia/sprites.svg#it-search"></use>
+                </svg>
+                Vedi documento
+            </button>
+
+            <button type="button" class="btn btn-link p-0 text-decoration-none" (click)="onDelete(row.fileId)">
+                <svg class="icon icon-primary icon-sm me-1" aria-hidden="true">
+                    <use href="assets/bootstrap-italia/sprites.svg#it-delete"></use>
+                </svg>
+                Elimina Documento
+            </button>
+
+        </div>
+
+        } @else {
+        {{ getValue(row, col.key) }}
+        }
+
+    </ng-template>
+</app-table>

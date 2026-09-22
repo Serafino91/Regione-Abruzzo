@@ -74,6 +74,7 @@ export class ScegliProgetto implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (resp: any[]) => {
+          console.log(resp);
           this.allProgetti = resp.map((p: any) => ({
             idProgetto: p.id,
             nome: p.name,
@@ -81,11 +82,10 @@ export class ScegliProgetto implements OnInit {
             description: p.description,
             dataCreazione: p.createAt,
             dataUltimaModifica: p.updateAt,
-            servizi: p.servizi,
+            servizi: p.services,
           }));
           this.cdr.detectChanges();
         },
-        error: (err) => console.error('Errore nel recupero dei progetti:', err),
       });
   }
 
@@ -101,8 +101,21 @@ export class ScegliProgetto implements OnInit {
   }
 
   selezionaProgetto(progetto: ProgettoModel): void {
-    this.progettoSelezionato = progetto;
-    this.formGroup.get('selezione')?.setValue(progetto);
+    const progettoSelezionato = this.formGroup.get('selezione')?.value;
+
+    if (progettoSelezionato?.idProgetto === progetto.idProgetto) {
+      this.progettoSelezionato = null;
+      this.formGroup.get('selezione')?.setValue(null);
+    } else {
+      this.progettoSelezionato = progetto;
+      this.formGroup.get('selezione')?.setValue(progetto);
+    }
+    this.formGroup.get('selezione')?.markAsTouched();
+  }
+
+  get selezioneInvalida(): boolean {
+    const c = this.formGroup.get('selezione');
+    return !!c && c.invalid && c.touched && !this.newProgetto;
   }
 
   formatDate(dateStr?: string): string {

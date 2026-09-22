@@ -2,8 +2,13 @@ package com.accenture.ra.controller;
 
 import com.accenture.ra.dto.request.ProjectDetail;
 import com.accenture.ra.dto.request.ProjectPatchRequest;
+import com.accenture.ra.dto.request.RequestDetail;
 import com.accenture.ra.dto.response.*;
+import com.accenture.ra.request.ProjectFilterCriteria;
+import com.accenture.ra.request.RequestFilterCriteria;
 import com.accenture.ra.service.impl.ProjectServiceImpl;
+import com.accenture.ra.utils.Constants;
+import com.accenture.ra.utils.JsonUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -12,17 +17,23 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping(value="/projects")
 @Tag(name="project", description = "Gruppo relativo alla creazione e gestione progetti")
 public class ProjectsController {
+    Logger logger = LoggerFactory.getLogger(CatalogServicesController.class);
 
     @Autowired
     ProjectServiceImpl projectService;
@@ -98,8 +109,16 @@ public class ProjectsController {
     @GetMapping
     @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<ProjectListResponse> getProjectList() {
+        long start = System.currentTimeMillis();
+        String methodName = "getProjectList";
+        logger.info(Constants.LOG_START_CONTROLLER, methodName);
 
-        return ResponseEntity.ok(new ProjectListResponse(projectService.getProjectAll()));
+        ProjectListResponse projectListResponse = new ProjectListResponse(projectService.getProjectAll());
+
+        long timeElapsed = System.currentTimeMillis() - start;
+        logger.info(Constants.LOG_END_CONTROLLER,methodName, JsonUtils.toJson(projectListResponse),timeElapsed);
+
+        return ResponseEntity.ok(projectListResponse);
     }
 
     @Operation(
@@ -211,8 +230,15 @@ public class ProjectsController {
     })
     @PostMapping(value = "/filter")
     @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
-    public ResponseEntity<CatalogServicesListResponse> getFilteredProject() {
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<ProjectListResponse> getFilteredProject(@RequestBody @Valid ProjectFilterCriteria criteria) {
+        long start = System.currentTimeMillis();
+        String methodName = "getFilteredProject";
+        logger.info(Constants.LOG_START_CONTROLLER, methodName);
+
+        List<ProjectDetail> results = projectService.filterProjects(criteria);
+        long timeElapsed = System.currentTimeMillis() - start;
+        logger.info(Constants.LOG_END_CONTROLLER,methodName, JsonUtils.toJson(results),timeElapsed);
+        return ResponseEntity.status(HttpStatus.OK).body(new ProjectListResponse(results));
     }
 
 
@@ -279,8 +305,14 @@ public class ProjectsController {
             )
             @PathVariable("project-id") Long projectId
     ) {
+        long start = System.currentTimeMillis();
+        String methodName = "getProjectDetail";
+        logger.info(Constants.LOG_START_CONTROLLER, methodName);
+
         ProjectDetail projectDetail = projectService.getProjectById(projectId);
 
+        long timeElapsed = System.currentTimeMillis() - start;
+        logger.info(Constants.LOG_END_CONTROLLER,methodName, JsonUtils.toJson(projectDetail),timeElapsed);
         return ResponseEntity.ok(
                 new ProjectDetailResponse(projectDetail)
         );
@@ -385,7 +417,14 @@ public class ProjectsController {
             )
             @RequestBody ProjectPatchRequest request
     ) {
+        long start = System.currentTimeMillis();
+        String methodName = "patchServiceDetail";
+        logger.info(Constants.LOG_START_CONTROLLER, methodName);
+
         ProjectDetail updatedProject = projectService.patchProject(projectId, request);
+
+        long timeElapsed = System.currentTimeMillis() - start;
+        logger.info(Constants.LOG_END_CONTROLLER,methodName, JsonUtils.toJson(updatedProject),timeElapsed);
 
         return ResponseEntity.ok(
                 new ProjectDetailResponse(updatedProject)
@@ -421,7 +460,7 @@ public class ProjectsController {
     })
     @DeleteMapping("/{project-id}")
     @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
-    public ResponseEntity<Void> deleteServiceDetail(
+    public ResponseEntity<Void> deleteProjectsDetail(
             @Parameter(
                     description = "Identificativo univoco del progetto da eliminare",
                     required = true,
@@ -429,11 +468,18 @@ public class ProjectsController {
             )
             @PathVariable("project-id") Long projectId
     ) {
+        long start = System.currentTimeMillis();
+        String methodName = "deleteProjectsDetail";
+        logger.info(Constants.LOG_START_CONTROLLER, methodName);
+
         boolean deleted = projectService.deleteProject(projectId);
 
         if (deleted) {
             return ResponseEntity.noContent().build();
         }
+
+        long timeElapsed = System.currentTimeMillis() - start;
+        logger.info(Constants.LOG_END_CONTROLLER,methodName, deleted ,timeElapsed);
 
         return ResponseEntity.notFound().build();
     }
@@ -451,12 +497,18 @@ public class ProjectsController {
     public ResponseEntity<Boolean> existsProject(
     		@PathVariable("name") String name,
     		@PathVariable("destination-link") String destinationLink) {
+        long start = System.currentTimeMillis();
+        String methodName = "patchServiceDetail";
+        logger.info(Constants.LOG_START_CONTROLLER, methodName);
 
         if (name == null || name.isBlank() || destinationLink == null || destinationLink.isBlank()) {
             return ResponseEntity.badRequest().body(false);
         }
 
         Boolean exists = projectService.existsProject(name, destinationLink);
+
+        long timeElapsed = System.currentTimeMillis() - start;
+        logger.info(Constants.LOG_END_CONTROLLER,methodName, JsonUtils.toJson(exists),timeElapsed);
         return ResponseEntity.ok(exists);
     }
 }

@@ -1,11 +1,13 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { ProgettoModel } from '../../../model/progetto.model';
-import { TableColumn, TableComponent } from '../../../components/table/table';
+import { TableComponent } from '../../../components/table/table';
 import {RouterLink} from "@angular/router";
+
+
 
 @Component({
   selector: 'app-tabella-progetti',
-  imports: [TableComponent, RouterLink],
+  imports: [TableComponent, RouterLink, ],
   standalone: true,
   templateUrl: './tabella-progetti.html',
   styleUrl: './tabella-progetti.css',
@@ -15,15 +17,55 @@ export class TabellaProgetti {
 
   listaProgetti: any[] = [];
 
-  colonneProgetti: TableColumn[] = [
-    { key: 'idProgetto', label: 'ID progetto', sortable: true, class: 'col-id' },
-    { key: 'nomeProgetto', label: 'Nome progetto', sortable: true, class: 'col-nome' },
-    { key: 'descrizione', label: 'Descrizione progetto', sortable: true, class: 'col-desc' },
-    { key: 'dataCreazione', label: 'Data creazione', sortable: true, class: 'col-data' },
-    { key: 'totaleServizi', label: 'Totale servizi', sortable: true, class: 'text-end col-small' },
-    { key: 'richiesteAttive', label: 'Richieste attive', sortable: true, class: 'text-end col-small'},
-    { key: 'incidentAperti', label: 'Incidenti aperti', sortable: true, class: 'text-end col-small',},
-    { key: 'azioni', label: 'Azioni', sortable: false, class: 'text-center col-azioni' },
+  colonneProgetti: any[] = [
+    { key: 'idProgetto', label: 'ID progetto', align: 'left', sortable: true, class: 'col-id' },
+    {
+      key: 'nomeProgetto',
+      label: 'Nome progetto',
+      sortable: true,
+      class: 'col-nome',
+    },
+    {
+      key: 'descrizione',
+      label: 'Descrizione progetto',
+
+      sortable: true,
+      class: 'col-desc',
+    },
+    {
+      key: 'dataCreazione',
+      label: 'Data creazione',
+
+      sortable: true,
+      class: 'col-data',
+    },
+    {
+      key: 'totaleServizi',
+      label: 'Totale servizi',
+
+      sortable: true,
+      class: 'text-end col-small',
+    },
+    {
+      key: 'richiesteAttive',
+      label: 'Richieste attive',
+
+      sortable: true,
+      class: 'text-end col-small',
+    },
+    {
+      key: 'incidentAperti',
+      label: 'Incidenti aperti',
+
+      sortable: true,
+      class: 'text-end col-small',
+    },
+    {
+      key: 'azioni',
+      label: 'Azioni',
+      sortable: false,
+      class: 'text-center col-azioni',
+    },
   ];
 
   ngOnChanges(changes: SimpleChanges): void {

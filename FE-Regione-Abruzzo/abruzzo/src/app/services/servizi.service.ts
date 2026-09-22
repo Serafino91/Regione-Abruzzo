@@ -3,11 +3,14 @@ import { ChiamateApiUrl } from '../constants/chiamate-api-url.constants';
 import { ServizioModel } from '../model/servizioModel';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
+import {FiltroServiziCriteriaModel} from '../constants/filtro-servizi-criteria.model';
 
 @Injectable({
   providedIn: 'root',
 })
+
 export class ServiziService {
+
   constructor(private http: HttpClient) {}
 
   getServizi() {
@@ -16,14 +19,16 @@ export class ServiziService {
       .pipe(map((resp) => resp.serviceDetail));
   }
 
-  getServiziDaCategoria(idCategoria: number) {
+  getServiziDaCategoria(idCategoria:number) {
     return this.http
-      .get<{ serviceDetail: ServizioModel[] }>(`${ChiamateApiUrl.BASE_URL_SERVIZI}/getServices/${idCategoria}`)
+      .get<{
+        serviceDetail: ServizioModel[];
+      }>(`${ChiamateApiUrl.BASE_URL_SERVIZI}/getServices/${idCategoria}`)
       .pipe(
         map((resp) => {
-          console.log("respCategoria:", resp);
+          console.log('respCategoria:', resp);
           return resp.serviceDetail;
-        })
+        }),
       );
   }
 
@@ -35,8 +40,12 @@ export class ServiziService {
     return this.http.post<ServizioModel>(ChiamateApiUrl.BASE_URL_SERVIZI, servizio);
   }
 
-  filterServizio(servizio: ServizioModel) {
-    return this.http.post<ServizioModel>(ChiamateApiUrl.BASE_URL_SERVIZI + '/filter', servizio);
+  filterServizio(criteria: FiltroServiziCriteriaModel) {
+    return this.http
+      .post<{
+        serviceDetail: ServizioModel[];
+      }>(`${ChiamateApiUrl.BASE_URL_SERVIZI}/filter`, criteria)
+      .pipe(map((resp) => resp.serviceDetail));
   }
 
   updateServizio(servizio: ServizioModel) {
@@ -50,3 +59,4 @@ export class ServiziService {
     return this.http.delete<void>(`${ChiamateApiUrl.BASE_URL_SERVIZI}/${id}`);
   }
 }
+

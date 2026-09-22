@@ -40,7 +40,7 @@
       <app-label-servizio [categoryId]="servizio.get('type')?.value"></app-label-servizio>
 
 
-        <h6 class="flex-fill">{{ ServiceName[servizio.get('servizioId')?.value.toString()] }}</h6>
+        <h6 class="flex-fill mb-0">{{ ServiceName[servizio.get('servizioId')?.value.toString()] }}</h6>
 
         <div
           class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center fw-bold"
@@ -79,10 +79,10 @@
       <hr class="line-separator">
 
       <div class="color-bg-lightblue pt-0">
-        <div class="d-flex flex-row py-3 justify-content-between px-5">
+        <div class="d-flex flex-row py-3 justify-content-between px-4">
           <div>
             <p class="fw-semibold">Descrizione</p>
-            <p>Pluralitas non est ponenda sine necessitate</p>
+            <p> {{servizio.get('type')?.value.description}}</p>
           </div>
 
           <div>
@@ -92,32 +92,33 @@
 
           <div>
             <p class="fw-semibold">Tipo</p>
-            <p>Pluralitas non est ponenda sine necessitate</p>
+            <p>{{servizio.get('type')?.value.name}}</p>
           </div>
         </div>
       </div>
 
 
-      <div class="d-flex flex-row justify-content-between mt-4">
+      <div class=" mt-4">
 
-        <h5>Dati richiesta</h5>
+        <div class="d-flex flex-row align-items-center">
+          <svg class="icon icon-sm me-2 ">
+            <use href="assets/bootstrap-italia/sprites.svg#it-code-circle"></use>
+          </svg>
+          <h5 class="mb-0">Dati Richiesta </h5>
+        </div>
 
-        <div class="d-flex flex-column" >
-          <p>{{ ServiceCategory[servizio.get('categoriaId')?.value.toString()] }}</p>
+        <div class="d-flex flex-row justify-content-between mt-2 px-1">
+          @for(param of getParams(servizio); track param[0]) {
+            <p class="fw-semibold">
+              {{ param[0] }}: {{ param[1] }}
+            </p>
+          }
         </div>
 
       </div>
 
-      <div class="d-flex flex-row justify-content-between">
-          @for(param of getParams(servizio); track param[0]) {
-            <p class="card-column">
-              {{ param[0] }} : {{ param[1] }}
-            </p>
-          }
-      </div>
 
-  </div>
-
+    </div>
   </div>
 
 

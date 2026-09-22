@@ -28,7 +28,7 @@ export class UserService {
         return JSON.parse(saved);
       }
     }
-    return { name: 'user', role: 'user', isLoggedIn: false };
+    return { name: 'user', role: 'user', isLoggedIn: false, isAdmin: true };
   }
 
   setUser(user: UserModel): void {

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, DestroyRef, inject } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -6,22 +6,28 @@ import { ProgettoDetailCard } from "../../components/progetto-detail-card/proget
 import { RichiesteService } from "../../services/richieste.service";
 import { RichiestaModel } from "../../model/richiestaModel";
 import { ServizioAccordion } from '../../components/servizio-accordion/servizio-accordion';
-import {InfoBar} from '../../components/info-bar/info-bar';
+import { InfoBar } from '../../components/info-bar/info-bar';
 import { PageHeader } from '../../components/page-header/page-header';
+import { getStatoRichiesta } from '../../constants/incident-state-icon.constants';
+import { finalize } from 'rxjs';
+import { SpinnerCard } from '../../components/spinner-card/spinner-card';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-dettaglio-richiesta',
-  imports: [ProgettoDetailCard, ServizioAccordion, InfoBar, PageHeader],
+  providers: [DatePipe],
+  imports: [ProgettoDetailCard, ServizioAccordion, InfoBar, PageHeader, SpinnerCard],
   templateUrl: './dettaglio-richiesta.html',
   styleUrl: './dettaglio-richiesta.css',
   standalone: true,
 })
-export class DettaglioRichiesta {
+export class DettaglioRichiesta implements OnInit {
   richiestaId!: string;
   richiestaDetail!: RichiestaModel;
   nuovaRichiesta: boolean = false;
   showDeleteModal = false;
   infoRichiesta: any;
+  isLoading = signal(false);
 
   private destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef);
@@ -30,6 +36,7 @@ export class DettaglioRichiesta {
     private route: ActivatedRoute,
     private richiestaService: RichiesteService,
     private router: Router,
+    private datePipe: DatePipe,
   ) {}
 
   ngOnInit() {
@@ -38,50 +45,61 @@ export class DettaglioRichiesta {
   }
 
   onElimina() {
+    this.isLoading.set(true);
+
     this.richiestaService
       .deleteRichieste(this.richiestaId as any)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: () => {
-          this.showDeleteModal = false;
-          this.router.navigate(['/home/richieste']);
-        },
-        error: (err) => {
-          console.error('Errore eliminazione richiesta:', err);
-          this.showDeleteModal = false;
-        },
-      });
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => this.isLoading.set(false)),
+      )
+        .subscribe({
+          next: () => {
+            this.showDeleteModal = false;
+            this.router.navigate(['/home/richieste']);
+          },
+          error: (err) => {
+            console.error('Errore eliminazione richiesta:', err);
+            this.showDeleteModal = false;
+          },
+        });
   }
 
   private getRichiesta(id: string) {
+    this.isLoading.set(true);
     this.richiestaService
-      .getRichiesta(id)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (resp: any) => {
-          this.richiestaDetail = resp.requestDetail ?? resp;
-          this.infoRichiesta = [
-            {
-              label: 'ID Richiesta',
-              value: this.richiestaDetail.requestId,
-              icon: 'it-file',
-            },
-            {
-              label: 'Stato',
-              value: this.richiestaDetail.state.stateName,
-              icon: 'it-file',
-            },
-            {
-              label: 'Data apertura',
-              value: this.richiestaDetail.createdAt,
-              icon: 'it-calendar',
-            },
-          ];
-          this.cdr.detectChanges();
-        },
-        error: (err) => {
-          console.error('Errore nel recupero richieste:', err);
-        },
-      });
+        .getRichiesta(id)
+        .pipe(
+          takeUntilDestroyed(this.destroyRef),
+          finalize(() => this.isLoading.set(false)),
+        )
+        .subscribe({
+          next: (resp: any) => {
+            this.richiestaDetail = resp.requestDetail ?? resp;
+            console.log(this.richiestaDetail);
+            this.infoRichiesta = [
+              {
+                label: 'ID Richiesta',
+                value: this.richiestaDetail.requestId,
+                icon: 'it-file',
+              },
+              {
+                label: 'Stato',
+                value: this.richiestaDetail.state.stateName,
+                icon: getStatoRichiesta(this.richiestaDetail.state.id)?.icon,
+              },
+              {
+                label: 'Data apertura',
+                value: this.datePipe.transform(
+                  this.richiestaDetail.createdAt,
+                  'dd/MM/yyyy - HH:mm',
+                ),
+                icon: 'it-calendar',
+              },
+            ];
+            this.cdr.detectChanges();
+          },
+        });
   }
+
 }

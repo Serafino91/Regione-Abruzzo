@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TableComponent, TableColumn } from '../../../components/table/table';
 import { RouterLink } from '@angular/router';
+import { RichiestaTicketModel } from '../../../model/richiestaModel';
 
 @Component({
     selector: 'app-tabella-richieste-ticket',
@@ -25,32 +26,7 @@ export class TabellaRichiesteTicket {
         { key: 'azioni', label: 'Azioni', sortable: false, class: 'text-center col-actions' },
     ];
 
-    listaRichiesteTicket = [
-        {
-            statoRichiesta: "Inviata",
-            idRichiesta: "ID 1",
-            progetto: "progetto 1",
-            servizio: "servizio 1",
-            categoria: "categoria 1",
-            dataInvio: "31/07/2026"
-        },
-        {
-            statoRichiesta: "In approvazione",
-            idRichiesta: "ID 2",
-            progetto: "progetto 1",
-            servizio: "servizio 1",
-            categoria: "categoria 1",
-            dataInvio: "31/07/2026"
-        },
-        {
-            statoRichiesta: "Approvata",
-            idRichiesta: "ID 3",
-            progetto: "progetto 1",
-            servizio: "servizio 1",
-            categoria: "categoria 1",
-            dataInvio: "31/07/2026"
-        }
-    ];
+    @Input() listaRichiesteTicket: RichiestaTicketModel[] = [];
 
     getValue(row: any, key: string): string {
         if (!key) return '';

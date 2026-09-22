@@ -1,3 +1,5 @@
+<app-spinner-card [isLoading]="isLoading()"></app-spinner-card>
+
 <form [formGroup]="formRichiesteTicket" #richiesteTicket="ngForm" class="row p-2 mb-4 gap-3 align-items-end">
 
     <div class="row">
@@ -53,6 +55,7 @@
     </div>
 
     <div class="row mt-3">
+        
         <div class="col-4">
             <label for="statoRichiestaId">Stato richiesta</label>
 
@@ -60,9 +63,9 @@
                 <select id="statoRichiestaId" formControlName="statoRichiesta" class="form-select form-select-rounded">
                     <option value="0">Tutti</option>
 
-                    @for (stato of statiRichiesta; track stato.id) {
-                    <option [value]="stato.id">
-                        {{ stato.content }}
+                    @for (stato of statiRichiesta; track stato.key) {
+                    <option [value]="stato.key">
+                        {{ stato.value }}
                     </option>
                     }
                 </select>
@@ -73,7 +76,7 @@
             <label for="DataInvioDaId">Data invio - da</label>
 
             <div class="position-relative">
-                <input type="date" id="DataInvioDaId" name="DataInvioDaName" class="form-control form-control-rounded"
+                <input type="date" id="DataInvioDaId" name="DataInvioDaName" class="form-control form-control-rounded date-icon-custom"
                     formControlName="dataInvioDa">
             </div>
         </div>
@@ -82,7 +85,7 @@
             <label for="DataInvioAId">Data invio - a</label>
 
             <div class="position-relative">
-                <input type="date" id="DataInvioAId" name="DataInvioAName" class="form-control form-control-rounded"
+                <input type="date" id="DataInvioAId" name="DataInvioAName" class="form-control form-control-rounded date-icon-custom"
                     formControlName="dataInvioA">
             </div>
         </div>

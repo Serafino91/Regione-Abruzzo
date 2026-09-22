@@ -4,6 +4,8 @@ import { TableColumn, TableComponent} from '../../../components/table/table';
 import {ProgettoModel} from "../../../model/progetto.model";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {ProgettiService} from "../../../services/progetti.service";
+import {FiltroProgettoCriteriaModel} from '../../../constants/filtro-progetto-criteria.model';
+import {map} from 'rxjs';
 
 @Component({
   selector: 'app-seleziona-progetti',
@@ -13,9 +15,9 @@ import {ProgettiService} from "../../../services/progetti.service";
   styleUrl: './seleziona-progetti.css',
 })
 export class SelezionaProgetti {
-  @Input({ required: true })
-  formGroup!: FormGroup;
+  @Input({ required: true }) formGroup!: FormGroup;
   @Input() progetti: ProgettoModel[] = [];
+  allProgetti: { description: any; idProgetto: any; nome: any; servizi: any }[] = [];
   listaProgetti: any[] = [];
 
   private destroyRef = inject(DestroyRef);
@@ -23,21 +25,19 @@ export class SelezionaProgetti {
   constructor(private progettiService: ProgettiService) {}
 
   progettiForm = new FormGroup({
-    progetto: new FormControl(''),
+    id: new FormControl(''),
+    name: new FormControl(''),
   });
 
   ngOnInit() {
     if (!this.formGroup.contains('progetti')) {
-      this.formGroup.addControl(
-          'progetti',
-          new FormArray([])
-      );
+      this.formGroup.addControl('progetti', new FormArray([]));
     }
-
     this.loadProgetti();
   }
 
   colonneProgetti: TableColumn[] = [
+    { key: 'checkbox', label: '', sortable: false, class: 'col-checkbox' },
     { key: 'idProgetto', label: 'ID progetto', sortable: true, class: 'col-id' },
     { key: 'nome', label: 'Nome progetto', sortable: true, class: 'col-nome' },
     { key: 'description', label: 'Descrizione progetto', sortable: true, class: 'col-desc' },
@@ -51,16 +51,15 @@ export class SelezionaProgetti {
       .subscribe({
         next: (resp: any[]) => {
           console.log(resp);
-          this.listaProgetti = resp.map((p: any) => ({
+          this.allProgetti = resp.map((p: any) => ({
             idProgetto: p.id,
             nome: p.name,
             description: p.description,
-            /* mock */
-            servizi: 2,
+            servizi: p.services,
           }));
+          this.listaProgetti = [...this.allProgetti];
           this.cdr.detectChanges();
-        },
-        error: (err) => console.error('Errore nel recupero dei progetti:', err),
+        }
       });
   }
 
@@ -72,6 +71,7 @@ export class SelezionaProgetti {
   onRowSelectionChange(event: { row: ProgettoModel; selected: boolean }): void {
     const progettiFormArray = this.formGroup.get('progetti') as FormArray;
 
+    // Verifica se il progetto è stato selezionato (index = -1) o deselezionato (index = 1)
     const index = progettiFormArray.controls.findIndex(
       (control) => control.value.idProgetto === event.row.idProgetto,
     );
@@ -90,5 +90,68 @@ export class SelezionaProgetti {
     console.log(progettiFormArray.value);
   }
 
-  cercaProgetto() {}
+  toggleProgetto(row: any): void {
+    const progettiFormArray = this.formGroup.get('progetti') as FormArray;
+    const index = progettiFormArray.controls.findIndex(
+      (control) => control.value.idProgetto === row.idProgetto,
+    );
+
+    if (index === -1) {
+      progettiFormArray.push(new FormControl(row));
+    } else {
+      progettiFormArray.removeAt(index);
+    }
+  }
+
+  applicaFiltri() {
+    const idValue = this.progettiForm.controls.id?.value?.trim() ?? '';
+    const nameValue = this.progettiForm.controls.name?.value?.trim().toLowerCase() ?? '';
+
+    const criteria: FiltroProgettoCriteriaModel = {};
+
+    if (idValue) {
+      const parsedId = Number(idValue);
+      if (!isNaN(parsedId)) {
+        criteria.projectId = parsedId;
+      }
+    }
+
+    if (nameValue) {
+      criteria.name = nameValue;
+    }
+
+    this.progettiService
+      .filterProgetto(criteria)
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe({
+        next: (resp) => {
+          this.allProgetti = resp.map((p: any) => ({
+            idProgetto: p.id,
+            nome: p.name,
+            description: p.description,
+            servizi: p.services,
+          }));
+          this.listaProgetti = [...this.allProgetti];
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Errore durante il filtro dei progetti:', err);
+        },
+      });
+
+  }
+
+  resetFiltri() {
+    this.progettiForm.reset();
+    this.loadProgetti();
+  }
+
+  isProgettoSelezionato(row: any): boolean {
+    const progettiFormArray = this.formGroup.get('progetti') as FormArray;
+    return progettiFormArray.controls.some(
+      (control) => control.value.idProgetto === row.idProgetto,
+    );
+  }
 }

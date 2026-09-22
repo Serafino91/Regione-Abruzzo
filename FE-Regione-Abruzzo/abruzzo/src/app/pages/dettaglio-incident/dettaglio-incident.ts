@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, DestroyRef, inject } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TicketModel } from '../../model/ticket.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -8,73 +8,84 @@ import { InfoBar } from '../../components/info-bar/info-bar';
 import { getStatoRichiesta } from '../../constants/incident-state-icon.constants';
 import { IncidentDetailCard } from '../../components/incident-detail-card/incident-detail-card';
 import { RichiedenteCard } from '../../components/richiedente-card/richiedente-card';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { File } from '../../model/file.model';
+import { TabellaFileIncidentDettaglio } from './tabella-file-incident-dettaglio/tabella-file-incident-dettaglio';
+import { finalize } from 'rxjs';
+import { SpinnerCard } from '../../components/spinner-card/spinner-card';
 
 @Component({
-  selector: 'app-dettaglio-incident',
-  imports: [
-    PageHeader,
-    InfoBar,
-    IncidentDetailCard,
-    RichiedenteCard,
-    ReactiveFormsModule,
-  ],
-  standalone: true,
-  templateUrl: './dettaglio-incident.html',
-  styleUrl: './dettaglio-incident.css',
+    selector: 'app-dettaglio-incident',
+    imports: [
+        PageHeader,
+        InfoBar,
+        IncidentDetailCard,
+        RichiedenteCard,
+        ReactiveFormsModule,
+        TabellaFileIncidentDettaglio,
+        SpinnerCard
+    ],
+    standalone: true,
+    templateUrl: './dettaglio-incident.html',
+    styleUrl: './dettaglio-incident.css',
 })
-export class DettaglioIncident {
-  incidentId!: string;
-  incidentDetail!: TicketModel;
-  infoIncident: any;
 
-  private destroyRef = inject(DestroyRef);
-  private cdr = inject(ChangeDetectorRef);
+export class DettaglioIncident implements OnInit {
 
-  constructor(
-    private route: ActivatedRoute,
-    private incidentService: IncidentService,
-  ) {}
+    incidentId!: string;
+    incidentDetail!: TicketModel;
+    infoIncident: any;
+    files: File[] = [
+        { fileId: 1, name: "test 1", size: 1234 },
+        { fileId: 2, name: "test 2", size: 3434 }
+    ];
+    isLoading = signal(false);
 
-  ngOnInit() {
-    this.incidentId = this.route.snapshot.paramMap.get('id')!;
-    this.getIncident(this.incidentId);
-  }
+    private destroyRef = inject(DestroyRef);
+    private cdr = inject(ChangeDetectorRef);
 
-  private getIncident(id: string): void {
-    this.incidentService
-      .getTicketDetail(id)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (resp: any) => {
-          this.incidentDetail = resp.serviceDetail ?? resp;
-          const stato = getStatoRichiesta(this.incidentDetail.state.id);
+    constructor(
+        private route: ActivatedRoute,
+        private incidentService: IncidentService,
+    ) { }
 
-          console.log(this.incidentDetail);
+    ngOnInit() {
+        this.incidentId = this.route.snapshot.paramMap.get('id')!;
+        this.getIncident(this.incidentId);
+    }
 
-          this.infoIncident = [
-            {
-              label: 'Codice',
-              value: this.incidentDetail.code,
-              icon: 'it-file',
-            },
-            {
-              label: 'Stato',
-              value: this.incidentDetail.state.name,
-              icon: stato?.icon,
-            },
-            {
-              label: 'Data Apertura',
-              value: this.incidentDetail.openingDate,
-              icon: 'it-calendar',
-            },
-          ];
+    private getIncident(id: string): void {
+        this.isLoading.set(true);
+        this.incidentService.getTicketDetail(id).pipe(
 
-          this.cdr.detectChanges();
-        },
-        error: (err) => {
-          console.error('Errore nel recupero richieste:', err);
-        },
-      });
-  }
+          takeUntilDestroyed(this.destroyRef),
+          finalize(() => this.isLoading.set(false))
+
+        ).subscribe({
+          next: (resp: any) => {
+            this.incidentDetail = resp.serviceDetail ?? resp;
+            const stato = getStatoRichiesta(this.incidentDetail.state.id);
+            console.log(this.incidentDetail);
+
+            this.infoIncident = [
+              {
+                label: 'Codice',
+                value: (this.incidentDetail.code && this.incidentDetail.code !== '') ? this.incidentDetail.code : '',
+                icon: 'it-file',
+              },
+              {
+                label: 'Stato',
+                value: this.incidentDetail.state.name,
+                icon: stato?.icon,
+              },
+              {
+                label: 'Data Apertura',
+                value: this.incidentDetail.openingDate,
+                icon: 'it-calendar',
+              },
+            ];
+            this.cdr.detectChanges();
+                }
+            });
+    }
 }

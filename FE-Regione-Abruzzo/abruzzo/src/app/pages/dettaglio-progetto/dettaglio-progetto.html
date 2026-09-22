@@ -1,3 +1,5 @@
+<app-spinner-card [isLoading]="isLoading()"></app-spinner-card>
+
 <div class="section-padding">
   @if(progettoDetail) {
     <app-page-header
@@ -20,15 +22,18 @@
     <app-progetto-detail-card
       [nome]="progettoDetail.nome"
       [link]="progettoDetail.destinationLink"
+      [numeroServizi]="progettoDetail?.servizi?.length ?? 0"
       [descrizione]="progettoDetail.description"
       [nuovaRichiesta]="nuovaRichiesta">
     </app-progetto-detail-card>
   }
 
-  @if(progettoDetail.servizi) {
-    @for (servizio of progettoDetail.servizi; track servizio.id) {
+
+  @if(progettoDetail?.servizi) {
+    @for (servizio of progettoDetail?.servizi; track $index) {
       <app-servizio-accordion
-        [servizio]="servizio">
+        [servizio]="servizio"
+      [index]="$index">
       </app-servizio-accordion>
     }
   }

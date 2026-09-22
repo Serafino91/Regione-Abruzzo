@@ -10,7 +10,10 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {
         ProjectMapper.class,
         StateMapper.class,
-        RequestServiceMapper.class
+        RequestServiceMapper.class,
+        ParamMapper.class,
+        ParamListMapper.class,
+        ServiceMapper.class
 })
 public interface RequestMapper {
 

@@ -7,6 +7,8 @@ import { CategoriaModel } from '../model/categoria.model';
 @Injectable({
   providedIn: 'root',
 })
+
+
 export class CategoriaService {
   constructor(private http: HttpClient) {}
 
@@ -14,7 +16,6 @@ export class CategoriaService {
     return this.http
       .get<{ serviceType: CategoriaModel[] }>(ChiamateApiUrl.BASE_URL_CATEGORIA)
       .pipe(map((resp) =>{
-        console.log("resp:",resp);
         return resp.serviceType;
       } ));
   }

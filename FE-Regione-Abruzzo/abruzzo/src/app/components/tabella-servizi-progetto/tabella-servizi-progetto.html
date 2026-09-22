@@ -1,0 +1,14 @@
+<app-table
+  [data]="data"
+  [columns]="colonneServizi"
+  [pagination]= false
+  defaultSortColumn="fileId"
+  defaultSortDir="asc">
+
+  <ng-template #cellTemplate let-row let-col="column">
+
+      {{ getValue(row, col.key) }}
+
+
+  </ng-template>
+</app-table>

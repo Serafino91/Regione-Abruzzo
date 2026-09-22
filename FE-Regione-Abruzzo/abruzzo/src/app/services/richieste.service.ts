@@ -1,50 +1,51 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
 import { ChiamateApiUrl } from '../constants/chiamate-api-url.constants';
-import { environment } from '../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs';
 import { RichiestaDetailResponse, RichiestaModel } from '../model/richiestaModel';
-import { FiltroRichiestaCriteriaModel } from '../model/filtro-richiesta-criteria.model';
+import {FiltroRichiestaCriteriaModel} from '../model/filtro-richiesta-criteria.model';
 import { RichiestaSafeModel } from '../model/richiestaSafeModel';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RichiesteService {
-  // Garantisce che le chiamate puntino a http://localhost:8080/request e non a localhost:4200
-  private readonly baseUrl = `${environment.apiUrl}${ChiamateApiUrl.BASE_URL_RICHIESTA}`;
-
   constructor(private http: HttpClient) {}
 
-  getAllRichieste(): Observable<RichiestaModel[]> {
+  getAllRichieste() {
     return this.http
-      .get<{ requestsList: RichiestaModel[] }>(this.baseUrl)
-      .pipe(map((resp) => resp?.requestsList || []));
+      .get<{ requestsList: RichiestaModel[] }>(ChiamateApiUrl.BASE_URL_RICHIESTA)
+      .pipe(map((resp) => resp.requestsList));
   }
-
-  getRichiesta(id: string): Observable<RichiestaDetailResponse> {
-    return this.http.get<RichiestaDetailResponse>(`${this.baseUrl}/${id}`);
+  getRichiesta(id: string) {
+    return this.http.get<RichiestaDetailResponse>(`${ChiamateApiUrl.BASE_URL_RICHIESTA}/${id}`);
   }
-
-  createRichiesta(richiesta: RichiestaSafeModel): Observable<RichiestaSafeModel> {
-    return this.http.put<RichiestaSafeModel>(this.baseUrl, richiesta);
+  createRichiesta(richiesta: RichiestaSafeModel) {
+    return this.http.put<RichiestaSafeModel>(ChiamateApiUrl.BASE_URL_RICHIESTA, richiesta);
   }
+  /*
+  filterRichieste(richiesta: RichiestaModel) {
+    return this.http.post<RichiestaModel>(ChiamateApiUrl.BASE_URL_RICHIESTA + '/filter', richiesta);
+  }
+  */
 
-  updateRichieste(richiesta: RichiestaModel): Observable<RichiestaModel> {
+  updateRichieste(richiesta: RichiestaModel) {
     return this.http.patch<RichiestaModel>(
-      `${this.baseUrl}/${richiesta.requestId}`,
-      richiesta
+      `${ChiamateApiUrl.BASE_URL_RICHIESTA}/${richiesta.requestId}`,
+      richiesta,
     );
   }
 
-  deleteRichieste(id: number): Observable<void> {
-    // 💡 CORRETTO: Usiamo questo endpoint invece di BASE_URL_SERVIZI
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  deleteRichieste(id: number) {
+    return this.http.delete<void>(`${ChiamateApiUrl.BASE_URL_SERVIZI}/${id}`);
   }
 
-  filterRichieste(criteria: FiltroRichiestaCriteriaModel): Observable<RichiestaModel[]> {
+  filterRichieste(criteria: FiltroRichiestaCriteriaModel) {
     return this.http
-      .post<{ requestsList: RichiestaModel[] }>(`${this.baseUrl}/filter`, criteria)
-      .pipe(map((resp) => resp?.requestsList || []));
+      .post<{
+        requestsList: RichiestaModel[];
+      }>(`${ChiamateApiUrl.BASE_URL_RICHIESTA}/filter`, criteria)
+      .pipe(map((resp) => resp.requestsList));
   }
 }
+

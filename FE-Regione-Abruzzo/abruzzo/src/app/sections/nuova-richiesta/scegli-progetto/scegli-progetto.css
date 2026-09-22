@@ -40,11 +40,25 @@ tr.row-selected {
 .container-custom {
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 12px; 
+  border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   width: auto;
   min-height: 220px;
   padding: 20px;
-  box-sizing: border-box; 
+  box-sizing: border-box;
   padding-bottom: 200px;
 }
+
+.invalid-feedback-floating {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.25rem;
+  color: var(--bs-danger, #dc3545);
+  font-size: 0.875em;
+  white-space: nowrap;
+}
+
+
+
+#progetto.is-invalid { background-image: none; }

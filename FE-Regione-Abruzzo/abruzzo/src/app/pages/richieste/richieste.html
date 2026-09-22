@@ -1,3 +1,5 @@
+<app-spinner-card [isLoading]="isLoading()"></app-spinner-card>
+
 <div class="section-padding">
 <app-page-header
   [titolo]="'Gestione Richieste'"
@@ -11,7 +13,7 @@
 <div class="color-bg-lightblue section-padding">
   <app-filtri
     (filtra)="onFiltra($event)"
-    (reset)="onResetFiltri()">>
+    (reset)="onResetFiltri()">
   </app-filtri>
 </div>
 
@@ -19,6 +21,5 @@
     <app-tabella-richieste
       [richieste]="listaRichieste">
     </app-tabella-richieste>
-
   <hr class="line-separator m-0">
 </div>

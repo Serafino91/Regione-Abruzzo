@@ -4,9 +4,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.accenture.ra.entity.*;
+import com.accenture.ra.exceptions.CMPException;
+import com.accenture.ra.exceptions.TipoErroreBase;
 import com.accenture.ra.repository.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import com.accenture.ra.dto.request.RequestDetail;
@@ -29,6 +32,7 @@ import com.accenture.ra.utils.RequestSpecification;
 
 import lombok.RequiredArgsConstructor;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class RequestServiceImpl implements RequestService {
@@ -55,8 +59,14 @@ public class RequestServiceImpl implements RequestService {
 
 	@Override
 	public RequestDetail getRequestById(String requestId) {
-		RequestEntity requestEntity = requestRepository.findById(requestId).get();
-        return requestMapper.toModel(requestEntity);
+
+		RequestEntity requestEntity = requestRepository.findById(requestId)
+				.orElseThrow(() -> new CMPException(
+						"Richiesta con id " + requestId + " non trovata",
+						TipoErroreBase.NON_TROVATO
+				));
+
+		return requestMapper.toModel(requestEntity);
 	}
 
 	@Override
@@ -97,6 +107,8 @@ public class RequestServiceImpl implements RequestService {
 						RequestServiceEntity requestServiceEntity = new RequestServiceEntity();
 						requestServiceEntity.setRequest(requestEntity);
 						requestServiceEntity.setService(serviceEntity);
+
+						log.info(serviceReq.toString());
 
 						if (serviceReq.getParams() != null && !serviceReq.getParams().isEmpty()) {
 

@@ -7,5 +7,5 @@ export class ProgettoModel {
   description!: string;
   dataCreazione?: string;
   dataUltimaModifica?: string;
-  servizi?: ServizioModel[];
+  servizi?: ServizioModel[] = [];
 }

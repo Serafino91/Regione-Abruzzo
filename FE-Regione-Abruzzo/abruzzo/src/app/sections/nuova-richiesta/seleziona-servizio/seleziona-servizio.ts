@@ -1,13 +1,29 @@
 import { Component, DestroyRef, inject, Input, OnInit, ChangeDetectorRef } from '@angular/core';
-import {AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators,} from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ServizioModel } from '../../../model/servizioModel';
 import { ServiziService } from '../../../services/servizi.service';
 import { CategoriaService } from '../../../services/categoria.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CategoriaModel } from '../../../model/categoria.model';
-import {ServiceName} from "../../../constants/service-name.constants";
-import {ServiceCategory} from "../../../constants/service-category.constants";
-import {LabelServizio} from '../../../components/label-servizio/label-servizio';
+import { ServiceName } from '../../../constants/service-name.constants';
+import { ServiceCategory } from '../../../constants/service-category.constants';
+import { LabelServizio } from '../../../components/label-servizio/label-servizio';
+
+interface ParamForm {
+  id: FormControl<number>;
+  value: FormControl<number>;
+}
+
+interface ServizioForm {
+  params: FormGroup<{ [key: string]: FormGroup<ParamForm> }>;
+}
 
 @Component({
   selector: 'app-seleziona-servizio',
@@ -73,9 +89,7 @@ export class SelezionaServizio implements OnInit {
       .map((c) => Number(c.get('righeId')?.value))
       .filter((v) => !isNaN(v));
 
-    this.nextRigaId = righeIdEsistenti.length > 0
-      ? Math.max(...righeIdEsistenti) + 1
-      : 0;
+    this.nextRigaId = righeIdEsistenti.length > 0 ? Math.max(...righeIdEsistenti) + 1 : 0;
   }
 
   private inizializzaForm(): void {
@@ -92,9 +106,6 @@ export class SelezionaServizio implements OnInit {
         next: (resp) => {
           this.categorie = resp;
           this.cdr.detectChanges();
-        },
-        error: (err) => {
-          console.error('Errore categorie:', err);
         },
       });
   }
@@ -113,9 +124,6 @@ export class SelezionaServizio implements OnInit {
         next: (resp) => {
           this.servizi = resp;
           this.cdr.detectChanges(); //
-        },
-        error: (err) => {
-          console.error('Errore nel recupero servizi:', err);
         },
       });
   }
@@ -143,7 +151,17 @@ export class SelezionaServizio implements OnInit {
     for (let i = 0; i < unit; i++) {
       const paramsGroup = new FormGroup({});
       servizio.params.forEach((p) => {
-        paramsGroup.addControl(p.name, new FormControl(p.minValue ?? 0));
+        paramsGroup.addControl(
+          p.name,
+          new FormGroup({
+            id: new FormControl(p.id),
+            value: new FormControl(p.minValue ?? 0, [
+              Validators.required,
+              Validators.min(Number(p.minValue)),
+              Validators.max(Number(p.maxValue)),
+            ]),
+          }),
+        );
       });
 
       servizi.push(
@@ -168,19 +186,23 @@ export class SelezionaServizio implements OnInit {
     }
   }
 
-  get serviziArray(): FormArray {
-    return this.formGroup.get('servizi') as FormArray;
+  get serviziArray(): FormArray<FormGroup> {
+    return this.formGroup.get('servizi') as FormArray<FormGroup>;
   }
 
   getParamControl(servizio: AbstractControl, param: string): FormControl {
-    return servizio.get(['params', param]) as FormControl;
+    return servizio.get(['params', param, 'value']) as FormControl;
+  }
+
+  getKeys(paramsGroup: AbstractControl): string[] {
+    return paramsGroup instanceof FormGroup ? Object.keys(paramsGroup.controls) : [];
+  }
+
+  getParamErrorControl(servizio: AbstractControl, param: string): AbstractControl | null {
+    return servizio.get(['params', param, 'value']);
   }
 
   rimuoviServizio(index: number): void {
     this.serviziArray.removeAt(index);
-  }
-
-  getKeys(control: AbstractControl): string[] {
-    return control instanceof FormGroup ? Object.keys(control.controls) : [];
   }
 }

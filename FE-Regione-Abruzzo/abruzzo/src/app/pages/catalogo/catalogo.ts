@@ -1,50 +1,76 @@
-import { ChangeDetectorRef, Component, DestroyRef, inject } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
 import { FiltriServizi } from '../../sections/catalogo/filtri-servizi/filtri-servizi';
 import { ListaServizi } from '../../sections/catalogo/lista-servizi/lista-servizi';
 import { ServizioModel } from '../../model/servizioModel';
 import { ServiziService } from '../../services/servizi.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PageHeader } from '../../components/page-header/page-header';
+import { finalize } from 'rxjs';
+import { SpinnerCard } from '../../components/spinner-card/spinner-card';
+import { FiltroServiziCriteriaModel } from '../../constants/filtro-servizi-criteria.model';
+import {UserService} from "../../services/user.service";
 
 @Component({
-  selector: 'app-catalogue',
-  imports: [FiltriServizi, ListaServizi, PageHeader],
-  standalone: true,
-  templateUrl: './catalogo.html',
-  styleUrl: './catalogo.css',
+    selector: 'app-catalogue',
+    imports: [FiltriServizi, ListaServizi, PageHeader, SpinnerCard],
+    standalone: true,
+    templateUrl: './catalogo.html',
+    styleUrl: './catalogo.css',
 })
-export class Catalogo {
-  private destroyRef = inject(DestroyRef);
-  private cdr = inject(ChangeDetectorRef);
 
-  public servizi: ServizioModel[] = [];
-  private tuttiIServizi: ServizioModel[] = [];
+export class Catalogo implements OnInit {
 
-  constructor(private servizioService: ServiziService) {}
+    private destroyRef = inject(DestroyRef);
+    isAdmin= true;
+    public servizi: ServizioModel[] = [];
+    isLoading = signal(false);
 
-  ngOnInit(): void {
-    this.getServizi();
-  }
+    private cdr = inject(ChangeDetectorRef);
 
-  private getServizi(): void {
-    this.servizioService
-      .getServizi()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (resp) => {
-          this.tuttiIServizi = resp;
-          this.servizi = resp;
+    constructor(private servizioService: ServiziService, private userService: UserService) { }
 
-          this.cdr.detectChanges();
-        },
-        error: (err) => {
-          console.error('Errore nel recupero dei servizi:', err);
-        },
-      });
-  }
+    ngOnInit(): void {
+        this.getServizi();
+        this.isAdmin = this.userService.getUser().isAdmin;
 
-  onCerca(risultati: ServizioModel[]): void {
-    this.servizi = risultati.length > 0 ? risultati : this.tuttiIServizi;
-    this.cdr.detectChanges();
-  }
+
+    }
+
+    private getServizi(): void {
+        this.isLoading.set(true);
+
+        this.servizioService.getServizi().pipe(
+
+          takeUntilDestroyed(this.destroyRef),
+          finalize(() => this.isLoading.set(false))
+
+        ).subscribe({
+          next: (resp) => {
+            this.servizi = resp;
+            this.cdr.detectChanges();
+          }
+        });
+    }
+
+    onFiltra(criteria: FiltroServiziCriteriaModel): void {
+        this.isLoading.set(true);
+
+        this.servizioService.filterServizio(criteria).pipe(
+
+            takeUntilDestroyed(this.destroyRef),
+            finalize(() => this.isLoading.set(false))
+
+        ).subscribe({
+            next: (resp) => {
+                this.servizi = resp;
+                console.log(resp);
+                this.cdr.detectChanges();
+            }
+        });
+    }
+
+    onResetFiltri(): void {
+        this.getServizi();
+    }
+
 }

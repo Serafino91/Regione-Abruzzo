@@ -1,3 +1,5 @@
+<app-spinner-card [isLoading]="isLoading()"></app-spinner-card>
+
 <div class="section-padding">
   <app-page-header
     [titolo]="'Dettaglio Richiesta'"
@@ -31,9 +33,10 @@
       [nuovaRichiesta]="nuovaRichiesta">
     </app-progetto-detail-card>
 
-    @for (servizio of richiestaDetail.services; track servizio.id) {
+    @for (servizio of richiestaDetail.services;  track $index ) {
       <app-servizio-accordion
-        [servizio]="servizio">
+        [servizio]="servizio"
+        [index]="$index">
       </app-servizio-accordion>
     }
   }
@@ -63,8 +66,7 @@
       </div>
       <div class="modal-body">
         <p class="mb-0">
-          Sei sicuro di voler eliminare la richiesta
-          <strong>{{ richiestaDetail?.requestId }}</strong>?
+          Sei sicuro di voler eliminare la richiesta<strong>{{ richiestaDetail?.requestId }}</strong>?
           <br>
           <span class="text-muted small">Questa operazione non è reversibile.</span>
         </p>

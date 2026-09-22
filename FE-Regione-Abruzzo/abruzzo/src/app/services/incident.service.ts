@@ -3,7 +3,6 @@ import { ChiamateApiUrl } from '../constants/chiamate-api-url.constants';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TicketModel } from '../model/ticket.model';
-import { RichiestaDetailResponse } from '../model/richiestaModel';
 
 @Injectable({
   providedIn: 'root',

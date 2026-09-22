@@ -1,11 +1,26 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Pipe, PipeTransform } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {ProgettoAccordion} from "../../../components/progetto-accordion/progetto-accordion";
 import {PermessiCard} from "../../../components/permessi-card/permessi-card";
+import { TableColumn, TableComponent } from '../../../components/table/table';
+import { ServizioModel } from '../../../model/servizioModel';
+import {TabellaServiziProgetto} from "../../../components/tabella-servizi-progetto/tabella-servizi-progetto";
+
+
+@Pipe({ name: 'mapServizi', standalone: true, pure: true })
+export class MapServiziPipe implements PipeTransform {
+  transform(servizi: any[] | null | undefined) {
+    return (servizi ?? []).map((s) => ({
+      idServizio: s.id,
+      servizio: s.name,
+      categoria: s.type?.name ?? '',
+    }));
+  }
+}
 
 @Component({
   selector: 'app-controlla-dati',
-  imports: [ReactiveFormsModule, ProgettoAccordion, PermessiCard],
+  imports: [ReactiveFormsModule, ProgettoAccordion, PermessiCard, MapServiziPipe, TabellaServiziProgetto],
   standalone: true,
   templateUrl: './controlla-dati.html',
   styleUrl: './controlla-dati.css',
@@ -24,6 +39,8 @@ export class ControllaDati {
   get progetti(): FormArray {
     return this.formGroup.get('progetti') as FormArray;
   }
-
   readonly maxNoteLength = 500;
+
+
+
 }

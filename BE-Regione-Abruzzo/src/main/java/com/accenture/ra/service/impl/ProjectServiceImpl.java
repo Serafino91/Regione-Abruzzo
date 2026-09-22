@@ -1,7 +1,13 @@
 package com.accenture.ra.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+import com.accenture.ra.entity.RequestEntity;
+import com.accenture.ra.request.ProjectFilterCriteria;
+import com.accenture.ra.request.RequestFilterCriteria;
+import com.accenture.ra.utils.ProjectSpecification;
+import com.accenture.ra.utils.RequestSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,8 +57,15 @@ public class ProjectServiceImpl implements ProjectService {
 	 *
 	 * @return ...
 	 */
-    public ProjectDetail patchProject(Long serviceId, ProjectPatchRequest request) {
-        return null;
+    public ProjectDetail patchProject(Long projectId, ProjectPatchRequest request) {
+        ProjectEntity entity = projectRepository.findById(projectId).orElseThrow();
+
+        if (request.getName() != null) entity.setName(request.getName());
+        if (request.getDestinationLink() != null) entity.setDestinationLink(request.getDestinationLink());
+        if (request.getDescription() != null) entity.setDescription(request.getDescription());
+        entity.setUpdatedAt(LocalDateTime.now());
+
+        return projectMapper.toModel(projectRepository.save(entity));
     }
 
     /**
@@ -62,5 +75,12 @@ public class ProjectServiceImpl implements ProjectService {
 	 */
     public Boolean deleteProject(Long serviceId) {
       return true;
+    }
+
+
+
+    public List<ProjectDetail> filterProjects(ProjectFilterCriteria criteria) {
+        List<ProjectEntity> entities = projectRepository.findAll(ProjectSpecification.withFilters(criteria));
+        return projectMapper.toModelList(entities);
     }
 }

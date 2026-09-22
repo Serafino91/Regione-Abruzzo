@@ -19,14 +19,20 @@
             id="progetto"
             formControlName="ricercaNome"
             class="form-control form-control-rounded pe-5"
+            [class.is-invalid]="selezioneInvalida"
             name="progetto"
             placeholder="Cerca nome progetto"
             autocomplete="off">
           <span class="position-absolute top-50 end-0 translate-middle-y me-3" style="pointer-events: none;">
-            <svg class="icon icon-primary icon-sm">
-              <use href="assets/bootstrap-italia/sprites.svg#it-search"></use>
-            </svg>
-          </span>
+      <svg class="icon icon-primary icon-sm">
+        <use href="assets/bootstrap-italia/sprites.svg#it-search"></use>
+      </svg>
+    </span>
+          @if (selezioneInvalida) {
+            <div class="invalid-feedback-floating">
+              Devi selezionare un progetto dalla tabella per procedere.
+            </div>
+          }
         </div>
       </div>
 
@@ -96,52 +102,63 @@
     </div>
 
     @if (formGroup.get('progetto')) {
-    <div
-      class="collapse"
-      [class.show]="newProgetto">
+      <div class="collapse" [class.show]="newProgetto">
 
-      <h5 class="pt-3">Dati del progetto</h5>
-      <div formGroupName="progetto" class="mt-3 row gap-4">
-        <div class="d-flex col-md-6 flex-column gap-4">
-          <div class="">
-            <label class="active" for="nome">Nome</label>
-            <input
-              class="form-control form-control-rounded"
-              formControlName="nome"
-              id="nome"
-              name="nome">
-          </div>
+        <h5 class="pt-3">Dati del progetto</h5>
+        <div formGroupName="progetto" class="mt-3 row gap-4">
+          <div class="d-flex col-md-6 flex-column gap-4">
 
-          <div class="">
-            <label class="active" for="link">Link destinazione</label>
-            <input
-              class="form-control form-control-rounded"
-              formControlName="link"
-              id="link"
-              name="link">
-          </div>
-
-          @if (progettoEsistenteError) {
-            <div class="alert alert-danger d-flex align-items-center gap-2 mt-2" role="alert">
-              <svg class="icon icon-danger icon-sm flex-shrink-0">
-                <use href="assets/bootstrap-italia/sprites.svg#it-error"></use>
-              </svg>
-              <span>Esiste già un progetto con questo nome e link destinazione.</span>
+            <div class="">
+              <label class="active" for="nome">Nome</label>
+              <input
+                class="form-control form-control-rounded"
+                [class.is-invalid]="formGroup.get('progetto.nome')?.invalid && formGroup.get('progetto.nome')?.touched"
+                formControlName="nome"
+                id="nome"
+                name="nome">
+              @if (formGroup.get('progetto.nome')?.invalid && formGroup.get('progetto.nome')?.touched) {
+                <div class="invalid-feedback d-block">Campo obbligatorio</div>
+              }
             </div>
-          }
-        </div>
 
-        <div class="">
-          <label class="active" for="descrizione">Descrizione</label>
-          <input
-            id="note"
-            class="form-control form-control-rounded"
-            rows="5"
-            formControlName="descrizione"
-            [attr.maxlength]="maxNoteLength">
+            <div class="">
+              <label class="active" for="link">Link destinazione</label>
+              <input
+                class="form-control form-control-rounded"
+                [class.is-invalid]="formGroup.get('progetto.link')?.invalid && formGroup.get('progetto.link')?.touched"
+                formControlName="link"
+                id="link"
+                name="link">
+              @if (formGroup.get('progetto.link')?.invalid && formGroup.get('progetto.link')?.touched) {
+                <div class="invalid-feedback d-block">Campo obbligatorio</div>
+              }
+            </div>
+
+            @if (progettoEsistenteError) {
+              <div class="alert alert-danger d-flex align-items-center gap-2 mt-2" role="alert">
+                <svg class="icon icon-danger icon-sm flex-shrink-0">
+                  <use href="assets/bootstrap-italia/sprites.svg#it-error"></use>
+                </svg>
+                <span>Esiste già un progetto con questo nome e link destinazione.</span>
+              </div>
+            }
+          </div>
+
+          <div class="">
+            <label class="active" for="descrizione">Descrizione</label>
+            <input
+              id="descrizione"
+              class="form-control form-control-rounded"
+              [class.is-invalid]="formGroup.get('progetto.descrizione')?.invalid && formGroup.get('progetto.descrizione')?.touched"
+              rows="5"
+              formControlName="descrizione"
+              [attr.maxlength]="maxNoteLength">
+            @if (formGroup.get('progetto.descrizione')?.invalid && formGroup.get('progetto.descrizione')?.touched) {
+              <div class="invalid-feedback d-block">Campo obbligatorio</div>
+            }
+          </div>
         </div>
       </div>
-    </div>
     }
 
   </form>
