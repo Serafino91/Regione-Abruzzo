@@ -1,24 +1,19 @@
 package com.accenture.ra.service.impl;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
-import com.accenture.ra.entity.RequestEntity;
-import com.accenture.ra.request.ProjectFilterCriteria;
-import com.accenture.ra.request.RequestFilterCriteria;
-import com.accenture.ra.utils.ProjectSpecification;
-import com.accenture.ra.utils.RequestSpecification;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.accenture.ra.dto.request.ProjectDetail;
 import com.accenture.ra.dto.request.ProjectPatchRequest;
 import com.accenture.ra.entity.ProjectEntity;
 import com.accenture.ra.mapper.ProjectMapper;
 import com.accenture.ra.repository.ProjectRepository;
+import com.accenture.ra.request.ProjectFilterCriteria;
 import com.accenture.ra.service.ProjectService;
-
+import com.accenture.ra.utils.ProjectSpecification;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Service

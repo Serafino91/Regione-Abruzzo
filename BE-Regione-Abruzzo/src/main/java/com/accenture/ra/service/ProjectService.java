@@ -2,9 +2,7 @@ package com.accenture.ra.service;
 
 import com.accenture.ra.dto.request.ProjectDetail;
 import com.accenture.ra.dto.request.ProjectPatchRequest;
-import com.accenture.ra.dto.request.RequestDetail;
 import com.accenture.ra.request.ProjectFilterCriteria;
-import com.accenture.ra.request.RequestFilterCriteria;
 
 import java.util.List;
 

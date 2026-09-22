@@ -73,8 +73,8 @@ class ProjectsControllerTest extends BaseCoreTest {
 		ProjectDetailResponse resp = objectMapper.readValue(response, ProjectDetailResponse.class);
 
 
-		assertNotNull(resp.getServiceDetail());
-		assertEquals("Progetto Artigiani", resp.getServiceDetail().getName());
+		assertNotNull(resp.getProjectDetail());
+		assertEquals("Progetto Artigiani", resp.getProjectDetail().getName());
 
 		logger.info(LOG_END_JUNIT, methodName, response);
 	}
@@ -97,8 +97,8 @@ class ProjectsControllerTest extends BaseCoreTest {
 		ProjectDetailResponse resp = objectMapper.readValue(response, ProjectDetailResponse.class);
 
 
-		assertNotNull(resp.getServiceDetail());
-		assertEquals("Portale Servizi Cittadino", resp.getServiceDetail().getName());
+		assertNotNull(resp.getProjectDetail());
+		assertEquals("Portale Servizi Cittadino", resp.getProjectDetail().getName());
 
 		logger.info(LOG_END_JUNIT, methodName, response);
 	}
