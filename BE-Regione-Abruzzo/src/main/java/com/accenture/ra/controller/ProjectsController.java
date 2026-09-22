@@ -5,7 +5,6 @@ import com.accenture.ra.dto.request.ProjectPatchRequest;
 import com.accenture.ra.dto.request.RequestDetail;
 import com.accenture.ra.dto.response.*;
 import com.accenture.ra.request.ProjectFilterCriteria;
-import com.accenture.ra.request.RequestFilterCriteria;
 import com.accenture.ra.service.impl.ProjectServiceImpl;
 import com.accenture.ra.utils.Constants;
 import com.accenture.ra.utils.JsonUtils;

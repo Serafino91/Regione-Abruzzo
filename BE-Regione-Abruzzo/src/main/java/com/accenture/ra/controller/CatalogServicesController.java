@@ -238,6 +238,7 @@ public class CatalogServicesController {
             )
     })
     @PostMapping(value = "/filter")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'ROLE_USER', 'ROLE_ADMIN', 'DELEGATE_CREATOR')")
     public ResponseEntity<CatalogServicesListResponse> getFilteredServices(@RequestBody @Valid ServiceFilterCriteria criteria) {
         long start = System.currentTimeMillis();
         String methodName = "getFilteredServices";
@@ -250,9 +251,6 @@ public class CatalogServicesController {
         logger.info(Constants.LOG_END_CONTROLLER,methodName, JsonUtils.toJson(catalogServicesListResponse),timeElapsed);
 
         return ResponseEntity.status(HttpStatus.OK).body(catalogServicesListResponse);
-    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'ROLE_USER', 'ROLE_ADMIN', 'DELEGATE_CREATOR')")
-    public ResponseEntity<CatalogServicesListResponse> getFilteredServices() {
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
@@ -572,9 +570,8 @@ public class CatalogServicesController {
             )
     })
     @GetMapping("getServices/{category-id}")
-    public ResponseEntity<CatalogServicesListResponse>getServiceByCategory(
     @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'ROLE_USER', 'ROLE_ADMIN', 'DELEGATE_CREATOR')")
-    public ResponseEntity<CatalogServicesListResponse>getServiceDetail(
+    public ResponseEntity<CatalogServicesListResponse>getServiceByCategory(
             @Parameter(
                     description = "Identificativo univoco del servizio",
                     required = true,
