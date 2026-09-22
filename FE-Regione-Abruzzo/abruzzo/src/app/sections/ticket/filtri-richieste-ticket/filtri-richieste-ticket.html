@@ -55,6 +55,7 @@
     </div>
 
     <div class="row mt-3">
+        
         <div class="col-4">
             <label for="statoRichiestaId">Stato richiesta</label>
 
@@ -62,9 +63,9 @@
                 <select id="statoRichiestaId" formControlName="statoRichiesta" class="form-select form-select-rounded">
                     <option value="0">Tutti</option>
 
-                    @for (stato of statiRichiesta; track stato.id) {
-                    <option [value]="stato.id">
-                        {{ stato.content }}
+                    @for (stato of statiRichiesta; track stato.key) {
+                    <option [value]="stato.key">
+                        {{ stato.value }}
                     </option>
                     }
                 </select>

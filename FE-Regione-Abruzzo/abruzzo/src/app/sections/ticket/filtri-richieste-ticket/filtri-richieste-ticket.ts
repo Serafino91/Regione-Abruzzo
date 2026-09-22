@@ -1,8 +1,10 @@
 import { Component, OnInit, DestroyRef, inject, signal } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { tap, finalize } from 'rxjs';
+import { finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
+import { RequestState } from '../../../constants/request-state-constants';
 
 import { CategoriaService } from '../../../services/categoria.service';
 import { CategoriaModel } from '../../../model/categoria.model';
@@ -40,9 +42,10 @@ export class FiltriRichiesteTicket implements OnInit {
 	categorie: CategoriaModel[] = [];
 	idCategoria = 0;
 	servizi: ServizioModel[] = [];
-	statiRichiesta = [
-		{ id: 1, content: "stato 1" }
-	];
+	statiRichiesta = Object.entries(RequestState).map(([key, value]) => ({
+		key,
+		value,
+	}));
 
 	ngOnInit(): void {
 		this.getCategorie();
