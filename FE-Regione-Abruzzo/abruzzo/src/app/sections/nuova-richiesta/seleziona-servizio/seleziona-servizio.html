@@ -155,7 +155,8 @@
                       type="number"
                       class="form-control form-control-rounded"
                       [formControl]="getParamControl(servizio, param)"
-                      [class.is-invalid]="getParamControl(servizio, param).invalid && getParamControl(servizio, param).touched"/>
+                      [class.is-invalid]="getParamControl(servizio, param).invalid && getParamControl(servizio, param).touched"
+                      (input)="onParamInput(servizio, param, $event)"/>
 
                     @if (getParamControl(servizio, param).hasError('min') && getParamControl(servizio, param).touched) {
                       <div class="invalid-feedback d-block">

@@ -4,16 +4,16 @@ import { PageHeader } from '../../components/page-header/page-header';
 import { CategoriaService } from '../../services/categoria.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CategoriaModel } from '../../model/categoria.model';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-nuovo-servizio',
   imports: [PageHeader, ReactiveFormsModule],
+  standalone: true,
   templateUrl: './nuovo-servizio.html',
   styleUrl: './nuovo-servizio.css',
 })
 export class NuovoServizio {
-
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef);
@@ -33,7 +33,23 @@ export class NuovoServizio {
   servizioForm = new FormGroup({
     nome: new FormControl('', Validators.required),
     descrizione: new FormControl('', Validators.required),
-    stato: new FormControl('', Validators.required)
+    os: new FormGroup(
+      {
+        family: new FormControl('', Validators.required),
+        versione: new FormControl('', Validators.required),
+      },
+      Validators.required,
+    ),
+    hardware: new FormGroup(
+      {
+        vcpu: new FormControl('', Validators.required),
+        ram_gb: new FormControl('', Validators.required),
+        disks: new FormArray([]),
+      },
+      Validators.required,
+    ),
+    network_interfaces: new FormArray([]),
+
   });
 
   goBack(): void {

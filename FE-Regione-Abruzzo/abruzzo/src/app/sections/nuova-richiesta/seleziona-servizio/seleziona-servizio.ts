@@ -19,8 +19,9 @@ import { LabelServizio } from '../../../components/label-servizio/label-servizio
 interface ParamForm {
   id: FormControl<number>;
   value: FormControl<number>;
+  min: FormControl<number>;
+  max: FormControl<number>;
 }
-
 interface ServizioForm {
   params: FormGroup<{ [key: string]: FormGroup<ParamForm> }>;
 }
@@ -190,16 +191,55 @@ export class SelezionaServizio implements OnInit {
     return this.formGroup.get('servizi') as FormArray<FormGroup>;
   }
 
+  getParamMin(servizio: AbstractControl, param: string): number | null {
+    const value = servizio.get(['params', param, 'min'])?.value;
+    return value != null ? Number(value) : null;
+  }
+
+  getParamMax(servizio: AbstractControl, param: string): number | null {
+    const value = servizio.get(['params', param, 'max'])?.value;
+    return value != null ? Number(value) : null;
+  }
+
+  onParamInput(servizio: AbstractControl, param: string, event: Event): void {
+    const control = this.getParamControl(servizio, param);
+    const input = event.target as HTMLInputElement;
+    const value = input.valueAsNumber;
+
+    if (isNaN(value)) {
+      return;
+    }
+
+    const min = this.getParamMin(servizio, param);
+    const max = this.getParamMax(servizio, param);
+
+    let clamped = value;
+
+    // 1. mai negativo, in ogni caso
+    if (clamped < 0) {
+      clamped = 0;
+    }
+
+    // 2. poi applica anche i limiti specifici del parametro
+    if (min !== null && clamped < min) {
+      clamped = min;
+    } else if (max !== null && clamped > max) {
+      clamped = max;
+    }
+
+    if (clamped !== value) {
+      input.value = clamped.toString();
+    }
+
+    control.setValue(clamped);
+  }
+
   getParamControl(servizio: AbstractControl, param: string): FormControl {
     return servizio.get(['params', param, 'value']) as FormControl;
   }
 
   getKeys(paramsGroup: AbstractControl): string[] {
     return paramsGroup instanceof FormGroup ? Object.keys(paramsGroup.controls) : [];
-  }
-
-  getParamErrorControl(servizio: AbstractControl, param: string): AbstractControl | null {
-    return servizio.get(['params', param, 'value']);
   }
 
   rimuoviServizio(index: number): void {
