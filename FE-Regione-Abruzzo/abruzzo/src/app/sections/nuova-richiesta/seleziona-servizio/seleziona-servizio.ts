@@ -143,14 +143,17 @@ export class SelezionaServizio implements OnInit {
     for (let i = 0; i < unit; i++) {
       const paramsGroup = new FormGroup({});
       servizio.params.forEach((p) => {
+        const min = p.minValue ?? 0;
+        const max = p.maxValue ?? Number.MAX_SAFE_INTEGER;
+
         paramsGroup.addControl(
           p.name,
           new FormGroup({
             id: new FormControl(p.id),
             value: new FormControl(p.minValue ?? 0, [
               Validators.required,
-              Validators.min(Number(p.minValue)),
-              Validators.max(Number(p.maxValue)),
+              Validators.min(Number(min)),
+              Validators.max(Number(max)),
             ]),
           }),
         );
