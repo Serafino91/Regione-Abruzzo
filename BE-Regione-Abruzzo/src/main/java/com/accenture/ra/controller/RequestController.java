@@ -374,7 +374,7 @@ public class RequestController {
 					)
 	})
 	@PostMapping(value = "/filter")
-	public ResponseEntity<RequestListResponse> getFilteredRequests(@RequestBody @Valid RequestFilterCriteria criteria) {
+	public ResponseEntity<RequestListResponse> getFilteredRequests(@RequestBody RequestFilterCriteria criteria) {
 		
 		List<RequestDetail> results = requestService.filterRequest(criteria);
 

@@ -28,11 +28,28 @@ public class RequestSpecification {
 
             var predicates = new java.util.ArrayList<>();
 
+            // Filtro per id
+            if (criteria.getRequestId() != null) {
+                predicates.add(criteriaBuilder.equal(root.get("requestId"), criteria.getRequestId()));
+            }
+            
             // Filtro per stato
             if (criteria.getStateId() != null) {
                 predicates.add(criteriaBuilder.equal(root.get("state").get("id"), criteria.getStateId()));
             }
 
+            // Filtro per categoria (service type)
+            if (criteria.getCategoryId() != null) {
+				Join<RequestEntity, RequestServiceEntity> requestServiceJoin =
+						root.join("requestServices", JoinType.INNER);
+
+				Join<RequestServiceEntity, ServiceEntity> serviceJoin =
+						requestServiceJoin.join("service", JoinType.INNER);
+
+				predicates.add(criteriaBuilder.equal(serviceJoin.get("serviceType").get("id"), criteria.getCategoryId()));
+//				query.distinct(true);
+			}
+            
             // Filtro per servizi
             if (criteria.getServiceIds() != null && !criteria.getServiceIds().isEmpty()) {
                 Join<RequestEntity, RequestServiceEntity> requestServiceJoin =

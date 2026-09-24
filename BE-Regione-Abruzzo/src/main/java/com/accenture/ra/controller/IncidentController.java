@@ -3,13 +3,17 @@ package com.accenture.ra.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.accenture.ra.dto.response.TicketModel;
+import com.accenture.ra.request.IncidentFilterCriteria;
 import com.accenture.ra.service.impl.IncidentServiceImpl;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -177,4 +181,46 @@ public class IncidentController {
         return ResponseEntity.ok(incidentServiceImpl.getIncidentDetail(code));
 
 	}
+    
+    @Operation(
+    	    summary = "Incident filtrati",
+    	    description = "Recupera un elenco di incident in funzione ai filtri impostati."
+    	)
+    	@ApiResponses(value = {
+    	    @ApiResponse(
+    	        responseCode = "200",
+    	        description = "Incident recuperati correttamente",
+    	        content = @Content(
+    	            mediaType = "application/json",
+    	            schema = @Schema(implementation = TicketModel.class)
+    	        )
+    	    ),
+    	    @ApiResponse(
+    	        responseCode = "404",
+    	        description = "Incident non trovati",
+    	        content = @Content(
+    	            mediaType = "application/json",
+    	            examples = @ExampleObject(
+    	                name = "Incident non trovati",
+    	                value = """
+    	                    {
+    	                      "error": "Incident non trovati"
+    	                    }
+    	                    """
+    	            )
+    	        )
+    	    ),
+    	    @ApiResponse(
+    	        responseCode = "500",
+    	        description = "Errore interno del server",
+    	        content = @Content
+    	    )
+    	})
+    	@PostMapping(value = "/filter")
+    	public ResponseEntity<List<TicketModel>> getFilteredIncidents(@RequestBody IncidentFilterCriteria criteria) {
+    	    List<TicketModel> results = incidentServiceImpl.filterIncident(criteria);
+    	    return ResponseEntity.status(HttpStatus.OK).body(results);
+    	}
+
+    
 }
