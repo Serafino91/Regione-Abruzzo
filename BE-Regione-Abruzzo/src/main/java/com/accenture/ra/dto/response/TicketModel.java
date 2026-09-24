@@ -19,7 +19,7 @@ public class TicketModel {
 
     private TicketStateModel state;
 
-    private String category;
+    private TicketCategoryModel category;
 
     private String subcategory;
 

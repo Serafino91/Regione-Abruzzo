@@ -26,8 +26,9 @@ public class TicketEntity {
     @JoinColumn(name = "state_id", nullable = false)
     private TicketStateEntity state;
 
-    @Column(name = "category", length = 255)
-    private String category;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private CategoryEntity category;
 
     @Column(name = "subcategory", length = 255)
     private String subcategory;

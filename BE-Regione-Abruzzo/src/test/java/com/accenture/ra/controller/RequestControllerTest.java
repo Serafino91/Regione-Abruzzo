@@ -54,6 +54,57 @@ class RequestControllerTest extends BaseCoreTest {
 	}
 
 	@Test
+	void createRequestParamRequiredMissingTest() throws Exception {
+
+		final String methodName = "RequestControllerTest.createRequestParamRequiredMissingTest()";
+		logger.info(LOG_START_JUNIT, methodName);
+		final String bodyContent = readStringFromFile("mocks/request/bodyRequestCreateParamRequiredMissingMock.json");
+
+		MultiValueMap<String, String> values = new LinkedMultiValueMap<>();
+		values.add("accept", "application/json");
+		HttpHeaders headers = new HttpHeaders(values);
+
+		final String response = this.callPUTmethodWithStatusResponseAsString("/request", MediaType.APPLICATION_JSON,
+				headers, bodyContent, this.badRequest);
+
+		logger.info(LOG_END_JUNIT, methodName, response);
+	}
+
+	@Test
+	void createRequestParamBelowMinTest() throws Exception {
+
+		final String methodName = "RequestControllerTest.createRequestParamBelowMinTest()";
+		logger.info(LOG_START_JUNIT, methodName);
+		final String bodyContent = readStringFromFile("mocks/request/bodyRequestCreateParamBelowMinMock.json");
+
+		MultiValueMap<String, String> values = new LinkedMultiValueMap<>();
+		values.add("accept", "application/json");
+		HttpHeaders headers = new HttpHeaders(values);
+
+		final String response = this.callPUTmethodWithStatusResponseAsString("/request", MediaType.APPLICATION_JSON,
+				headers, bodyContent, this.badRequest);
+
+		logger.info(LOG_END_JUNIT, methodName, response);
+	}
+
+	@Test
+	void createRequestParamAboveMaxTest() throws Exception {
+
+		final String methodName = "RequestControllerTest.createRequestParamAboveMaxTest()";
+		logger.info(LOG_START_JUNIT, methodName);
+		final String bodyContent = readStringFromFile("mocks/request/bodyRequestCreateParamAboveMaxMock.json");
+
+		MultiValueMap<String, String> values = new LinkedMultiValueMap<>();
+		values.add("accept", "application/json");
+		HttpHeaders headers = new HttpHeaders(values);
+
+		final String response = this.callPUTmethodWithStatusResponseAsString("/request", MediaType.APPLICATION_JSON,
+				headers, bodyContent, this.badRequest);
+
+		logger.info(LOG_END_JUNIT, methodName, response);
+	}
+
+	@Test
 	void getFilteredRequestsTest() throws Exception {
 
 		final String methodName = "RequestControllerTest.getFilteredRequestsTest()";
