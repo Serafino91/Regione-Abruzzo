@@ -7,6 +7,10 @@ import com.accenture.ra.request.RequestCreationRequest;
 import com.accenture.ra.request.RequestFilterCriteria;
 import com.accenture.ra.service.impl.RequestServiceImpl;
 
+import com.accenture.ra.utils.Constants;
+import com.accenture.ra.utils.JsonUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +38,7 @@ import java.util.List;
 @RequestMapping(value="/request")
 @Tag(name="request", description = "Gruppo relativo alla creazione e gestione richieste")
 public class RequestController {
+	Logger logger = LoggerFactory.getLogger(CatalogServicesController.class);
 
 	@Autowired
 	RequestServiceImpl requestService;
@@ -181,7 +186,16 @@ public class RequestController {
 	@GetMapping
 	public ResponseEntity<RequestListResponse> getCatalogRequestsList() {
 
-		return ResponseEntity.ok(new RequestListResponse(requestService.getAllRequests()));
+		long start = System.currentTimeMillis();
+		String methodName = "getCatalogRequestsList";
+		logger.info(Constants.LOG_START_CONTROLLER, methodName);
+
+		RequestListResponse requestListResponse = new RequestListResponse(requestService.getAllRequests());
+
+		long timeElapsed = System.currentTimeMillis() - start;
+		logger.info(Constants.LOG_END_CONTROLLER,methodName, JsonUtils.toJson(requestListResponse),timeElapsed);
+
+		return ResponseEntity.ok(requestListResponse);
 	}
 
 	@Operation(
@@ -276,7 +290,14 @@ public class RequestController {
 	@PutMapping
 	public ResponseEntity<RequestDetailResponse> createRequest(@RequestBody @Valid RequestCreationRequest req) {
 
+		long start = System.currentTimeMillis();
+		String methodName = "createRequest";
+		logger.info(Constants.LOG_START_CONTROLLER, methodName);
+
 		RequestDetailResponse result = requestService.createRequest(req);
+
+		long timeElapsed = System.currentTimeMillis() - start;
+		logger.info(Constants.LOG_END_CONTROLLER,methodName, JsonUtils.toJson(result),timeElapsed);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(result);
 	}
@@ -376,7 +397,14 @@ public class RequestController {
 	@PostMapping(value = "/filter")
 	public ResponseEntity<RequestListResponse> getFilteredRequests(@RequestBody RequestFilterCriteria criteria) {
 		
+		long start = System.currentTimeMillis();
+		String methodName = "getFilteredRequests";
+		logger.info(Constants.LOG_START_CONTROLLER, methodName);
+
 		List<RequestDetail> results = requestService.filterRequest(criteria);
+
+		long timeElapsed = System.currentTimeMillis() - start;
+		logger.info(Constants.LOG_END_CONTROLLER,methodName, JsonUtils.toJson(results),timeElapsed);
 
 		return ResponseEntity.status(HttpStatus.OK).body(new RequestListResponse(results));
 	}
@@ -482,12 +510,17 @@ public class RequestController {
 					required = true,
 					example = "req_1234876523"
 					)
-			@PathVariable("request-id") String requestId
-			) {
+			@PathVariable("request-id") String requestId) {
+
+		long start = System.currentTimeMillis();
+		String methodName = "getRequestDetail";
+		logger.info(Constants.LOG_START_CONTROLLER, methodName);
+
 		RequestDetail requestDetail = requestService.getRequestById(requestId);
 
-		return ResponseEntity.ok(
-				new RequestDetailResponse(requestDetail)
-				);
+		long timeElapsed = System.currentTimeMillis() - start;
+		logger.info(Constants.LOG_END_CONTROLLER,methodName, JsonUtils.toJson(requestDetail),timeElapsed);
+
+		return ResponseEntity.ok(new RequestDetailResponse(requestDetail));
 	}
 }

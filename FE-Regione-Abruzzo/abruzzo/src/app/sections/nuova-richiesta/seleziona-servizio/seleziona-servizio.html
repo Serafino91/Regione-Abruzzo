@@ -10,7 +10,7 @@
     <h5 class="pb-3">Seleziona il servizio da richiedere</h5>
 
     <form [formGroup]="aggiungiServizioForm" class="">
-      <div class="row mb-4 align-items-end justify-content-evenly ">
+      <div class="row mb-4 align-items-end  ">
         <div class="col-12 col-md-5">
           <label for="categoria">Categoria</label>
           <select id="categoria"
@@ -48,7 +48,7 @@
                  formControlName="unit">
         </div>
 
-        <div class="col-12 col-md-1 d-grid">
+        <div class="col-12 col-md-1 d-grid ms-auto me-5">
           <button type="button"
                   class="btn btn-primary"
                   (click)="aggiungiServizi()">
@@ -149,15 +149,25 @@
 
                 @for (param of getKeys(servizio.get('params')!); track param) {
                   <div class="col-3 mb-3">
-
-                    <label>
-                      {{ param }}
-                    </label>
+                    <label>{{ param }}</label>
 
                     <input
                       type="number"
                       class="form-control form-control-rounded"
-                      [formControl]="getParamControl(servizio, param)"/>
+                      [formControl]="getParamControl(servizio, param)"
+                      [class.is-invalid]="getParamControl(servizio, param).invalid && getParamControl(servizio, param).touched"
+                      (input)="onParamInput(servizio, param, $event)"/>
+
+                    @if (getParamControl(servizio, param).hasError('min') && getParamControl(servizio, param).touched) {
+                      <div class="invalid-feedback d-block">
+                        Valore minimo: {{ getParamControl(servizio, param).getError('min').min }}
+                      </div>
+                    }
+                    @if (getParamControl(servizio, param).hasError('max') && getParamControl(servizio, param).touched) {
+                      <div class="invalid-feedback d-block">
+                        Valore massimo: {{ getParamControl(servizio, param).getError('max').max }}
+                      </div>
+                    }
                   </div>
                 }
               </div>

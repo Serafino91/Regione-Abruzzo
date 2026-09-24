@@ -116,6 +116,46 @@ public class RequestServiceImpl implements RequestService {
 														"Parametro non trovato con id: " + paramReq.getId()
 												));
 
+										if (Boolean.TRUE.equals(paramEntity.getIsRequired())
+												&& (paramReq.getValue() == null || paramReq.getValue().isBlank())) {
+											throw new CMPException(
+													"Il parametro '" + paramEntity.getName() + "' è obbligatorio",
+													TipoErroreBase.VALIDAZIONE
+											);
+										}
+
+										if (paramReq.getValue() != null && !paramReq.getValue().isBlank()) {
+											try {
+												double valore = Double.parseDouble(paramReq.getValue());
+												if (paramEntity.getMinValue() != null && !paramEntity.getMinValue().isBlank()) {
+													double min = Double.parseDouble(paramEntity.getMinValue());
+													if (valore < min) {
+														throw new CMPException(
+																"Il valore del parametro '" + paramEntity.getName()
+																		+ "' (" + valore + ") non può essere inferiore a " + paramEntity.getMinValue(),
+																TipoErroreBase.VALIDAZIONE
+														);
+													}
+												}
+												if (paramEntity.getMaxValue() != null && !paramEntity.getMaxValue().isBlank()) {
+													double max = Double.parseDouble(paramEntity.getMaxValue());
+													if (valore > max) {
+														throw new CMPException(
+																"Il valore del parametro '" + paramEntity.getName()
+																		+ "' (" + valore + ") non può essere superiore a " + paramEntity.getMaxValue(),
+																TipoErroreBase.VALIDAZIONE
+														);
+													}
+												}
+											} catch (NumberFormatException e) {
+												throw new CMPException(
+														"Il valore del parametro '" + paramEntity.getName()
+																+ "' non è un numero valido: " + paramReq.getParamValue(),
+														TipoErroreBase.VALIDAZIONE
+												);
+											}
+										}
+
 										RequestServiceParamEntity requestServiceParamEntity =
 												new RequestServiceParamEntity();
 

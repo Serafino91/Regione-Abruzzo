@@ -11,6 +11,12 @@
         </span>
         }
 
+        @if (row.statoIncident === 'In lavorazione') {
+        <span class="badge-stato badge-work-in-progress">
+            {{ row.statoIncident }}
+        </span>
+        }
+
         @if (row.statoIncident === 'Chiuso') {
         <span class="badge-stato badge-close">
             {{ row.statoIncident }}
@@ -25,13 +31,14 @@
 
         @else if (col.key === 'azioni') {
 
-          <div class="align-content-center">
-            <button [routerLink]="['/home/ticket/incident/dettaglio-incident-ticket']" type="button" class="btn btn-link p-0 text-decoration-none" >
-              <svg class="icon icon-primary" aria-hidden="true">
-                <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-chevron-right'"></use>
-              </svg>
+        <div class="align-content-center">
+            <button [routerLink]="['/home/ticket/incident/dettaglio-incident-ticket', row.codice]" type="button"
+                class="btn btn-link p-0 text-decoration-none">
+                <svg class="icon icon-primary" aria-hidden="true">
+                    <use [attr.href]="'assets/bootstrap-italia/sprites.svg#it-chevron-right'"></use>
+                </svg>
             </button>
-          </div>
+        </div>
 
         } @else {
         {{ getValue(row, col.key) }}

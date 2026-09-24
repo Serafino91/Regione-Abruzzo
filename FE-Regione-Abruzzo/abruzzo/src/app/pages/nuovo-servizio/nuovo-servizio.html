@@ -1,177 +1,44 @@
-<div class="section">
+<div class="section-padding">
     <app-page-header [titolo]="'Nuovo servizio'"
         [sottotitolo]="'Seleziona la categoria e la sottocategoria a cui appartiene il nuovo servizio e poi compila tutti i campi obbligatori, per poter portare a termine la creazione.'">
     </app-page-header>
 </div>
 
-<div class="section color-bg-lightgrey">
+<div class="section-padding color-bg-lightgrey ">
+
+  <form [formGroup]="categoriaForm">
     <div class="row mb-5">
         <div class="col-6">
-            <label for="categoria">Categoria</label>
-            <select class="form-select form-select-rounded">
-                <option value="">Seleziona Categoria</option>
-            </select>
+
+          <label for="categoria">Categoria</label>
+          <select id="categoria"
+                  class="form-select form-select-rounded"
+                  formControlName="categoria">
+            <option value="">Seleziona Categoria</option>
+            @for (categoria of categorie; track categoria.id) {
+              <option [value]="categoria.id">
+                {{ categoria.name + " - " + categoria.description }}
+              </option>
+            }
+          </select>
         </div>
 
         <div class="col-6">
-            <label for="categoria">Sottocategoria</label>
-            <select class="form-select form-select-rounded" disabled>
+            <label for="sottocategoria">Sottocategoria</label>
+            <select class="form-select form-select-rounded"  formControlName="sottocategoria">
                 <option value="">Seleziona Sottocategoria</option>
             </select>
         </div>
     </div>
 
+  </form>
+
     <hr style="height: 2px; border-radius: 2px;" />
+
+  @if (tipoFormAttivo === 'iaas') {
+    <app-form-iaa-s [formGroup]="servizioForm"></app-form-iaa-s>
+  }
 </div>
 
-<div class="section">
-
-    <div class="richiesta-detail-card">
-        <div class="row mb-4">
-            <div class="col-12">
-                <h5 class="fw-bold">Dati servizio</h5>
-            </div>
-        </div>
-
-        <div class="row mb-4">
-            <div class="col-12">
-                <h6 class="fw-bold">
-                    <svg class="icon icon-sm">
-                        <use href="assets/bootstrap-italia/sprites.svg#it-file"></use>
-                    </svg>
-                    Lorem ipsum
-                </h6>
-            </div>
-        </div>
-
-        <div class="row mb-4">
-            <div class="col-8">
-                <label>Lorem ipsum*</label>
-
-                <div class="position-relative">
-                    <input type="text" class="form-control form-control-rounded" placeholder="Inserisci Lorem ipsum">
-                </div>
-            </div>
-        </div>
-
-        <div class="row mb-4">
-            <div class="col-4">
-                <label>Lorem ipsum*</label>
-
-                <div class="position-relative">
-                    <input type="text" class="form-control form-control-rounded" placeholder="Inserisci Lorem ipsum">
-                </div>
-            </div>
-
-            <div class="col-4">
-                <label>Lorem ipsum*</label>
-
-                <div class="position-relative">
-                    <input type="text" class="form-control form-control-rounded" placeholder="Inserisci Lorem ipsum">
-                </div>
-            </div>
-        </div>
-
-        <hr style="height: 2px; border-radius: 2px;" />
-
-        <div class="row mb-4">
-            <div class="col-12">
-                <h6 class="fw-bold">
-                    <svg class="icon icon-sm">
-                        <use href="assets/bootstrap-italia/sprites.svg#it-file"></use>
-                    </svg>
-                    Lorem ipsum
-                </h6>
-            </div>
-        </div>
-
-        <div class="row mb-4">
-            <div class="col-4">
-                <label>Lorem ipsum*</label>
-
-                <div class="position-relative">
-                    <input type="text" class="form-control form-control-rounded" placeholder="Inserisci Lorem ipsum">
-                </div>
-            </div>
-
-            <div class="col-4">
-                <label>Lorem ipsum*</label>
-
-                <div class="position-relative">
-                    <input type="text" class="form-control form-control-rounded" placeholder="Inserisci Lorem ipsum">
-                </div>
-            </div>
-
-            <div class="col-4">
-                <label>Lorem ipsum*</label>
-
-                <div class="position-relative">
-                    <input type="text" class="form-control form-control-rounded" placeholder="Inserisci Lorem ipsum">
-                </div>
-            </div>
-        </div>
-
-        <hr style="height: 2px; border-radius: 2px;" />
-
-        <div class="row mb-4">
-            <div class="col-12">
-                <h6 class="fw-bold">
-                    <svg class="icon icon-sm">
-                        <use href="assets/bootstrap-italia/sprites.svg#it-file"></use>
-                    </svg>
-                    Lorem ipsum
-                </h6>
-            </div>
-        </div>
-
-        <div class="row mb-4">
-            <div class="col-4">
-                <label>Lorem ipsum*</label>
-
-                <div class="position-relative">
-                    <input type="text" class="form-control form-control-rounded" placeholder="Inserisci Lorem ipsum">
-                </div>
-            </div>
-
-            <div class="col-4">
-                <label>Lorem ipsum*</label>
-
-                <div class="position-relative">
-                    <input type="text" class="form-control form-control-rounded" placeholder="Inserisci Lorem ipsum">
-                </div>
-            </div>
-
-            <div class="col-4">
-                <label>Lorem ipsum*</label>
-
-                <div class="position-relative">
-                    <input type="text" class="form-control form-control-rounded" placeholder="Inserisci Lorem ipsum">
-                </div>
-            </div>
-        </div>
-
-        <div class="row mb-4">
-            <div class="col-4">
-                <label>Lorem ipsum*</label>
-
-                <div class="position-relative">
-                    <input type="text" class="form-control form-control-rounded" placeholder="Inserisci Lorem ipsum">
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<div class="section mb-5">
-    <hr style="color: var(--color-primary); height: 2px; background-color: var(--color-primary); border-radius: 2px;">
-
-    <div class="row justify-content-between">
-        <div class="col-auto">
-            <button type="button" class="btn btn-secondary" (click)="goBack()">ANNULLA</button>
-        </div>
-        <div class="col-auto">
-            <button type="button" class="btn btn-primary">CREA SERVIZIO</button>
-        </div>
-    </div>
-</div>
+<!--
+<button type="button" class="btn btn-primary" (click)="debugForm()">Debug Form</button> -->

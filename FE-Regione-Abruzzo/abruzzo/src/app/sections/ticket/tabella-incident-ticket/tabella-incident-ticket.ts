@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TableComponent, TableColumn } from '../../../components/table/table';
 import { RouterLink } from '@angular/router';
+import { IncidentTicketModel } from '../../../model/ticket.model';
 
 @Component({
     selector: 'app-tabella-incident-ticket',
@@ -25,32 +26,7 @@ export class TabellaIncidentTicket {
         { key: 'azioni', label: 'Azioni', sortable: false, class: 'text-center col-actions' }
     ];
 
-    listaIncidentTicket = [
-        {
-            statoIncident: "Aperto",
-            codice: "Codice 1",
-            categoria: "categoria 1",
-            sottoCategoria: "Sottocategoria 1",
-            dataApertura: "31/07/2026",
-            richiedente: "progetto 1"
-        },
-        {
-            statoIncident: "Aperto",
-            codice: "Codice 2",
-            categoria: "categoria 1",
-            sottoCategoria: "Sottocategoria 1",
-            dataApertura: "31/07/2026",
-            richiedente: "progetto 1"
-        },
-        {
-            statoIncident: "Chiuso",
-            codice: "Codice 3",
-            categoria: "categoria 1",
-            sottoCategoria: "Sottocategoria 1",
-            dataApertura: "31/07/2026",
-            richiedente: "progetto 1"
-        }
-    ];
+    @Input() listaIncidentTicket: IncidentTicketModel[] = [];
 
     getValue(row: any, key: string): string {
         if (!key) return '';

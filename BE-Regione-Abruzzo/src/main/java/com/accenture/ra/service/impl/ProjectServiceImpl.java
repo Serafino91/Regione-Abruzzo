@@ -1,5 +1,6 @@
 package com.accenture.ra.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.accenture.ra.entity.RequestEntity;
@@ -56,8 +57,15 @@ public class ProjectServiceImpl implements ProjectService {
 	 *
 	 * @return ...
 	 */
-    public ProjectDetail patchProject(Long serviceId, ProjectPatchRequest request) {
-        return null;
+    public ProjectDetail patchProject(Long projectId, ProjectPatchRequest request) {
+        ProjectEntity entity = projectRepository.findById(projectId).orElseThrow();
+
+        if (request.getName() != null) entity.setName(request.getName());
+        if (request.getDestinationLink() != null) entity.setDestinationLink(request.getDestinationLink());
+        if (request.getDescription() != null) entity.setDescription(request.getDescription());
+        entity.setUpdatedAt(LocalDateTime.now());
+
+        return projectMapper.toModel(projectRepository.save(entity));
     }
 
     /**

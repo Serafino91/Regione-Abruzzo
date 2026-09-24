@@ -45,7 +45,7 @@ export const routes: Routes = [
   { path: 'home/progetti/dettaglio-progetto/:id', component: DettaglioProgetto },
   { path: 'home/incident/dettaglio-incident/:id', component: DettaglioIncident },
   { path: 'home/deleghe/dettaglio-delega', component: DettaglioDelega },
-  { path: 'home/ticket/richieste-servizi/dettaglio-richiesta-ticket', component: DettaglioRichiestaTicket },
-  { path: 'home/ticket/incident/dettaglio-incident-ticket', component: DettaglioIncidentTicket },
+  { path: 'home/ticket/richieste-servizi/dettaglio-richiesta-ticket/:id', component: DettaglioRichiestaTicket },
+  { path: 'home/ticket/incident/dettaglio-incident-ticket/:id', component: DettaglioIncidentTicket },
   { path: 'home/ticket/accreditamenti/dettaglio-accreditamento-ticket', component: DettaglioAccreditamentoTicket }
 ];
