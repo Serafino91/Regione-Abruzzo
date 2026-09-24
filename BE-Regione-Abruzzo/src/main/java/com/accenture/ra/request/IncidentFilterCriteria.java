@@ -15,7 +15,7 @@ import lombok.Setter;
 @Builder
 public class IncidentFilterCriteria {
     private String code;
-    private String category;
+    private Long categoryId;
     private String subcategory;
     private Long stateId;
     private LocalDateTime openingDateFrom;

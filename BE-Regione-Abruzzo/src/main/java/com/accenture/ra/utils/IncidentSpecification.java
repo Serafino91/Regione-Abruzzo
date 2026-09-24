@@ -1,8 +1,9 @@
 package com.accenture.ra.utils;
 
+import org.springframework.data.jpa.domain.Specification;
+
 import com.accenture.ra.entity.TicketEntity;
 import com.accenture.ra.request.IncidentFilterCriteria;
-import org.springframework.data.jpa.domain.Specification;
 
 public class IncidentSpecification {
 
@@ -20,8 +21,8 @@ public class IncidentSpecification {
             }
 
             // Filtro per categoria
-            if (criteria.getCategory() != null && !criteria.getCategory().isEmpty()) {
-                predicates.add(criteriaBuilder.equal(root.get("category"), criteria.getCategory()));
+            if (criteria.getCategoryId() != null) {
+            	predicates.add(criteriaBuilder.equal(root.get("category").get("id"), criteria.getCategoryId()));
             }
 
             // Filtro per sottocategoria
