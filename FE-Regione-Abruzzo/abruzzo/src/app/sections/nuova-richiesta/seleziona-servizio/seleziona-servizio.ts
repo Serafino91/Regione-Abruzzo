@@ -1,5 +1,12 @@
 import { Component, DestroyRef, inject, Input, OnInit, ChangeDetectorRef } from '@angular/core';
-import {AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators,} from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ServizioModel } from '../../../model/servizioModel';
 import { ServiziService } from '../../../services/servizi.service';
 import { CategoriaService } from '../../../services/categoria.service';
@@ -9,6 +16,16 @@ import { ServiceName } from '../../../constants/service-name.constants';
 import { ServiceCategory } from '../../../constants/service-category.constants';
 import { LabelServizio } from '../../../components/label-servizio/label-servizio';
 
+interface RigaServizioForm {
+  righeId: FormControl<number>;
+  servizioId: FormControl<string>;
+  categoriaId: FormControl<string>;
+  unit: FormControl<number>;
+  params: FormGroup;
+  item: FormControl<string>;
+  type: FormControl<string>;
+}
+
 @Component({
   selector: 'app-seleziona-servizio',
   imports: [ReactiveFormsModule, LabelServizio],
@@ -16,25 +33,21 @@ import { LabelServizio } from '../../../components/label-servizio/label-servizio
   styleUrl: './seleziona-servizio.css',
   standalone: true,
 })
-
-
 export class SelezionaServizio implements OnInit {
   private destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef);
+
   protected readonly ServiceName = ServiceName;
+
   private nextRigaId = 0;
 
   categorie: CategoriaModel[] = [];
   servizi: ServizioModel[] = [];
   servizio?: ServizioModel;
+  expanded: boolean[] = [];
 
   @Input({ required: true })
   formGroup!: FormGroup;
-
-  constructor(
-    private categoriaService: CategoriaService,
-    private serviziService: ServiziService,
-  ) {}
 
   aggiungiServizioForm = new FormGroup({
     categoria: new FormControl('', Validators.required),
@@ -42,31 +55,45 @@ export class SelezionaServizio implements OnInit {
     unit: new FormControl(1, [Validators.required, Validators.min(1)]),
   });
 
-  expanded: boolean[] = [];
+  constructor(
+    private categoriaService: CategoriaService,
+    private serviziService: ServiziService,
+  ) {}
 
-  toggleCollapse(index: number): void {
-    this.expanded[index] = !this.expanded[index];
-  }
+  // Lifecycle
+
   ngOnInit(): void {
     this.inizializzaForm();
     this.sincronizzaContatoreConRigheEsistenti();
+    this.sottoscriviCambioCategoria();
+    this.sottoscriviCambioServizio();
+    this.getCategorie();
+  }
 
+  private sottoscriviCambioCategoria(): void {
     this.aggiungiServizioForm
       .get('categoria')
       ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((id) => this.popolaServizi(Number(id)));
+  }
 
+  private sottoscriviCambioServizio(): void {
     this.aggiungiServizioForm
       .get('servizio')
       ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((id) => {
-        if (id == null) {
-          return;
+        if (id != null) {
+          this.onServizioChange(id);
         }
-        this.onServizioChange(id);
       });
+  }
 
-    this.getCategorie();
+  // Inizializzazione
+
+  private inizializzaForm(): void {
+    if (!this.formGroup.get('servizi')) {
+      this.formGroup.addControl('servizi', new FormArray<FormGroup<RigaServizioForm>>([]));
+    }
   }
 
   private sincronizzaContatoreConRigheEsistenti(): void {
@@ -77,13 +104,9 @@ export class SelezionaServizio implements OnInit {
     this.nextRigaId = righeIdEsistenti.length > 0 ? Math.max(...righeIdEsistenti) + 1 : 0;
   }
 
-  private inizializzaForm(): void {
-    if (!this.formGroup.get('servizi')) {
-      this.formGroup.addControl('servizi', new FormArray([]));
-    }
-  }
+  // Caricamento dati
 
-  getCategorie() {
+  getCategorie(): void {
     this.categoriaService
       .getCategorie()
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -108,70 +131,94 @@ export class SelezionaServizio implements OnInit {
       .subscribe({
         next: (resp) => {
           this.servizi = resp;
-          this.cdr.detectChanges(); //
+          this.cdr.detectChanges();
         },
       });
   }
 
   onServizioChange(id: string): void {
     const servizio = this.servizi.find((s) => s.id === id);
-    if (!servizio) return;
+    if (!servizio) {
+      return;
+    }
     this.servizio = servizio;
     this.cdr.detectChanges();
   }
 
+  // Aggiunta / rimozione righe
+
   aggiungiServizi(): void {
-    const idServizio = this.aggiungiServizioForm.get('servizio')?.value;
-    const unit = this.aggiungiServizioForm.get('unit')?.value;
-    const categoriaId = this.aggiungiServizioForm.get('categoria')?.value;
+    const { servizio: idServizio, unit, categoria: categoriaId } = this.aggiungiServizioForm.value;
 
     if (unit == null || idServizio == null || categoriaId == null) {
       return;
     }
 
     const servizio = this.servizi.find((s) => String(s.id) === String(idServizio));
-    if (!servizio) return;
-    const servizi = this.formGroup.get('servizi') as FormArray;
+    if (!servizio) {
+      return;
+    }
 
     for (let i = 0; i < unit; i++) {
-      const paramsGroup = new FormGroup({});
-      servizio.params.forEach((p) => {
-        const min = p.minValue ?? 0;
-        const max = p.maxValue ?? Number.MAX_SAFE_INTEGER;
+      this.serviziArray.push(this.creaRigaServizio(servizio, categoriaId));
+    }
 
-        paramsGroup.addControl(
-          p.name,
-          new FormGroup({
-            id: new FormControl(p.id),
-            value: new FormControl(p.minValue ?? 0, [
-              Validators.required,
-              Validators.min(Number(min)),
-              Validators.max(Number(max)),
-            ]),
-          }),
-        );
-      });
+    this.resetFormAggiunta();
+  }
 
-      servizi.push(
+  private creaRigaServizio(servizio: ServizioModel, categoriaId: string): FormGroup {
+    return new FormGroup({
+      righeId: new FormControl(this.nextRigaId++),
+      servizioId: new FormControl(servizio.id),
+      categoriaId: new FormControl(categoriaId),
+      unit: new FormControl(1),
+      params: this.creaGruppoParametri(servizio),
+      item: new FormControl(servizio.item),
+      type: new FormControl(servizio.type),
+    });
+  }
+
+  private creaGruppoParametri(servizio: ServizioModel): FormGroup {
+    const paramsGroup = new FormGroup({});
+
+    servizio.params.forEach((p) => {
+      const min = p.minValue ?? 0;
+      const max = p.maxValue ?? Number.MAX_SAFE_INTEGER;
+
+      paramsGroup.addControl(
+        p.name,
         new FormGroup({
-          righeId: new FormControl(this.nextRigaId++),
-          servizioId: new FormControl(servizio.id),
-          categoriaId: new FormControl(categoriaId),
-          unit: new FormControl(unit),
-          params: paramsGroup,
-          item: new FormControl(servizio.item),
-          type: new FormControl(servizio.type),
+          id: new FormControl(p.id),
+          value: new FormControl(p.minValue ?? 0, [
+            Validators.required,
+            Validators.min(Number(min)),
+            Validators.max(Number(max)),
+          ]),
         }),
       );
+    });
 
-      this.aggiungiServizioForm.reset({
-        categoria: '',
-        servizio: '',
-        unit: 1,
-      });
-      this.servizi = [];
-      this.servizio = undefined;
-    }
+    return paramsGroup;
+  }
+
+  private resetFormAggiunta(): void {
+    this.aggiungiServizioForm.reset({
+      categoria: '',
+      servizio: '',
+      unit: 1,
+    });
+    this.servizi = [];
+    this.servizio = undefined;
+  }
+
+  rimuoviServizio(index: number): void {
+    this.serviziArray.removeAt(index);
+  }
+
+  // UI helpers
+
+  toggleCollapse(index: number): void {
+    this.expanded[index] = !this.expanded[index];
   }
 
   get serviziArray(): FormArray<FormGroup> {
@@ -188,6 +235,34 @@ export class SelezionaServizio implements OnInit {
     return value != null ? Number(value) : null;
   }
 
+  getParamControl(servizio: AbstractControl, param: string): FormControl {
+    return servizio.get(['params', param, 'value']) as FormControl;
+  }
+
+  getKeys(paramsGroup: AbstractControl): string[] {
+    return paramsGroup instanceof FormGroup ? Object.keys(paramsGroup.controls) : [];
+  }
+
+  onUnitInput(event: Event): void {
+    const control = this.aggiungiServizioForm.get("unit");
+    const input = event.target as HTMLInputElement;
+    const value = input.valueAsNumber;
+
+    if (isNaN(value)) {
+      return;
+    }
+
+    const min = 1;
+    const clamped = this.clamp(value, min, null);
+
+    if (clamped !== value) {
+      input.value = clamped.toString();
+    }
+
+    control?.setValue(clamped);
+  }
+
+
   onParamInput(servizio: AbstractControl, param: string, event: Event): void {
     const control = this.getParamControl(servizio, param);
     const input = event.target as HTMLInputElement;
@@ -199,18 +274,7 @@ export class SelezionaServizio implements OnInit {
 
     const min = this.getParamMin(servizio, param);
     const max = this.getParamMax(servizio, param);
-
-    let clamped = value;
-
-    if (clamped < 0) {
-      clamped = 0;
-    }
-
-    if (min !== null && clamped < min) {
-      clamped = min;
-    } else if (max !== null && clamped > max) {
-      clamped = max;
-    }
+    const clamped = this.clamp(value, min, max);
 
     if (clamped !== value) {
       input.value = clamped.toString();
@@ -219,15 +283,13 @@ export class SelezionaServizio implements OnInit {
     control.setValue(clamped);
   }
 
-  getParamControl(servizio: AbstractControl, param: string): FormControl {
-    return servizio.get(['params', param, 'value']) as FormControl;
-  }
-
-  getKeys(paramsGroup: AbstractControl): string[] {
-    return paramsGroup instanceof FormGroup ? Object.keys(paramsGroup.controls) : [];
-  }
-
-  rimuoviServizio(index: number): void {
-    this.serviziArray.removeAt(index);
+  private clamp(value: number, min: number | null, max: number | null): number {
+    let result = Math.max(value, 0);
+    if (min !== null && result < min) {
+      result = min;
+    } else if (max !== null && result > max) {
+      result = max;
+    }
+    return result;
   }
 }
