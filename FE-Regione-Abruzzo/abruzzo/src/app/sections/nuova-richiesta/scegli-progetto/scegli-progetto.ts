@@ -141,8 +141,11 @@ export class ScegliProgetto implements OnInit {
             nome: new FormControl('', Validators.required),
             link: new FormControl('', Validators.required),
             descrizione: new FormControl('', Validators.required),
+            dataScadenzaProgetto: new FormControl('', Validators.required)
           }),
-        );
+        )
+      } else {
+        this.formGroup.controls['progetto'].reset();
       }
     } else {
       this.formGroup.removeControl('progetto');

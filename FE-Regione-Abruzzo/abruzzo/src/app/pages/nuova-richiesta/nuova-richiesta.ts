@@ -166,6 +166,7 @@ export default class NuovaRichiesta {
         destinationLink: p.link,
         description: p.descrizione,
         createAt: new Date().toISOString(),
+        dataScadenzaProgetto: p.dataScadenzaProgetto
       };
     } else {
       const p: ProgettoModel = progettoForm['selezione'];
