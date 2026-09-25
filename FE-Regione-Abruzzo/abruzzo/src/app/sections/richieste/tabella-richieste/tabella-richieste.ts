@@ -5,10 +5,11 @@ import { ServizioModel } from '../../../model/servizioModel';
 import { STATO_CONFIG, STATO_TICKET_CONFIG, StatoRichiesta, StatoTicket } from '../../../constants/request-state-badge.constants';
 import { RouterLink } from '@angular/router';
 import { TicketModel } from '../../../model/ticket.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-tabella-richieste',
-  imports: [TableComponent, RouterLink],
+  imports: [TableComponent, RouterLink, DatePipe],
   standalone: true,
   templateUrl: './tabella-richieste.html',
   styleUrl: './tabella-richieste.css',
