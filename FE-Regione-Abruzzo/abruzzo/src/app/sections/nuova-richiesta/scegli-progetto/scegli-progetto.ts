@@ -169,6 +169,8 @@ export class ScegliProgetto implements OnInit {
   }
 
   private passaANuovoProgetto(): void {
+    this.formGroup.reset();
+
     this.formGroup.get('ricercaNome')?.disable();
     this.formGroup.get('selezione')?.disable();
     this.formGroup.get('dataDa')?.disable();
