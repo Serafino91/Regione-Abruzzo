@@ -18,6 +18,10 @@
       <span class="fw-bold text-dark">{{ row.code }}</span>
     }
 
+    @else if (col.key === 'category') {
+      {{ row.category?.name }}
+    }
+
     @else if (col.key === 'azioni') {
       <a class="btn btn-link p-0 text-decoration-none" [routerLink]="['/home/incident/dettaglio-incident', row.code]" aria-label="Azioni incident">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="#0066CC">

@@ -29,6 +29,9 @@
         <span class="fw-bold text-dark">{{ row.idIncident }}</span>
         }
 
+        @if (col.key === 'categoria') {
+          {{ row.categoria?.name }}
+        }
         @else if (col.key === 'azioni') {
 
         <div class="align-content-center">

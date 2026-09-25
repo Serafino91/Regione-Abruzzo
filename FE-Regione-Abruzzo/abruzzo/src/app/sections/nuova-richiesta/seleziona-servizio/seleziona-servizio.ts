@@ -1,12 +1,5 @@
 import { Component, DestroyRef, inject, Input, OnInit, ChangeDetectorRef } from '@angular/core';
-import {
-  AbstractControl,
-  FormArray,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import {AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators,} from '@angular/forms';
 import { ServizioModel } from '../../../model/servizioModel';
 import { ServiziService } from '../../../services/servizi.service';
 import { CategoriaService } from '../../../services/categoria.service';
