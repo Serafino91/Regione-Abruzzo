@@ -77,7 +77,7 @@ public class ServiceTypeController {
             )
     })
 	@GetMapping
-    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN', 'ROLE_DEV')")
 	public ResponseEntity<ServiceTypeListResponse> getCatalogServiceTypeList() {
 		
         return ResponseEntity.ok(new ServiceTypeListResponse(typeService.getAllServiceTypes()));

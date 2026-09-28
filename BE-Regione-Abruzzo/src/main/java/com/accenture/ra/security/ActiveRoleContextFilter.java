@@ -34,19 +34,29 @@ public class ActiveRoleContextFilter extends OncePerRequestFilter {
                 return;
             }
 
-            // 2. Extract allowed authorities for the user
+            // 2. Estrae le autorizzazioni dell'utente e le converte in un Set per una ricerca più efficiente
             Set<String> allowedAuthorities = userDetails.getAuthorities().stream()
                     .map(GrantedAuthority::getAuthority)
                     .collect(Collectors.toSet());
 
+            // BYPASS DEV
+            if (allowedAuthorities.contains("ROLE_DEV")) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+
             String requestedRoleHeader = request.getHeader("X-Active-Role");
             String activeAuthority = null;
 
-            // 3. Fallback logic: if header is missing, default to the user's first authority
+// Header obbligatorio
             if (requestedRoleHeader == null || requestedRoleHeader.isBlank()) {
-                activeAuthority = allowedAuthorities.stream().findFirst().orElse(null);
+                response.sendError(
+                        HttpServletResponse.SC_BAD_REQUEST,
+                        "Header X-Active-Role obbligatorio."
+                );
+                return;
             } else {
-                // Validate requested role with or without "ROLE_" prefix
+
                 String formattedWithPrefix = requestedRoleHeader.startsWith("ROLE_")
                         ? requestedRoleHeader
                         : "ROLE_" + requestedRoleHeader;
@@ -56,7 +66,10 @@ public class ActiveRoleContextFilter extends OncePerRequestFilter {
                 } else if (allowedAuthorities.contains(formattedWithPrefix)) {
                     activeAuthority = formattedWithPrefix;
                 } else {
-                    response.sendError(HttpServletResponse.SC_FORBIDDEN, "Ruolo attivo non autorizzato per questo utente.");
+                    response.sendError(
+                            HttpServletResponse.SC_FORBIDDEN,
+                            "Ruolo attivo non autorizzato per questo utente."
+                    );
                     return;
                 }
             }

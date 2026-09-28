@@ -52,15 +52,15 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        // 1. ALWAYS permit CORS preflight OPTIONS requests
+                        // 1. Permette sempre CORS preflight OPTIONS requests
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        // 2. Public endpoints
+                        // 2. Endpoints pubblici (non richiedono autenticazione)
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/", "/index.html", "/home", "/api/home/**").permitAll()
                         .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
 
-                        // 3. Authenticated endpoints
+                        // 3. Endpoints protetti (richiedono autenticazione)
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
@@ -73,14 +73,14 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // Allow Angular Dev Server
+        // Permette la connessione da localhost:4200 (dove gira l'app Angular)
         configuration.setAllowedOrigins(List.of("http://localhost:4200"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
 
-        // Allow ALL headers sent by the browser (Authorization, X-Active-Role, Accept, Content-Type, etc.)
+        // permette tutti gli headers mandati da browser (Authorization, X-Active-Role, Accept, Content-Type, etc.)
         configuration.setAllowedHeaders(List.of("*"));
 
-        // Expose response headers to Angular if needed
+        // Espone gli headers Authorization e X-Active-Role nella risposta, così che il client possa leggerli
         configuration.setExposedHeaders(List.of("Authorization", "X-Active-Role"));
 
         configuration.setAllowCredentials(true);

@@ -23,7 +23,7 @@ public class CustomUserDetails extends User {
             AccreditationStatus accreditationStatus,
             DelegateType delegateType,
             boolean active) {
-        // Pass dummy empty string for password field expected by Spring Security
+        // password vuota mockata per Spring Security
         super(fiscalCode, "", authorities);
         this.email = email;
         this.accreditationStatus = accreditationStatus;

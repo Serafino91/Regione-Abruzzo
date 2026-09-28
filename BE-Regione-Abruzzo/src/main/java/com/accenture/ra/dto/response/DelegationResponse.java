@@ -1,6 +1,7 @@
 package com.accenture.ra.dto.response;
 
 import com.accenture.ra.enums.DelegateType;
+import com.accenture.ra.enums.DelegationStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +17,7 @@ public class DelegationResponse {
     private Long id;
     private LocalDateTime delegationDate;
     private DelegateType delegateType;
-    private boolean active;
+    private DelegationStatus status;
     private LightUserResponse delegatedUser;
     private List<ProjectDetailResponse> projects;
     private LightUserResponse delegatedBy;

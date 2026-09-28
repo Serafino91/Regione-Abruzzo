@@ -110,7 +110,7 @@ public class CatalogServicesController {
             )
     })
     @GetMapping
-    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'ROLE_USER', 'DELEGATE_CREATOR', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'ROLE_USER', 'DELEGATE_CREATOR', 'ROLE_ADMIN', 'ROLE_DEV')")
     public ResponseEntity<CatalogServicesListResponse> getCatalogServicesList() {
         long start = System.currentTimeMillis();
         String methodName = "getCatalogServicesList";
@@ -178,7 +178,7 @@ public class CatalogServicesController {
             )
     })
     @PostMapping
-    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'ROLE_USER', 'ROLE_ADMIN', 'DELEGATE_CREATOR')")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'ROLE_USER', 'ROLE_ADMIN', 'DELEGATE_CREATOR', 'ROLE_DEV')")
     public ResponseEntity<CatalogServiceResponse> createCatalogService() {
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -238,7 +238,7 @@ public class CatalogServicesController {
             )
     })
     @PostMapping(value = "/filter")
-    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'ROLE_USER', 'ROLE_ADMIN', 'DELEGATE_CREATOR')")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'ROLE_USER', 'ROLE_ADMIN', 'DELEGATE_CREATOR', 'ROLE_DEV')")
     public ResponseEntity<CatalogServicesListResponse> getFilteredServices(@RequestBody @Valid ServiceFilterCriteria criteria) {
         long start = System.currentTimeMillis();
         String methodName = "getFilteredServices";
@@ -314,7 +314,7 @@ public class CatalogServicesController {
             )
     })
     @GetMapping("/{service-id}")
-    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'ROLE_USER', 'ROLE_ADMIN', 'DELEGATE_CREATOR')")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'ROLE_USER', 'ROLE_ADMIN', 'DELEGATE_CREATOR', 'ROLE_DEV')")
     public ResponseEntity<ServiceDetailResponse> getServiceDetail(
             @Parameter(
                     description = "Identificativo univoco del servizio",
@@ -415,7 +415,7 @@ public class CatalogServicesController {
             )
     })
     @PatchMapping("/{service-id}")
-    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'ROLE_USER', 'ROLE_ADMIN', 'DELEGATE_CREATOR')")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'ROLE_USER', 'ROLE_ADMIN', 'DELEGATE_CREATOR', 'ROLE_DEV')")
     public ResponseEntity<ServiceDetailResponse> patchServiceDetail(
             @Parameter(
                     description = "Identificativo univoco del servizio da modificare",
@@ -485,7 +485,7 @@ public class CatalogServicesController {
             )
     })
     @DeleteMapping("/{service-id}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_DEV')")
     public ResponseEntity<Void> deleteServiceDetail(
             @Parameter(
                     description = "Identificativo univoco del servizio da eliminare",
@@ -570,7 +570,7 @@ public class CatalogServicesController {
             )
     })
     @GetMapping("getServices/{category-id}")
-    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'ROLE_USER', 'ROLE_ADMIN', 'DELEGATE_CREATOR')")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'ROLE_USER', 'ROLE_ADMIN', 'DELEGATE_CREATOR', 'ROLE_DEV')")
     public ResponseEntity<CatalogServicesListResponse>getServiceByCategory(
             @Parameter(
                     description = "Identificativo univoco del servizio",

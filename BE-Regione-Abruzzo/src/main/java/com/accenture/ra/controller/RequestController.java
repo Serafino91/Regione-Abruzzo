@@ -185,7 +185,7 @@ public class RequestController {
 					)
 	})
 	@GetMapping
-	@PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN', 'ROLE_DEV')")
 	public ResponseEntity<RequestListResponse> getCatalogRequestsList() {
 
 		long start = System.currentTimeMillis();
@@ -290,7 +290,7 @@ public class RequestController {
 					)
 	})
 	@PutMapping
-	@PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN', 'ROLE_DEV')")
 	public ResponseEntity<RequestDetailResponse> createRequest(@RequestBody @Valid RequestCreationRequest req) {
 
 		long start = System.currentTimeMillis();
@@ -398,7 +398,7 @@ public class RequestController {
 					)
 	})
 	@PostMapping(value = "/filter")
-	@PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN', 'ROLE_DEV')")
 	public ResponseEntity<RequestListResponse> getFilteredRequests(@RequestBody @Valid RequestFilterCriteria criteria) {
 		long start = System.currentTimeMillis();
 		String methodName = "getFilteredRequests";
@@ -507,7 +507,7 @@ public class RequestController {
 					)
 	})
 	@GetMapping("/{request-id}")
-	@PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN', 'ROLE_DEV')")
 	public ResponseEntity<RequestDetailResponse> getRequestDetail(
 			@Parameter(
 					description = "Identificativo univoco della richiesta",

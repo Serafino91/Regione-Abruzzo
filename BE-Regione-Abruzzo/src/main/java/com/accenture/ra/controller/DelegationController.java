@@ -21,7 +21,7 @@ public class DelegationController {
 
 
     @PostMapping("/delegate")
-    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'USER', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'USER', 'ADMIN', 'ROLE_DEV')")
     public ResponseEntity<DelegationResponse> createDelegation(
             @Valid @RequestBody CreateDelegationRequest request,
             @RequestHeader("x-active-role") String activeRole) {
@@ -34,7 +34,7 @@ public class DelegationController {
      * GET /delegations/user/getDelegationsByDelegator
      */
     @GetMapping("/getDelegations")
-    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'ROLE_USER', 'ROLE_ADMIN', 'ROLE_DEV')")
     public ResponseEntity<List<DelegationResponse>> getDelegationsByDelegator(
             @RequestHeader("x-active-role") String activeRole) {
 

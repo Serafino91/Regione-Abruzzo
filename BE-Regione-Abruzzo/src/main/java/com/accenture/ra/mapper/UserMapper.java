@@ -8,6 +8,7 @@ import com.accenture.ra.dto.response.UserResponse;
 import com.accenture.ra.entity.DelegationEntity;
 import com.accenture.ra.entity.ProjectEntity;
 import com.accenture.ra.entity.UserEntity;
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -21,11 +22,16 @@ public interface UserMapper {
 
     List<UserResponse> toDtoList(List<UserEntity> userEntities);
 
-    // Map delegatedBy to the shallow summary DTO (no delegates list = no loop!)
     @Mapping(target = "delegatedUser", ignore = true)
     @Mapping(target = "delegatedBy", source = "delegatedBy")
     DelegationResponse toDelegationResponse(DelegationEntity delegate);
 
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "fiscalCode", source = "fiscalCode")
+    @Mapping(target = "firstName", source = "firstName")
+    @Mapping(target = "lastName", source = "lastName")
+    @Mapping(target = "email", source = "email")
     LightUserResponse toLightUserResponse(UserEntity entity);
 
     @Mapping(target = "projectDetail", expression = "java(toProjectDetail(entity))")

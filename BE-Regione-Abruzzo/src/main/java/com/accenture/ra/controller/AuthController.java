@@ -33,7 +33,7 @@ public class AuthController {
     }
 
     @PostMapping("user/accreditation")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_DEV')")
     public ResponseEntity<UserResponse> processAccreditation(@Valid @RequestBody AccreditationRequest request) {
         UserResponse response = authService.processAccreditation(request);
         return ResponseEntity.ok(response);
@@ -44,7 +44,7 @@ public class AuthController {
      * GET /delegations/user/getDelegatedProjects
      */
     @GetMapping("/user/get-roles")
-    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'ROLE_USER', 'ROLE_ADMIN', 'DELEGATE_CREATOR', 'DELEGATE_VIEWER')")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'ROLE_USER', 'ROLE_ADMIN', 'DELEGATE_CREATOR', 'DELEGATE_VIEWER', 'ROLE_DEV')")
     public ResponseEntity<UserDetails> getRoles(
             @RequestHeader("x-active-role") String activeRole,
             Authentication authentication) {

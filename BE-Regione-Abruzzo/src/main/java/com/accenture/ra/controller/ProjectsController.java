@@ -106,7 +106,7 @@ public class ProjectsController {
             )
     })
     @GetMapping
-    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN', 'ROLE_DEV')")
     public ResponseEntity<ProjectListResponse> getProjectList() {
         long start = System.currentTimeMillis();
         String methodName = "getProjectList";
@@ -168,7 +168,7 @@ public class ProjectsController {
             )
     })
     @PostMapping
-    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN', 'ROLE_DEV')")
     public ResponseEntity<CatalogServiceResponse> createProject() {
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -228,7 +228,7 @@ public class ProjectsController {
             )
     })
     @PostMapping(value = "/filter")
-    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN', 'ROLE_DEV')")
     public ResponseEntity<ProjectListResponse> getFilteredProject(@RequestBody @Valid ProjectFilterCriteria criteria) {
         long start = System.currentTimeMillis();
         String methodName = "getFilteredProject";
@@ -295,7 +295,7 @@ public class ProjectsController {
             )
     })
     @GetMapping("/{project-id}")
-    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN', 'ROLE_DEV')")
     public ResponseEntity<ProjectDetailResponse> getProjectDetail(
             @Parameter(
                     description = "Identificativo univoco del servizio",
@@ -458,7 +458,7 @@ public class ProjectsController {
             )
     })
     @DeleteMapping("/{project-id}")
-    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN', 'ROLE_DEV')")
     public ResponseEntity<Void> deleteProjectsDetail(
             @Parameter(
                     description = "Identificativo univoco del progetto da eliminare",
@@ -492,7 +492,7 @@ public class ProjectsController {
             @ApiResponse(responseCode = "400", description = "Parametri non validi")
     })
     @GetMapping("/{name}/{destination-link}")
-    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN', 'ROLE_DEV')")
     public ResponseEntity<Boolean> existsProject(
     		@PathVariable("name") String name,
     		@PathVariable("destination-link") String destinationLink) {
