@@ -256,7 +256,6 @@ public class CatalogServicesController {
     })
     @PostMapping(value = "/filter")
     @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'ROLE_USER', 'ROLE_ADMIN', 'DELEGATE_CREATOR', 'ROLE_DEV')")
-    public ResponseEntity<CatalogServicesListResponse> getFilteredServices(@RequestBody @Valid ServiceFilterCriteria criteria) {
     public ResponseEntity<CatalogServicesListResponse> getFilteredServices(@RequestBody ServiceFilterCriteria criteria) {
         long start = System.currentTimeMillis();
         String methodName = "getFilteredServices";
