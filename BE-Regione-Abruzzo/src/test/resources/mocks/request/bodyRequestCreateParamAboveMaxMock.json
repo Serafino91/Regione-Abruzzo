@@ -1,0 +1,19 @@
+{
+  "project": { "id": 1 },
+  "state": "In elaborazione",
+  "services": [
+    {
+      "id": 1,
+      "params": [
+        {
+          "id": 1,
+          "name": "vcpu",
+          "paramValue": "100",
+          "value": "100"
+        }
+      ]
+    }
+  ],
+  "sendFrom": "2026-09-21T08:00:00",
+  "sendTo": "2026-09-21T18:00:00"
+}

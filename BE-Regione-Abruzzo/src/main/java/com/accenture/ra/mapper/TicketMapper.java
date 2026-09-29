@@ -11,11 +11,13 @@ import java.util.List;
 public interface TicketMapper {
 
     @Mapping(source = "state.stateName", target = "state.name")
+    @Mapping(source = "category.categoria", target = "category.name")
     TicketModel toModel(TicketEntity entity);
 
     List<TicketModel> toModelList(List<TicketEntity> entities);
 
     @Mapping(source = "state.name", target = "state.stateName")
+    @Mapping(source = "category.name", target = "category.categoria")
     TicketEntity toEntity(TicketModel model);
 
     List<TicketEntity> toEntityList(List<TicketModel> models);

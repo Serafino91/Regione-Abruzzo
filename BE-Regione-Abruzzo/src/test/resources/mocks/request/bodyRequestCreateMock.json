@@ -26,17 +26,17 @@
         {
           "id": 1,
           "name": "vcpu",
-          "value": "2"
+          "value": "4"
         },
         {
           "id": 2,
           "name": "vramGb",
-          "value": "4"
+          "value": "8"
         },
         {
           "id": 3,
           "name": "storageGb",
-          "value": "100"
+          "value": "200"
         }
       ]
     },

@@ -15,5 +15,6 @@ DELETE FROM state;
 DELETE FROM users;
 DELETE FROM ticket;
 DELETE FROM ticket_state;
+DELETE FROM category;
 
 SET FOREIGN_KEY_CHECKS = 1;

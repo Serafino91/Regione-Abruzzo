@@ -17,7 +17,11 @@
       }
 
       @else if (col.key === 'code') {
-        <span class="fw-bold text-dark">{{ row.code }}</span>
+        <span class="fw-bold text-dark">{{ row.code  }}</span>
+      }
+
+      @else if (col.key === 'openingDate') {
+        <span class="fw-bold text-dark">{{ row.openingDate | date: 'dd/MM/yyyy - HH:mm' }}</span>
       }
 
       @else if (col.key === 'azioni') {
@@ -56,6 +60,12 @@
           {{ row.state?.config?.label }}
         </span>
       }
+
+
+      @else if (col.key === 'createdAt') {
+        <span class=" text-dark">{{ row.createdAt | date: 'dd/MM/yyyy - HH:mm' }}</span>
+      }
+
 
       @else if (col.key === 'azioni') {
 

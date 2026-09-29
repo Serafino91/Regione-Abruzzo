@@ -1,10 +1,10 @@
-<div class="section">
+<div class="section-padding">
     <app-page-header [titolo]="'Nuovo servizio'"
         [sottotitolo]="'Seleziona la categoria e la sottocategoria a cui appartiene il nuovo servizio e poi compila tutti i campi obbligatori, per poter portare a termine la creazione.'">
     </app-page-header>
 </div>
 
-<div class="section color-bg-lightgrey">
+<div class="section-padding color-bg-lightgrey ">
 
   <form [formGroup]="categoriaForm">
     <div class="row mb-5">
@@ -23,8 +23,6 @@
           </select>
         </div>
 
-
-
         <div class="col-6">
             <label for="sottocategoria">Sottocategoria</label>
             <select class="form-select form-select-rounded"  formControlName="sottocategoria">
@@ -36,79 +34,11 @@
   </form>
 
     <hr style="height: 2px; border-radius: 2px;" />
+
+  @if (tipoFormAttivo === 'iaas') {
+    <app-form-iaa-s [formGroup]="servizioForm"></app-form-iaa-s>
+  }
 </div>
 
-<div class="section">
-
-  <form [formGroup]="servizioForm">
-    <div class="richiesta-detail-card shadow-card">
-        <div class="row mb-4 ">
-            <div class="col-12">
-                <h5 class="fw-bold">Dati servizio</h5>
-            </div>
-        </div>
-
-
-        <div class="row mb-4 gap-2">
-
-            <div class="col-12">
-                <h6 class="fw-bold">
-                    <svg class="icon icon-sm">
-                        <use href="assets/bootstrap-italia/sprites.svg#it-file"></use>
-                    </svg>
-                    Informazioni Generali
-                </h6>
-            </div>
-
-
-          <div class="col-8">
-            <label for="nome">Nome</label>
-            <input
-              id="nome"
-              type="text"
-              formControlName="nome"
-              placeholder="Inserisci Nome"
-              class="form-control form-control-rounded">
-          </div>
-
-          <div class="col-4">
-            <label for="nome">Descrizione</label>
-            <input
-              id="descrizione"
-              type="text"
-              formControlName="descrizione"
-              placeholder="Inserisci Descrizione"
-              class="form-control form-control-rounded">
-          </div>
-
-          <div class="col-4">
-            <label for="stato">Stato</label>
-            <select class="form-select form-select-rounded"
-                    placeholder="Inserisci Stato"
-                    formControlName="stato">
-              <option value="">Seleziona uno stato</option>
-              <option value="stato1">Stopped</option>
-              <option value="stato2">Running</option>
-              <option value="user">Paused</option>
-            </select>
-          </div>
-        </div>
-
-      <hr/>
-    </div>
-
-  </form>
-</div>
-
-<div class="section mb-5">
-    <hr style="color: var(--color-primary); height: 2px; background-color: var(--color-primary); border-radius: 2px;">
-
-    <div class="row justify-content-between">
-        <div class="col-auto">
-            <button type="button" class="btn btn-secondary" (click)="goBack()">Annulla</button>
-        </div>
-        <div class="col-auto">
-            <button type="button" class="btn btn-primary">Crea Servizio</button>
-        </div>
-    </div>
-</div>
+<!--
+<button type="button" class="btn btn-primary" (click)="debugForm()">Debug Form</button> -->

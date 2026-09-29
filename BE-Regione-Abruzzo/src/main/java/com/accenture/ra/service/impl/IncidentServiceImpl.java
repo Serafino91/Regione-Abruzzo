@@ -9,7 +9,9 @@ import com.accenture.ra.dto.response.TicketModel;
 import com.accenture.ra.entity.TicketEntity;
 import com.accenture.ra.mapper.TicketMapper;
 import com.accenture.ra.repository.TicketRepository;
+import com.accenture.ra.request.IncidentFilterCriteria;
 import com.accenture.ra.service.IncidentService;
+import com.accenture.ra.utils.IncidentSpecification;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,5 +35,11 @@ public class IncidentServiceImpl implements IncidentService {
 	public TicketModel getIncidentDetail(String ticketCode) {
 		TicketEntity ticket = ticketRepository.findByCode(ticketCode);
 		return ticketMapper.toModel(ticket);
+	}
+	
+	@Override
+	public List<TicketModel> filterIncident(IncidentFilterCriteria criteria) {
+	    List<TicketEntity> entities = ticketRepository.findAll(IncidentSpecification.withFilters(criteria));
+	    return ticketMapper.toModelList(entities);
 	}
 }

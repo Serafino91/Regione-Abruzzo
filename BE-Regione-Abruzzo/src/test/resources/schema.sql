@@ -221,6 +221,18 @@ CREATE TABLE `ticket_state`
   DEFAULT CHARSET = utf8mb4;
 
 -- ------------------------------------------------------
+-- Table structure and data for table `category`
+-- ------------------------------------------------------
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE `category`
+(
+    `id`       bigint(20)   NOT NULL AUTO_INCREMENT,
+    `categoria` varchar(255) NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;
+
+-- ------------------------------------------------------
 -- Table structure and data for table `ticket`
 -- ------------------------------------------------------
 DROP TABLE IF EXISTS `ticket`;
@@ -229,16 +241,18 @@ CREATE TABLE `ticket`
     `id`           bigint(20)  NOT NULL AUTO_INCREMENT,
     `code`         varchar(50) NOT NULL,
     `state_id`     bigint(20)  NOT NULL,
-    `category`     varchar(255) DEFAULT NULL,
-    `subcategory`  varchar(255) DEFAULT NULL,
-    `opening_date` date         DEFAULT NULL,
-    `applicant`    varchar(255) DEFAULT NULL,
+    `category_id`  bigint(20)              DEFAULT NULL,
+    `subcategory`  varchar(255)            DEFAULT NULL,
+    `opening_date` date                    DEFAULT NULL,
+    `applicant`    varchar(255)            DEFAULT NULL,
     `created_at`   datetime    NOT NULL,
-    `updated_at`   datetime     DEFAULT NULL,
+    `updated_at`   datetime                DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `code` (`code`),
     KEY `fk_ticket_state` (`state_id`),
-    CONSTRAINT `fk_ticket_state` FOREIGN KEY (`state_id`) REFERENCES `ticket_state` (`id`)
+    KEY `fk_ticket_category` (`category_id`),
+    CONSTRAINT `fk_ticket_state` FOREIGN KEY (`state_id`) REFERENCES `ticket_state` (`id`),
+    CONSTRAINT `fk_ticket_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 

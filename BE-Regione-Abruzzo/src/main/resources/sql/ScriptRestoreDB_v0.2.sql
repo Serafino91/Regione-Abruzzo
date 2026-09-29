@@ -504,3 +504,37 @@ VALUES (2, 1),
 -- Re-enable checks
 SET FOREIGN_KEY_CHECKS = 1;
 SET UNIQUE_CHECKS = 1;
+
+--agg. con category
+CREATE TABLE IF NOT EXISTS `category` (
+                                          `id` bigint(20) NOT NULL AUTO_INCREMENT,
+    `categoria` varchar(255) NOT NULL,
+    PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+ALTER TABLE `ticket`
+    ADD COLUMN `category_id` bigint(20) DEFAULT NULL AFTER `state_id`;
+
+INSERT INTO `category` (`categoria`)
+SELECT DISTINCT `category`
+FROM `ticket`
+WHERE `category` IS NOT NULL AND `category` != '';
+
+UPDATE `ticket` t
+    JOIN `category` c ON t.`category` = c.`categoria`
+    SET t.`category_id` = c.`id`;
+
+ALTER TABLE `ticket`
+    ADD CONSTRAINT `fk_ticket_category`
+        FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
+            ON DELETE SET NULL ON UPDATE CASCADE;
+
+ALTER TABLE `ticket`
+DROP COLUMN `category`;
+
+insert
+into regione_abruzzo.category (id,categoria)
+values(1, 'Incident');
+
+insert into regione_abruzzo.category (id, categoria)
+values(2, 'accreditamenti');

@@ -399,7 +399,7 @@ public class RequestController {
 	})
 	@PostMapping(value = "/filter")
 	@PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'DELEGATE_CREATOR', 'ROLE_USER', 'ROLE_ADMIN', 'ROLE_DEV')")
-	public ResponseEntity<RequestListResponse> getFilteredRequests(@RequestBody @Valid RequestFilterCriteria criteria) {
+	public ResponseEntity<RequestListResponse> getFilteredRequests(@RequestBody RequestFilterCriteria criteria) {
 		long start = System.currentTimeMillis();
 		String methodName = "getFilteredRequests";
 		logger.info(Constants.LOG_START_CONTROLLER, methodName);

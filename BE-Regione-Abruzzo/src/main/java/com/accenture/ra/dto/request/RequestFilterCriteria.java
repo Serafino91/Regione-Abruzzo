@@ -16,9 +16,11 @@ import java.util.List;
 @Builder
 public class RequestFilterCriteria {
 
+	private String requestId;
+	
     private Long stateId;
 
-    private Long categoryId;
+    private Long categoryId; //(il service type)
 
     private List<Long> serviceIds;
 
@@ -27,4 +29,5 @@ public class RequestFilterCriteria {
     private LocalDateTime sendTo;
 
     private Long projectId;
+    
 }
