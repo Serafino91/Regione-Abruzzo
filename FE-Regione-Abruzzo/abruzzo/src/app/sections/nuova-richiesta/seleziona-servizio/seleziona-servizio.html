@@ -45,7 +45,8 @@
           <input id="unit"
                  type="number"
                  class="form-control form-control-rounded"
-                 formControlName="unit">
+                 formControlName="unit"
+                 (input)="onUnitInput($event)">
         </div>
 
         <div class="col-12 col-md-1 d-grid ms-auto me-5">
@@ -75,7 +76,7 @@
                 <app-label-servizio [categoryId]="servizio.get('type')?.value"></app-label-servizio>
 
 
-                <h6 class="flex-fill">{{ ServiceName[servizio.get('servizioId')?.value.toString()] }}</h6>
+                <h6 class="flex-fill mb-0">{{ ServiceName[servizio.get('servizioId')?.value.toString()] }}</h6>
 
                 <div
                   class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center fw-bold"

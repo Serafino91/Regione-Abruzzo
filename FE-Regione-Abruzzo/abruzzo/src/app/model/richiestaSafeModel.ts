@@ -8,6 +8,7 @@ export interface RichiestaProjectDto {
   description?: string;
   createAt?: string;
   updateAt?: string;
+  dataScadenzaProgetto?: string;
 }
 
 export class RichiestaSafeModel {

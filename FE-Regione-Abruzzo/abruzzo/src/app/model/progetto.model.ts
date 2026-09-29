@@ -6,6 +6,7 @@ export class ProgettoModel {
   destinationLink!: string;
   description!: string;
   dataCreazione?: string;
+  dataScadenza?: string;
   dataUltimaModifica?: string;
   servizi?: ServizioModel[] = [];
 }
