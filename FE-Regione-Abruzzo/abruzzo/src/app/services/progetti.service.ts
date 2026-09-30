@@ -48,6 +48,6 @@ export class ProgettiService {
   }
 
   deleteProgetto(id: number) {
-    return this.http.delete<void>(`${ChiamateApiUrl.BASE_URL_SERVIZI}/${id}`);
+    return this.http.delete<void>(`${ChiamateApiUrl.BASE_URL_PROGETTI}/${id}`);
   }
 }
