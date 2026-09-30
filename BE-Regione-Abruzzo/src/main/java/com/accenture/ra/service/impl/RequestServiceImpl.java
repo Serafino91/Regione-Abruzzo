@@ -1,5 +1,6 @@
 package com.accenture.ra.service.impl;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -200,19 +201,32 @@ public class RequestServiceImpl implements RequestService {
 
 	// Alla creazione di una request, se il progetto non esiste lo creo, altrimenti lo recupero dal db
 	private ProjectEntity createOrFindProject(RequestCreationRequest req) {
-		if(projectRepository.existsById(req.getProject().getId())) {
-			return projectRepository.getReferenceById(req.getProject().getId());
-		} 
-		else if(!projectRepository.existsByNameAndDestinationLink(req.getProject().getName(),req.getProject().getDestinationLink())) { 
+		if (req.getProject().getId() != null
+				&& projectRepository.existsById(req.getProject().getId())) {
+
+			return projectRepository.getReferenceById(
+					req.getProject().getId());
+		}
+		else if (!projectRepository.existsByNameAndDestinationLink(
+				req.getProject().getName(),
+				req.getProject().getDestinationLink())) {
+
+			if (req.getProject().getExpirationDate() != null
+					&& req.getProject().getExpirationDate().isBefore(LocalDate.now())) {
+				throw new IllegalArgumentException(
+						"La data di scadenza del progetto non può essere nel passato.");
+			}
+
 			ProjectEntity newProject = new ProjectEntity();
 			newProject.setName(req.getProject().getName());
 			newProject.setDescription(req.getProject().getDescription());
 			newProject.setDestinationLink(req.getProject().getDestinationLink());
-			// TODO: settare le date qui o a db...? Decidiamo
+			newProject.setExpirationDate(req.getProject().getExpirationDate());
+
 			return projectRepository.save(newProject);
-		} 
+		}
 		else {
-			throw new IllegalArgumentException("Project with name " + req.getProject().getName() + "and destination " + req.getProject().getDestinationLink() + " already exists.");
+			throw new IllegalArgumentException("Project with name " + req.getProject().getName() + " and destination " + req.getProject().getDestinationLink() + " already exists.");
 		}
 			
 		

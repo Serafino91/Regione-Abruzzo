@@ -22,7 +22,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "delegations")
-@SQLDelete(sql = "UPDATE delegations SET `deleted` = true WHERE id=?")
+@SQLDelete(sql = "UPDATE delegations SET deleted = true WHERE id=?")
 @SQLRestriction("deleted = false")
 public class DelegationEntity {
 

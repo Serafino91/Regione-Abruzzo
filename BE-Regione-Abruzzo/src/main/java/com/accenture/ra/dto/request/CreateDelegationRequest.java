@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 public class CreateDelegationRequest {
-    @NotNull(message = "Id delegato obbligatorio e valido")
+    //@NotNull(message = "Id delegato obbligatorio e valido")
     private Long delegatedUser;
 
     @Pattern(regexp = "^[A-Za-z]{6}[0-9]{2}[A-Za-z]{1}[0-9]{2}[A-Za-z]{1}[0-9]{3}[A-Za-z]{1}$", message = "Formato Codice Fiscale non valido")
@@ -27,8 +27,9 @@ public class CreateDelegationRequest {
 
     private List<Long> projectIds;
 
-    @NotNull(message = "Id delegante obbligatorio")
+//    @NotNull(message = "Id delegante obbligatorio")
     private Long delegatedBy;
 
+    @NotNull(message = "La data di scadenza della delega è obbligatorio")
     private LocalDate expirationDate;
 }

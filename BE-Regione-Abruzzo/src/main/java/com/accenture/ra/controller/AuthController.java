@@ -46,7 +46,6 @@ public class AuthController {
     @GetMapping("/user/get-roles")
     @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'ROLE_USER', 'ROLE_ADMIN', 'DELEGATE_CREATOR', 'DELEGATE_VIEWER', 'ROLE_DEV')")
     public ResponseEntity<UserDetails> getRoles(
-            @RequestHeader("x-active-role") String activeRole,
             Authentication authentication) {
 
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();

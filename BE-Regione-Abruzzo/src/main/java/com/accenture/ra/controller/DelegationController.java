@@ -21,10 +21,17 @@ public class DelegationController {
 
 
     @PostMapping("/delegate")
-    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'DELEGATE_VIEWER', 'USER', 'ADMIN', 'ROLE_DEV')")
+    @PreAuthorize("""
+        hasAnyAuthority(
+        'ROLE_DELEGATE_MASTER',
+        'ROLE_DELEGATE_VIEWER',
+        'ROLE_USER',
+        'ROLE_ADMIN',
+        'ROLE_DEV'
+        )
+        """)
     public ResponseEntity<DelegationResponse> createDelegation(
-            @Valid @RequestBody CreateDelegationRequest request,
-            @RequestHeader("x-active-role") String activeRole) {
+            @Valid @RequestBody CreateDelegationRequest request) {
         DelegationResponse response = delegationService.createDelegation(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -34,9 +41,16 @@ public class DelegationController {
      * GET /delegations/user/getDelegationsByDelegator
      */
     @GetMapping("/getDelegations")
-    @PreAuthorize("hasAnyRole('DELEGATE_MASTER', 'ROLE_USER', 'ROLE_ADMIN', 'ROLE_DEV')")
-    public ResponseEntity<List<DelegationResponse>> getDelegationsByDelegator(
-            @RequestHeader("x-active-role") String activeRole) {
+    @PreAuthorize("""
+            hasAnyAuthority(
+            'ROLE_DELEGATE_MASTER',
+            'ROLE_DELEGATE_VIEWER',
+            'ROLE_USER',
+            'ROLE_ADMIN',
+            'ROLE_DEV'
+            )
+            """)
+    public ResponseEntity<List<DelegationResponse>> getDelegationsByDelegator() {
 
         List<DelegationResponse> response = delegationService.getDelegationsByDelegator();
         return ResponseEntity.ok(response);
@@ -47,8 +61,13 @@ public class DelegationController {
      * PATCH /delegations/approveDelegation
      */
     @PatchMapping("/{id}/approve")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<DelegationResponse> approveDelegation(@PathVariable("id") Long id, @RequestHeader("x-active-role") String activeRole) {
+    @PreAuthorize("""
+            hasAnyAuthority(
+            'ROLE_ADMIN',
+            'ROLE_DEV'
+            )
+            """)
+    public ResponseEntity<DelegationResponse> approveDelegation(@PathVariable("id") Long id) {
         DelegationResponse response = delegationService.approveAndActivateDelegation(id);
         return ResponseEntity.ok(response);
     }

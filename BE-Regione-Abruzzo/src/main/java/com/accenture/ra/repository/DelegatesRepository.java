@@ -14,12 +14,11 @@ import java.util.Optional;
 @Repository
 public interface DelegatesRepository extends JpaRepository<DelegationEntity, Long> {
 
-
     @Query("""
-        SELECT d FROM DelegationEntity d 
-        JOIN d.projects p 
-        WHERE d.delegatedUser.id = :userId 
-          AND p.id = :projectId 
+        SELECT d FROM DelegationEntity d
+        JOIN d.projects p
+        WHERE d.delegatedUser.id = :userId
+          AND p.id = :projectId
           AND d.status = com.accenture.ra.enums.DelegationStatus.ATTIVA
     """)
     Optional<DelegationEntity> findActiveDelegationByUserIdAndProjectId(
@@ -27,21 +26,18 @@ public interface DelegatesRepository extends JpaRepository<DelegationEntity, Lon
             @Param("projectId") Long projectId
     );
 
-    @Query("""
-        SELECT d FROM DelegationEntity d 
-        WHERE d.delegatedBy.id = :userId
-    """)
-    List<DelegationEntity> findByDelegatedBy(@Param("userId") Long id);
+    List<DelegationEntity> findByDelegatedById(Long userId);
 
     @Modifying
     @Query("""
-            UPDATE DelegationEntity d
-            SET d.deleted = true
-            WHERE d.deleted = false
-            AND d.expirationDate IS NOT NULL
-            AND d.expirationDate < :today
+        UPDATE DelegationEntity d
+        SET d.deleted = true,
+        d.status = com.accenture.ra.enums.DelegationStatus.SCADUTA
+        WHERE d.deleted = false
+          AND d.expirationDate IS NOT NULL
+          AND d.expirationDate < :today
     """)
-                int softDeleteExpiredDelegations(@Param("today") LocalDate today);
+    int softDeleteExpiredDelegations(@Param("today") LocalDate today);
 
     @Modifying
     @Query("""
@@ -52,7 +48,7 @@ public interface DelegatesRepository extends JpaRepository<DelegationEntity, Lon
               SELECT p.id
               FROM d.projects p
               WHERE p.deleted = true
-      )
+          )
     """)
     int softDeleteDelegationsOfDeletedProjects();
 }

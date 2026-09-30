@@ -1,5 +1,6 @@
 package com.accenture.ra.dto.request;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,6 +21,6 @@ public class ProjectDetail {
     private String description;
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
-    private LocalDateTime expirationDate;
+    private LocalDate expirationDate;
     private List<ServiceDetail> services;
 }

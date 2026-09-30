@@ -29,6 +29,7 @@ public interface DelegationMapper {
     @Mapping(target = "delegateType", source = "request.delegateType")
     @Mapping(target = "projects", source = "projects")
     @Mapping(target = "delegationDate", expression = "java(LocalDateTime.now())")
+    @Mapping(target = "status", expression = "java(com.accenture.ra.enums.DelegationStatus.INATTIVA)")
     DelegationEntity toEntity(CreateDelegationRequest request, UserEntity delegatedUser, UserEntity delegatedBy, List<ProjectEntity> projects);
 
     DelegationResponse toResponse(DelegationEntity entity);

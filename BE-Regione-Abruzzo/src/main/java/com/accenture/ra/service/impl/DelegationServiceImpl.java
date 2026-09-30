@@ -20,6 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -66,7 +67,11 @@ public class DelegationServiceImpl implements DelegationService {
                 validateDelegationAuthority(delegator, project, request.getDelegateType());
             }
         }
-
+        if (request.getExpirationDate() != null
+                && request.getExpirationDate().isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException(
+                    "La data di scadenza non può essere nel passato.");
+        }
         // 4. Map & Save Entity (Active flag set to false by Mapper)
         DelegationEntity delegation = delegationMapper.toEntity(request, targetUserEntity, delegator, projects);
         DelegationEntity saved = delegatesRepository.save(delegation);
@@ -82,8 +87,11 @@ public class DelegationServiceImpl implements DelegationService {
         DelegationEntity delegation = delegatesRepository.findById(delegationId)
                 .orElseThrow(() -> new IllegalArgumentException("Delega non trovata con ID: " + delegationId));
 
-        if (delegation.getStatus().equals(DelegationStatus.ATTIVA)) {
-            throw new IllegalStateException("La delega è già attiva.");
+        if (delegation.getStatus() != DelegationStatus.INATTIVA
+                && delegation.getStatus() != DelegationStatus.SOSPESA) {
+            throw new IllegalStateException(
+                    "La delega non può essere attivata dallo stato: "
+                            + delegation.getStatus());
         }
 
         // 1. Activate Target User if they were pending
@@ -163,7 +171,7 @@ public class DelegationServiceImpl implements DelegationService {
         UserEntity delegator = userRepository.findByFiscalCode(fiscalCode)
                 .orElseThrow(() -> new IllegalArgumentException("Utente non trovato con CF: " + fiscalCode));
 
-        List<DelegationEntity> delegations = delegatesRepository.findByDelegatedBy(delegator.getId());
+        List<DelegationEntity> delegations = delegatesRepository.findByDelegatedById(delegator.getId());
 
         return delegationMapper.toResponseList(delegations);
     }
