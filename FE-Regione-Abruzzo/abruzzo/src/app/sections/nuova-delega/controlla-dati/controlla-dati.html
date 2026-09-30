@@ -1,9 +1,10 @@
 <div class="section-padding">
-  <p>Verifica le informazioni inserite, configura i permessi del delegato e aggiungi eventuali note prima di inviare la richiesta.</p>
+  <p>Verifica le informazioni inserite, configura i permessi del delegato e aggiungi eventuali note prima di inviare la
+    richiesta.</p>
 </div>
 <div class="section-padding color-bg-lightgrey">
 
-  <div class="user-card d-flex flex-column shadow-card color-bg-lightblue" >
+  <div class="user-card d-flex flex-column shadow-card color-bg-lightblue">
     <div class="row">
       <div class="col-3">
         <div class="d-flex flex-row">
@@ -11,14 +12,14 @@
             <use href="assets/bootstrap-italia/sprites.svg#it-user"></use>
           </svg>
           <div>
-          <p class="fw-semibold mb-1">ID delegato</p>
-          <p>34543543</p>
+            <p class="fw-semibold mb-1">ID delegato</p>
+            <p>34543543</p>
           </div>
         </div>
       </div>
 
       <div class="col-3">
-        <p class="fw-semibold mb-1" >Nome</p>
+        <p class="fw-semibold mb-1">Nome</p>
         <p>Gianni</p>
       </div>
       <div class="col-3">
@@ -50,40 +51,55 @@
   <h5 class="mt-5">Progetti da Associare</h5>
 
   @if (progetti) {
-    @for (progetto of progetti.controls; track $index) {
+  @for (progetto of progetti.controls; track $index) {
 
-      <app-progetto-accordion
-        [progetto]="progetto.value">
+  <app-progetto-accordion [progetto]="progetto.value">
 
-        <div class="d-flex flex-column">
-          <h6>Descrizione </h6>
-          <p> {{progetto.value.description}}</p>
+    <div class="d-flex flex-column">
+      <h6>Descrizione </h6>
+      <p> {{progetto.value.description}}</p>
 
 
-          <h6>Lista servizi attivi </h6>
-          <app-tabella-servizi-progetto
-            [data]="progetto.value.servizi | mapServizi">
-          </app-tabella-servizi-progetto>
-        </div>
+      <h6>Lista servizi attivi </h6>
+      <app-tabella-servizi-progetto [data]="progetto.value.servizi | mapServizi">
+      </app-tabella-servizi-progetto>
+    </div>
 
-      </app-progetto-accordion>
-    }
+  </app-progetto-accordion>
+  }
   }
 
   <app-permessi-card>
   </app-permessi-card>
 
 
+  <div class="d-flex flex-column rounded-4 shadow-card p-3 gap-2 mt-5">
+    <div class="d-flex flex-row mb-3">
+      <h5>Periodo di validità</h5>
+    </div>
+
+    <p>Indica fino a quando la delega dovrà rimanere attiva</p>
+
+    <div class="row mb-3">
+      <div class="col-4">
+        <label for="dataScadenza">Valida fino al*</label>
+
+        <div class="position-relative">
+          <input type="date" id="dataScadenza" name="dataScadenza"
+            class="form-control form-control-rounded date-icon-custom" />
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
   <hr class="my-5">
 
   <form [formGroup]="noteForm" class="my-4">
-    <label for="note" >Note</label>
+    <label for="note">Note</label>
 
-    <textarea
-      id="note"
-      class="form-control form-control-rounded"
-      rows="5"
-      formControlName="note"
+    <textarea id="note" class="form-control form-control-rounded" rows="5" formControlName="note"
       [attr.maxlength]="maxNoteLength">
   </textarea>
 
