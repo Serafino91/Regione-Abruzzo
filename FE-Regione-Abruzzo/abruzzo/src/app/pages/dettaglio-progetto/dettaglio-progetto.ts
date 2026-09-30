@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProgettoModel } from '../../model/progetto.model';
 import { ProgettiService } from '../../services/progetti.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -27,67 +27,67 @@ export interface ServizioDto {
 }
 
 @Component({
-    selector: 'app-dettaglio-progetto',
-    providers: [DatePipe],
-    imports: [ProgettoDetailCard, ServizioAccordion, InfoBar, PageHeader, DelegatoCard, SpinnerCard],
-    standalone: true,
-    templateUrl: './dettaglio-progetto.html',
-    styleUrl: './dettaglio-progetto.css',
+  selector: 'app-dettaglio-progetto',
+  providers: [DatePipe],
+  imports: [ProgettoDetailCard, ServizioAccordion, InfoBar, PageHeader, DelegatoCard, SpinnerCard],
+  standalone: true,
+  templateUrl: './dettaglio-progetto.html',
+  styleUrl: './dettaglio-progetto.css',
 })
-
 export class DettaglioProgetto implements OnInit {
+  progettoId!: string;
+  progettoDetail!: ProgettoModel;
+  nuovaRichiesta: boolean = true;
+  infoProgetto: any;
+  categorie: CategoriaModel[] = [];
+  isLoading = signal(false);
 
-    progettoId!: string;
-    progettoDetail!: ProgettoModel;
-    nuovaRichiesta: boolean = true;
-    infoProgetto: any;
-    categorie: CategoriaModel[] = [];
-    isLoading = signal(false);
+  private destroyRef = inject(DestroyRef);
+  private cdr = inject(ChangeDetectorRef);
 
-    private destroyRef = inject(DestroyRef);
-    private cdr = inject(ChangeDetectorRef);
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private progettiService: ProgettiService,
+    private datePipe: DatePipe,
+  ) {}
 
-    constructor(
-        private route: ActivatedRoute,
-        private progettiService: ProgettiService,
-        private datePipe: DatePipe
-    ) { }
+  ngOnInit() {
+    this.progettoId = this.route.snapshot.paramMap.get('id')!;
+    this.getProgetto(this.progettoId);
+  }
 
-    ngOnInit() {
-        this.progettoId = this.route.snapshot.paramMap.get('id')!;
-        this.getProgetto(this.progettoId);
-    }
+  private mapServizio(dto: ServizioDto): ServizioModel {
+    return {
+      id: String(dto.id),
+      type: dto.type as any, // oppure una mappatura verso CategoriaModel se serve
+      item: dto.name,
+      base: !!dto.base,
+      optional: !!dto.optional,
+      quantity: dto.quantity ?? null,
+      durationMonths: dto.durationMonths ?? null,
+      params: dto.params ?? [],
+    };
+  }
 
-    private mapServizio(dto: ServizioDto): ServizioModel {
-        return {
-            id: String(dto.id),
-            type: dto.type as any, // oppure una mappatura verso CategoriaModel se serve
-            item: dto.name,
-            base: !!dto.base,
-            optional: !!dto.optional,
-            quantity: dto.quantity ?? null,
-            durationMonths: dto.durationMonths ?? null,
-            params: dto.params ?? [],
-        };
-    }
-
-    private getProgetto(id: string): void {
-
-      this.isLoading.set(true);
-      this.progettiService.getProgetto(id).pipe(
-
+  private getProgetto(id: string): void {
+    this.isLoading.set(true);
+    this.progettiService
+      .getProgetto(id)
+      .pipe(
         takeUntilDestroyed(this.destroyRef),
-        finalize(() => this.isLoading.set(false))
-
-      ).subscribe({
+        finalize(() => this.isLoading.set(false)),
+      )
+      .subscribe({
         next: (resp: any) => {
           const progetto = resp.serviceDetail ?? resp;
           console.log(resp.serviceDetail);
           this.progettoDetail = {
             ...progetto,
             nome: resp.serviceDetail.name,
+            dataScadenza: resp.serviceDetail.expirationDate,
             servizi: (resp.serviceDetail.services ?? []).map((s: ServizioDto) =>
-                this.mapServizio(s),
+              this.mapServizio(s),
             ),
           };
           this.infoProgetto = [
@@ -102,13 +102,31 @@ export class DettaglioProgetto implements OnInit {
               icon: 'it-note',
             },
             {
-              label: 'Data Creazione',
-              value: this.datePipe.transform(progetto.createAt, 'dd/MM/yyyy - HH:mm'),
+              label: 'Periodo di validità',
+              value:
+                this.datePipe.transform(progetto.createAt, 'dd/MM/yyyy') +
+                ' - ' +
+                (this.progettoDetail.dataScadenza
+                  ? this.datePipe.transform(this.progettoDetail.dataScadenza, 'dd/MM/yyyy')
+                  : 'Data indefinita'),
               icon: 'it-calendar',
             },
           ];
           this.cdr.detectChanges();
-        }
+        },
       });
-    }
+  }
+
+  showDeleteModal = false;
+  onElimina() {
+    this.progettiService.deleteProgetto(Number(this.progettoId)).subscribe({
+      next: () => {
+        this.showDeleteModal = false;
+        this.router.navigate(['/home/progetti']);
+      },
+      error: (err) => {
+        console.error('Errore durante la cancellazione del progetto:', err);
+      },
+    });
+  }
 }
