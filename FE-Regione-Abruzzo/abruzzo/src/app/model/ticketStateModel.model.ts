@@ -3,3 +3,9 @@ export class TicketStateModel {
   name!: string;
   config: any;
 }
+
+
+export interface IncidentStateModel {
+  id: number;
+  name: string;
+}
