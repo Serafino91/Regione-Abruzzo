@@ -49,6 +49,10 @@ public class ProjectEntity {
     @Column(name = "updated_at", insertable = false, updatable = false)
     private LocalDateTime updatedAt;
 
+    // Delegato interamente al DDL (ON UPDATE CURRENT_TIMESTAMP)
+    @Column(name = "expiration_date", updatable = false)
+    private LocalDateTime expirationDate;
+
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by", nullable = false)

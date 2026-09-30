@@ -23,6 +23,9 @@ public class DelegationEntity {
     @Column(name = "delegation_date")
     private LocalDateTime delegationDate;
 
+    @Column(name = "expiration_date")
+    private LocalDateTime expirationDate;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "delegation_type")

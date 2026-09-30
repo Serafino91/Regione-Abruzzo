@@ -20,5 +20,6 @@ public class ProjectDetail {
     private String description;
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
+    private LocalDateTime expirationDate;
     private List<ServiceDetail> services;
 }
