@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -25,6 +26,9 @@ public class CreateDelegationRequest {
     private DelegateType delegateType;
 
     private List<Long> projectIds;
-    @NotNull(message = "Id delegante obbligatorio e valido")
+
+    @NotNull(message = "Id delegante obbligatorio")
     private Long delegatedBy;
+
+    private LocalDate expirationDate;
 }

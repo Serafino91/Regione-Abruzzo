@@ -505,7 +505,7 @@ VALUES (2, 1),
 SET FOREIGN_KEY_CHECKS = 1;
 SET UNIQUE_CHECKS = 1;
 
---agg. con category
+-- agg. con category
 CREATE TABLE IF NOT EXISTS `category` (
                                           `id` bigint(20) NOT NULL AUTO_INCREMENT,
     `categoria` varchar(255) NOT NULL,
@@ -550,6 +550,8 @@ ALTER TABLE `param`
     ADD COLUMN `deleted` TINYINT(1) NOT NULL DEFAULT 0;
 ALTER TABLE `project`
     ADD COLUMN `deleted` TINYINT(1) NOT NULL DEFAULT 0;
+ALTER TABLE `delegations`
+    ADD COLUMN `deleted` TINYINT(1) NOT NULL DEFAULT 0;
 ALTER TABLE `ticket_state`
     ADD COLUMN `deleted` TINYINT(1) NOT NULL DEFAULT 0;
 ALTER TABLE `category`
@@ -558,4 +560,6 @@ ALTER TABLE `ticket`
     ADD COLUMN `deleted` TINYINT(1) NOT NULL DEFAULT 0;
 
 ALTER TABLE `project`
-    ADD COLUMN `expiration_date` TIMESTAMP DEFAULT NULL AFTER `updated_at`;
+    ADD COLUMN `expiration_date` DATE DEFAULT NULL AFTER `updated_at`;
+ALTER TABLE `delegations`
+    ADD COLUMN `expiration_date` DATE DEFAULT NULL AFTER `delegation_date`;

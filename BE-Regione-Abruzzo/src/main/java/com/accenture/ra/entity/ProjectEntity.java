@@ -1,5 +1,6 @@
 package com.accenture.ra.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -50,7 +51,7 @@ public class ProjectEntity {
     private LocalDateTime updatedAt;
 
     @Column(name = "expiration_date")
-    private LocalDateTime expirationDate;
+    private LocalDate expirationDate;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)

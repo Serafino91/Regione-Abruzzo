@@ -1,12 +1,13 @@
 package com.accenture.ra.repository;
 
 import com.accenture.ra.entity.DelegationEntity;
-import com.accenture.ra.enums.DelegateType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,4 +32,27 @@ public interface DelegatesRepository extends JpaRepository<DelegationEntity, Lon
         WHERE d.delegatedBy.id = :userId
     """)
     List<DelegationEntity> findByDelegatedBy(@Param("userId") Long id);
+
+    @Modifying
+    @Query("""
+            UPDATE DelegationEntity d
+            SET d.deleted = true
+            WHERE d.deleted = false
+            AND d.expirationDate IS NOT NULL
+            AND d.expirationDate < :today
+    """)
+                int softDeleteExpiredDelegations(@Param("today") LocalDate today);
+
+    @Modifying
+    @Query("""
+        UPDATE DelegationEntity d
+        SET d.deleted = true
+        WHERE d.deleted = false
+          AND EXISTS (
+              SELECT p.id
+              FROM d.projects p
+              WHERE p.deleted = true
+      )
+    """)
+    int softDeleteDelegationsOfDeletedProjects();
 }
