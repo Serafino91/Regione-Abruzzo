@@ -8,10 +8,10 @@ import { FiltroProgettoCriteriaModel } from '../../../constants/filtro-progetto-
   selector: 'app-filtri-progetti',
   imports: [ReactiveFormsModule],
   standalone: true,
-  templateUrl: './filtri.html',
-  styleUrl: './filtri.css',
+  templateUrl: './filtri-progetti.html',
+  styleUrl: './filtri-progetti.css',
 })
-export class Filtri {
+export class FiltriProgetti {
   @Output() filtra = new EventEmitter<FiltroProgettoCriteriaModel>();
   @Output() reset = new EventEmitter<void>();
 
