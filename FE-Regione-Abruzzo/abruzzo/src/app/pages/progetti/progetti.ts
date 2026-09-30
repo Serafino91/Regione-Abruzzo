@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, DestroyRef, inject, signal } from '@angular/core';
 import { CommonModule, formatDate } from '@angular/common';
-import { Filtri } from '../../sections/progetti/filtri/filtri';
+import { FiltriProgetti } from '../../sections/progetti/filtri/filtri-progetti';
 import { TabellaProgetti } from '../../sections/progetti/tabella-progetti/tabella-progetti';
 import { combineLatest, map, finalize } from 'rxjs';
 import { ProgettoModel } from '../../model/progetto.model';
@@ -21,7 +21,7 @@ const INDICI_PER_PROFILO: Record<string, number[]> = {
     selector: 'app-progetti',
     standalone: true,
     providers: [DatePipe],
-    imports: [CommonModule, Filtri, TabellaProgetti, PageHeader, SpinnerCard],
+    imports: [CommonModule, FiltriProgetti, TabellaProgetti, PageHeader, SpinnerCard],
     templateUrl: './progetti.html',
     styleUrl: './progetti.css',
 })

@@ -42,6 +42,7 @@ CREATE TABLE `state`
 (
     `id`         bigint(20) NOT NULL AUTO_INCREMENT,
     `state_name` varchar(55) DEFAULT NULL,
+    `deleted`    BOOLEAN    NOT NULL DEFAULT FALSE,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
@@ -55,6 +56,7 @@ CREATE TABLE `service_type`
     `id`          bigint(20)   NOT NULL AUTO_INCREMENT,
     `name`        varchar(255) NOT NULL,
     `description` text DEFAULT NULL,
+    `deleted`     BOOLEAN      NOT NULL DEFAULT FALSE,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
@@ -72,6 +74,7 @@ CREATE TABLE `service`
     `is_optional`     tinyint(1)   NOT NULL DEFAULT 0,
     `created_at`      timestamp    NOT NULL DEFAULT current_timestamp(),
     `updated_at`      timestamp    NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+    `deleted`         BOOLEAN      NOT NULL DEFAULT FALSE,
     PRIMARY KEY (`id`),
     KEY `fk_service_service_type` (`service_type_id`),
     CONSTRAINT `fk_service_service_type` FOREIGN KEY (`service_type_id`) REFERENCES `service_type` (`id`)
@@ -92,6 +95,7 @@ CREATE TABLE `param`
     `max_value`     int(11)               DEFAULT NULL,
     `is_required`   tinyint(1)   NOT NULL DEFAULT 0,
     `default_value` varchar(255)          DEFAULT NULL,
+    `deleted`       BOOLEAN      NOT NULL DEFAULT FALSE,
     PRIMARY KEY (`id`),
     KEY `fk_param_service` (`service_id`),
     CONSTRAINT `fk_param_service` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -128,7 +132,9 @@ CREATE TABLE `project`
     `description`      text                  DEFAULT NULL,
     `created_at`       timestamp    NOT NULL DEFAULT current_timestamp(),
     `updated_at`       timestamp    NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+    `expiration_date`  timestamp             DEFAULT NULL,
     `created_by`       BIGINT       NOT NULL,
+    `deleted`          BOOLEAN      NOT NULL DEFAULT FALSE,
     PRIMARY KEY (`id`),
     CONSTRAINT `fk_project_created_by` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE = InnoDB
@@ -216,6 +222,7 @@ CREATE TABLE `ticket_state`
 (
     `id`         bigint(20)   NOT NULL AUTO_INCREMENT,
     `state_name` varchar(100) NOT NULL,
+    `deleted`    BOOLEAN      NOT NULL DEFAULT FALSE,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
@@ -228,6 +235,7 @@ CREATE TABLE `category`
 (
     `id`       bigint(20)   NOT NULL AUTO_INCREMENT,
     `categoria` varchar(255) NOT NULL,
+    `deleted`  BOOLEAN      NOT NULL DEFAULT FALSE,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
@@ -247,6 +255,7 @@ CREATE TABLE `ticket`
     `applicant`    varchar(255)            DEFAULT NULL,
     `created_at`   datetime    NOT NULL,
     `updated_at`   datetime                DEFAULT NULL,
+    `deleted`      BOOLEAN      NOT NULL DEFAULT FALSE,
     PRIMARY KEY (`id`),
     UNIQUE KEY `code` (`code`),
     KEY `fk_ticket_state` (`state_id`),

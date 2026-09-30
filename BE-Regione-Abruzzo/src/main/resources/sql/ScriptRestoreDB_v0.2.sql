@@ -538,3 +538,24 @@ values(1, 'Incident');
 
 insert into regione_abruzzo.category (id, categoria)
 values(2, 'accreditamenti');
+
+
+ALTER TABLE `state`
+    ADD COLUMN `deleted` TINYINT(1) NOT NULL DEFAULT 0;
+ALTER TABLE `service_type`
+    ADD COLUMN `deleted` TINYINT(1) NOT NULL DEFAULT 0;
+ALTER TABLE `service`
+    ADD COLUMN `deleted` TINYINT(1) NOT NULL DEFAULT 0;
+ALTER TABLE `param`
+    ADD COLUMN `deleted` TINYINT(1) NOT NULL DEFAULT 0;
+ALTER TABLE `project`
+    ADD COLUMN `deleted` TINYINT(1) NOT NULL DEFAULT 0;
+ALTER TABLE `ticket_state`
+    ADD COLUMN `deleted` TINYINT(1) NOT NULL DEFAULT 0;
+ALTER TABLE `category`
+    ADD COLUMN `deleted` TINYINT(1) NOT NULL DEFAULT 0;
+ALTER TABLE `ticket`
+    ADD COLUMN `deleted` TINYINT(1) NOT NULL DEFAULT 0;
+
+ALTER TABLE `project`
+    ADD COLUMN `expiration_date` TIMESTAMP DEFAULT NULL AFTER `updated_at`;

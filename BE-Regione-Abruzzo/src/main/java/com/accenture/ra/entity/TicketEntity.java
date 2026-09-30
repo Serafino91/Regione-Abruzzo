@@ -5,9 +5,13 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 @Entity
 @Table(name = "ticket")
+@SQLDelete(sql = "UPDATE ticket SET deleted = true WHERE id=?")
+@SQLRestriction("deleted = false")
 @Getter
 @Setter
 @Builder
@@ -44,4 +48,8 @@ public class TicketEntity {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+    @Column(name = "deleted", nullable = false)
+    @Builder.Default
+    private boolean deleted = false;
+
 }

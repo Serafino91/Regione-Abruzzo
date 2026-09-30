@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,6 +21,8 @@ import lombok.Setter;
 @Builder
 @Entity
 @Table(name = "state")
+@SQLDelete(sql = "UPDATE state SET deleted = true WHERE id=?")
+@SQLRestriction("deleted = false")
 public class StateEntity {
 
     @Id
@@ -27,5 +31,8 @@ public class StateEntity {
 
     @Column(name = "state_name")
     private String stateName;
+    @Column(name = "deleted", nullable = false)
+    @Builder.Default
+    private boolean deleted = false;
 
 }

@@ -2,8 +2,6 @@ package com.accenture.ra.controller;
 
 import java.util.List;
 
-import com.accenture.ra.utils.Constants;
-import com.accenture.ra.utils.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +10,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.accenture.ra.dto.response.TicketDetailResponse;
 import com.accenture.ra.dto.response.TicketModel;
+import com.accenture.ra.request.IncidentCreationRequest;
 import com.accenture.ra.request.IncidentFilterCriteria;
 import com.accenture.ra.service.impl.IncidentServiceImpl;
+import com.accenture.ra.utils.Constants;
+import com.accenture.ra.utils.JsonUtils;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -28,6 +31,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value="/incident")
@@ -238,10 +242,61 @@ public class IncidentController {
     	    )
     	})
     	@PostMapping(value = "/filter")
-    	public ResponseEntity<List<TicketModel>> getFilteredIncidents(@RequestBody IncidentFilterCriteria criteria) {
+    public ResponseEntity<List<TicketModel>> getFilteredIncidents(@RequestBody IncidentFilterCriteria criteria) {
     	    List<TicketModel> results = incidentServiceImpl.filterIncident(criteria);
     	    return ResponseEntity.status(HttpStatus.OK).body(results);
     	}
 
-    
+    @Operation(
+			summary = "Creazione di una richiesta",
+			description = ""
+			)
+	@ApiResponses(value = {
+			@ApiResponse(
+					responseCode = "200",
+					description = "Incident creato correttamente",
+					content = @Content(
+							mediaType = "application/json",
+							schema = @Schema(implementation = TicketDetailResponse.class),
+							examples = @ExampleObject(
+									name = "Esempio body create",
+									value = ""
+									)
+							)
+					),
+			@ApiResponse(
+					responseCode = "400",
+					description = "Request non valida",
+					content = @Content(
+							mediaType = "application/json",
+							examples = @ExampleObject(
+									name = "Incident non valido",
+									value = """
+											{
+											  "error": "Payload non valido"
+											}
+											"""
+									)
+							)
+					),
+			@ApiResponse(
+					responseCode = "500",
+					description = "Errore interno del server",
+					content = @Content
+					)
+	})
+	@PutMapping
+	public ResponseEntity<TicketDetailResponse> createIncident(@RequestBody @Valid IncidentCreationRequest req) {
+
+		long start = System.currentTimeMillis();
+		String methodName = "createRequest";
+		logger.info(Constants.LOG_START_CONTROLLER, methodName);
+
+		TicketDetailResponse result = incidentServiceImpl.createIncident(req);
+
+		long timeElapsed = System.currentTimeMillis() - start;
+		logger.info(Constants.LOG_END_CONTROLLER,methodName, JsonUtils.toJson(result),timeElapsed);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(result);
+	}
 }

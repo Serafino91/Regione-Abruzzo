@@ -1,8 +1,5 @@
 <div class="section-padding">
-  <app-page-header
-    [titolo]="'Dettaglio Delega'"
-    [backspace]="'Torna alla lista'"
-    [linkBackspace]="'/home/deleghe'">
+  <app-page-header [titolo]="'Dettaglio Delega'" [backspace]="'Torna alla lista'" [linkBackspace]="'/home/deleghe'">
     <button class="delete-btn">
       <svg class="icon icon-sm me-1" aria-hidden="true">
         <use href="assets/bootstrap-italia/sprites.svg#it-ban">
@@ -14,11 +11,20 @@
 </div>
 
 
-<app-info-bar
-[items]="info">
+<app-info-bar [items]="info">
 </app-info-bar>
 
 
 <div class="section-padding">
-<app-permessi-card></app-permessi-card>
+  <app-permessi-card></app-permessi-card>
+</div>
+
+<div class="row mb-3">
+  <div class="col-4">
+    <label for="dataScadenza">Valida fino al</label>
+
+    <div class="position-relative">
+      <label for="dataScadenza">GG/MM/AAAA</label>
+    </div>
+  </div>
 </div>

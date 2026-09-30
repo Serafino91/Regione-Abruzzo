@@ -21,24 +21,24 @@ VALUES ('RSSMRA80A01H501U', 'mario.rossi@example.com', 'APPROVATO', '2026-07-01 
 -- ------------------------------------------------------
 
 INSERT INTO `state`
-VALUES (1, 'In elaborazione'),
-       (2, 'In valutazione'),
-       (3, 'Rifiutata'),
-       (4, 'Completata'),
-       (5, 'Incompleta'),
-       (6, 'Inviate');
+VALUES (1, 'In elaborazione', 0),
+       (2, 'In valutazione', 0),
+       (3, 'Rifiutata', 0),
+       (4, 'Completata', 0),
+       (5, 'Incompleta', 0),
+       (6, 'Inviate', 0);
 
 -- ------------------------------------------------------
 -- Table structure and data for table `service_type`
 -- ------------------------------------------------------
 
 INSERT INTO `service_type`
-VALUES (1, 'IaaS standard', 'Servizi IaaS standard'),
-       (2, 'IaaS standard - Storage', 'Storage aggiuntivo per servizi IaaS standard'),
-       (3, 'IaaS (HA)', 'Servizi IaaS in alta affidabilità'),
-       (4, 'IaaS (HA) - Storage', 'Storage aggiuntivo per servizi IaaS in alta affidabilità'),
-       (5, 'Sistemi operativi', 'Licenze sistemi operativi'),
-       (6, 'Pubblicazione su Internet del servizio informatico', 'Servizio di pubblicazione su internet');
+VALUES (1, 'IaaS standard', 'Servizi IaaS standard', 0),
+       (2, 'IaaS standard - Storage', 'Storage aggiuntivo per servizi IaaS standard', 0),
+       (3, 'IaaS (HA)', 'Servizi IaaS in alta affidabilità',0),
+       (4, 'IaaS (HA) - Storage', 'Storage aggiuntivo per servizi IaaS in alta affidabilità',0),
+       (5, 'Sistemi operativi', 'Licenze sistemi operativi', 0),
+       (6, 'Pubblicazione su Internet del servizio informatico', 'Servizio di pubblicazione su internet', 0);
 
 -- ------------------------------------------------------
 -- Table structure and data for table `service`
@@ -46,44 +46,44 @@ VALUES (1, 'IaaS standard', 'Servizi IaaS standard'),
 
 
 INSERT INTO `service`
-VALUES (1, 1, 'VM Small', 1, 0, '2026-06-22 15:45:00', '2026-06-22 15:45:00'),
-       (2, 1, 'VM Medium', 1, 0, '2026-06-22 15:45:00', '2026-06-22 15:45:00'),
-       (3, 1, 'VM Large', 1, 0, '2026-06-22 15:45:00', '2026-06-22 15:45:00'),
-       (4, 2, 'Storage Standard Performance', 0, 1, '2026-06-22 15:45:00', '2026-06-22 15:45:00'),
-       (5, 3, 'VM Small', 1, 0, '2026-06-22 15:45:00', '2026-06-22 15:45:00'),
-       (6, 3, 'VM Medium', 1, 0, '2026-06-22 15:45:00', '2026-06-22 15:45:00'),
-       (7, 3, 'VM Large', 1, 0, '2026-06-22 15:45:00', '2026-06-22 15:45:00'),
-       (8, 4, 'Storage Standard Performance', 0, 1, '2026-06-22 15:45:00', '2026-06-22 15:45:00'),
-       (9, 5, 'Windows Server STD CORE (2 core)', 1, 0, '2026-06-22 15:45:00', '2026-06-22 15:45:00'),
-       (10, 5, 'Red Hat per VM', 1, 0, '2026-06-22 15:45:00', '2026-06-22 15:45:00'),
+VALUES (1, 1, 'VM Small', 1, 0, '2026-06-22 15:45:00', '2026-06-22 15:45:00', 0),
+       (2, 1, 'VM Medium', 1, 0, '2026-06-22 15:45:00', '2026-06-22 15:45:00', 0),
+       (3, 1, 'VM Large', 1, 0, '2026-06-22 15:45:00', '2026-06-22 15:45:00', 0),
+       (4, 2, 'Storage Standard Performance', 0, 1, '2026-06-22 15:45:00', '2026-06-22 15:45:00', 0),
+       (5, 3, 'VM Small', 1, 0, '2026-06-22 15:45:00', '2026-06-22 15:45:00', 0),
+       (6, 3, 'VM Medium', 1, 0, '2026-06-22 15:45:00', '2026-06-22 15:45:00', 0),
+       (7, 3, 'VM Large', 1, 0, '2026-06-22 15:45:00', '2026-06-22 15:45:00', 0),
+       (8, 4, 'Storage Standard Performance', 0, 1, '2026-06-22 15:45:00', '2026-06-22 15:45:00', 0),
+       (9, 5, 'Windows Server STD CORE (2 core)', 1, 0, '2026-06-22 15:45:00', '2026-06-22 15:45:00', 0),
+       (10, 5, 'Red Hat per VM', 1, 0, '2026-06-22 15:45:00', '2026-06-22 15:45:00', 0),
        (11, 6, 'Pubblicazione su internet del servizio informatico', 0, 1, '2026-06-22 15:45:00',
-        '2026-06-22 15:45:00');
+        '2026-06-22 15:45:00', 0);
 
 -- ------------------------------------------------------
 -- Table structure and data for table `param`
 -- ------------------------------------------------------
 
 INSERT INTO `param`
-VALUES (1, 1, 'vcpu', 'integer', 1, 32, 1, NULL),
-       (2, 1, 'vramGb', 'integer', 4, NULL, 1, NULL),
-       (3, 1, 'storageGb', 'integer', 100, NULL, 1, NULL),
-       (4, 2, 'vcpu', 'integer', 4, NULL, 1, NULL),
-       (5, 2, 'vramGb', 'integer', 8, NULL, 1, NULL),
-       (6, 2, 'storageGb', 'integer', 200, NULL, 1, NULL),
-       (7, 3, 'vcpu', 'integer', 8, NULL, 1, NULL),
-       (8, 3, 'vramGb', 'integer', 16, NULL, 1, NULL),
-       (9, 3, 'storageGb', 'integer', 250, NULL, 1, NULL),
-       (10, 4, 'storageGb', 'integer', 100, NULL, 1, NULL),
-       (11, 5, 'vcpu', 'integer', 1, NULL, 1, NULL),
-       (12, 5, 'vramGb', 'integer', 4, NULL, 1, NULL),
-       (13, 5, 'storageGb', 'integer', 100, NULL, 1, NULL),
-       (14, 6, 'vcpu', 'integer', 4, NULL, 1, NULL),
-       (15, 6, 'vramGb', 'integer', 8, NULL, 1, NULL),
-       (16, 6, 'storageGb', 'integer', 200, NULL, 1, NULL),
-       (17, 7, 'vcpu', 'integer', 8, NULL, 1, NULL),
-       (18, 7, 'vramGb', 'integer', 16, NULL, 1, NULL),
-       (19, 7, 'storageGb', 'integer', 250, NULL, 1, NULL),
-       (20, 8, 'storageGb', 'integer', 100, NULL, 1, NULL);
+VALUES (1, 1, 'vcpu', 'integer', 1, 32, 1, NULL, 0),
+       (2, 1, 'vramGb', 'integer', 4, NULL, 1, NULL, 0),
+       (3, 1, 'storageGb', 'integer', 100, NULL, 1, NULL, 0),
+       (4, 2, 'vcpu', 'integer', 4, NULL, 1, NULL, 0),
+       (5, 2, 'vramGb', 'integer', 8, NULL, 1, NULL, 0),
+       (6, 2, 'storageGb', 'integer', 200, NULL, 1, NULL, 0),
+       (7, 3, 'vcpu', 'integer', 8, NULL, 1, NULL, 0),
+       (8, 3, 'vramGb', 'integer', 16, NULL, 1, NULL, 0),
+       (9, 3, 'storageGb', 'integer', 250, NULL, 1, NULL, 0),
+       (10, 4, 'storageGb', 'integer', 100, NULL, 1, NULL, 0),
+       (11, 5, 'vcpu', 'integer', 1, NULL, 1, NULL, 0),
+       (12, 5, 'vramGb', 'integer', 4, NULL, 1, NULL, 0),
+       (13, 5, 'storageGb', 'integer', 100, NULL, 1, NULL, 0),
+       (14, 6, 'vcpu', 'integer', 4, NULL, 1, NULL, 0),
+       (15, 6, 'vramGb', 'integer', 8, NULL, 1, NULL, 0),
+       (16, 6, 'storageGb', 'integer', 200, NULL, 1, NULL, 0),
+       (17, 7, 'vcpu', 'integer', 8, NULL, 1, NULL, 0),
+       (18, 7, 'vramGb', 'integer', 16, NULL, 1, NULL, 0),
+       (19, 7, 'storageGb', 'integer', 250, NULL, 1, NULL, 0),
+       (20, 8, 'storageGb', 'integer', 100, NULL, 1, NULL, 0);
 
 -- ------------------------------------------------------
 -- Table structure and data for table `project`
@@ -217,46 +217,46 @@ VALUES (1, 19, 1, '2026-08-04 07:16:30', '2026-08-04 07:16:30'),
 -- Table structure and data for table `ticket_state`
 -- ------------------------------------------------------
 INSERT INTO `ticket_state`
-VALUES (1, 'Aperto'),
-       (2, 'In lavorazione'),
-       (3, 'Chiuso');
+VALUES (1, 'Aperto', 0),
+       (2, 'In lavorazione', 0),
+       (3, 'Chiuso', 0);
 
 -- ------------------------------------------------------
 -- Table structure and data for table `category`
 -- ------------------------------------------------------
 INSERT INTO `category`
-VALUES (1, 'Infrastruttura'),
-       (2, 'Rete'),
-       (3, 'Sicurezza');
+VALUES (1, 'Infrastruttura', 0),
+       (2, 'Rete', 0),
+       (3, 'Sicurezza', 0);
 
 -- ------------------------------------------------------
 -- Table structure and data for table `ticket`
 -- ------------------------------------------------------
 INSERT INTO `ticket`
 VALUES (1, 'T1781595972077168', 1, 1, 'Lorem ipsum dolor sit amet', '2026-01-22',
-        'Lorem ipsum', '2026-01-22 09:00:00', '2026-01-22 09:00:00'),
+        'Lorem ipsum', '2026-01-22 09:00:00', '2026-01-22 09:00:00', 0),
        (2, 'T1781595972077167', 1, 1, 'Lorem ipsum dolor sit amet', '2026-01-22',
-        'Lorem ipsum', '2026-01-22 09:05:00', '2026-01-22 09:05:00'),
+        'Lorem ipsum', '2026-01-22 09:05:00', '2026-01-22 09:05:00', 0),
        (3, 'T1781595972077166', 2, 1, 'Lorem ipsum dolor sit amet', '2026-01-22',
-        'Lorem ipsum', '2026-01-22 09:10:00', '2026-01-22 10:00:00'),
+        'Lorem ipsum', '2026-01-22 09:10:00', '2026-01-22 10:00:00', 0),
        (4, 'T1781595972077165', 2, 2, 'Lorem ipsum dolor sit amet', '2026-01-22',
-        'Lorem ipsum', '2026-01-22 09:15:00', '2026-01-22 10:10:00'),
+        'Lorem ipsum', '2026-01-22 09:15:00', '2026-01-22 10:10:00', 0),
        (5, 'T1781595972077164', 3, 2, 'Lorem ipsum dolor sit amet', '2026-01-22',
-        'Lorem ipsum', '2026-01-22 09:20:00', '2026-01-23 11:00:00'),
+        'Lorem ipsum', '2026-01-22 09:20:00', '2026-01-23 11:00:00', 0),
        (6, 'T1781595972077163', 3, 2, 'Lorem ipsum dolor sit amet', '2026-01-22',
-        'Lorem ipsum', '2026-01-22 09:25:00', '2026-01-23 11:05:00'),
+        'Lorem ipsum', '2026-01-22 09:25:00', '2026-01-23 11:05:00', 0),
        (7, 'T1781595972077162', 3, 3, 'Lorem ipsum dolor sit amet', '2026-01-22',
-        'Lorem ipsum', '2026-01-22 09:30:00', '2026-01-23 11:10:00'),
+        'Lorem ipsum', '2026-01-22 09:30:00', '2026-01-23 11:10:00', 0),
        (8, 'T1781595972077161', 3, 3, 'Lorem ipsum dolor sit amet', '2026-01-22',
-        'Lorem ipsum', '2026-01-22 09:35:00', '2026-01-23 11:15:00'),
+        'Lorem ipsum', '2026-01-22 09:35:00', '2026-01-23 11:15:00', 0),
        (9, 'T1781595972077160', 3, 3, 'Lorem ipsum dolor sit amet', '2026-01-22',
-        'Lorem ipsum', '2026-01-22 09:40:00', '2026-01-23 11:20:00'),
+        'Lorem ipsum', '2026-01-22 09:40:00', '2026-01-23 11:20:00', 0),
        (10, 'T1781595972077159', 3, 3, 'Lorem ipsum dolor sit amet', '2026-01-22',
-        'Lorem ipsum', '2026-01-22 09:45:00', '2026-01-23 11:25:00'),
+        'Lorem ipsum', '2026-01-22 09:45:00', '2026-01-23 11:25:00', 0),
        (11, 'T1781595972077158', 1, 1, 'Lorem ipsum dolor sit amet', '2026-01-22',
-        'Lorem ipsum', '2026-01-22 09:50:00', '2026-01-22 09:50:00'),
+        'Lorem ipsum', '2026-01-22 09:50:00', '2026-01-22 09:50:00', 0),
        (12, 'T1781595972077157', 2, 2, 'Lorem ipsum dolor sit amet', '2026-01-22',
-        'Lorem ipsum', '2026-01-22 09:55:00', '2026-01-22 10:30:00');
+        'Lorem ipsum', '2026-01-22 09:55:00', '2026-01-22 10:30:00', 0);
 
 -- ------------------------------------------------------
 -- Table structure and data for table `delegations`
