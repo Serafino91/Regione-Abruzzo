@@ -18,4 +18,5 @@ public class ProjectPatchRequest {
     private String description;
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
+    private LocalDateTime expirationDate;
 }

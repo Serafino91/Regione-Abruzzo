@@ -63,6 +63,7 @@ public class ProjectServiceImpl implements ProjectService {
         if (request.getName() != null) entity.setName(request.getName());
         if (request.getDestinationLink() != null) entity.setDestinationLink(request.getDestinationLink());
         if (request.getDescription() != null) entity.setDescription(request.getDescription());
+        if (request.getExpirationDate() != null) entity.setExpirationDate(request.getExpirationDate());
         entity.setUpdatedAt(LocalDateTime.now());
 
         return projectMapper.toModel(projectRepository.save(entity));
@@ -74,7 +75,11 @@ public class ProjectServiceImpl implements ProjectService {
 	 * @return ...
 	 */
     public Boolean deleteProject(Long serviceId) {
-      return true;
+        if (projectRepository.existsById(serviceId)) {
+            projectRepository.deleteById(serviceId);
+            return true;
+        }
+        return false;
     }
 
 

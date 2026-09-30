@@ -2,6 +2,8 @@ package com.accenture.ra.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 @Getter
 @Setter
@@ -10,6 +12,8 @@ import lombok.*;
 @Builder
 @Entity
 @Table(name = "param")
+@SQLDelete(sql = "UPDATE param SET deleted = true WHERE id=?")
+@SQLRestriction("deleted = false")
 public class ParamEntity {
 
 	@Id
@@ -33,5 +37,8 @@ public class ParamEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "service_id", nullable = false)
 	private ServiceEntity service;
-	
+    @Column(name = "deleted", nullable = false)
+    @Builder.Default
+    private boolean deleted = false;
+
 }

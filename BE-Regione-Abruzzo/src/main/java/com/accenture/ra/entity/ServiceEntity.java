@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,6 +17,8 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "service")
+@SQLDelete(sql = "UPDATE service SET deleted = true WHERE id=?")
+@SQLRestriction("deleted = false")
 public class ServiceEntity {
 
     @Id
@@ -40,5 +43,8 @@ public class ServiceEntity {
 
     @OneToMany(mappedBy = "service", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ParamEntity> params = new ArrayList<>();
+    @Column(name = "deleted", nullable = false)
+    @Builder.Default
+    private boolean deleted = false;
 
 }

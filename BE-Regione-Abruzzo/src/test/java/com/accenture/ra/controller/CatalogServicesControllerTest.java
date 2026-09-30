@@ -14,8 +14,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+
 @Sql(scripts = { "classpath:cleanup.sql", "classpath:data.sql" }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 class CatalogServicesControllerTest extends BaseCoreTest {
+
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 
 	@Test
 	void findAllServiceTest() throws Exception {
@@ -93,26 +101,6 @@ class CatalogServicesControllerTest extends BaseCoreTest {
 		logger.info(LOG_END_JUNIT, methodName, response);
 	}
 
-	@Test
-	void deleteServiceDetailNotFoundTest() throws Exception {
-
-		final String methodName = "CatalogServicesControllerTest.deleteServiceDetail()";
-
-
-		logger.info(LOG_START_JUNIT, methodName);
-
-
-		final String response = this.callGETmethodWithStatusResponseAsString("/catalog/services/1", this.success);
-
-		ServiceDetailResponse resp = objectMapper.readValue(response, ServiceDetailResponse.class);
-
-
-		assertNotNull(resp.getServiceDetail());
-		assertEquals("VM Small", resp.getServiceDetail().getItem());
-
-		logger.info(LOG_END_JUNIT, methodName, response);
-	}
-
 
 	@Test
 	void getServiceByCategoryTest() throws Exception {
@@ -134,4 +122,20 @@ class CatalogServicesControllerTest extends BaseCoreTest {
 		logger.info(LOG_END_JUNIT, methodName, resp);
 	}
 	
+	@Test
+	void testLogicalDeleteService() throws Exception {
+		final String methodName = "CatalogServicesControllerTest.testLogicalDeleteService()";
+		logger.info(LOG_START_JUNIT, methodName);
+
+		// 1. Delete Service with ID 1
+		this.callDELETEmethodWithStatusResponseAsString("/catalog/services/1", MediaType.APPLICATION_JSON, this.noContent);
+
+		// 2. Assert row still exists physically but deleted = true
+		Boolean isDeleted = jdbcTemplate.queryForObject("SELECT deleted FROM service WHERE id = 1", Boolean.class);
+		assertNotNull(isDeleted);
+		assertTrue(isDeleted, "Logical delete should set 'deleted' to true");
+
+		logger.info(LOG_END_JUNIT, methodName, "Success");
+	}
+
 }

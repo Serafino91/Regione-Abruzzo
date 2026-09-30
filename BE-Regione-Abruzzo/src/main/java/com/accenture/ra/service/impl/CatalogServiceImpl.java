@@ -76,7 +76,11 @@ public class CatalogServiceImpl implements CatalogService {
 	 * @return ...
 	 */
     public Boolean deleteService(String serviceId) {
-      return true;
+        if (serviceRepository.existsById(serviceId)) {
+            serviceRepository.deleteById(serviceId);
+            return true;
+        }
+        return false;
     }
 
 

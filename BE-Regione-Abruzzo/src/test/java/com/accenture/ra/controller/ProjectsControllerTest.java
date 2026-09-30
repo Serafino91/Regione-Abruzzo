@@ -14,8 +14,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+
 @Sql(scripts = { "classpath:cleanup.sql", "classpath:data.sql" }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 class ProjectsControllerTest extends BaseCoreTest {
+
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 
 	@Test
 	void getProjectListTest() throws Exception {
@@ -136,5 +142,19 @@ class ProjectsControllerTest extends BaseCoreTest {
 		logger.info(LOG_END_JUNIT, methodName, resp);
 	}
 
+
+	@Test
+	void testLogicalDeleteProject() throws Exception {
+		final String methodName = "ProjectsControllerTest.testLogicalDeleteProject()";
+		logger.info(LOG_START_JUNIT, methodName);
+
+		this.callDELETEmethodWithStatusResponseAsString("/projects/2", MediaType.APPLICATION_JSON, this.noContent);
+
+		Boolean isDeleted = jdbcTemplate.queryForObject("SELECT deleted FROM project WHERE id = 2", Boolean.class);
+		assertNotNull(isDeleted);
+		assertTrue(isDeleted, "Logical delete should set 'deleted' to true");
+
+		logger.info(LOG_END_JUNIT, methodName, "Success");
+	}
 
 }

@@ -15,6 +15,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,6 +30,8 @@ import lombok.Setter;
 @Builder
 @Entity
 @Table(name = "project")
+@SQLDelete(sql = "UPDATE project SET deleted = true WHERE id=?")
+@SQLRestriction("deleted = false")
 public class ProjectEntity {
 
     @Id
@@ -50,6 +54,9 @@ public class ProjectEntity {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name = "expiration_date")
+    private LocalDateTime expirationDate;
+
     @ManyToMany
     @JoinTable(
             name = "project_service",
@@ -67,4 +74,8 @@ public class ProjectEntity {
 //        this.description = model.getDescription();
 //        this.updatedAt = model.getUpdateAt();
 //    }
+    @Column(name = "deleted", nullable = false)
+    @Builder.Default
+    private boolean deleted = false;
+
 }
